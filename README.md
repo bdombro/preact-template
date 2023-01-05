@@ -11,4 +11,4 @@
 - Consider <https://www.npmjs.com/package/polished>
 - TODO: Play around with linaria and dynamic props and zx
 - TODO: Try composing stories
-- TODO: Try ladle again - <https://ladle.dev/>
+- TODO: linting
