@@ -1,4 +1,4 @@
-import {stylesheet} from 'astroturf'
+import { stylesheet } from 'astroturf'
 
 export const theme = {}
 

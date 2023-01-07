@@ -1,4 +1,4 @@
-import {Card, Flex} from './boxes.js'
+import { Card, Flex } from './boxes.js'
 
 export function Body() {
   return (

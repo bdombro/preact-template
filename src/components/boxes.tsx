@@ -1,5 +1,5 @@
 import styled from '@ustyle/styled'
-import {FC} from 'react'
+import { FC } from 'react'
 
 // We could use styled.div if we imported @ustyle/styled/withHtmlTags,
 // but we only really need/want the div tag. So defining div here as

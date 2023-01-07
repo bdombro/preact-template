@@ -1,10 +1,10 @@
 import './theme.js'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {App} from './app.js'
+import { App } from './app.js'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 )

@@ -1,4 +1,4 @@
-import {Body} from '~/components/body.js'
+import { Body } from '~/components/body.js'
 
 export function App() {
   return (

@@ -1,4 +1,4 @@
-import {Body as Component} from './body.js'
+import { Body as Component } from './body.js'
 
 export default {
   component: Component,

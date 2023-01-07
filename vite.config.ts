@@ -2,7 +2,7 @@
 /// <reference types="vitest" />
 
 import path from 'node:path'
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import Astroturf from 'astroturf/vite-plugin.js'
 
