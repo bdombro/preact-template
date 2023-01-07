@@ -27,7 +27,7 @@
     }
   },
   "dependencies": {
-    "@ustyle/styled": "^1.0.25",
+    "@ustyle/styled": "^1.0.26",
     "preact": "^10.11.3"
   },
   "devDependencies": {
