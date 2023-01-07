@@ -10,7 +10,6 @@
   - astroturf is ideal for foundation styling needs
   - ustyle is ideal for progressive enhancing and providing Chakra like features (shorthand style props)
 - <https://github.com/gajus/eslint-config-canonical>
-- TODO: Try composing stories
 - TODO: linting
-- TODO: hot reload not working
 - TODO: useAsync
+- TODO: Theming
