@@ -20,3 +20,5 @@ afterEach(() => {
 export * from '@testing-library/react'
 export * from 'vitest'
 export {default as userEvent} from '@testing-library/user-event'
+
+export * from '@storybook/testing-react'
