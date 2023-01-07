@@ -1,7 +1,10 @@
+/* eslint-disable react/button-has-type */
 import styled from '@ustyle/styled'
 
-interface ButtonProps extends Omit<JSX.IntrinsicElements['button'], 'id'> {
+interface ButtonProps
+  extends Omit<JSX.IntrinsicElements['button'], 'id' | 'type'> {
   id: JSX.IntrinsicElements['button']['id'] // make required
+  type: JSX.IntrinsicElements['button']['type'] // make required
 }
 function Button(props: ButtonProps) {
   return (

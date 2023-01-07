@@ -8,8 +8,7 @@
 - Adds Storybook previewing
 - Adds astroturf and ustyle for css-in-js:
   - astroturf is ideal for foundation styling needs
-  - ustyle is ideal for progressive enhancing and providing Chakra like features (shorthand style props)
+  - ustyle is ideal for inline styling bc is progressive/lazy and provides Chakra like features (shorthand style props)
 - <https://github.com/gajus/eslint-config-canonical>
-- TODO: linting
 - TODO: useAsync
 - TODO: Theming
