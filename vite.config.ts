@@ -4,11 +4,13 @@
 import path from 'node:path'
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import linaria from '@linaria/vite'
+import Astroturf from 'astroturf/vite-plugin.js'
+
+const astroturf = (Astroturf as any).default()
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), linaria()],
+  plugins: [react(), astroturf],
   resolve: {
     alias: {
       react: 'preact/compat',
@@ -20,5 +22,10 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    // Use react for vitest bc it's having issues with preact
+    alias: {
+      react: 'react',
+      'react-dom': 'react-dom',
+    },
   },
 })

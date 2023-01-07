@@ -1,21 +1,22 @@
 import '@testing-library/jest-dom'
-import {cleanup, render} from '@testing-library/preact'
+import {cleanup} from '@testing-library/react'
 import {afterEach, vi} from 'vitest'
 
 afterEach(() => {
-	cleanup()
-	vi.resetAllMocks()
+  cleanup()
+  vi.resetAllMocks()
 })
 
-const customRender = (ui: any, options = {}) =>
-	render(ui, {
-		// Wrap provider(s) here if needed
-		wrapper: ({children}: any): any => children,
-		...options,
-	})
+// import {render} from '@testing-library/react'
+// const customRender = (ui: any, options = {}) =>
+//   render(ui, {
+//     // Wrap provider(s) here if needed
+//     wrapper: ({children}: any): any => children,
+//     ...options,
+//   })
+// Override render export
+// export {customRender as render}
 
-export * from '@testing-library/preact'
+export * from '@testing-library/react'
 export * from 'vitest'
 export {default as userEvent} from '@testing-library/user-event'
-// Override render export
-export {customRender as render}

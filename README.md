@@ -6,9 +6,10 @@
 - Adds path alias for ~ --> ./src
 - Adds Vitest testing
 - Adds Storybook previewing
-- TODO: Get VSCode format on save working
+- Adds astroturf and ustyle for css-in-js:
+  - astroturf is ideal for foundation styling needs
+  - ustyle is ideal for progressive enhancing and providing Chakra like features (shorthand style props)
 - <https://github.com/gajus/eslint-config-canonical>
-- Consider <https://www.npmjs.com/package/polished>
-- TODO: Play around with linaria and dynamic props and zx
 - TODO: Try composing stories
 - TODO: linting
+- TODO: hot reload not working
