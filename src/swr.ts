@@ -137,14 +137,21 @@ function useSwr<T extends P>(p: {
   fetcher: T
   /** initial props to pass to the callback (only if callback has arguments) */
   props: Parameters<T>
+  /** Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching */
+  throttle?: number
 }): State<T>
-function useSwr<T extends PNoArgs>(p: { fetcher: T }): State<T>
+function useSwr<T extends PNoArgs>(p: {
+  fetcher: T
+  throttle?: number
+}): State<T>
 function useSwr<T extends P>({
   fetcher,
   props,
+  throttle = 3000,
 }: {
   fetcher: T
   props?: Parameters<T>
+  throttle?: number
 }): State<T> {
   const [state, setState] = useState({} as State<T>)
   const cacheKey = stringify(props) + fetcher.toString()
@@ -153,14 +160,13 @@ function useSwr<T extends P>({
     if (hit?.p) {
       return hit.p
     }
-    if (hit?.result && hit?.t && Date.now() - hit.t < 1000) {
+    if (hit?.result && hit?.t && Date.now() - hit.t < throttle) {
       // @ts-expect-error - TS doesn't like this, but it works
       return (async () => hit.result)()
     }
 
     const onUpdate = (res: CacheVal<T>) => {
       cache.set(cacheKey, res)
-      // TODO: Deep compare to avoid unnecessary re-renders
       setState({ ...res, refresh, loading: !!res?.p })
     }
 
