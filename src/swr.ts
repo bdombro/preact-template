@@ -120,26 +120,16 @@ setInterval(() => {
  *
  * @example
  * ```ts
- * <script lang="ts">
- *  import useSwr from '@usvelte/swr'
- *
- *  export let page: string
- *
- *  $: swr = useSwr({
- *    fetcher: (_page: string) => sw.Planets.getPage(Number(_page)),
- *    props: [page]
- *  })
- * </script>
- *
- * {#if $data.result}
- *  <pre>
- *    {JSON.stringify($data.result, null, 2)}
- *  </pre>
- * {:else if $data.error}
- *   <Error error={$data.error} />
- * {:else}
- *   <p>Loading...</p>
- * {/if}
+ *  import useSwr from '@ulibs/swr'
+ *  export function Planets() {
+ *    const data = useSwr({
+ *      fetcher: (_page: string) => sw.Planets.getPage(Number(_page)),
+ *      props: [page]
+ *    })
+ *    if (data.loading) return <p>Loading...</p>
+ *    if (data.error) return <Error error={data.error} />
+ *    return (<pre>{JSON.stringify(data.result, null, 2)}</pre>)
+ *  }
  * ```
  */
 function useSwr<T extends P>(p: {
@@ -170,6 +160,7 @@ function useSwr<T extends P>({
 
     const onUpdate = (res: CacheVal<T>) => {
       cache.set(cacheKey, res)
+      // TODO: Deep compare to avoid unnecessary re-renders
       setState({ ...res, refresh, loading: !!res?.p })
     }
 

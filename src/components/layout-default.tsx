@@ -10,25 +10,25 @@ const navitems = [
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Header $h={55}>
+      <Header _h={55}>
         <Nav
-          $bg="lightgray"
-          $border="8px solid #ffffff77"
-          $boxSizing="border-box"
-          $px={4}
-          $pos="fixed"
-          $w="100%"
-          $ta="center"
+          _bg="lightgray"
+          _border="8px solid #ffffff77"
+          _boxSizing="border-box"
+          _px={4}
+          _pos="fixed"
+          _w="100%"
+          _ta="center"
         >
           {navitems.map((item) => (
             <A
               key={item.name}
               href={item.path}
-              $bg={item.path === location.pathname ? 'gray' : undefined}
-              $c="black"
-              $d="inline-block"
-              $p={10}
-              $textDecoration="none"
+              _bg={item.path === location.pathname ? 'gray' : undefined}
+              _c="black"
+              _d="inline-block"
+              _p={10}
+              _textDecoration="none"
               _hover={{ bg: 'lightblue' }}
             >
               {item.name}
@@ -48,8 +48,8 @@ Layout.Section = function LayoutSection({
   ...outerProps
 }: Parameters<typeof Section>[0] & { innerProps?: Parameters<typeof Div>[0] }) {
   return (
-    <Section $p={16} {...outerProps}>
-      <Div $maxW={800} $mx="auto" {...innerProps}>
+    <Section _p={16} {...outerProps}>
+      <Div _maxW={800} _mx="auto" {...innerProps}>
         {children}
       </Div>
     </Section>
