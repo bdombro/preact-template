@@ -4,11 +4,7 @@ export const theme = {}
 
 stylesheet`
   body {
-		background: black;
-    color: white;
-
-    h1 {
-      font-size: 100px;
-    }
+    margin: 0;
+    font-size: 18px;
 	}
 `

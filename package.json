@@ -31,7 +31,7 @@
     }
   },
   "dependencies": {
-    "@ustyle/styled": "^1.0.26",
+    "@ustyle/styled": "^1.0.32",
     "preact": "^10.11.3"
   },
   "devDependencies": {
@@ -93,7 +93,10 @@
     ],
     "rules": {
       "react/button-has-type": "error",
-      "react/no-unescaped-entities": "off"
+      "react/jsx-no-undef": "off",
+      "react/no-unescaped-entities": "off",
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-non-null-assertion": "off"
     },
     "settings": {
       "react": {
