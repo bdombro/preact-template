@@ -7,29 +7,29 @@ const navitems = [
   { name: '404', path: '/does-not-exist' },
 ]
 
-export function LayoutDefault({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Header h={55}>
+      <Header $h={55}>
         <Nav
-          bg="lightgray"
-          border="8px solid #ffffff77"
-          boxSizing="border-box"
-          px={4}
-          pos="fixed"
-          w="100%"
-          ta="center"
+          $bg="lightgray"
+          $border="8px solid #ffffff77"
+          $boxSizing="border-box"
+          $px={4}
+          $pos="fixed"
+          $w="100%"
+          $ta="center"
         >
           {navitems.map((item) => (
             <A
               key={item.name}
               href={item.path}
-              zx={{
-                d: 'inline-block',
-                p: 10,
-                ta: 'center',
-              }}
-              _hover={{ bg: 'gray' }}
+              $bg={item.path === location.pathname ? 'gray' : undefined}
+              $c="black"
+              $d="inline-block"
+              $p={10}
+              $textDecoration="none"
+              _hover={{ bg: 'lightblue' }}
             >
               {item.name}
             </A>
@@ -39,5 +39,19 @@ export function LayoutDefault({ children }: { children: React.ReactNode }) {
 
       <main>{children}</main>
     </>
+  )
+}
+
+Layout.Section = function LayoutSection({
+  children,
+  innerProps,
+  ...outerProps
+}: Parameters<typeof Section>[0] & { innerProps?: Parameters<typeof Div>[0] }) {
+  return (
+    <Section $p={16} {...outerProps}>
+      <Div $maxW={800} $mx="auto" {...innerProps}>
+        {children}
+      </Div>
+    </Section>
   )
 }

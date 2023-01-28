@@ -1,9 +1,11 @@
-import { LayoutDefault } from '~/components/layout-default'
+import { Layout } from '~/components/layout-default'
 
 export default function NotFound() {
   return (
-    <LayoutDefault>
-      <h1>404 - Page not found</h1>
-    </LayoutDefault>
+    <Layout>
+      <Layout.Section>
+        <h1>404 - Page not found</h1>
+      </Layout.Section>
+    </Layout>
   )
 }
