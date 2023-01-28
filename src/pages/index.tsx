@@ -4,14 +4,15 @@ export default function Index() {
   return (
     <LayoutDefault>
       <H1>Home</H1>
-      <button
+      <Button
+        id="test-error-boundary"
         onClick={async () => {
           throw new Error('test')
         }}
         type="button"
       >
         Test Error Boundary
-      </button>
+      </Button>
     </LayoutDefault>
   )
 }

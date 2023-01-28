@@ -15,14 +15,16 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
   return (
     <LayoutDefault>
       <h1>Page: {page}</h1>
-      <button
+      <Button
+        id="refetch-page"
         onClick={() => data.refresh()}
         disabled={data.loading}
         type="button"
       >
         Refetch
-      </button>
-      <button
+      </Button>
+      <Button
+        id="goto-prior-page"
         disabled={page === '1'}
         onClick={() => {
           router.goto(route, { page: `${Number(page) - 1}` })
@@ -30,15 +32,16 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
         type="button"
       >
         Prior Page
-      </button>
-      <button
+      </Button>
+      <Button
+        id="goto-next-page"
         onClick={() => {
           router.goto(route, { page: `${Number(page) + 1}` })
         }}
         type="button"
       >
         Next Page
-      </button>
+      </Button>
       {data?.result?.map((planet) => (
         <>
           <h3>{planet.name}</h3>

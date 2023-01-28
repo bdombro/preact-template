@@ -19,9 +19,13 @@ export function ErrorDialog() {
     <dialog open>
       <h3>Sorry, something went wrong.</h3>
       <p>Cause: {error.message}</p>
-      <button type="button" onClick={() => setError(undefined)}>
+      <Button
+        id="error-dismiss"
+        type="button"
+        onClick={() => setError(undefined)}
+      >
         Dismiss
-      </button>
+      </Button>
     </dialog>
   )
 }
