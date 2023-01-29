@@ -28,7 +28,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
               _c="black"
               _d="inline-block"
               _p={10}
-              _textDecoration="none"
               _hover={{ bg: 'lightblue' }}
             >
               {item.name}
