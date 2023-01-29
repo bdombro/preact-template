@@ -3,10 +3,11 @@ import useSwr from '~/swr'
 import * as sw from '~/swapi'
 import { router } from '~/router'
 import { Layout } from '~/components/layout-default'
+import { Fragment as F } from 'react'
 
 export default function PlanetsByPage({ route }: { route: RouteMatch }) {
   const page = route.urlParams!.page
-  console.log(page)
+
   const data = useSwr({
     fetcher: (_page: typeof page) => sw.Planets.getPage(Number(_page)),
     props: [page],
@@ -16,15 +17,15 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
     <Layout>
       <Layout.Section>
         <h1>Page: {page}</h1>
-        <Button
+        <button
           id="refetch-page"
           onClick={() => data.refresh()}
           disabled={data.loading}
           type="button"
         >
           Refetch
-        </Button>
-        <Button
+        </button>
+        <button
           id="goto-prior-page"
           disabled={page === '1'}
           onClick={() => {
@@ -33,8 +34,8 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
           type="button"
         >
           Prior Page
-        </Button>
-        <Button
+        </button>
+        <button
           id="goto-next-page"
           onClick={() => {
             router.goto(route, { page: `${Number(page) + 1}` })
@@ -42,9 +43,9 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
           type="button"
         >
           Next Page
-        </Button>
-        {data?.result?.map((planet) => (
-          <>
+        </button>
+        {data.result?.map((planet) => (
+          <F key={planet.name}>
             <h3>{planet.name}</h3>
             <ul>
               {Object.entries(planet)
@@ -55,7 +56,7 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
                   </li>
                 ))}
             </ul>
-          </>
+          </F>
         ))}
       </Layout.Section>
     </Layout>

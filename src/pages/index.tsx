@@ -5,7 +5,7 @@ export default function Index() {
     <Layout>
       <Layout.Section>
         <H1>Home</H1>
-        <Button
+        <button
           id="test-error-boundary"
           onClick={async () => {
             throw new Error('test')
@@ -13,7 +13,7 @@ export default function Index() {
           type="button"
         >
           Test Error Boundary
-        </Button>
+        </button>
       </Layout.Section>
     </Layout>
   )

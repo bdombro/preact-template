@@ -8,7 +8,7 @@
  *
  */
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /** A generic promise */
 type P = (...args: any[]) => Promise<any>
@@ -153,9 +153,13 @@ function useSwr<T extends P>({
   props?: Parameters<T>
   throttle?: number
 }): State<T> {
-  const [state, setState] = useState({} as State<T>)
   const cacheKey = stringify(props) + fetcher.toString()
-  const refresh = (): ReturnType<T> => {
+  const [state, setState] = useState<State<T>>(() => {
+    const hit = cache.get(cacheKey)
+    return { ...hit, refresh, loading: !!hit?.p }
+  })
+
+  function refresh(): ReturnType<T> {
     const hit = cache.get(cacheKey) as CacheVal<T>
     if (hit?.p) {
       return hit.p
@@ -186,7 +190,9 @@ function useSwr<T extends P>({
     return hit.p as ReturnType<T>
   }
 
-  refresh()
+  useEffect(() => {
+    refresh()
+  }, [cacheKey])
 
   return state
 }

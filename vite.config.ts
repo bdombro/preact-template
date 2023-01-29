@@ -27,12 +27,12 @@ export default defineConfig({
     },
   },
   test: {
-    globals: true,
-    environment: 'jsdom',
-    // Use react for vitest bc it's having issues with preact
     alias: {
+      // Use react for vitest bc it's having issues with preact
       react: 'react',
       'react-dom': 'react-dom',
     },
+    environment: 'jsdom',
+    globals: true,
   },
 })

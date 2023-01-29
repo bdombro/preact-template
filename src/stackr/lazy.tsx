@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 
+/**
+ * Loads a component lazily and keeps the prior component as fallback. Also calls onLoad.
+ *
+ * Sadly, there is still some flickering.
+ */
 export function Lazy({
   loader,
   props = {},
@@ -22,26 +27,28 @@ export function Lazy({
    */
   onLoad?: () => void
 }) {
-  /**
-   * The loaded component: undefined while loading
-   */
-
   const [state, setState] = useState<{
-    /** A loaded module. Default = cache. Without cache, back scroll restore would fail. */
-    module: any
-    /** Props for the module */
-    props: any
-  }>()
+    current: JSX.Element | null
+    last: JSX.Element | null
+  }>({ current: null, last: null })
+
+  const Wrapped = () => {
+    useEffect(onLoad, [])
+    const C = lazy(loader)
+    return (
+      <Suspense fallback={state.last}>
+        <C {...props} />
+      </Suspense>
+    )
+  }
 
   useEffect(() => {
-    loader().then((m) => {
-      if (!m) return
-      setState({ module: m, props })
-      onLoad()
-    })
+    setState((s) => ({
+      ...s,
+      current: <Wrapped />,
+      last: state.current,
+    }))
   }, [loader, props])
 
-  useEffect(() => state?.module && onLoad(), [state])
-
-  return useMemo(() => state?.module?.default(state?.props), [state])
+  return state?.current
 }
