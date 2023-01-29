@@ -161,9 +161,12 @@ export class Router<
    * 1. Restore the scroll position after a route change
    */
   public onLoad = () => {
-    window.scrollTo(0, this.scrollNext)
-    setTimeout(() => window.scrollTo(0, this.scrollNext))
-    setTimeout(() => window.scrollTo(0, this.scrollNext), 300)
+    const _scrollTo = () =>
+      !navigator.userAgent.includes('jsdom') && scrollTo(0, this.scrollNext)
+    setTimeout(_scrollTo)
+    setTimeout(_scrollTo, 100)
+    setTimeout(_scrollTo, 200)
+    setTimeout(_scrollTo, 300)
   }
 
   /** Navigate to a route by replaceState */
