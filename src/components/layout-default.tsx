@@ -25,9 +25,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
           _w="100%"
           _ta="center"
           _z={1}
+          _dark={{
+            bg: 'darkgray',
+          }}
         >
           {navitems.map((item) => (
             <A
+              className="small"
               key={item.name}
               href={item.path}
               _bg={item.path === location.pathname ? 'gray' : undefined}

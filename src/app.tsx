@@ -1,3 +1,4 @@
+import './styles.pcss'
 import './components/primitives'
 import { Switch } from './stackr'
 import { router } from './router'

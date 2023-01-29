@@ -3,21 +3,12 @@
 import path from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import Astroturf from 'astroturf/vite-plugin'
 import { VitePWA as vitePWA } from 'vite-plugin-pwa'
 import mkcert from 'vite-plugin-mkcert'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const astroturf = (Astroturf as any).default()
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    astroturf,
-    mkcert(),
-    vitePWA({ registerType: 'autoUpdate' }),
-  ],
+  plugins: [react(), mkcert(), vitePWA({ registerType: 'autoUpdate' })],
   build: {
     rollupOptions: {
       output: {
