@@ -12,9 +12,9 @@ export function Lazy({
   onLoad = () => {},
 }: {
   /**
-   * A callback that loads a Svelte component, i.e.
+   * A callback that loads a component, i.e.
    * ```typescript
-   * () => import('./Index.svelte')`
+   * () => import('./index.tsx')`
    * ```
    */
   loader: () => Promise<any>

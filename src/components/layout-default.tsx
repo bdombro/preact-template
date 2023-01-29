@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { router as r } from '~/router'
 const navitems = [
   { name: 'Home', path: r.routes.index.path },
@@ -8,6 +9,10 @@ const navitems = [
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => setReady(true), [])
+
   return (
     <>
       <Header _h={55}>
@@ -19,6 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           _pos="fixed"
           _w="100%"
           _ta="center"
+          _z={1}
         >
           {navitems.map((item) => (
             <A
@@ -36,7 +42,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </Nav>
       </Header>
 
-      <main>{children}</main>
+      <Main _opacity={ready ? 1 : 0} _transition="opacity .2s ease-in-out">
+        {children}
+      </Main>
     </>
   )
 }

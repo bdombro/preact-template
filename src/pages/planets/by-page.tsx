@@ -11,6 +11,7 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
   const data = useSwr({
     fetcher: (_page: typeof page) => sw.Planets.getPage(Number(_page)),
     props: [page],
+    throttle: Infinity,
   })
 
   return (

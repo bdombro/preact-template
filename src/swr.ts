@@ -115,6 +115,7 @@ setInterval(() => {
  *
  * @param fetcher - an async callback that returns data. *Data be JSONable*
  * @param props - initial props to pass to the callback (only if callback has arguments)
+ * @param throtle - Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching
  *
  * @returns SWR State
  *
@@ -159,12 +160,17 @@ function useSwr<T extends P>({
     return { ...hit, refresh, loading: !!hit?.p }
   })
 
-  function refresh(): ReturnType<T> {
+  function refresh(hardRefresh = true): ReturnType<T> {
     const hit = cache.get(cacheKey) as CacheVal<T>
     if (hit?.p) {
       return hit.p
     }
-    if (hit?.result && hit?.t && Date.now() - hit.t < throttle) {
+    if (
+      !hardRefresh &&
+      hit?.result &&
+      hit?.t &&
+      Date.now() - hit.t < throttle
+    ) {
       // @ts-expect-error - TS doesn't like this, but it works
       return (async () => hit.result)()
     }
@@ -191,7 +197,7 @@ function useSwr<T extends P>({
   }
 
   useEffect(() => {
-    refresh()
+    refresh(false)
   }, [cacheKey])
 
   return state
