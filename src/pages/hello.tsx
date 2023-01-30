@@ -1,4 +1,4 @@
-import type { RouteMatch } from '~/stackr'
+import type { RouteMatch } from '~/util/stackr'
 import { setPageMeta } from '~/util/page-meta'
 import { Layout } from '~/components/layout-default'
 import { Filler } from '~/components/filler'

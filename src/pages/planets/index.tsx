@@ -1,4 +1,4 @@
-import { router as r } from '~/router'
+import { router as r } from '~/util/router'
 import { Layout } from '~/components/layout-default'
 import { useEffect } from 'react'
 

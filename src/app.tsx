@@ -1,7 +1,7 @@
-import './styles.pcss'
+import './util/styles.pcss'
 import './components/primitives'
-import { Switch } from './stackr'
-import { router } from './router'
+import { Switch } from './util/stackr'
+import { router } from './util/router'
 import { ErrorDialog } from './components/error-dialog'
 
 export function App() {

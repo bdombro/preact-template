@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { router as r } from '~/router'
+import { router as r } from '~/util/router'
 const navitems = [
   { name: 'Home', path: r.routes.index.path },
   { name: 'Hello', path: r.routes.hello.toPath({ name: 'world' }) },
@@ -9,15 +8,11 @@ const navitems = [
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => setReady(true), [])
-
   return (
     <>
-      <Header _h={55}>
+      <Header _h={55} _z={1}>
         <Nav
-          _bg="lightgray"
+          _bg="#aaa"
           _border="8px solid #ffffff77"
           _boxSizing="border-box"
           _px={4}
@@ -44,9 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </Nav>
       </Header>
 
-      <Main _opacity={ready ? 1 : 0} _transition="opacity .2s ease-in-out">
-        {children}
-      </Main>
+      <Main _z={-1}>{children}</Main>
     </>
   )
 }

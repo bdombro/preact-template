@@ -1,8 +1,8 @@
-import type { RouteMatch } from '~/stackr'
-import useSwr from '~/swr'
-import * as sw from '~/swapi'
+import type { RouteMatch } from '~/util/stackr'
+import useSwr from '~/util/swr'
+import * as sw from '~/util/swapi'
 import { setPageMeta } from '~/util/page-meta'
-import { router } from '~/router'
+import { router } from '~/util/router'
 import { Layout } from '~/components/layout-default'
 import { Fragment as F } from 'react'
 
