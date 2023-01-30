@@ -25,9 +25,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           _w="100%"
           _ta="center"
           _z={1}
-          _dark={{
-            bg: 'darkgray',
-          }}
+          _dark={{ bg: '#555' }}
         >
           {navitems.map((item) => (
             <A
@@ -35,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               key={item.name}
               href={item.path}
               _bg={item.path === location.pathname ? 'gray' : undefined}
-              _c="black"
+              _c="var(--color-fg)"
               _d="inline-block"
               _p={10}
               _hover={{ bg: 'lightblue' }}
