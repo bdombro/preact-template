@@ -1,12 +1,18 @@
 import type { RouteMatch } from '~/stackr'
 import useSwr from '~/swr'
 import * as sw from '~/swapi'
+import { setPageMeta } from '~/util/page-meta'
 import { router } from '~/router'
 import { Layout } from '~/components/layout-default'
 import { Fragment as F } from 'react'
 
 export default function PlanetsByPage({ route }: { route: RouteMatch }) {
   const page = route.urlParams!.page
+
+  const { title, description } = setPageMeta({
+    title: `Planets Page ${page}`,
+    description: `A demo of a route stack and data fetching. Notice that it takes a moment to load the data at first, but then you never wait for the same data to load twice. Also notice that the page state is restored when you navigate to another page in the nav menu and return.`,
+  })
 
   const data = useSwr({
     fetcher: (_page: typeof page) => sw.Planets.getPage(Number(_page)),
@@ -17,7 +23,8 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
   return (
     <Layout>
       <Layout.Section>
-        <h1>Page: {page}</h1>
+        <h1>{title}</h1>
+        <p>{description}</p>
         <button
           id="refetch-page"
           onClick={() => data.refresh()}
@@ -45,6 +52,7 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
         >
           Next Page
         </button>
+        {data.loading && <p>Loading...</p>}
         {data.result?.map((planet) => (
           <F key={planet.name}>
             <h3>{planet.name}</h3>

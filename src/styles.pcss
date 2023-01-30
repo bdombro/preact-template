@@ -38,55 +38,80 @@ body {
   }
 }
 
-a {
+a,
+.a {
+  color: currentColor;
   text-decoration: none;
 }
-p a {
-  font-decoration: underline;
+p a,
+.pa {
+  color: unset;
+  text-decoration: underline;
+}
+@media (prefers-color-scheme: dark) {
+  p a,
+  .pa {
+    color: #87cefa;
+  }
+  p a:visited,
+  .pavisited {
+    color: #dda0dd;
+  }
 }
 
-button,.button {
+button,
+.button {
   @extend textSmall;
   cursor: pointer;
 }
 
-h1,.h1 {
+h1,
+.h1 {
   font-size: var(--step-5);
   line-height: var(--step-5);
 }
-h2,.h2 {
+h2,
+.h2 {
   font-size: var(--step-4);
   line-height: var(--step-4);
 }
-h3,.h3 {
+h3,
+.h3 {
   font-size: var(--step-3);
   line-height: var(--step-3);
 }
-h4,.h4 {
+h4,
+.h4 {
   font-size: var(--step-2);
   line-height: var(--step-2);
 }
-h5,.h5 {
+h5,
+.h5 {
   font-size: var(--step-1);
   line-height: var(--step-1);
 }
-h6,.h6 {
+h6,
+.h6 {
   font-size: var(--step-0);
   line-height: var(--step-0);
 }
 
-input,.input {
+input,
+.input {
   @extend text;
 }
 
-select,.select {
+select,
+.select {
   @extend text;
 }
 
-small,.small {
+small,
+.small {
   @extend textSmall;
 }
 
-textarea,.textarea {
+textarea,
+.textarea {
   @extend text;
 }

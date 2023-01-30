@@ -1,10 +1,14 @@
+import { setPageMeta } from '~/util/page-meta'
+import { Filler } from '~/components/filler'
 import { Layout } from '~/components/layout-default'
 
 export default function Index() {
+  const { title, description } = setPageMeta({ title: 'Home' })
   return (
     <Layout>
       <Layout.Section>
-        <H1>Home</H1>
+        <H1>{title}</H1>
+        <p>{description}</p>
         <button
           id="test-error-boundary"
           onClick={async () => {
@@ -12,8 +16,9 @@ export default function Index() {
           }}
           type="button"
         >
-          Test Error Boundary
+          Click to test error boundary
         </button>
+        <Filler />
       </Layout.Section>
     </Layout>
   )
