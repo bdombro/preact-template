@@ -27,7 +27,7 @@ export interface Route extends RouteDef {
   /** A reference to a stack route, if the current route is in a stack */
   stack?: Route
   /** A history stack if the current route is a stack */
-  stackHistory?: { url: string; scrollTop: number }[]
+  stackHistory?: {url: string; scrollTop: number}[]
 }
 
 /** A map of route keys to routes */
@@ -36,7 +36,7 @@ type RoutesVal<T extends Record<string, RouteDef>> = {
 }
 
 /** A route with the matching args */
-export type RouteMatch = Route & { urlParams?: Record<string, string> }
+export type RouteMatch = Route & {urlParams?: Record<string, string>}
 
 export type RouterClass = typeof Router
 export type RouterInstance = InstanceType<RouterClass>
@@ -85,7 +85,7 @@ export class Router<
   }
 
   /** Custom history so we can restore scroll on back */
-  history: { route: Route; url: string; scrollTop: number }[] = []
+  history: {route: Route; url: string; scrollTop: number}[] = []
 
   get current() {
     return {
@@ -114,8 +114,7 @@ export class Router<
     Object.entries(routes).forEach(([k, routeDef]) => {
       this.routes[k as keyof T] = {
         ...routeDef,
-        isMatch: (path: string) =>
-          Router.isMatch(path, routeDef.path, routeDef.exact),
+        isMatch: (path: string) => Router.isMatch(path, routeDef.path, routeDef.exact),
         key: k,
         stackHistory: routeDef.isStack ? [] : undefined,
         toPath: (urlParams = {}) => {
@@ -124,11 +123,9 @@ export class Router<
       }
     })
     this.routeArray
-      .filter((r) => r.isStack)
-      .forEach((r) => {
-        this.routeArray
-          .filter((r2) => r2.path.startsWith(r.path))
-          .forEach((r2) => (r2.stack = r))
+      .filter(r => r.isStack)
+      .forEach(r => {
+        this.routeArray.filter(r2 => r2.path.startsWith(r.path)).forEach(r2 => (r2.stack = r))
       })
     this.hookHistory()
   }
@@ -139,19 +136,15 @@ export class Router<
       const urlParams = route.isMatch(url.pathname)
       if (urlParams) {
         const qs = Object.fromEntries(url.searchParams)
-        return { ...route, urlParams: { ...urlParams, ...qs } }
+        return {...route, urlParams: {...urlParams, ...qs}}
       }
     }
     throw new Error(`No route found for path: ${url.pathname}`)
   }
 
   /** Navigate to a route */
-  public goto = (
-    routeOrKey: Route | string,
-    urlParams: Record<string, string> = {}
-  ) => {
-    const route =
-      typeof routeOrKey === 'string' ? this.routes[routeOrKey] : routeOrKey
+  public goto = (routeOrKey: Route | string, urlParams: Record<string, string> = {}) => {
+    const route = typeof routeOrKey === 'string' ? this.routes[routeOrKey] : routeOrKey
     history.pushState(Date.now(), '', route.toPath(urlParams))
   }
 
@@ -161,8 +154,7 @@ export class Router<
    * 1. Restore the scroll position after a route change
    */
   public onLoad = () => {
-    const _scrollTo = () =>
-      !navigator.userAgent.includes('jsdom') && scrollTo(0, this.scrollNext)
+    const _scrollTo = () => !navigator.userAgent.includes('jsdom') && scrollTo(0, this.scrollNext)
     setTimeout(_scrollTo)
     setTimeout(_scrollTo, 100)
     setTimeout(_scrollTo, 200)
@@ -170,12 +162,8 @@ export class Router<
   }
 
   /** Navigate to a route by replaceState */
-  public replace = (
-    routeOrKey: Route | string,
-    urlParams: Record<string, string> = {}
-  ) => {
-    const route =
-      typeof routeOrKey === 'string' ? this.routes[routeOrKey] : routeOrKey
+  public replace = (routeOrKey: Route | string, urlParams: Record<string, string> = {}) => {
+    const route = typeof routeOrKey === 'string' ? this.routes[routeOrKey] : routeOrKey
     history.replaceState(Date.now(), '', route.toPath(urlParams))
   }
 
@@ -187,7 +175,7 @@ export class Router<
 
   /** Unsubscribe to changes to the route */
   public unsubscribe = (fn: (route: RouteMatch) => any) => {
-    this.subscribers = this.subscribers.filter((l) => l !== fn)
+    this.subscribers = this.subscribers.filter(l => l !== fn)
   }
 
   /**
@@ -228,12 +216,12 @@ export class Router<
       })
       this.history.push(this.current)
 
-      this.subscribers.forEach((fn) => fn(next))
+      this.subscribers.forEach(fn => fn(next))
       pushStateOrig(date, unused, urlObj)
     }
     history.replaceState = (date, unused, url) => {
       const urlObj = toUrlObj(url as any)
-      this.subscribers.forEach((fn) => fn(this.find(urlObj)))
+      this.subscribers.forEach(fn => fn(this.find(urlObj)))
       replaceStateOrig(date, unused, urlObj)
     }
 
@@ -241,7 +229,7 @@ export class Router<
       this.previous?.route.stack?.stackHistory?.pop()
       this.scrollNext = this.previous?.scrollTop || 0
       this.history.pop()
-      this.subscribers.forEach((fn) => fn(this.find(new URL(location.href))))
+      this.subscribers.forEach(fn => fn(this.find(new URL(location.href))))
     })
 
     /**
@@ -262,10 +250,7 @@ export class Router<
     const urlRx = '^' + pathMask.replace(argRx, '([^/]*)') + (exact ? '$' : '')
     const match = [...path.matchAll(new RegExp(urlRx, 'gi'))]?.[0]
     const urlParams = match
-      ? [...pathMask.matchAll(argRx)].reduce(
-          (acc, arg, i) => ({ ...acc, [arg[1]]: match[i + 1] }),
-          {}
-        )
+      ? [...pathMask.matchAll(argRx)].reduce((acc, arg, i) => ({...acc, [arg[1]]: match[i + 1]}), {})
       : false
     return urlParams
   }

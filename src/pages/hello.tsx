@@ -1,10 +1,10 @@
-import type { RouteMatch } from '~/util/stackr'
-import { setPageMeta } from '~/util/page-meta'
-import { Layout } from '~/components/layout-default'
-import { Filler } from '~/components/filler'
+import {Filler} from '~/components/filler'
+import {Layout} from '~/components/layout-default'
+import {setPageMeta} from '~/util/page-meta'
+import type {RouteMatch} from '~/util/stackr'
 
-export default function Hello({ route }: { route: RouteMatch }) {
-  const { description } = setPageMeta({
+export default function Hello({route}: {route: RouteMatch}) {
+  const {description} = setPageMeta({
     title: 'Home',
     description: 'A demo of route with url params.',
   })

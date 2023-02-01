@@ -48,10 +48,7 @@ export const setPageMeta = (function createSetPageMeta() {
     last?: string
     set: (val: string) => string
     constructor(getter: () => Element) {
-      this.get = () =>
-        this.last ||
-        getter().getAttribute('content') ||
-        throwError(`No content for ${getter}`)
+      this.get = () => this.last || getter().getAttribute('content') || throwError(`No content for ${getter}`)
       this.set = (v: string) => {
         getter().setAttribute('content', v)
         return (this.last = v)
@@ -81,10 +78,7 @@ export const setPageMeta = (function createSetPageMeta() {
     return find(`meta[property="${prop}"]`)
   }
   function find(selector: string) {
-    return (
-      document.head.querySelector(selector) ||
-      throwError(`Missing: ${selector}`)
-    )
+    return document.head.querySelector(selector) || throwError(`Missing: ${selector}`)
   }
 
   return function setPageMeta(p: SetPageMetaProps) {

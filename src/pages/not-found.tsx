@@ -1,8 +1,8 @@
-import { setPageMeta } from '~/util/page-meta'
-import { Layout } from '~/components/layout-default'
+import {Layout} from '~/components/layout-default'
+import {setPageMeta} from '~/util/page-meta'
 
 export default function NotFound() {
-  const { description } = setPageMeta({
+  const {description} = setPageMeta({
     title: 'Not Found',
     description: '404 - Page not found',
   })

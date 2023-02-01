@@ -1,8 +1,8 @@
-import './util/styles.pcss'
+import {ErrorDialog} from './components/error-dialog'
 import './components/primitives'
-import { Switch } from './util/stackr'
-import { router } from './util/router'
-import { ErrorDialog } from './components/error-dialog'
+import {router} from './util/router'
+import {Switch} from './util/stackr'
+import './util/styles.pcss'
 
 export function App() {
   return (

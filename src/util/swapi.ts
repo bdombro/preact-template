@@ -117,8 +117,8 @@ export enum ResourcesType {
 
 async function request(url: string) {
   const result = await fetch('https://swapi.dev/api/' + url, {
-    headers: { accept: 'application/json' },
-  }).then((res) => res.json())
+    headers: {accept: 'application/json'},
+  }).then(res => res.json())
   return result.results
 }
 

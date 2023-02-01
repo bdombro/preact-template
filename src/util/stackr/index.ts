@@ -1,2 +1,2 @@
 export * from './router-class'
-export { Switch } from './switch'
+export {Switch} from './switch'

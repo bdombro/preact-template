@@ -1,13 +1,14 @@
-import { router as r } from '~/util/router'
+import {router as r} from '~/util/router'
+
 const navitems = [
-  { name: 'Home', path: r.routes.index.path },
-  { name: 'Hello', path: r.routes.hello.toPath({ name: 'world' }) },
-  { name: 'Stack1', path: r.routes.stack1.path },
-  { name: 'Planets', path: r.routes.planets.path },
-  { name: '404', path: '/does-not-exist' },
+  {name: 'Home', path: r.routes.index.path},
+  {name: 'Hello', path: r.routes.hello.toPath({name: 'world'})},
+  {name: 'Stack1', path: r.routes.stack1.path},
+  {name: 'Planets', path: r.routes.planets.path},
+  {name: '404', path: '/does-not-exist'},
 ]
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({children}: {children: React.ReactNode}) {
   return (
     <>
       <Header _h={55} _z={1}>
@@ -20,9 +21,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
           _w="100%"
           _ta="center"
           _z={1}
-          _dark={{ bg: '#555' }}
-        >
-          {navitems.map((item) => (
+          _dark={{bg: '#555'}}>
+          {navitems.map(item => (
             <A
               className="small"
               key={item.name}
@@ -31,8 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               _c="var(--color-fg)"
               _d="inline-block"
               _p={10}
-              _hover={{ bg: 'lightblue' }}
-            >
+              _hover={{bg: 'lightblue'}}>
               {item.name}
             </A>
           ))}
@@ -48,7 +47,7 @@ Layout.Section = function LayoutSection({
   children,
   innerProps,
   ...outerProps
-}: Parameters<typeof Section>[0] & { innerProps?: Parameters<typeof Div>[0] }) {
+}: Parameters<typeof Section>[0] & {innerProps?: Parameters<typeof Div>[0]}) {
   return (
     <Section _p={16} {...outerProps}>
       <Div _maxW={800} _mx="auto" {...innerProps}>

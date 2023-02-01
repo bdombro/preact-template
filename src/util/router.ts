@@ -1,4 +1,4 @@
-import { Router } from './stackr'
+import {Router} from './stackr'
 
 export const router = new Router({
   index: {

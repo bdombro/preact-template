@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 
 export function ErrorDialog() {
   const [error, setError] = useState<Error | undefined>()
@@ -19,11 +19,7 @@ export function ErrorDialog() {
     <dialog open>
       <h3>Sorry, something went wrong.</h3>
       <p>Cause: {error.message}</p>
-      <Button
-        id="error-dismiss"
-        type="button"
-        onClick={() => setError(undefined)}
-      >
+      <Button id="error-dismiss" type="button" onClick={() => setError(undefined)}>
         Dismiss
       </Button>
     </dialog>

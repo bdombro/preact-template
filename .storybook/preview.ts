@@ -1,7 +1,8 @@
-import '../src/styles.pcss'
 import '../src/components/primitives'
+import '../src/styles.pcss'
+
 export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
+  actions: {argTypesRegex: '^on[A-Z].*'},
   controls: {
     matchers: {
       color: /(background|color)$/i,

@@ -1,5 +1,6 @@
-import { render, screen } from '~/util/test-util'
-import { App } from './app'
+import {render, screen} from '~/util/test-util'
+
+import {App} from './app'
 
 it('renders', () => {
   render(<App />)

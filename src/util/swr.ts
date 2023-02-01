@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 /**
  *
  * useSwr: a tiny (600B) async resolver that displays a cached version (if available) of the
@@ -7,8 +8,7 @@
  * Tiny: only 600 bytes when bundled with Vite
  *
  */
-
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 
 /** A generic promise */
 type P = (...args: any[]) => Promise<any>
@@ -75,13 +75,13 @@ const pCache = new Map<string, Promise<P>>()
  */
 const cache = {
   get(key: string): CacheVal<any> | undefined {
-    let m = { p: pCache.get(key) }
+    let m = {p: pCache.get(key)}
     const ls = localStorage.getItem('swr:' + key)
-    if (ls) m = { ...JSON.parse(ls), ...m }
+    if (ls) m = {...JSON.parse(ls), ...m}
     return m
   },
   set(key: string, value: CacheVal<any>) {
-    const { p, ...rest } = value
+    const {p, ...rest} = value
     if (p) pCache.set(key, p)
     else {
       pCache.delete(key)
@@ -141,10 +141,7 @@ function useSwr<T extends P>(p: {
   /** Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching */
   throttle?: number
 }): State<T>
-function useSwr<T extends PNoArgs>(p: {
-  fetcher: T
-  throttle?: number
-}): State<T>
+function useSwr<T extends PNoArgs>(p: {fetcher: T; throttle?: number}): State<T>
 function useSwr<T extends P>({
   fetcher,
   props,
@@ -157,7 +154,7 @@ function useSwr<T extends P>({
   const cacheKey = stringify(props) + fetcher.toString()
   const [state, setState] = useState<State<T>>(() => {
     const hit = cache.get(cacheKey)
-    return { ...hit, refresh, loading: !!hit?.p }
+    return {...hit, refresh, loading: !!hit?.p}
   })
 
   function refresh(hardRefresh = true): ReturnType<T> {
@@ -165,29 +162,24 @@ function useSwr<T extends P>({
     if (hit?.p) {
       return hit.p
     }
-    if (
-      !hardRefresh &&
-      hit?.result &&
-      hit?.t &&
-      Date.now() - hit.t < throttle
-    ) {
+    if (!hardRefresh && hit?.result && hit?.t && Date.now() - hit.t < throttle) {
       // @ts-expect-error - TS doesn't like this, but it works
       return (async () => hit.result)()
     }
 
     const onUpdate = (res: CacheVal<T>) => {
       cache.set(cacheKey, res)
-      setState({ ...res, refresh, loading: !!res?.p })
+      setState({...res, refresh, loading: !!res?.p})
     }
 
     // @ts-expect-error - TS is having a hard time infering fetcher return type for some reason
     hit.p = fetcher(props)
-      .then((r) => {
-        onUpdate({ result: r, t: Date.now() })
+      .then(r => {
+        onUpdate({result: r, t: Date.now()})
         return r
       })
-      .catch((e) => {
-        onUpdate({ error: e, t: Date.now() })
+      .catch(e => {
+        onUpdate({error: e, t: Date.now()})
         throw e
       })
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { lazy, Suspense, useEffect, useState } from 'react'
+import {Suspense, lazy, useEffect, useState} from 'react'
 
 /**
  * Loads a component lazily and keeps the prior component as fallback. Also calls onLoad.
@@ -30,7 +30,7 @@ export function Lazy({
   const [state, setState] = useState<{
     current: JSX.Element | null
     last: JSX.Element | null
-  }>({ current: null, last: null })
+  }>({current: null, last: null})
 
   const Wrapped = () => {
     useEffect(onLoad, [])
@@ -43,7 +43,7 @@ export function Lazy({
   }
 
   useEffect(() => {
-    setState((s) => ({
+    setState(s => ({
       ...s,
       current: <Wrapped />,
       last: state.current,

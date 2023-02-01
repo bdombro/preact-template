@@ -1,5 +1,5 @@
 /* eslint-disable no-var */
-import { SC } from '@ustyle/styled'
+import {SC} from '@ustyle/styled'
 // @ts-expect-error - ts can't resolve withHtmlTags without moduleResolute>="node16"
 import styled from '@ustyle/styled/withHtmlTags'
 

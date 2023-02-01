@@ -1,15 +1,16 @@
-import type { RouteMatch } from '~/util/stackr'
-import useSwr from '~/util/swr'
-import * as sw from '~/util/swapi'
-import { setPageMeta } from '~/util/page-meta'
-import { router } from '~/util/router'
-import { Layout } from '~/components/layout-default'
-import { Fragment as F } from 'react'
+import {Fragment as F} from 'react'
 
-export default function PlanetsByPage({ route }: { route: RouteMatch }) {
+import {Layout} from '~/components/layout-default'
+import {setPageMeta} from '~/util/page-meta'
+import {router} from '~/util/router'
+import type {RouteMatch} from '~/util/stackr'
+import * as sw from '~/util/swapi'
+import useSwr from '~/util/swr'
+
+export default function PlanetsByPage({route}: {route: RouteMatch}) {
   const page = route.urlParams!.page
 
-  const { title, description } = setPageMeta({
+  const {title, description} = setPageMeta({
     title: `Planets Page ${page}`,
     description: `A demo of a route stack and data fetching. Notice that it takes a moment to load the data at first, but then you never wait for the same data to load twice. Also notice that the page state is restored when you navigate to another page in the nav menu and return.`,
   })
@@ -25,35 +26,28 @@ export default function PlanetsByPage({ route }: { route: RouteMatch }) {
       <Layout.Section>
         <h1>{title}</h1>
         <p>{description}</p>
-        <button
-          id="refetch-page"
-          onClick={() => data.refresh()}
-          disabled={data.loading}
-          type="button"
-        >
+        <button id="refetch-page" onClick={() => data.refresh()} disabled={data.loading} type="button">
           Refetch
         </button>
         <button
           id="goto-prior-page"
           disabled={page === '1'}
           onClick={() => {
-            router.goto(route, { page: `${Number(page) - 1}` })
+            router.goto(route, {page: `${Number(page) - 1}`})
           }}
-          type="button"
-        >
+          type="button">
           Prior Page
         </button>
         <button
           id="goto-next-page"
           onClick={() => {
-            router.goto(route, { page: `${Number(page) + 1}` })
+            router.goto(route, {page: `${Number(page) + 1}`})
           }}
-          type="button"
-        >
+          type="button">
           Next Page
         </button>
         {data.loading && <p>Loading...</p>}
-        {data.result?.map((planet) => (
+        {data.result?.map(planet => (
           <F key={planet.name}>
             <h3>{planet.name}</h3>
             <ul>

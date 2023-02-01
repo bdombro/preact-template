@@ -1,7 +1,8 @@
-import '~/components/primitives'
 import '@testing-library/jest-dom'
-import { cleanup } from '@testing-library/react'
-import { afterEach, vi } from 'vitest'
+import {cleanup} from '@testing-library/react'
+import {afterEach, vi} from 'vitest'
+
+import '~/components/primitives'
 
 afterEach(() => {
   cleanup()
@@ -20,6 +21,6 @@ afterEach(() => {
 
 export * from '@testing-library/react'
 export * from 'vitest'
-export { default as userEvent } from '@testing-library/user-event'
+export {default as userEvent} from '@testing-library/user-event'
 
 export * from '@storybook/testing-react'
