@@ -30,11 +30,22 @@ body {
   color: var(--color-fg);
   margin: 0;
 }
+dialog {
+  @extend text;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  padding: 2rem 1rem;
+}
+dialog::backdrop {
+  /* background: var(--color-bg);
+  opacity: 0.8; */
+  background: rgba(255, 0, 0, 0.25);
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-fg: white;
-    --color-bg: black;
+    --color-bg: #161b22;
   }
 }
 
@@ -94,6 +105,11 @@ h6,
 .h6 {
   font-size: var(--step-0);
   line-height: var(--step-0);
+}
+
+p,
+.p {
+  @extend text;
 }
 
 input,

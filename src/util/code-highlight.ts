@@ -16,3 +16,9 @@ export async function applyHighlights() {
   })
 }
 applyHighlights.lock = false
+
+export function watchForCodeTagEvent() {
+  addEventListener('codetag-added', () => {
+    applyHighlights()
+  })
+}

@@ -1,7 +1,5 @@
 import {PureComponent} from 'react'
 
-import {applyHighlights} from './code-highlight'
-
 /**
  * Displays markdown
  */
@@ -9,7 +7,7 @@ export class Markdown extends PureComponent<{src: string}> {
   render() {
     const __html = parse(this.props.src)
     if (__html.includes('<pre><code')) {
-      setTimeout(applyHighlights, 50)
+      dispatchEvent(new Event('codetag-added'))
     }
     return <div dangerouslySetInnerHTML={{__html}} />
   }

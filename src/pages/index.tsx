@@ -12,7 +12,7 @@ export default function Index() {
         <button
           id="test-error-boundary"
           onClick={async () => {
-            throw new Error('test')
+            throw new Error('This is a test error.')
           }}
           type="button">
           Click to test error boundary
