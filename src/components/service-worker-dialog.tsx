@@ -29,7 +29,7 @@ export function ServiceWorkerDialog() {
     }
   }, [needRefresh])
   useEffect(() => {
-    if (!offlineReady) {
+    if (offlineReady) {
       offlineReadyDialogRef.current?.showModal?.()
       offlineReadyButtonRef.current?.focus()
     } else {
