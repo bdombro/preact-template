@@ -20,7 +20,8 @@ export function Layout({children}: {children: React.ReactNode}) {
           _pos="fixed"
           _w="100%"
           _ta="center"
-          _dark={{bg: '#555'}}>
+          _dark={{bg: '#555'}}
+        >
           {navitems.map(item => (
             <A
               className="small"
@@ -30,7 +31,8 @@ export function Layout({children}: {children: React.ReactNode}) {
               _c="var(--color-fg)"
               _d="inline-block"
               _p={10}
-              _hover={{bg: 'lightblue'}}>
+              _hover={{bg: 'lightblue'}}
+            >
               {item.name}
             </A>
           ))}

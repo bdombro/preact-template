@@ -35,7 +35,8 @@ export default function PlanetsByPage({route}: {route: RouteMatch}) {
           onClick={() => {
             router.goto(route, {page: `${Number(page) - 1}`})
           }}
-          type="button">
+          type="button"
+        >
           Prior Page
         </button>
         <button
@@ -43,7 +44,8 @@ export default function PlanetsByPage({route}: {route: RouteMatch}) {
           onClick={() => {
             router.goto(route, {page: `${Number(page) + 1}`})
           }}
-          type="button">
+          type="button"
+        >
           Next Page
         </button>
         {data.loading && <p>Loading...</p>}

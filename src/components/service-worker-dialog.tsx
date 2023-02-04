@@ -59,7 +59,8 @@ export function ServiceWorkerDialog() {
         open={offlineReady}
         onCancel={onOfflineReadyAction}
         onClose={onOfflineReadyAction}
-        ref={offlineReadyDialogRef}>
+        ref={offlineReadyDialogRef}
+      >
         <h4 style={{margin: 0}}>You are offline.</h4>
         <p>
           This app is designed to work offline, so you can continue to use it. Note that data could be lost if someone

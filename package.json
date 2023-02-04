@@ -24,7 +24,6 @@
     "semi": false,
     "singleQuote": true,
     "arrowParens": "avoid",
-    "bracketSameLine": true,
     "bracketSpacing": false,
     "printWidth": 120,
     "importOrder": [

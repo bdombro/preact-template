@@ -14,7 +14,8 @@ export default function Index() {
           onClick={async () => {
             throw new Error('This is a test error.')
           }}
-          type="button">
+          type="button"
+        >
           Click to test error boundary
         </button>
         <fieldset>
