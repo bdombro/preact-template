@@ -38,6 +38,7 @@
   "postcss": {
     "map": true,
     "plugins": {
+      "postcss-custom-selectors": {},
       "postcss-extend": {},
       "postcss-nested": {}
     }
@@ -68,6 +69,8 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.31.11",
     "husky": "^8.0.3",
+    "postcss": "^8.4.21",
+    "postcss-custom-selectors": "^7.1.1",
     "postcss-extend": "^1.0.5",
     "postcss-nested": "^6.0.0",
     "prettier": "^2.8.2",
