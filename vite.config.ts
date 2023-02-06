@@ -11,8 +11,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Disable code-splitting if so desired
-        manualChunks: () => 'all',
+        // Comment out manualChunks for default code-splitting
+        // manualChunks: id => {
+        //   id
+        //   // id = relative path to the file
+        //   // const pageName = /[^.]*/.exec(id.split('pages')[1])?.[0]?.replace('undefined', '').replace('/', '')
+        //   // if (pageName) return pageName
+        //   return 'main'
+        // },
       },
     },
   },
