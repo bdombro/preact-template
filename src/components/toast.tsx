@@ -1,4 +1,4 @@
-import './toast.css'
+import './toast.pcss'
 
 import {useEffect, useEvent, useKey, useRef, useState} from '~/util/hooks'
 import * as i from '~/util/icons'
@@ -133,15 +133,30 @@ function ToastStack({placement}: {placement: ToastProps['placement']}) {
     return oldestNonInfinite || oldest
   }
 
+  /**
+   * Upsert the toast in the stack IFF the toast targets this stack.
+   *
+   * - First does checks on whether the toast matches the placement prop, bc
+   *   toast events go to all placement stacks, but only one should accept it
+   */
   const putToast = (_toast: ToastProps) => {
-    if (_toast.placement !== placement) return
-    stack.set(_toast.key, _toast)
-    if (!toast || toast?.duration === Infinity) {
-      setToast(_toast)
-    }
-    if (toast?.key === _toast.key) {
-      restartTimer()
-      growThenShrink()
+    // First check if exact match
+    const isPlacementMatch = _toast.placement === placement
+
+    // Now check for responsive match. We swap right for bottom on mobile
+    const isMobile = window.innerWidth < 768
+    const isPlacementBottomToastRightAndMobile = placement === 'bottom' && _toast.placement === 'right' && isMobile
+    const isPlacementRightAndMobile = placement === 'right' && isMobile
+
+    if ((isPlacementMatch || isPlacementBottomToastRightAndMobile) && !isPlacementRightAndMobile) {
+      stack.set(_toast.key, _toast)
+      if (!toast || toast?.duration === Infinity) {
+        setToast(_toast)
+      }
+      if (toast?.key === _toast.key) {
+        restartTimer()
+        growThenShrink()
+      }
     }
   }
 
