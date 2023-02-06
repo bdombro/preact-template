@@ -9,16 +9,38 @@ import {VitePWA as vitePWA} from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [react(), mkcert(), vitePWA({registerType: 'autoUpdate'})],
   build: {
+    cssCodeSplit: false,
     rollupOptions: {
       output: {
         // Comment out manualChunks for default code-splitting
-        // manualChunks: id => {
-        //   id
-        //   // id = relative path to the file
-        //   // const pageName = /[^.]*/.exec(id.split('pages')[1])?.[0]?.replace('undefined', '').replace('/', '')
-        //   // if (pageName) return pageName
-        //   return 'main'
-        // },
+
+        /**
+         * Manual chunks is a key/val or function that returns an answer
+         * of which bundle a module should be placed in for splitting.
+         * Returning undefined will use the default strategy.
+         *
+         * @param {string} id - The module id aka the path to the module
+         *
+         * @returns {string | undefined} - The name of the chunk to place the module in or undefined to use default
+         */
+        manualChunks: (/* id */) => {
+          /**
+           * ATM we're better off without icon splitting. Tree shaking already saves us a TON.
+           * - Each icon is ~100B
+           * - Bundled together = ~520B
+           * - Bundled with main = ~390B
+           */
+          // if (id.includes('mdi-paths-split')) {
+          //   return 'icons'
+          // }
+
+          // ATM we're better off without page splitting
+          // if (!id.includes('pages')) {
+          //   return
+          // }
+
+          return 'main'
+        },
       },
     },
   },
