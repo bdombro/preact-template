@@ -11,7 +11,7 @@ const navitems = [
 export function Layout({children}: {children: React.ReactNode}) {
   return (
     <>
-      <Header _h={55}>
+      <header style={{height: 55}}>
         <Nav
           _bg="#aaa"
           _border="8px solid #ffffff77"
@@ -37,9 +37,9 @@ export function Layout({children}: {children: React.ReactNode}) {
             </A>
           ))}
         </Nav>
-      </Header>
+      </header>
 
-      <Main>{children}</Main>
+      <main>{children}</main>
     </>
   )
 }

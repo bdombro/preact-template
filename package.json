@@ -8,7 +8,8 @@
     "start": "vite",
     "prepare": "husky install",
     "preview": "vite preview",
-    "lint": "tsc && eslint .",
+    "lint": "eslint .",
+    "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css,pcss --exec 'eslint .'",
     "format": "prettier -w .",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -27,7 +28,9 @@
     "bracketSpacing": false,
     "printWidth": 120,
     "importOrder": [
-      "/lib/polyfills",
+      ".pcss$",
+      ".css$",
+      "polyfills|primitives",
       "<THIRD_PARTY_MODULES>",
       "~/(.*)$",
       "^[./]"
@@ -45,6 +48,7 @@
   },
   "dependencies": {
     "@ustyle/styled": "^1.0.39",
+    "mdi-paths-split": "^5.9.55",
     "preact": "^10.11.3"
   },
   "devDependencies": {
@@ -100,7 +104,6 @@
     "ignorePatterns": [
       "dist"
     ],
-    "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "ecmaVersion": "latest",
@@ -111,13 +114,33 @@
       "@typescript-eslint"
     ],
     "rules": {
-      "react/button-has-type": "error",
-      "react/jsx-no-undef": "off",
-      "react/no-unescaped-entities": "off",
+      "@typescript-eslint/ban-types": "off",
       "@typescript-eslint/no-empty-function": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/no-unused-vars": "error"
+      "@typescript-eslint/no-unused-vars": "error",
+      "no-prototype-builtins": "off",
+      "react/button-has-type": "error",
+      "react/jsx-no-undef": "off",
+      "react/no-unescaped-entities": "off"
     },
+    "overrides": [
+      {
+        "files": [
+          "src/@types/**/*"
+        ],
+        "rules": {
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+      },
+      {
+        "files": [
+          "src/util/polyfills/**/*"
+        ],
+        "rules": {
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+      }
+    ],
     "settings": {
       "react": {
         "version": "18"

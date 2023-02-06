@@ -1,5 +1,5 @@
 import {Layout} from '~/components/layout-default'
-import {setPageMeta} from '~/util/page-meta'
+import {setPageMeta} from '~/util/head'
 
 export default function NotFound() {
   const {description} = setPageMeta({

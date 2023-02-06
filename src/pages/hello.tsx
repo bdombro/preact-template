@@ -1,6 +1,6 @@
 import {Filler} from '~/components/filler'
 import {Layout} from '~/components/layout-default'
-import {setPageMeta} from '~/util/page-meta'
+import {setPageMeta} from '~/util/head'
 import type {RouteMatch} from '~/util/stackr'
 
 export default function Hello({route}: {route: RouteMatch}) {

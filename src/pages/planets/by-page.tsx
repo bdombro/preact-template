@@ -1,7 +1,7 @@
 import {Fragment as F} from 'react'
 
 import {Layout} from '~/components/layout-default'
-import {setPageMeta} from '~/util/page-meta'
+import {setPageMeta} from '~/util/head'
 import {router} from '~/util/router'
 import type {RouteMatch} from '~/util/stackr'
 import * as sw from '~/util/swapi'

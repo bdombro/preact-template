@@ -1,0 +1,123 @@
+.toast {
+  --toast-color-info: #444;
+  --toast-color-success: green;
+  --toast-color-success: var(--color-success);
+  --toast-color-warning: orange;
+  --toast-color-warning: var(--color-warning);
+  --toast-color-danger: red;
+  --toast-color-danger: var(--color-danger);
+  position: fixed;
+  transition: all 1s linear;
+  z-index: 100;
+}
+.toast.animatedIn {
+  transition: right 0.06s linear;
+}
+.toast.animatedOut {
+  transition: bottom 0.3s linear, right 0.2s linear, opacity 0.1s;
+}
+.toast.grow {
+  transform: scale(1.04);
+}
+.toast[data-placement='bottom'] {
+  bottom: 10px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}
+@media (max-width: 700px) {
+  .toast[data-placement='bottom'] {
+    bottom: 20px;
+  }
+}
+.toast[data-placement='bottom']._hidden {
+  bottom: -100px;
+}
+.toast[data-placement='right'] {
+  border-radius: 6px;
+  right: 10px;
+  top: 70px;
+}
+@media (max-width: 700px) {
+  .toast[data-placement='right'] {
+    top: 10px;
+  }
+}
+.toast[data-placement='right']._hidden {
+  right: -330px;
+}
+.toast[data-placement='center'] {
+  left: 0;
+  top: 150px;
+  text-align: center;
+  width: 100%;
+}
+.toast[data-placement='center']._hidden {
+  opacity: 0;
+}
+.toast > div {
+  background: var(--toast-color-info);
+  border-radius: 6px;
+  color: #fff;
+  display: flex;
+  max-width: 330px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  position: relative;
+  width: fit-content;
+}
+.toast[data-placement='center'] > div,
+.toast[data-placement='bottom'] > div {
+  max-width: 500px;
+  min-width: 230px;
+}
+.toast[data-placement='center'] > div {
+  padding: 30px;
+}
+@media (max-width: 700px) {
+  .toast[data-placement='center'] > div {
+    padding: 20px;
+  }
+}
+.toast.success > div {
+  background: var(--toast-color-success);
+}
+.toast.warning > div {
+  background: var(--toast-color-warning);
+}
+.toast.error > div {
+  background: var(--toast-color-danger);
+}
+.toast a,
+.toast a:active {
+  color: white;
+  text-decoration: underline;
+}
+.toast a:active {
+  text-decoration: none;
+}
+.toast > div > div {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  gap: 10px;
+  text-align: left;
+}
+.toast .message {
+  flex: 1;
+}
+.toast .message:last-child > :first-child {
+  margin-top: 0;
+}
+.toast .dismiss {
+  background: #ffffff33;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px;
+  margin-left: 20px;
+}
+.toast .dismiss:hover {
+  transform: scale(1.1);
+}

@@ -1,8 +1,9 @@
+import './polyfills/node'
+import '~/components/primitives'
+
 import '@testing-library/jest-dom'
 import {cleanup} from '@testing-library/react'
 import {afterEach, vi} from 'vitest'
-
-import '~/components/primitives'
 
 afterEach(() => {
   cleanup()

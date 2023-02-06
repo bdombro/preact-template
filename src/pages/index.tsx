@@ -1,6 +1,6 @@
 import {Layout} from '~/components/layout-default'
+import {setPageMeta} from '~/util/head'
 import {Markdown} from '~/util/markdown'
-import {setPageMeta} from '~/util/page-meta'
 
 export default function Index() {
   const {title, description} = setPageMeta({title: 'Home'})
@@ -14,6 +14,7 @@ export default function Index() {
           onClick={async () => {
             throw new Error('This is a test error.')
           }}
+          style={{marginBottom: '1rem'}}
           type="button"
         >
           Click to test error boundary

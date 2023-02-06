@@ -1,4 +1,15 @@
 /**
+ * Append an element to the head of the document
+ *
+ * @param type - The type of element to append (e.g. 'link', 'script')
+ * @param attrs - The attributes to set on the element. Tip: use innerHTML to set content
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function appendElement(type: string, attrs: Record<string, any>) {
+  document.head.appendChild(Object.assign(document.createElement(type), attrs))
+}
+
+/**
  * setPageMeta: Allows setting common page attrs.
  * - Intelligently use the attrs, only setting if changed
  * - Resets back to initial if omitted, based on initial introspection
