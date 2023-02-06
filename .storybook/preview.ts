@@ -1,5 +1,6 @@
-import '../src/components/primitives'
 import '../src/styles.pcss'
+
+import '../src/components/primitives'
 
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},

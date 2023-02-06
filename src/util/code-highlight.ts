@@ -12,10 +12,12 @@ export async function applyHighlights() {
     })
   }
   // @ts-expect-error - dynamic import
-  import('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/es/highlight.min.js').then(m => {
-    m.default.highlightAll()
-    applyHighlights.lock = false
-  })
+  import('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/es/highlight.min.js').then(
+    m => {
+      m.default.highlightAll()
+      applyHighlights.lock = false
+    }
+  )
 }
 applyHighlights.lock = false
 

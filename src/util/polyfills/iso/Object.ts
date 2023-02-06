@@ -11,8 +11,14 @@ export {}
 
 declare global {
   interface ObjectConstructor {
-    pick<T extends Record<string, any>, K extends keyof T>(obj: T, keys: readonly K[] | K[]): Pick<T, K>
-    omit<T extends Record<string, any>, K extends keyof T>(obj: T, keys: readonly K[] | K[]): Omit<T, K>
+    pick<T extends Record<string, any>, K extends keyof T>(
+      obj: T,
+      keys: readonly K[] | K[]
+    ): Pick<T, K>
+    omit<T extends Record<string, any>, K extends keyof T>(
+      obj: T,
+      keys: readonly K[] | K[]
+    ): Omit<T, K>
     filterAttrs<T extends Record<string, any>>(
       obj: T,
       filter: (attrName: string, attrVal: any) => any,

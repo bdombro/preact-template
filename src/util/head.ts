@@ -59,7 +59,8 @@ export const setPageMeta = (function createSetPageMeta() {
     last?: string
     set: (val: string) => string
     constructor(getter: () => Element) {
-      this.get = () => this.last || getter().getAttribute('content') || throwError(`No content for ${getter}`)
+      this.get = () =>
+        this.last || getter().getAttribute('content') || throwError(`No content for ${getter}`)
       this.set = (v: string) => {
         getter().setAttribute('content', v)
         return (this.last = v)

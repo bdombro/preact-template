@@ -28,7 +28,9 @@ declare global {
     /**
      * Wraps a function in async so that it always returns a promise
      */
-    promisify<T extends (...props: any) => any>(fn: T): (...props: Parameters<T>) => Promise<ReturnTypeP<T>>
+    promisify<T extends (...props: any) => any>(
+      fn: T
+    ): (...props: Parameters<T>) => Promise<ReturnTypeP<T>>
   }
   // interface Promise<T> {
   // 	foo: 'bar'

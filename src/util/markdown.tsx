@@ -72,12 +72,16 @@ export const parse = (str: string) => {
     // images
     .replace(
       /!\[(.*?)\]\(([^ ]*)( [('"][^)'"]+[)'"])*\)/gm,
-      (_, ...args) => `<img href='${args[1]}'${args[2] ? ` title='${args[2].slice(2, -1)}'` : ''}>${args[1]}</img>`
+      (_, ...args) =>
+        `<img href='${args[1]}'${args[2] ? ` title='${args[2].slice(2, -1)}'` : ''}>${
+          args[1]
+        }</img>`
     )
     // links
     .replace(
       /\[(.*?)\]\(([^ ]*)( [('"][^)'"]+[)'"])*\)/gm,
-      (_, ...args) => `<a href='${args[1]}'${args[2] ? ` title='${args[2].slice(2, -1)}'` : ''}>${args[1]}</a>`
+      (_, ...args) =>
+        `<a href='${args[1]}'${args[2] ? ` title='${args[2].slice(2, -1)}'` : ''}>${args[1]}</a>`
     )
     // reference links
     .replace(/\[([^\]]+)\]\[([^\]]+)\]/gm, (_, ...args) => {

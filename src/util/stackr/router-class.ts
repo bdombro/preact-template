@@ -250,7 +250,10 @@ export class Router<
     const urlRx = '^' + pathMask.replace(argRx, '([^/]*)') + (exact ? '$' : '')
     const match = [...path.matchAll(new RegExp(urlRx, 'gi'))]?.[0]
     const urlParams = match
-      ? [...pathMask.matchAll(argRx)].reduce((acc, arg, i) => ({...acc, [arg[1]]: match[i + 1]}), {})
+      ? [...pathMask.matchAll(argRx)].reduce(
+          (acc, arg, i) => ({...acc, [arg[1]]: match[i + 1]}),
+          {}
+        )
       : false
     return urlParams
   }

@@ -36,20 +36,18 @@ export function Toasts() {
   useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
   useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
   useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
-  useKey('s', () => dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'}))
-  useKey('d', () => dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'}))
-  useKey('n', () => dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'}))
+  useKey('s', () =>
+    dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
+  )
+  useKey('d', () =>
+    dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
+  )
+  useKey('n', () =>
+    dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
+  )
 
   return (
     <>
-      {/* Prefetch icons in case network is lost */}
-      <div style={{display: 'none'}}>
-        <i.Alert />
-        <i.Close />
-        <i.Error />
-        <i.Info />
-        <i.Success />
-      </div>
       <ToastStack placement="right" />
       <ToastStack placement="bottom" />
       <ToastStack placement="center" />
@@ -145,7 +143,8 @@ function ToastStack({placement}: {placement: ToastProps['placement']}) {
 
     // Now check for responsive match. We swap right for bottom on mobile
     const isMobile = window.innerWidth < 768
-    const isPlacementBottomToastRightAndMobile = placement === 'bottom' && _toast.placement === 'right' && isMobile
+    const isPlacementBottomToastRightAndMobile =
+      placement === 'bottom' && _toast.placement === 'right' && isMobile
     const isPlacementRightAndMobile = placement === 'right' && isMobile
 
     if ((isPlacementMatch || isPlacementBottomToastRightAndMobile) && !isPlacementRightAndMobile) {
@@ -170,7 +169,9 @@ function ToastStack({placement}: {placement: ToastProps['placement']}) {
   const restartTimer = () => {
     if (!toast || toast.duration === Infinity) return
     clearTimeouts()
-    timeouts.add(setTimeout(selfDestruct, toast.duration === Infinity ? 100_000_000_000 : toast.duration))
+    timeouts.add(
+      setTimeout(selfDestruct, toast.duration === Infinity ? 100_000_000_000 : toast.duration)
+    )
   }
 
   const selfDestruct = () => {

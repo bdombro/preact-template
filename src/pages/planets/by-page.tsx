@@ -26,7 +26,12 @@ export default function PlanetsByPage({route}: {route: RouteMatch}) {
       <Layout.Section>
         <h1>{title}</h1>
         <p>{description}</p>
-        <button id="refetch-page" onClick={() => data.refresh()} disabled={data.loading} type="button">
+        <button
+          id="refetch-page"
+          onClick={() => data.refresh()}
+          disabled={data.loading}
+          type="button"
+        >
           Refetch
         </button>
         <button

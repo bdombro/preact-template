@@ -20,24 +20,6 @@
   "engines": {
     "node": "18.12.0"
   },
-  "prettier": {
-    "trailingComma": "es5",
-    "semi": false,
-    "singleQuote": true,
-    "arrowParens": "avoid",
-    "bracketSpacing": false,
-    "printWidth": 120,
-    "importOrder": [
-      ".pcss$",
-      ".css$",
-      "polyfills|primitives",
-      "<THIRD_PARTY_MODULES>",
-      "~/(.*)$",
-      "^[./]"
-    ],
-    "importOrderSeparation": true,
-    "importOrderSortSpecifiers": true
-  },
   "postcss": {
     "map": true,
     "plugins": {
@@ -146,5 +128,23 @@
         "version": "18"
       }
     }
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "bracketSpacing": false,
+    "printWidth": 100,
+    "importOrder": [
+      ".pcss$",
+      ".css$",
+      "polyfills|primitives",
+      "<THIRD_PARTY_MODULES>",
+      "~/(.*)$",
+      "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
   }
 }

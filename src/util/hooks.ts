@@ -61,7 +61,12 @@ type UseEventsProps<K extends string | keyof WindowEventMap> = {
  * executes a handler when a keyboard key is used.
  * Ex. useKey('ArrowUp', callback);
  */
-export function useKey(key: KeyFilter, fn: Handler = () => {}, opts: UseKeyOptions = {}, deps: Inputs = [key]) {
+export function useKey(
+  key: KeyFilter,
+  fn: Handler = () => {},
+  opts: UseKeyOptions = {},
+  deps: Inputs = [key]
+) {
   const {event = 'keydown', ...optsNoEvent} = opts
   const useMemoHandler = useMemo(() => {
     const predicate: KeyPredicate = useKey.createKeyPredicate(key)
