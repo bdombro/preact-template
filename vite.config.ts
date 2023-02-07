@@ -27,7 +27,7 @@ export default defineConfig({
          * @returns {string | undefined} - The name of the chunk to place the module in or undefined to use default
          */
         manualChunks: id => {
-          if (id.includes('mdi-paths-split')) {
+          if (id.includes('@iconify/icons-mdi')) {
             return
           }
 
