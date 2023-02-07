@@ -28,7 +28,7 @@ export default defineConfig({
          */
         manualChunks: id => {
           if (id.includes('@iconify/icons-mdi')) {
-            return
+            return 'icons/' + id.split('/').at(-1).slice(0, -3)
           }
 
           // ATM we're better off without page splitting
