@@ -16,56 +16,51 @@ addCss(`
 @keyframes spin { to { transform: rotate(360deg) } }
 `)
 
-// MDI Icons
-const L = LazyIconFactory
-// const I = IconFactory
-export const Account = L(() => import('mdi-paths-split/CardAccountDetailsOutline'))
-export const Alert = L(() => import('mdi-paths-split/AlertOutline'))
-export const ArrowL = L(() => import('mdi-paths-split/ArrowLeft'))
-export const ArrowR = L(() => import('mdi-paths-split/ArrowRight'))
-export const Auth = L(() => import('mdi-paths-split/ShieldAccountOutline'))
-export const Building = L(() => import('mdi-paths-split/OfficeBuildingMarkerOutline'))
-export const CarrotUp = L(() => import('mdi-paths-split/MenuUp'))
-export const CarrotDown = L(() => import('mdi-paths-split/MenuDown'))
-export const CarrotLeft = L(() => import('mdi-paths-split/MenuLeft'))
-export const CarrotRight = L(() => import('mdi-paths-split/MenuRight'))
-export const CheckboxM = L(() => import('mdi-paths-split/CheckboxMarked'))
-export const CheckboxB = L(() => import('mdi-paths-split/CheckboxBlankOutline'))
-export const ChevronL2x = L(() => import('mdi-paths-split/ChevronDoubleLeft'))
-export const ChevronR2x = L(() => import('mdi-paths-split/ChevronDoubleRight'))
-export const Close = L(() => import('mdi-paths-split/Close'))
-export const Counter = L(() => import('mdi-paths-split/Counter'))
-export const DotsV = L(() => import('mdi-paths-split/DotsVertical'))
-export const Error = L(() => import('mdi-paths-split/AlertOctagonOutline'))
-export const Home = L(() => import('mdi-paths-split/HomeOutline'))
-export const Info = L(() => import('mdi-paths-split/InformationOutline'))
-export const Login = L(() => import('mdi-paths-split/LoginVariant'))
-export const Logout = L(() => import('mdi-paths-split/LogoutVariant'))
-export const MapPin = L(() => import('mdi-paths-split/MapMarker'))
-export const Menu = L(() => import('mdi-paths-split/MenuOpen'))
-export const Person = L(() => import('mdi-paths-split/Account'))
-export const Palette = L(() => import('mdi-paths-split/PaletteOutline'))
-export const Post = L(() => import('mdi-paths-split/PostOutline'))
-export const ReactLogo = L(() => import('mdi-paths-split/React'))
-export const RoundedCornerInv = L(() => import('./iconsCustom/RoundedCornerInverted'))
-export const Search = L(() => import('mdi-paths-split/Magnify'))
-export const Support = L(() => import('mdi-paths-split/Lifebuoy'))
-export const Success = L(() => import('mdi-paths-split/CheckCircleOutline'))
-export const Tasks = L(() => import('mdi-paths-split/OrderBoolAscendingVariant'))
+const icons = {
+  account: () => import('mdi-paths-split/CardAccountDetailsOutline'),
+  alert: () => import('mdi-paths-split/AlertOutline'),
+  arrowL: () => import('mdi-paths-split/ArrowLeft'),
+  arrowR: () => import('mdi-paths-split/ArrowRight'),
+  auth: () => import('mdi-paths-split/ShieldAccountOutline'),
+  building: () => import('mdi-paths-split/OfficeBuildingMarkerOutline'),
+  carrotUp: () => import('mdi-paths-split/MenuUp'),
+  carrotDown: () => import('mdi-paths-split/MenuDown'),
+  carrotLeft: () => import('mdi-paths-split/MenuLeft'),
+  carrotRight: () => import('mdi-paths-split/MenuRight'),
+  checkboxM: () => import('mdi-paths-split/CheckboxMarked'),
+  checkboxB: () => import('mdi-paths-split/CheckboxBlankOutline'),
+  chevronL2x: () => import('mdi-paths-split/ChevronDoubleLeft'),
+  chevronR2x: () => import('mdi-paths-split/ChevronDoubleRight'),
+  close: () => import('mdi-paths-split/Close'),
+  counter: () => import('mdi-paths-split/Counter'),
+  dotsV: () => import('mdi-paths-split/DotsVertical'),
+  error: () => import('mdi-paths-split/AlertOctagonOutline'),
+  home: () => import('mdi-paths-split/HomeOutline'),
+  info: () => import('mdi-paths-split/InformationOutline'),
+  login: () => import('mdi-paths-split/LoginVariant'),
+  logout: () => import('mdi-paths-split/LogoutVariant'),
+  mapPin: () => import('mdi-paths-split/MapMarker'),
+  menu: () => import('mdi-paths-split/MenuOpen'),
+  person: () => import('mdi-paths-split/Account'),
+  palette: () => import('mdi-paths-split/PaletteOutline'),
+  post: () => import('mdi-paths-split/PostOutline'),
+  reactLogo: () => import('mdi-paths-split/React'),
+  roundedCornerInv: () => import('./iconsCustom/RoundedCornerInverted'),
+  search: () => import('mdi-paths-split/Magnify'),
+  support: () => import('mdi-paths-split/Lifebuoy'),
+  success: () => import('mdi-paths-split/CheckCircleOutline'),
+  tasks: () => import('mdi-paths-split/OrderBoolAscendingVariant'),
+} as const
+
+export type Icons = typeof icons
+
+export function Icon({name, ...props}: {name: keyof Icons} & Omit<IconProps, 'name'>) {
+  return <LazyIconSvg svgPathImport={icons[name]} {...props} />
+}
 
 // Helpers
 
-function LazyIconFactory(lazyPath: LazyIconSvgProps['svgPathImport'], extraProps?: IconProps) {
-  const IconComponent: IconComponentType = (props: IconProps) => (
-    <LazyIconSvg svgPathImport={lazyPath} {...extraProps} {...props} />
-  )
-  return IconComponent
-}
-// function IconFactory(path: string) {
-//   const IconComponent: IconComponentType = (props: IconProps) => <IconSvg path={path} {...props} />
-//   return IconComponent
-// }
-export type IconComponentType = (props: IconProps) => JSX.Element
+// export type IconComponentType = (props: IconProps) => JSX.Element
 type IconProps = Omit<LazyIconSvgProps, 'svgPathImport'>
 
 // Lazily loaded IconSvg
@@ -98,7 +93,8 @@ interface IconSvgProps extends Omit<JSX.IntrinsicElements['svg'], 'size'> {
   spin?: boolean | number // spin the svg # seconds per spin. Default = 2
   spinInverse?: boolean // inverse the spin
 }
-export function IconSvg({
+
+function IconSvg({
   path = '',
   size = 24,
   fill = 'currentColor',

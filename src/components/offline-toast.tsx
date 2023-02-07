@@ -15,7 +15,7 @@ export function OfflineToast() {
 }
 
 function onOffline() {
-  toast({message: 'Disconnected', variant: 'warning'})
+  toast({message: 'Disconnected', variant: 'alert'})
   toast({
     message: 'You are offline. This app works some but not all offline',
     key: 'offline-ready',

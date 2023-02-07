@@ -1,7 +1,7 @@
 import './toast.pcss'
 
-import {useEffect, useEvent, useKey, useRef, useState} from '~/util/hooks'
-import * as i from '~/util/icons'
+import {useEffect, useEvent, useRef, useState} from '~/util/hooks'
+import {Icon, Icons} from '~/util/icons'
 
 const createEvent = 'toast'
 const cancelEvent = 'toast-cancel'
@@ -12,7 +12,7 @@ interface ToastProps {
   /** The duration in milliseconds to display the toast. If Infinity, will show until cancelled. */
   duration: number
   /** The icon to display. If omitted, will use variant default. If null, no icon will be displayed. */
-  icon: i.IconComponentType | null
+  icon: keyof Icons | null
   /**
    * A unique key for the toast. If not provided, a random key will be generated.
    *
@@ -25,26 +25,26 @@ interface ToastProps {
   /** The message to displace */
   message: React.ReactNode
   /** impacts the color and icon. default = info */
-  variant: 'info' | 'success' | 'warning' | 'error'
+  variant: 'info' | 'success' | 'alert' | 'error'
 }
 type CreateToastProps = Partial<Omit<ToastProps, 'message'>> & Pick<ToastProps, 'message'>
 
 export function Toasts() {
   // Testing
-  useKey('c', () => dispatchToast({key: 'c', message: 'center placement', placement: 'center'}))
-  useKey('b', () => dispatchToast({key: 'b', message: 'bottom placement', placement: 'bottom'}))
-  useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
-  useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
-  useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
-  useKey('s', () =>
-    dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
-  )
-  useKey('d', () =>
-    dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
-  )
-  useKey('n', () =>
-    dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
-  )
+  // useKey('c', () => dispatchToast({key: 'c', message: 'center placement', placement: 'center'}))
+  // useKey('b', () => dispatchToast({key: 'b', message: 'bottom placement', placement: 'bottom'}))
+  // useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
+  // useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
+  // useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
+  // useKey('s', () =>
+  //   dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
+  // )
+  // useKey('d', () =>
+  //   dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
+  // )
+  // useKey('n', () =>
+  //   dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
+  // )
 
   return (
     <>
@@ -207,12 +207,17 @@ function ToastStack({placement}: {placement: ToastProps['placement']}) {
           <div>
             {!!toast?.icon && (
               <div>
-                <toast.icon size={40} />
+                <Icon name={toast.icon} size={40} />
               </div>
             )}
             <div className="message">{toast?.message}</div>
             {toast?.duration === Infinity && toast?.dismissable && (
-              <i.Close className="dismiss" size={20} onClick={() => cancelToast(toast.key)} />
+              <Icon
+                className="dismiss"
+                name="close"
+                onClick={() => cancelToast(toast.key)}
+                size={20}
+              />
             )}
           </div>
         </div>
@@ -243,14 +248,7 @@ export function dispatchToast(eventData: CreateToastProps) {
   const toast: ToastProps = {
     dismissable,
     duration,
-    icon:
-      icon === null
-        ? null
-        : icon ||
-          (variant === 'success' && i.Success) ||
-          (variant === 'warning' && i.Alert) ||
-          (variant === 'error' && i.Error) ||
-          i.Info,
+    icon: icon !== null ? icon || variant : null,
     key,
     placement,
     message,

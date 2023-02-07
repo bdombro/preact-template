@@ -2,8 +2,8 @@
   --toast-color-info: #444;
   --toast-color-success: green;
   --toast-color-success: var(--color-success);
-  --toast-color-warning: orange;
-  --toast-color-warning: var(--color-warning);
+  --toast-color-alert: orange;
+  --toast-color-alert: var(--color-alert);
   --toast-color-danger: red;
   --toast-color-danger: var(--color-danger);
   position: fixed;
@@ -62,8 +62,8 @@
   &.success > div {
     background: var(--toast-color-success);
   }
-  &.warning > div {
-    background: var(--toast-color-warning);
+  &.alert > div {
+    background: var(--toast-color-alert);
   }
   &.error > div {
     background: var(--toast-color-danger);

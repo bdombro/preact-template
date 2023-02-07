@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import react from '@vitejs/plugin-react-swc'
-import path from 'node:path'
+import {resolve} from 'node:path'
 import {defineConfig} from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import {VitePWA as vitePWA} from 'vite-plugin-pwa'
@@ -11,6 +11,9 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+      },
       output: {
         // Comment out manualChunks for default code-splitting
 
@@ -23,16 +26,10 @@ export default defineConfig({
          *
          * @returns {string | undefined} - The name of the chunk to place the module in or undefined to use default
          */
-        manualChunks: (/* id */) => {
-          /**
-           * ATM we're better off without icon splitting. Tree shaking already saves us a TON.
-           * - Each icon is ~100B
-           * - Bundled together = ~520B
-           * - Bundled with main = ~390B
-           */
-          // if (id.includes('mdi-paths-split')) {
-          //   return 'icons'
-          // }
+        manualChunks: id => {
+          if (id.includes('mdi-paths-split')) {
+            return
+          }
 
           // ATM we're better off without page splitting
           // if (!id.includes('pages')) {
@@ -48,7 +45,7 @@ export default defineConfig({
     alias: {
       react: 'preact/compat',
       'react-dom': 'preact/compat',
-      '~': path.resolve(__dirname, './src'),
+      '~': resolve(__dirname, 'src'),
     },
   },
   test: {
