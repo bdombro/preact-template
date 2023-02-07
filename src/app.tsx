@@ -11,7 +11,7 @@ import {ErrorToast} from './components/error-toast'
 import {OfflineToast} from './components/offline-toast'
 import {ServiceWorkerToasts} from './components/service-worker-toasts'
 import {Toasts} from './components/toast'
-import {router} from './util/router'
+import {router} from './router'
 import {Switch} from './util/stackr'
 
 export function App() {

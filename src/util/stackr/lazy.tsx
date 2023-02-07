@@ -52,3 +52,5 @@ export function Lazy({
 
   return state?.current
 }
+
+export type LazyProps = Parameters<typeof Lazy>[0]

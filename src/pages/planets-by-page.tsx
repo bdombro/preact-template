@@ -1,6 +1,6 @@
 import {Layout} from '~/components/layout-default'
+import {router} from '~/router'
 import {setPageMeta} from '~/util/head'
-import {router} from '~/util/router'
 import type {RouteMatch} from '~/util/stackr'
 import * as sw from '~/util/swapi'
 import useSwr from '~/util/swr'

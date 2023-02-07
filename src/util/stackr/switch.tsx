@@ -6,11 +6,14 @@ export function Switch({router}: {router: RouterInstance}) {
 
   useEffect(() => router.subscribe(setRoute), [])
 
-  return (
-    <Lazy
-      loader={route.loader}
-      props={{route, url: new URL(location.href)}}
-      onLoad={router.onLoad}
-    />
+  return useMemo(
+    () => (
+      <Lazy
+        loader={route.loader}
+        props={{route, url: new URL(location.href)}}
+        onLoad={router.onLoad}
+      />
+    ),
+    [route]
   )
 }

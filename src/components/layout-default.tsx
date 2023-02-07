@@ -1,4 +1,4 @@
-import {router as r} from '~/util/router'
+import {router as r} from '~/router'
 
 const navitems = [
   {name: 'Home', path: r.routes.index.path},

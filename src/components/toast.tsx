@@ -1,5 +1,7 @@
 import './toast.pcss'
 
+import {memo} from 'react'
+
 const createEvent = 'toast'
 const cancelEvent = 'toast-cancel'
 
@@ -26,22 +28,22 @@ interface ToastProps {
 }
 type CreateToastProps = Partial<Omit<ToastProps, 'message'>> & Pick<ToastProps, 'message'>
 
-export function Toasts() {
+export const Toasts = memo(function Toasts() {
   // Testing
-  useKey('c', () => dispatchToast({key: 'c', message: 'center placement', placement: 'center'}))
-  useKey('b', () => dispatchToast({key: 'b', message: 'bottom placement', placement: 'bottom'}))
-  useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
-  useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
-  useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
-  useKey('s', () =>
-    dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
-  )
-  useKey('d', () =>
-    dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
-  )
-  useKey('n', () =>
-    dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
-  )
+  // useKey('c', () => dispatchToast({key: 'c', message: 'center placement', placement: 'center'}))
+  // useKey('b', () => dispatchToast({key: 'b', message: 'bottom placement', placement: 'bottom'}))
+  // useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
+  // useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
+  // useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
+  // useKey('s', () =>
+  //   dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
+  // )
+  // useKey('d', () =>
+  //   dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
+  // )
+  // useKey('n', () =>
+  //   dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
+  // )
 
   return (
     <>
@@ -50,7 +52,7 @@ export function Toasts() {
       <ToastStack placement="center" />
     </>
   )
-}
+})
 
 /**
  * Displays a toast message.
