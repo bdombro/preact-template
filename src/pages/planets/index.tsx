@@ -1,5 +1,3 @@
-import {useEffect} from 'react'
-
 import {Layout} from '~/components/layout-default'
 import {router as r} from '~/util/router'
 

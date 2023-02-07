@@ -29,8 +29,8 @@
     }
   },
   "dependencies": {
+    "@iconify/icons-mdi": "^1.2.41",
     "@ustyle/styled": "^1.0.39",
-    "mdi-paths-split": "^5.9.55",
     "preact": "^10.11.3"
   },
   "devDependencies": {
@@ -119,6 +119,7 @@
           "src/util/polyfills/**/*"
         ],
         "rules": {
+          "no-var": "off",
           "@typescript-eslint/no-explicit-any": "off"
         }
       }

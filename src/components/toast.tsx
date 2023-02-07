@@ -1,8 +1,5 @@
 import './toast.pcss'
 
-import {useEffect, useEvent, useRef, useState} from '~/util/hooks'
-import {Icon, Icons} from '~/util/icons'
-
 const createEvent = 'toast'
 const cancelEvent = 'toast-cancel'
 
@@ -12,7 +9,7 @@ interface ToastProps {
   /** The duration in milliseconds to display the toast. If Infinity, will show until cancelled. */
   duration: number
   /** The icon to display. If omitted, will use variant default. If null, no icon will be displayed. */
-  icon: keyof Icons | null
+  icon: IconKeys | null
   /**
    * A unique key for the toast. If not provided, a random key will be generated.
    *
@@ -31,20 +28,20 @@ type CreateToastProps = Partial<Omit<ToastProps, 'message'>> & Pick<ToastProps, 
 
 export function Toasts() {
   // Testing
-  // useKey('c', () => dispatchToast({key: 'c', message: 'center placement', placement: 'center'}))
-  // useKey('b', () => dispatchToast({key: 'b', message: 'bottom placement', placement: 'bottom'}))
-  // useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
-  // useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
-  // useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
-  // useKey('s', () =>
-  //   dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
-  // )
-  // useKey('d', () =>
-  //   dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
-  // )
-  // useKey('n', () =>
-  //   dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
-  // )
+  useKey('c', () => dispatchToast({key: 'c', message: 'center placement', placement: 'center'}))
+  useKey('b', () => dispatchToast({key: 'b', message: 'bottom placement', placement: 'bottom'}))
+  useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
+  useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
+  useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
+  useKey('s', () =>
+    dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
+  )
+  useKey('d', () =>
+    dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
+  )
+  useKey('n', () =>
+    dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
+  )
 
   return (
     <>

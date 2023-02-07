@@ -1,5 +1,3 @@
-import {useEffect} from 'react'
-
 import {toast} from './toast'
 
 export function OfflineToast() {

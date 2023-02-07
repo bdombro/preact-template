@@ -1,5 +1,3 @@
-import {useEffect, useState} from 'react'
-
 import {Lazy} from './lazy'
 import type {RouterInstance} from './router-class'
 

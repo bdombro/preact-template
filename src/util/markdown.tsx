@@ -1,17 +1,15 @@
-import {PureComponent} from 'react'
+import {memo} from 'react'
 
 /**
  * Displays markdown
  */
-export class Markdown extends PureComponent<{src: string}> {
-  render() {
-    const __html = parse(this.props.src)
-    if (__html.includes('<pre><code')) {
-      dispatchEvent(new Event('codetag-added'))
-    }
-    return <div dangerouslySetInnerHTML={{__html}} />
+export const Markdown = memo(function Markdown({src}: {src: string}) {
+  const __html = parse(src)
+  if (__html.includes('<pre><code')) {
+    dispatchEvent(new Event('codetag-added'))
   }
-}
+  return <div dangerouslySetInnerHTML={{__html}} />
+})
 
 /**
  * Converts a limited markdown subset to JSX

@@ -1,6 +1,5 @@
 import './util/styles.pcss'
 
-import './components/primitives'
 import './util/polyfills/web'
 
 // for dev

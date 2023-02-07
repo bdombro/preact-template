@@ -1,7 +1,7 @@
-/* eslint-disable no-var */
 import {SC} from '@ustyle/styled'
 // @ts-expect-error - ts can't resolve withHtmlTags without moduleResolute>="node16"
 import styled from '@ustyle/styled/withHtmlTags'
+import {Fragment as _Fragment, Suspense as _Suspense} from 'react'
 
 // You must export something or TS gets confused.
 export {}
@@ -10,6 +10,12 @@ export {}
 type HTP = JSX.IntrinsicElements
 
 declare global {
+  // React primitives
+
+  var F: typeof _Fragment
+  var Fragment: typeof _Fragment
+  var Suspense: typeof _Suspense
+
   /** A styled 'a' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var A: SC<HTP['a']>
   /** A styled 'abbr' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
@@ -193,6 +199,11 @@ declare global {
   /** A styled 'div' tag with d=flex, flexDirection=column, and nice styled magic, like _style props, zx, css, and style short-hands  */
   var FlexC: SC<HTP['div']>
 }
+
+// React primitives
+globalThis.F = _Fragment
+globalThis.Fragment = _Fragment
+globalThis.Suspense = _Suspense
 
 globalThis.A = styled.a``
 globalThis.Abbr = styled.abbr``

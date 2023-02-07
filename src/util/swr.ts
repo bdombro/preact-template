@@ -8,7 +8,6 @@
  * Tiny: only 600 bytes when bundled with Vite
  *
  */
-import {useEffect, useState} from 'react'
 
 /** A generic promise */
 type P = (...args: any[]) => Promise<any>

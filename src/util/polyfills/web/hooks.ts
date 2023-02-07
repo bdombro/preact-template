@@ -1,17 +1,35 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {Inputs, StateUpdater} from 'preact/hooks'
-import {useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState} from 'react'
+import {
+  useCallback as _useCallback,
+  useContext as _useContext,
+  useDebugValue as _useDebugValue,
+  useDeferredValue as _useDeferredValue,
+  useEffect as _useEffect,
+  useId as _useId,
+  useImperativeHandle as _useImperativeHandle,
+  useInsertionEffect as _useInsertionEffect,
+  useLayoutEffect as _useLayoutEffect,
+  useMemo as _useMemo,
+  useReducer as _useReducer,
+  useRef as _useRef,
+  useState as _useState,
+  useSyncExternalStore as _useSyncExternalStore,
+  useTransition as _useTransition,
+} from 'react'
 
-export {useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState}
+// You must export something or TS gets confused.
+export {}
+
+// Global declarations at bottom bc some can't be hoisted 👇
 
 /**
  * useClickAway: Triggers a callback when user clicks outside the target element.
  * Ex. useClickAway(ref, callback);
  */
-export function useClickAway<E extends Event = Event>(
+function _useClickAway<E extends Event = Event>(
   ref: React.MutableRefObject<HTMLElement | null>,
   onDismiss: (event: E) => void,
-  events: string[] = useClickAway.defaultEvents
+  events: string[] = _useClickAway.defaultEvents
 ) {
   const savedCallback = useRef(onDismiss)
   useEffect(() => {
@@ -32,13 +50,13 @@ export function useClickAway<E extends Event = Event>(
     }
   }, [events, ref])
 }
-useClickAway.defaultEvents = ['mousedown', 'touchstart']
+_useClickAway.defaultEvents = ['mousedown', 'touchstart']
 
 /**
  * useEvent: subscribes a handler to window events.
  * Ex. useEvent('keydown', callback); (also see useKey)
  */
-export const useEvent: UseEvent = (type, listener, options) => {
+const _useEvent: UseEvent = (type, listener, options) => {
   useEffect(() => {
     addEventListener(type as any, listener, options)
     return () => {
@@ -61,7 +79,7 @@ type UseEventsProps<K extends string | keyof WindowEventMap> = {
  * executes a handler when a keyboard key is used.
  * Ex. useKey('ArrowUp', callback);
  */
-export function useKey(
+function _useKey(
   key: KeyFilter,
   fn: Handler = () => {},
   opts: UseKeyOptions = {},
@@ -69,7 +87,7 @@ export function useKey(
 ) {
   const {event = 'keydown', ...optsNoEvent} = opts
   const useMemoHandler = useMemo(() => {
-    const predicate: KeyPredicate = useKey.createKeyPredicate(key)
+    const predicate: KeyPredicate = _useKey.createKeyPredicate(key)
     const handler: Handler = handlerEvent => {
       if (predicate(handlerEvent)) return fn(handlerEvent)
     }
@@ -77,10 +95,10 @@ export function useKey(
   }, deps)
   useEvent(event, useMemoHandler, optsNoEvent)
 }
-useKey.codes = {
+_useKey.codes = {
   Esc: 27,
 }
-useKey.createKeyPredicate = (keyFilter: KeyFilter): KeyPredicate =>
+_useKey.createKeyPredicate = (keyFilter: KeyFilter): KeyPredicate =>
   typeof keyFilter === 'function'
     ? keyFilter
     : typeof keyFilter === 'string'
@@ -88,10 +106,10 @@ useKey.createKeyPredicate = (keyFilter: KeyFilter): KeyPredicate =>
     : keyFilter
     ? () => true
     : () => false
-export type KeyPredicate = (event: KeyboardEvent) => boolean
-export type KeyFilter = null | undefined | string | number | ((event: KeyboardEvent) => boolean)
-export type Handler = (event: KeyboardEvent) => void
-export interface UseKeyOptions extends AddEventListenerOptions {
+type KeyPredicate = (event: KeyboardEvent) => boolean
+type KeyFilter = null | undefined | string | number | ((event: KeyboardEvent) => boolean)
+type Handler = (event: KeyboardEvent) => void
+interface UseKeyOptions extends AddEventListenerOptions {
   event?: 'keydown' | 'keypress' | 'keyup'
 }
 
@@ -99,7 +117,7 @@ export interface UseKeyOptions extends AddEventListenerOptions {
  * useEffectDeep: Like useEffect, but does a deep compare instead default compare
  * to avoid misfires
  */
-export function useEffectDeep(callback: Fnc, varsToWatch: any[]) {
+function _useEffectDeep(callback: Fnc, varsToWatch: any[]) {
   const lastSeenProps = useRef<Inputs[]>([])
   useEffect(watchProps, varsToWatch)
 
@@ -115,7 +133,7 @@ export function useEffectDeep(callback: Fnc, varsToWatch: any[]) {
  * useFirstMountState: check if current render is first.
  * from react-use
  */
-export function useFirstMountState(): boolean {
+function _useFirstMountState(): boolean {
   const isFirst = useRef(true)
   if (isFirst.current) {
     isFirst.current = false
@@ -125,18 +143,12 @@ export function useFirstMountState(): boolean {
 }
 
 /**
- * useForceUpdate: returns a callback, which re-renders component when called
- * from react-use's useUpdate
- */
-export const useForceUpdate = useUpdate
-
-/**
  * useInterval: Call callback cb every ms milliseconds after mount
  * @param cb - callback to call after timeout
  * @param ms - milliseconds to wait before calling cb after mount
  * @param cancelOnDismount - whether to cancel on dismount
  */
-export function useInterval(cb: () => any, ms = 0, cancelOnDismount = true) {
+function _useInterval(cb: () => any, ms = 0, cancelOnDismount = true) {
   useEffect(() => {
     const interval = setInterval(cb, ms)
     return () => {
@@ -149,7 +161,7 @@ export function useInterval(cb: () => any, ms = 0, cancelOnDismount = true) {
  * useLayoutEffectDeep: Like useLayoutEffect, but does a deep compare instead default compare
  * to avoid misfires
  */
-export function useLayoutEffectDeep(callback: Fnc, varsToWatch: any[]) {
+function _useLayoutEffectDeep(callback: Fnc, varsToWatch: any[]) {
   const lastSeenProps = useRef<Inputs[]>([])
   useLayoutEffect(watchProps, varsToWatch)
 
@@ -164,24 +176,17 @@ export function useLayoutEffectDeep(callback: Fnc, varsToWatch: any[]) {
 /**
  * useMount: Call callback cb after mount. Does nothing with return result
  */
-export const useMount = (fn: () => any) => {
+function _useMountEffect(fn: () => any) {
   useEffect(() => {
     fn()
   }, [])
 }
 
 /**
- * useMount: Call callback cb on unmount
- */
-export const useUnmount = (fn: () => any) => {
-  useEffect(() => fn, [])
-}
-
-/**
  * useMountedState: returns a fcn that returns true if component is mounted.
  * from react-use
  */
-export function useMountedState() {
+function _useMountedState() {
   const isMountedRef = useRef(true)
   const isMounted = useCallback(() => isMountedRef.current, [])
   useEffect(() => {
@@ -198,7 +203,7 @@ export function useMountedState() {
  *
  * e.g. isWide = useMedia('(min-width: 768px)')
  */
-export function useMedia(query: string) {
+function _useMedia(query: string) {
   const [state, setState] = useState(matchMedia(query).matches)
   useEffect(() => {
     let mounted = true
@@ -218,7 +223,7 @@ export function useMedia(query: string) {
  * useEffectDeep: Like useEffect, but does a deep compare instead default compare
  * to avoid misfires
  */
-export function useMemoDeep(callback: Fnc, varsToWatch: any[]) {
+function _useMemoDeep(callback: Fnc, varsToWatch: any[]) {
   const [lastSeenProps, setLastSeenProps] = useState(varsToWatch)
   useEffect(watchProps, varsToWatch)
   return useMemo(callback, [lastSeenProps])
@@ -226,6 +231,19 @@ export function useMemoDeep(callback: Fnc, varsToWatch: any[]) {
   function watchProps() {
     if (Object.isNotEqual(varsToWatch, lastSeenProps)) setLastSeenProps(varsToWatch)
   }
+}
+
+/**
+ * useUpdate: returns a callback, which re-renders component when called
+ * @param ms - if supplied, will automatically re-render after ms milliseconds
+ */
+function _useRerenderCb(ms = 0) {
+  const updateReducer = (num: number): number => (num + 1) % 1_000_000
+  const [, rerenderCb] = useReducer(updateReducer, 0)
+  useTimeout(() => {
+    if (ms) (rerenderCb as () => void)()
+  }, ms)
+  return rerenderCb as () => void
 }
 
 /**
@@ -242,7 +260,7 @@ export interface UseSet<T> {
   reset(): void
   set: StateUpdater<Set<T>>
 }
-export function useSet<T>(initial: Set<T> = new Set()) {
+function _useSet<T>(initial: Set<T> = new Set()) {
   const [set, setSet] = useState(initial)
   const has: UseSet<T>['has'] = v => set.has(v)
   const add: UseSet<T>['add'] = useCallback(
@@ -292,7 +310,7 @@ export function useSet<T>(initial: Set<T> = new Set()) {
  * @param ms - milliseconds to wait before calling cb after mount
  * @param cancelOnDismount - whether to cancel on dismount
  */
-export function useTimeout(cb: () => any, ms = 0, cancelOnDismount = true) {
+function _useTimeout(cb: () => any, ms = 0, cancelOnDismount = true) {
   useEffect(() => {
     const timeout = setTimeout(cb, ms)
     return () => {
@@ -302,23 +320,17 @@ export function useTimeout(cb: () => any, ms = 0, cancelOnDismount = true) {
 }
 
 /**
- * useUpdate: returns a callback, which re-renders component when called
- * @param ms - if supplied, will automatically re-render after ms milliseconds
+ * useMount: Call callback cb on unmount
  */
-export function useUpdate(ms = 0) {
-  const updateReducer = (num: number): number => (num + 1) % 1_000_000
-  const [, update] = useReducer(updateReducer, 0)
-  useTimeout(() => {
-    if (ms) (update as () => void)()
-  }, ms)
-  return update as () => void
+function _useUnmountEffect(fn: () => any) {
+  useEffect(() => fn, [])
 }
 
 /**
  * useUpdateEffect: run an effect only on updates.
  * based on react-use
  */
-export const useUpdateEffect: typeof useEffect = (effect, deps) => {
+const _useUpdateEffect: typeof useEffect = (effect, deps) => {
   const isFirstMount = useFirstMountState()
   useEffect(() => {
     if (!isFirstMount) {
@@ -326,3 +338,75 @@ export const useUpdateEffect: typeof useEffect = (effect, deps) => {
     }
   }, deps)
 }
+
+declare global {
+  // React hooks
+  var useCallback: typeof _useCallback
+  var useDebugValue: typeof _useDebugValue
+  var useDeferredValue: typeof _useDeferredValue
+  var useEffect: typeof _useEffect
+  var useId: typeof _useId
+  var useImperativeHandle: typeof _useImperativeHandle
+  var useInsertionEffect: typeof _useInsertionEffect
+  var useContext: typeof _useContext
+  var useLayoutEffect: typeof _useLayoutEffect
+  var useMemo: typeof _useMemo
+  var useReducer: typeof _useReducer
+  var useRef: typeof _useRef
+  var useState: typeof _useState
+  var useSyncExternalStore: typeof _useSyncExternalStore
+  var useTransition: typeof _useTransition
+
+  // Custom hooks
+  var useClickAway: typeof _useClickAway
+  var useKey: typeof _useKey
+  var useEffectDeep: typeof _useEffectDeep
+  var useEvent: typeof _useEvent
+  var useFirstMountState: typeof _useFirstMountState
+  var useInterval: typeof _useInterval
+  var useLayoutEffectDeep: typeof _useLayoutEffectDeep
+  var useMountEffect: typeof _useMountEffect
+  var useMountedState: typeof _useMountedState
+  var useMedia: typeof _useMedia
+  var useMemoDeep: typeof _useMemoDeep
+  var useRerenderCb: typeof _useRerenderCb
+  var useSet: typeof _useSet
+  var useTimeout: typeof _useTimeout
+  var useUnmountEffect: typeof _useUnmountEffect
+  var useUpdateEffect: typeof _useUpdateEffect
+}
+
+// React hooks
+globalThis.useCallback = _useCallback
+globalThis.useDebugValue = _useDebugValue
+globalThis.useDeferredValue = _useDeferredValue
+globalThis.useEffect = _useEffect
+globalThis.useId = _useId
+globalThis.useImperativeHandle = _useImperativeHandle
+globalThis.useInsertionEffect = _useInsertionEffect
+globalThis.useContext = _useContext
+globalThis.useLayoutEffect = _useLayoutEffect
+globalThis.useMemo = _useMemo
+globalThis.useReducer = _useReducer
+globalThis.useRef = _useRef
+globalThis.useState = _useState
+globalThis.useSyncExternalStore = _useSyncExternalStore
+globalThis.useTransition = _useTransition
+
+// Custom hooks
+globalThis.useClickAway = _useClickAway
+globalThis.useKey = _useKey
+globalThis.useEffectDeep = _useEffectDeep
+globalThis.useEvent = _useEvent
+globalThis.useFirstMountState = _useFirstMountState
+globalThis.useInterval = _useInterval
+globalThis.useLayoutEffectDeep = _useLayoutEffectDeep
+globalThis.useMountEffect = _useMountEffect
+globalThis.useMountedState = _useMountedState
+globalThis.useMedia = _useMedia
+globalThis.useMemoDeep = _useMemoDeep
+globalThis.useRerenderCb = _useRerenderCb
+globalThis.useSet = _useSet
+globalThis.useTimeout = _useTimeout
+globalThis.useUnmountEffect = _useUnmountEffect
+globalThis.useUpdateEffect = _useUpdateEffect

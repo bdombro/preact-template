@@ -2,8 +2,6 @@
  * Polyfills for Promise
  */
 
-/* eslint-disable no-var */
-
 // You must export something or TS gets confused.
 export {}
 

@@ -6,7 +6,6 @@
 export {}
 
 declare global {
-  // eslint-disable-next-line no-var
   var Enum: {
     /**
      * Gets enum values from enum

@@ -1,8 +1,6 @@
 /// <reference types="vite-plugin-pwa/client" />
 import {useRegisterSW} from 'virtual:pwa-register/react'
 
-import {useUpdateEffect} from '~/util/hooks'
-
 import {toast} from './toast'
 
 export function ServiceWorkerToasts() {

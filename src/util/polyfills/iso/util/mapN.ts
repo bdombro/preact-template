@@ -2,7 +2,6 @@
 export {}
 
 declare global {
-  // eslint-disable-next-line no-var
   /**
    * Alias for Array(n).fill(undefined).map(fn)
    */

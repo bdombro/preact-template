@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 import {detailedDiff} from './util/diff'
 import isEqual from './util/fast-deep-equal'
 

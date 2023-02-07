@@ -1,5 +1,3 @@
-import {Fragment as F} from 'react'
-
 import {Layout} from '~/components/layout-default'
 import {setPageMeta} from '~/util/head'
 import {router} from '~/util/router'

@@ -20,6 +20,6 @@
       "~/*": ["./src/*"]
     }
   },
-  "include": ["src", "src/components/primitives.ts"],
+  "include": ["src", "src/util/polyfills/web/primitives.ts"],
   "references": [{"path": "./tsconfig.node.json"}]
 }
