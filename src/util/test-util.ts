@@ -1,4 +1,4 @@
-import './polyfills/node'
+import './polyfills/web'
 import '~/components/primitives'
 
 import '@testing-library/jest-dom'
