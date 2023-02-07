@@ -36,6 +36,10 @@ export default defineConfig({
           //   return
           // }
 
+          if (id.includes('workbox')) {
+            return 'workbox'
+          }
+
           return 'main'
         },
       },
