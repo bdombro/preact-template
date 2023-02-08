@@ -1,4 +1,4 @@
-import {Layout} from '~/components/layout-default'
+import {Layout} from '~/comps/layout-default'
 import {router as r} from '~/router'
 
 export default function Planets() {

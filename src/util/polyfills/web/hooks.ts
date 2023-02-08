@@ -143,6 +143,25 @@ function _useFirstMountState(): boolean {
 }
 
 /**
+ * useIntersection: track the visible state of an element by ref
+ * Caution: the component will re-render on state change.
+ */
+function _useIntersection(
+  ref: React.MutableRefObject<HTMLElement | null>,
+  options: IntersectionObserverInit
+) {
+  const [state, setState] = useState<IntersectionObserverEntry | null>(null)
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => setState(entry), options)
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [ref])
+  return state
+}
+
+/**
  * useInterval: Call callback cb every ms milliseconds after mount
  * @param cb - callback to call after timeout
  * @param ms - milliseconds to wait before calling cb after mount
@@ -363,6 +382,7 @@ declare global {
   var useEffectDeep: typeof _useEffectDeep
   var useEvent: typeof _useEvent
   var useFirstMountState: typeof _useFirstMountState
+  var useIntersection: typeof _useIntersection
   var useInterval: typeof _useInterval
   var useLayoutEffectDeep: typeof _useLayoutEffectDeep
   var useMountEffect: typeof _useMountEffect
@@ -399,6 +419,7 @@ globalThis.useKey = _useKey
 globalThis.useEffectDeep = _useEffectDeep
 globalThis.useEvent = _useEvent
 globalThis.useFirstMountState = _useFirstMountState
+globalThis.useIntersection = _useIntersection
 globalThis.useInterval = _useInterval
 globalThis.useLayoutEffectDeep = _useLayoutEffectDeep
 globalThis.useMountEffect = _useMountEffect

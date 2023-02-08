@@ -1,5 +1,5 @@
-import {Filler} from '~/components/filler'
-import {Layout} from '~/components/layout-default'
+import {Filler} from '~/comps/filler'
+import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
 
 export default function StackTest({url}: {url: URL}) {

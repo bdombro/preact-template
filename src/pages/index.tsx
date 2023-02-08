@@ -1,4 +1,4 @@
-import {Layout} from '~/components/layout-default'
+import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
 import {Markdown} from '~/util/markdown'
 

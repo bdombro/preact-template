@@ -7,10 +7,10 @@ import './util/polyfills/web'
 // for prod
 import 'preact/devtools'
 
-import {ErrorToast} from './components/error-toast'
-import {OfflineToast} from './components/offline-toast'
-import {ServiceWorkerToasts} from './components/service-worker-toasts'
-import {Toasts} from './components/toast'
+import {ErrorToast} from './comps/error-toast'
+import {OfflineToast} from './comps/offline-toast'
+import {ServiceWorkerToasts} from './comps/service-worker-toasts'
+import {Toasts} from './comps/toast'
 import {router} from './router'
 import {Switch} from './util/stackr'
 
