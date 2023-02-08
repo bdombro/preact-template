@@ -1,3 +1,6 @@
+import {merge, mergeAndCompare, mergeAndConcat} from 'merge-anything'
+
+import {copy} from './util/copy'
 import {detailedDiff} from './util/diff'
 import isEqual from './util/fast-deep-equal'
 
@@ -10,6 +13,10 @@ export {}
 
 declare global {
   interface ObjectConstructor {
+    merge: typeof merge
+    mergeAndCompare: typeof mergeAndCompare
+    mergeAndConcat: typeof mergeAndConcat
+
     pick<T extends Record<string, any>, K extends keyof T>(
       obj: T,
       keys: readonly K[] | K[]
@@ -38,9 +45,59 @@ declare global {
     diff: typeof detailedDiff
     isEqual(foo: any, bar: any): boolean
     isNotEqual(foo: any, bar: any): boolean
-    // Note: Clone is imperfect!
-    // copy<T extends any>(obj: T): T
-    copy: typeof structuredClone
+    copy: typeof copy
+
+    /**
+     * Converts an object from a nested structure to a flat structure. Is the opposite
+     * of Object.nestify
+     *
+     * Status: Omitted to reduce bundle size. If needed, install and link
+     *
+     * @reference
+     * https://github.com/mesqueeb/flatten-anything
+     *
+     * @example
+     * ```js
+     * const target = {
+     *    name: 'Ho-oh',
+     *    types: { fire: true, flying: true }
+     * }
+     *
+     * Object.flatten(target)
+     * // returns {
+     * //  'name': 'Ho-oh',
+     * //  'types.fire': true,
+     * //  'types.flying': true,
+     * //}
+     * ```
+     */
+    flatten: any
+
+    /**
+     * Converts an object from a flat structure to a nested structure. Is the opposite
+     * of Object.flattenify
+     *
+     * Status: Omitted to reduce bundle size. If needed, install and link
+     *
+     * @reference
+     * https://github.com/mesqueeb/nestify-anything
+     *
+     * @example
+     * ```js
+     * const target = {
+     *   'name': 'Ho-oh',
+     *   'types.fire': true,
+     *   'types.flying': true,
+     * }
+     *
+     * Object.nestify(target)
+     * // returns {
+     * //   name: 'Ho-oh',
+     * //   types: { fire: true, flying: true }
+     * // }
+     * ```
+     */
+    nestify: any
   }
 
   // Sadly, Object is not generic, so we cannot extend it and acces this in a typesafe way :-(.
@@ -98,6 +155,10 @@ declare global {
     __keyReduce<T extends Object, A extends Object>(fn: (acc: A, key: keyof T) => A, init: A): A
   }
 }
+
+Object.merge = merge
+Object.mergeAndCompare = mergeAndCompare
+Object.mergeAndConcat = mergeAndConcat
 
 Object.pick = function (obj, keys) {
   const res: any = {}
@@ -160,34 +221,14 @@ Object.isNotEqual = function (a, b) {
   return !Object.isEqual(a, b)
 }
 
-// Is imperfect on Classes or objects containing classes
-// Inspired by https://stackoverflow.com/a/46692810/1202757
-Object.copy = structuredClone
-// Object.copy = (obj: any) => {
-//   if (obj === null || typeof obj !== 'object' || 'isActiveClone' in obj) return obj
+Object.copy = copy
 
-//   switch (obj.constructor) {
-//     case Date:
-//       return new Date(obj)
-//     case Array:
-//       return obj.map(Object.copy)
-//     case Set:
-//       return new Set([...obj].map(Object.copy))
-//     case Map:
-//       return new Map([...obj.entries()].map(Object.copy))
-//     default: // means we have no idea what it is :-/
-//       // This is the imperfect part: we can't perfectly copy classes, but we can come close
-//       const temp = Object.assign({}, obj)
-//       for (const key in obj) {
-//         if (Object.prototype.hasOwnProperty.call(obj, key)) {
-//           obj['isActiveClone'] = null // prevent cyclical reference
-//           temp[key] = Object.copy(obj[key])
-//           delete obj['isActiveClone']
-//         }
-//       }
-//       return temp
-//   }
-// }
+Object.flatten = () => {
+  throw new Error('Omitted to save bundle size')
+}
+Object.nestify = () => {
+  throw new Error('Omitted to save bundle size')
+}
 
 Object.defineProperties(Object.prototype, {
   __toHash: {

@@ -1,11 +1,6 @@
-import './util/styles.pcss'
+import './styles.pcss'
 
 import './util/polyfills/web'
-
-// for dev
-// import 'preact/debug'
-// for prod
-import 'preact/devtools'
 
 import {ErrorToast} from './comps/error-toast'
 import {OfflineToast} from './comps/offline-toast'

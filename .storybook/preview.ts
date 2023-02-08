@@ -1,6 +1,6 @@
-import '../src/styles.pcss'
+import '~/styles.pcss'
 
-import '../src/components/primitives'
+import '~/util/polyfills/web'
 
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},

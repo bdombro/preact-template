@@ -5,7 +5,7 @@ import type {RouteMatch} from '~/util/stackr'
 
 export default function Hello({route}: {route: RouteMatch}) {
   const {description} = setPageMeta({
-    title: 'Home',
+    title: 'Hello',
     description: 'A demo of route with url params.',
   })
   return (

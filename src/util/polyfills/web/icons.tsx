@@ -2,8 +2,6 @@
  * Lazily-loaded icons from Material Design Icons, and helpers to
  * add more features and easily manage them.
  *
- * Feel free to import *, bc the actual icons aren't loaded until mounted.
- *
  * For enhanced props, see IconSvgProps
  */
 import {addCss} from '@ustyle/styled'
