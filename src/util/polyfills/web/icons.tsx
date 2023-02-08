@@ -29,39 +29,39 @@ addCss(`
 `)
 
 const icons = {
-  // account: () => import('@iconify/icons-mdi/card-account-details-outline'),
-  alert: () => import('@iconify/icons-mdi/alert-outline'),
-  // arrowL: () => import('@iconify/icons-mdi/arrow-left'),
-  // arrowR: () => import('@iconify/icons-mdi/arrow-right'),
-  // auth: () => import('@iconify/icons-mdi/shield-account-outline'),
-  // building: () => import('@iconify/icons-mdi/office-building-marker-outline'),
-  // carrotUp: () => import('@iconify/icons-mdi/menu-up'),
-  // carrotDown: () => import('@iconify/icons-mdi/menu-down'),
-  // carrotLeft: () => import('@iconify/icons-mdi/menu-left'),
-  // carrotRight: () => import('@iconify/icons-mdi/menu-right'),
-  // checkboxM: () => import('@iconify/icons-mdi/checkbox-marked'),
-  // checkboxB: () => import('@iconify/icons-mdi/checkbox-blank-outline'),
-  // chevronL2x: () => import('@iconify/icons-mdi/chevron-double-left'),
-  // chevronR2x: () => import('@iconify/icons-mdi/chevron-double-right'),
-  close: () => import('@iconify/icons-mdi/close'),
-  // counter: () => import('@iconify/icons-mdi/counter'),
-  // dotsV: () => import('@iconify/icons-mdi/dots-vertical'),
-  error: () => import('@iconify/icons-mdi/alert-octagon-outline'),
-  // home: () => import('@iconify/icons-mdi/home-outline'),
-  info: () => import('@iconify/icons-mdi/information-outline'),
-  // login: () => import('@iconify/icons-mdi/login-variant'),
-  // logout: () => import('@iconify/icons-mdi/logout-variant'),
-  // mapPin: () => import('@iconify/icons-mdi/map-marker'),
-  // menu: () => import('@iconify/icons-mdi/menu-open'),
-  // person: () => import('@iconify/icons-mdi/account'),
-  // palette: () => import('@iconify/icons-mdi/palette-outline'),
-  // post: () => import('@iconify/icons-mdi/post-outline'),
-  // reactLogo: () => import('@iconify/icons-mdi/react'),
-  roundedCornerInv: () => import('~/util/iconsCustom/RoundedCornerInverted'),
-  // search: () => import('@iconify/icons-mdi/magnify'),
-  // support: () => import('@iconify/icons-mdi/lifebuoy'),
-  success: () => import('@iconify/icons-mdi/check-circle-outline'),
-  // tasks: () => import('@iconify/icons-mdi/order-bool-ascending-variant'),
+  // account: () => import('mdi-paths-split/CardAccountDetailsOutline'),
+  alert: () => import('mdi-paths-split/AlertOutline'),
+  // arrowL: () => import('mdi-paths-split/ArrowLeft'),
+  // arrowR: () => import('mdi-paths-split/ArrowRight'),
+  // auth: () => import('mdi-paths-split/ShieldAccountOutline'),
+  // building: () => import('mdi-paths-split/OfficeBuildingMarkerOutline'),
+  // carrotUp: () => import('mdi-paths-split/MenuUp'),
+  // carrotDown: () => import('mdi-paths-split/MenuDown'),
+  // carrotLeft: () => import('mdi-paths-split/MenuLeft'),
+  // carrotRight: () => import('mdi-paths-split/MenuRight'),
+  // checkboxM: () => import('mdi-paths-split/CheckboxMarked'),
+  // checkboxB: () => import('mdi-paths-split/CheckboxBlankOutline'),
+  // chevronL2x: () => import('mdi-paths-split/ChevronDoubleLeft'),
+  // chevronR2x: () => import('mdi-paths-split/ChevronDoubleRight'),
+  close: () => import('mdi-paths-split/Close'),
+  // counter: () => import('mdi-paths-split/Counter'),
+  // dotsV: () => import('mdi-paths-split/DotsVertical'),
+  error: () => import('mdi-paths-split/AlertOctagonOutline'),
+  // home: () => import('mdi-paths-split/HomeOutline'),
+  info: () => import('mdi-paths-split/InformationOutline'),
+  // login: () => import('mdi-paths-split/LoginVariant'),
+  // logout: () => import('mdi-paths-split/LogoutVariant'),
+  // mapPin: () => import('mdi-paths-split/MapMarker'),
+  // menu: () => import('mdi-paths-split/MenuOpen'),
+  // person: () => import('mdi-paths-split/Account'),
+  // palette: () => import('mdi-paths-split/PaletteOutline'),
+  // post: () => import('mdi-paths-split/PostOutline'),
+  // reactLogo: () => import('mdi-paths-split/React'),
+  // roundedCornerInv: () => import('~/util/iconsCustom/RoundedCornerInverted'),
+  // search: () => import('mdi-paths-split/Magnify'),
+  // support: () => import('mdi-paths-split/Lifebuoy'),
+  success: () => import('mdi-paths-split/CheckCircleOutline'),
+  // tasks: () => import('mdi-paths-split/OrderBoolAscendingVariant'),
 } as const
 
 function Icon({name, ...props}: IconProps) {
@@ -86,7 +86,7 @@ function LazyIconSvg({svgPathImport, ...props}: LazyIconSvgProps) {
   async function load() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const module: any = await svgPathImport()
-    if (isMounted()) setSvgPath(module.default.body)
+    if (isMounted()) setSvgPath(module.default)
   }
 }
 
@@ -131,14 +131,8 @@ function IconSvg({
   }
 
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      fill={fill}
-      {...props}
-      style={style}
-      dangerouslySetInnerHTML={{__html: path}}
-    />
+    <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} {...props} style={style}>
+      <path d={path} />
+    </svg>
   )
 }
