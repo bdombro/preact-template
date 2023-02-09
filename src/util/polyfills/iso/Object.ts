@@ -12,7 +12,6 @@ import {isEqual} from './util/isEqual'
 export {}
 
 declare global {
-  var isEqualDebug: boolean
   interface ObjectConstructor {
     /**
      * Make a deep copy of an object so that none of the references are the same
@@ -52,17 +51,13 @@ declare global {
 
     /**
      * A deep equal comparison
-     *
-     * Set globalThis.isEqualDebug = true to print debug info
      */
-    isEqual(foo: any, bar: any): boolean
+    isEqual(foo: any, bar: any, debug?: boolean): boolean
 
     /**
      * A deep equal comparison
-     *
-     * Set globalThis.isEqualDebug = true to print debug info
      */
-    isNotEqual(foo: any, bar: any): boolean
+    isNotEqual(foo: any, bar: any, debug?: boolean): boolean
 
     /**
      * Deep merge ....objects. Arrays are clobbered
@@ -218,14 +213,14 @@ Object.flatten = () => {
   throw new Error('Omitted to save bundle size')
 }
 
-Object.isEqual = function (a, b) {
+Object.isEqual = function (a, b, debug = false) {
   const res = isEqual(a, b)
-  if (!res && globalThis.isEqualDebug) console.log(Object.diff(a, b))
+  if (debug) console.debug(Object.diff(a, b))
   return res
 }
 
-Object.isNotEqual = function (a, b) {
-  return !Object.isEqual(a, b)
+Object.isNotEqual = function (a, b, debug = false) {
+  return !Object.isEqual(a, b, debug)
 }
 Object.merge = merge
 Object.mergeCustom = mergeAndCompare
