@@ -29,7 +29,7 @@
     }
   },
   "dependencies": {
-    "@ustyle/styled": "^1.0.39",
+    "@slimr/styled": "^1.0.40",
     "mdi-paths-split": "^5.9.55",
     "preact": "^10.11.3"
   },

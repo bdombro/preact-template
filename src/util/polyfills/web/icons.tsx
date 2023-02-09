@@ -4,7 +4,7 @@
  *
  * For enhanced props, see IconSvgProps
  */
-import {addCss} from '@ustyle/styled'
+import {addCss} from '@slimr/styled'
 
 // You must export something or TS gets confused.
 export {}

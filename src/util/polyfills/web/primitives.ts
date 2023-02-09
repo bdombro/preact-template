@@ -1,6 +1,6 @@
-import {SC} from '@ustyle/styled'
+import {SC} from '@slimr/styled'
 // @ts-expect-error - ts can't resolve withHtmlTags without moduleResolute>="node16"
-import styled from '@ustyle/styled/withHtmlTags'
+import styled from '@slimr/styled/withHtmlTags'
 import {Fragment as _Fragment, Suspense as _Suspense} from 'react'
 
 // You must export something or TS gets confused.

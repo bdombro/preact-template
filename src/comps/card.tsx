@@ -1,4 +1,4 @@
-import styled from '@ustyle/styled'
+import styled from '@slimr/styled'
 
 export const Card = styled(Div)`
   br: 18px;
