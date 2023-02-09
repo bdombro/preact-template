@@ -50,7 +50,7 @@ const prodConfig: UserConfigExport = {
          * @returns {string | undefined} - The name of the chunk to place the module in or undefined to use default
          */
         manualChunks: id => {
-          if (id.includes('mdi-paths-split')) {
+          if (id.includes('@slimr/mdi-paths')) {
             return 'icons/' + id.split('/').at(-1).slice(0, -3)
           }
 

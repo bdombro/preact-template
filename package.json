@@ -29,8 +29,8 @@
     }
   },
   "dependencies": {
+    "@slimr/mdi-paths": "^1.0.9",
     "@slimr/styled": "^1.0.40",
-    "mdi-paths-split": "^5.9.55",
     "preact": "^10.11.3"
   },
   "devDependencies": {
