@@ -12,6 +12,7 @@ import {isEqual} from './util/isEqual'
 export {}
 
 declare global {
+  var isEqualDebug: boolean
   interface ObjectConstructor {
     /**
      * Make a deep copy of an object so that none of the references are the same
@@ -219,7 +220,7 @@ Object.flatten = () => {
 
 Object.isEqual = function (a, b) {
   const res = isEqual(a, b)
-  if (!res && (globalThis as any).isEqualDebug) console.log(Object.diff(a, b))
+  if (!res && globalThis.isEqualDebug) console.log(Object.diff(a, b))
   return res
 }
 
