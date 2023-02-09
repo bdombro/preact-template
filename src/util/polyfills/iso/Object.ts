@@ -1,8 +1,7 @@
-import {merge, mergeAndCompare, mergeAndConcat} from 'merge-anything'
-
 import {copy} from './util/copy'
 import {detailedDiff} from './util/diff'
 import {isEqual} from './util/isEqual'
+import {merge, mergeAndCompare, mergeAndConcat} from './util/merge'
 
 /**
  * Polyfills for object

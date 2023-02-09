@@ -1,4 +1,4 @@
-import * as iw from 'is-what'
+import * as iw from './util/is-what'
 
 export {}
 

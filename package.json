@@ -30,9 +30,7 @@
   },
   "dependencies": {
     "@ustyle/styled": "^1.0.39",
-    "is-what": "^4.1.8",
     "mdi-paths-split": "^5.9.55",
-    "merge-anything": "^5.1.4",
     "preact": "^10.11.3"
   },
   "devDependencies": {
