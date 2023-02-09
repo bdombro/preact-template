@@ -1,3 +1,5 @@
+import '~/util/test-util'
+
 import {parse} from './markdown'
 
 it('parses correctly', () => {

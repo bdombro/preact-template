@@ -8,6 +8,9 @@ const navitems = [
   {name: '404', path: '/does-not-exist'},
 ]
 
+/**
+ * A layout with a header and a main section
+ */
 export function Layout({children}: {children: React.ReactNode}) {
   return (
     <>

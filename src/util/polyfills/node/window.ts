@@ -59,7 +59,9 @@ if (!globalThis.window) {
   Object.assign(globalThis, {window: windowMock, ...windowMock})
 }
 
-// Wraps fetch to inject global cookies, similar to browsers
+/**
+ * Wraps fetch to inject global cookies, similar to browsers
+ */
 function fetch(url: string, options: any = {}) {
   const init: RequestInit = {
     ...options,

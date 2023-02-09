@@ -1,7 +1,7 @@
 /**
  * Adapted from fast-deep-equal to be easier to debug
  */
-export default function isEqual(a: any, b: any): boolean {
+export function isEqual(a: any, b: any): boolean {
   if (a === b) return true
 
   if (a && b && typeof a == 'object' && typeof b == 'object') {
@@ -51,6 +51,8 @@ export default function isEqual(a: any, b: any): boolean {
   }
 
   // true if both NaN, false otherwise
+  if (Number.isNaN(a) && Number.isNaN(b)) return true
+  // Could also be checked this way:
   if (a !== a && b !== b) return true
   return false
 }

@@ -62,30 +62,48 @@ const icons = {
   // tasks: () => import('mdi-paths-split/OrderBoolAscendingVariant'),
 } as const
 
+/**
+ * A component that lazily loads an icon from Material Design Icons
+ * by name. The names available are declared in the `icons` object above.
+ */
 function Icon({name, ...props}: IconProps) {
   return <LazyIconSvg svgPathImport={icons[name]} {...props} />
 }
 
 // Helpers
 
-// Lazily loaded IconSvg
-interface LazyIconSvgProps extends Omit<IconSvgProps, 'path'> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface LazyIconSvgProps extends Omit<IconSvgProps, 'd' | 'path'> {
+  /**
+   * A cb that returns a promise of an object with a `default` property = string
+   * of an SVG's path `d` attribute. The 'd' attribute is the actual content of
+   * an MDI svg.
+   *
+   * @example
+   * ```js
+   * () => import('@iconify/icons-mdi/home')
+   * ```
+   */
   svgPathImport: () => Promise<any> // Like () => import('@iconify/icons-mdi/home')
 }
+
+/**
+ * A component that lazily loads an icon using a cb that returns a promise.
+ * The promise should resolve to an object with a `default` property = string
+ * of an SVG's path `d` attribute. The 'd' attribute is the actual content of
+ * an MDI svg.
+ *
+ * @param svgPathImport A cb that returns a promise of an object with a `default` property = string of an SVG's path `d` attribute
+ * @param IconSvg props excluding `d` and `path`
+ */
 function LazyIconSvg({svgPathImport, ...props}: LazyIconSvgProps) {
   const isMounted = useMountedState()
   const [svgPath, setSvgPath] = useState('')
   useEffect(() => {
-    load()
+    svgPathImport().then(module => {
+      if (isMounted()) setSvgPath(module.default)
+    })
   }, [])
-  return <IconSvg path={svgPath} {...props} />
-
-  async function load() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const module: any = await svgPathImport()
-    if (isMounted()) setSvgPath(module.default)
-  }
+  return <IconSvg d={svgPath} {...props} />
 }
 
 // Enhanced svg element
@@ -99,7 +117,11 @@ interface IconSvgProps extends Omit<JSX.IntrinsicElements['svg'], 'size'> {
   spinInverse?: boolean // inverse the spin
 }
 
+/**
+ *
+ */
 function IconSvg({
+  d = '',
   path = '',
   size = 24,
   fill = 'currentColor',
@@ -130,7 +152,8 @@ function IconSvg({
 
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} {...props} style={style}>
-      <path d={path} />
+      {path}
+      {d && <path d={d} />}
     </svg>
   )
 }

@@ -1,6 +1,7 @@
 import './array'
 import './date'
 import './enum'
+import './error'
 import './function'
 import './is-what'
 import './map'

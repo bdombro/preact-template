@@ -3,6 +3,9 @@ import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
 import type {RouteMatch} from '~/util/stackr'
 
+/**
+ * A demo of route with url params
+ */
 export default function Hello({route}: {route: RouteMatch}) {
   const {description} = setPageMeta({
     title: 'Hello',

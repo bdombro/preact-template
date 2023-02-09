@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**

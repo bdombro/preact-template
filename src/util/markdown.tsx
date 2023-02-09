@@ -1,12 +1,14 @@
 import {memo} from 'react'
 
+import {applyHighlights} from './code-highlight'
+
 /**
  * Displays markdown
  */
 export const Markdown = memo(function Markdown({src}: {src: string}) {
   const __html = parse(src)
   if (__html.includes('<pre><code')) {
-    dispatchEvent(new Event('codetag-added'))
+    applyHighlights()
   }
   return <div dangerouslySetInnerHTML={{__html}} />
 })

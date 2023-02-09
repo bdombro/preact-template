@@ -44,10 +44,10 @@ declare global {
      * Compared to other memoization algs (fast-memoize, nano-memoize), is much simpler,
      * shorter, easier to fork/enhance while less perfect and slower for primitive args.
      */
-    withThrottle: {
+    memoize: {
       // eslint-disable-next-line @typescript-eslint/ban-types
-      <F extends Function>(fn: F, ttl: number): F
-      cache: Map<string, {returnVal: any; expires: number}>
+      <F extends Fnc>(fn: F, ttl: number): F
+      cache: Map<string, {returnValue: any; expires: number}>
     }
   }
 }
@@ -75,26 +75,11 @@ Function.getName = () => {
   return fncName
 }
 
-Function.withRetry = (fn, maxTries = 4) => {
-  const p = Promise.promisify(fn)
-  return async (...props) => {
-    let lastError: any = new Error()
-    for (let tryCount = 0; tryCount < maxTries; tryCount++) {
-      try {
-        return await p(...props)
-      } catch (err) {
-        lastError = err
-      }
-    }
-    throw lastError
-  }
-}
+Function.memoize = memoize
 
-// @ts-expect-error: TS gets confused with the self reference
-Function.withThrottle = withThrottle
-function withThrottle<Fn extends (...props: any) => any>(fn: Fn, ttl = 1000) {
-  const self = withThrottle
-  withThrottle.initialize()
+function memoize<Fn extends Fnc>(fn: Fn, ttl = 1000) {
+  const self = memoize
+  memoize.initialize()
   const throttled = (...props: any) => {
     const cacheKey = JSON.stringify({
       signature: `${fn.name}::${fn.toString().slice(0, 10)}`,
@@ -114,8 +99,8 @@ function withThrottle<Fn extends (...props: any) => any>(fn: Fn, ttl = 1000) {
   }
   return throttled as Fn
 }
-withThrottle.cache = new Map<string, {expires: number; returnValue: any}>()
-withThrottle.initialized = false
+memoize.cache = new Map<string, {expires: number; returnValue: any}>()
+memoize.initialized = false
 
 // FIXME: Convert to FIFO cache instead of a TTL cache. For example,
 // setInterval(() => {
@@ -123,8 +108,8 @@ withThrottle.initialized = false
 //     cache.delete(cache.keys().next().value)
 //   }
 // }, 20_000)
-withThrottle.initialize = () => {
-  const self = withThrottle
+memoize.initialize = () => {
+  const self = memoize
   if (self.initialized) return
   const garbageCollector = () => {
     const now = Date.now()
@@ -135,4 +120,19 @@ withThrottle.initialize = () => {
   }
   setInterval(garbageCollector, 20e3)
   self.initialized = true
+}
+
+Function.withRetry = (fn, maxTries = 4) => {
+  const p = Promise.promisify(fn)
+  return async (...props) => {
+    let lastError: any = new Error()
+    for (let tryCount = 0; tryCount < maxTries; tryCount++) {
+      try {
+        return await p(...props)
+      } catch (err) {
+        lastError = err
+      }
+    }
+    throw lastError
+  }
 }

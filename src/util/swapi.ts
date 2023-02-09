@@ -115,6 +115,9 @@ export enum ResourcesType {
   Vehicles = 'vehicles',
 }
 
+/**
+ * Fetches a resource from the SWAPI based on relative url
+ */
 async function request(url: string) {
   const result = await fetch('https://swapi.dev/api/' + url, {
     headers: {accept: 'application/json'},

@@ -2,7 +2,7 @@ import {merge, mergeAndCompare, mergeAndConcat} from 'merge-anything'
 
 import {copy} from './util/copy'
 import {detailedDiff} from './util/diff'
-import isEqual from './util/fast-deep-equal'
+import {isEqual} from './util/isEqual'
 
 /**
  * Polyfills for object
@@ -13,39 +13,15 @@ export {}
 
 declare global {
   interface ObjectConstructor {
-    merge: typeof merge
-    mergeAndCompare: typeof mergeAndCompare
-    mergeAndConcat: typeof mergeAndConcat
-
-    pick<T extends Record<string, any>, K extends keyof T>(
-      obj: T,
-      keys: readonly K[] | K[]
-    ): Pick<T, K>
-    omit<T extends Record<string, any>, K extends keyof T>(
-      obj: T,
-      keys: readonly K[] | K[]
-    ): Omit<T, K>
-    filterAttrs<T extends Record<string, any>>(
-      obj: T,
-      filter: (attrName: string, attrVal: any) => any,
-      inPlace?: boolean
-    ): T
-    rmFalseyAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
-    rmNullAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
-    rmUndefAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
+    /**
+     * Make a deep copy of an object so that none of the references are the same
+     */
+    copy: typeof copy
 
     /**
-     * Converts an object into a semi-unique hash
-     *
-     * Compared to other hash algs (MD5), is much simpler, shorter, faster while less perfect
-     * Src: https://stackoverflow.com/a/8831937/1202757
+     * returns an object with the added, deleted and updated differences
      */
-    toHash(obj: any): string
-
     diff: typeof detailedDiff
-    isEqual(foo: any, bar: any): boolean
-    isNotEqual(foo: any, bar: any): boolean
-    copy: typeof copy
 
     /**
      * Converts an object from a nested structure to a flat structure. Is the opposite
@@ -74,6 +50,62 @@ declare global {
     flatten: any
 
     /**
+     * A deep equal comparison
+     *
+     * Set globalThis.isEqualDebug = true to print debug info
+     */
+    isEqual(foo: any, bar: any): boolean
+
+    /**
+     * A deep equal comparison
+     *
+     * Set globalThis.isEqualDebug = true to print debug info
+     */
+    isNotEqual(foo: any, bar: any): boolean
+
+    /**
+     * Deep merge ....objects. Arrays are clobbered
+     *
+     * If you want to merge arrays, use Object.mergeAndConcat
+     */
+    merge: typeof merge
+
+    /**
+     * Deep merge with custom compare function
+     *
+     * There might be times you need to tweak the logic when two things are merged. You can provide your own custom function that's triggered every time a value is overwritten.
+     *
+     * For this case we use mergeAndCompare. Here is an example with a compare function that concatenates strings:
+     *
+     * @example
+     * ```js
+     * import { mergeAndCompare } from 'merge-anything'
+     *
+     * function concatStrings(originVal, newVal, key) {
+     *   if (typeof originVal === 'string' && typeof newVal === 'string') {
+     *     // concat logic
+     *     return `${originVal}${newVal}`
+     *   }
+     *   // always return newVal as fallback!!
+     *   return newVal
+     * }
+     *
+     * mergeAndCompare(concatStrings, { name: 'John' }, { name: 'Simth' })
+     * // returns { name: 'JohnSmith' }
+     * ```
+     *
+     * Note for TypeScript users. The type returned by this function might not be correct. In that case you have to cast the result to your own provided interface
+     */
+    mergeCustom: typeof mergeAndCompare
+
+    /**
+     * Deep merge ...objects. Arrays are merged too.
+     *
+     * If you want to clobber arrays, use `Object.merge`
+     */
+    mergeAndConcat: typeof mergeAndConcat
+
+    /**
      * Converts an object from a flat structure to a nested structure. Is the opposite
      * of Object.flattenify
      *
@@ -98,11 +130,68 @@ declare global {
      * ```
      */
     nestify: any
+
+    /** Return obj excluding attributes by keys  */
+    omit<T extends Record<string, any>, K extends keyof T>(
+      obj: T,
+      keys: readonly K[] | K[]
+    ): Omit<T, K>
+
+    /**
+     * Return obj excluding attributes based on a filter function
+     *
+     * @param obj - the object to filter
+     * @param filter - the filter function. Takes the attribute name and value as arguments to return true to keep the attribute
+     * @param inPlace - if true, the object will be modified in place. Otherwise, a new object will be returned
+     */
+    omitCustom<T extends Record<string, any>>(
+      obj: T,
+      filter: (attrName: string, attrVal: any) => any
+    ): T
+
+    /** Return obj excluding attrs with falsey values */
+    omitFalseyAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
+
+    /** Return obj excluding attrs with null values */
+    omitNullAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
+
+    /** Return obj excluding attrs with undefined values */
+    omitUndefAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
+
+    /** Return obj only including attributes by keys */
+    pick<T extends Record<string, any>, K extends keyof T>(
+      obj: T,
+      keys: readonly K[] | K[]
+    ): Pick<T, K>
+
+    /**
+     * Converts an object into a semi-unique hash
+     *
+     * Compared to other hash algs (MD5), is much simpler, shorter, faster while less perfect
+     * Src: https://stackoverflow.com/a/8831937/1202757
+     */
+    toHash(obj: any): string
   }
 
   // Sadly, Object is not generic, so we cannot extend it and acces this in a typesafe way :-(.
   // interface Object<T> {}
   interface Object {
+    /** Alias for Object.excludes(this, attr). WARNING: not typesafe */
+    __excludes(attr: string): boolean
+    /** Alias for Object.entries(this) */
+    __entries<T extends Object>(): [keyof T, any][]
+    /** Alias for Object.includes(this, attr). WARNING: not typesafe */
+    __includes(attr: string): boolean
+    /** Alias for Object.isEqualTo(this, that). WARNING: not typesafe */
+    __isEqualTo(otherObj: any): boolean
+    /** Alias for Object.isNotEqualTo(this, that). WARNING: not typesafe */
+    __isNotEqualTo(otherObj: any): boolean
+    /** Alias for Object.keyMap(this, fnc). */
+    __keyMap<T extends Object>(fnc: (key: keyof T) => T): T[]
+    /** Alias for Object.keyReduce(this, fnc, init). */
+    __keyReduce<T extends Object, A extends Object>(fnc: (acc: A, key: keyof T) => A, init: A): A
+    /** Alias for Object.keys(this). */
+    __keys<T extends Object>(): (keyof T)[]
     /**
      * Converts an object into a semi-unique hash
      *
@@ -113,59 +202,36 @@ declare global {
      * 	- If hashing a function, two different functions could have the same hash
      */
     __toHash(): string
-    /**
-     * Alias for keys(obj) but MORE TYPESAFE!
-     */
-    __keys<T extends Object>(): (keyof T)[]
-    /**
-     * Alias for, but not typesafe values(obj)
-     */
-    __values(): any[]
-    /**
-     * Alias for, but not typesafe entries(obj)
-     */
-    __entries<T extends Object>(): [keyof T, any][]
-    /**
-     * Alias for Object.isEqual
-     */
-    __isEqualTo(otherObj: any): boolean
-    /**
-     * Alias for Object.isEqual
-     */
-    __isNotEqualTo(otherObj: any): boolean
-    /**
-     * Alias for Object.hasOwnProperty(prop)
-     */
-    __includes(prop: string): boolean
-    /**
-     * Alias for !Object.hasOwnProperty(prop)
-     */
-    __excludes(prop: string): boolean
-    /**
-     * Alias for, but not typesafe `new Map(entries(obj))`
-     */
+    /** Alias for Object.toMap(this, that). WARNING: not typesafe */
     __toMap(): Map<string, any>
-    /**
-     * Alias for obj._keys().map(key => ...)
-     */
-    __keyMap<T extends Object>(fn: (key: keyof T) => T): T[]
-    /**
-     * Alias for obj._keys().reduce((acc, key) => ..., init)
-     */
-    __keyReduce<T extends Object, A extends Object>(fn: (acc: A, key: keyof T) => A, init: A): A
+    /** Alias for Object.values(this). WARNING: not typesafe */
+    __values(): any[]
   }
 }
 
+Object.copy = copy
+
+Object.diff = detailedDiff
+
+Object.flatten = () => {
+  throw new Error('Omitted to save bundle size')
+}
+
+Object.isEqual = function (a, b) {
+  const res = isEqual(a, b)
+  if (!res && (globalThis as any).isEqualDebug) console.log(Object.diff(a, b))
+  return res
+}
+
+Object.isNotEqual = function (a, b) {
+  return !Object.isEqual(a, b)
+}
 Object.merge = merge
-Object.mergeAndCompare = mergeAndCompare
+Object.mergeCustom = mergeAndCompare
 Object.mergeAndConcat = mergeAndConcat
 
-Object.pick = function (obj, keys) {
-  const res: any = {}
-  keys?.forEach(k => {
-    if (k in obj) res[k] = obj[k]
-  })
-  return res
+Object.nestify = () => {
+  throw new Error('Omitted to save bundle size')
 }
 
 Object.omit = function (obj, keys) {
@@ -176,24 +242,32 @@ Object.omit = function (obj, keys) {
   return res
 }
 
-Object.filterAttrs = function (obj, filter, inPlace) {
-  const obj2 = inPlace ? obj : Object.copy(obj)
+Object.omitCustom = function (obj, filter) {
+  const obj2 = Object.copy(obj)
   for (const key in obj2) {
     if (!filter(key, obj2[key])) delete obj2[key]
   }
   return obj2
 }
 
-Object.rmFalseyAttrs = function (obj, inPlace) {
-  return Object.filterAttrs(obj, (_, val) => val, inPlace)
+Object.omitFalseyAttrs = function (obj) {
+  return Object.omitCustom(obj, (_, val) => val)
 }
 
-Object.rmNullAttrs = function (obj, inPlace) {
-  return Object.filterAttrs(obj, (_, val) => val !== null, inPlace)
+Object.omitNullAttrs = function (obj) {
+  return Object.omitCustom(obj, (_, val) => val !== null)
 }
 
-Object.rmUndefAttrs = function (obj, inPlace) {
-  return Object.filterAttrs(obj, (_, val) => val !== undefined, inPlace)
+Object.omitUndefAttrs = function (obj) {
+  return Object.omitCustom(obj, (_, val) => val !== undefined)
+}
+
+Object.pick = function (obj, keys) {
+  const res: any = {}
+  keys?.forEach(k => {
+    if (k in obj) res[k] = obj[k]
+  })
+  return res
 }
 
 Object.toHash = obj => {
@@ -204,30 +278,6 @@ Object.toHash = obj => {
     )
   )
   return hash.toString(32)
-}
-
-Object.diff = detailedDiff
-
-/**
- * Copied from npm/fast-deep-equal and made easier to step through
- */
-Object.isEqual = function (a, b) {
-  const res = isEqual(a, b)
-  if (!res && (globalThis as any).isEqualDebug) console.log(Object.diff(a, b))
-  return res
-}
-
-Object.isNotEqual = function (a, b) {
-  return !Object.isEqual(a, b)
-}
-
-Object.copy = copy
-
-Object.flatten = () => {
-  throw new Error('Omitted to save bundle size')
-}
-Object.nestify = () => {
-  throw new Error('Omitted to save bundle size')
 }
 
 Object.defineProperties(Object.prototype, {

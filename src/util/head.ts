@@ -1,12 +1,36 @@
 /**
  * Append an element to the head of the document
  *
+ * Tip: Will skip if already added before
+ *
  * @param type - The type of element to append (e.g. 'link', 'script')
  * @param attrs - The attributes to set on the element. Tip: use innerHTML to set content
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function appendElement(type: string, attrs: Record<string, any>) {
+export function appendElement(type: string, attrs: Record<string, string>) {
+  // check if already added
+  const key = JSON.stringify({type, ...attrs})
+  if (appendElement.cache.has(key)) return
+  appendElement.cache.add(key)
   document.head.appendChild(Object.assign(document.createElement(type), attrs))
+}
+appendElement.cache = new Set()
+
+/**
+ * Append a link element to the head of the document
+ *
+ * @param attrs - The attributes, excluding rel, to set on the element. Tip: use innerHTML to set content
+ */
+export function appendLink(attrs: Record<string, string>) {
+  appendElement('link', {...attrs, rel: 'stylesheet'})
+}
+
+/**
+ * Append a script element to the head of the document
+ *
+ * @param attrs - The attributes to set on the element. Tip: use innerHTML to set content
+ */
+export function appendScript(attrs: Record<string, string>) {
+  appendElement('script', attrs)
 }
 
 /**
@@ -60,19 +84,35 @@ export const setPageMeta = (function createSetPageMeta() {
     set: (val: string) => string
     constructor(getter: () => Element) {
       this.get = () =>
-        this.last || getter().getAttribute('content') || throwError(`No content for ${getter}`)
+        isTest
+          ? ''
+          : this.last || getter().getAttribute('content') || throwError(`No content for ${getter}`)
       this.set = (v: string) => {
+        if (isTest) return v
         getter().setAttribute('content', v)
         return (this.last = v)
       }
       this.orig = this.last = this.get()
     }
     upsert(val?: string): string {
+      if (isTest) return val || ''
       if (!val) return (val = this.orig)
       if (this.last !== val) return this.set(val)
       return this.last
     }
   }
+
+  const byName = (name: string) => {
+    return find(`meta[name="${name}"]`)
+  }
+  const byProp = (prop: string) => {
+    return find(`meta[property="${prop}"]`)
+  }
+  const find = (selector: string) => {
+    if (isTest) return document.createElement('div')
+    return document.head.querySelector(selector) || throwError(`Missing: ${selector}`)
+  }
+
   const getLink = () => find('link[rel="canonical"]') as HTMLLinkElement
   const siteNameE = byProp('og:site_name').getAttribute('content') || ''
   const ogTitleMc = new MetaClass(() => byProp('og:title'))
@@ -82,16 +122,6 @@ export const setPageMeta = (function createSetPageMeta() {
   const ogUrlMc = new MetaClass(() => byProp('og:url'))
   const ogSiteNameMc = new MetaClass(() => byProp('og:site_name'))
   const ogImageMc = new MetaClass(() => byProp('og:image'))
-
-  function byName(name: string) {
-    return find(`meta[name="${name}"]`)
-  }
-  function byProp(prop: string) {
-    return find(`meta[property="${prop}"]`)
-  }
-  function find(selector: string) {
-    return document.head.querySelector(selector) || throwError(`Missing: ${selector}`)
-  }
 
   return function setPageMeta(p: SetPageMetaProps) {
     const title = p.title ? `${p.title} - ${siteNameE}` : siteNameE
@@ -118,7 +148,3 @@ export const setPageMeta = (function createSetPageMeta() {
     }
   }
 })()
-
-function throwError(msg: string): never {
-  throw Error(msg)
-}

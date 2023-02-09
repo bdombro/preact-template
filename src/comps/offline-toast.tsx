@@ -1,5 +1,8 @@
 import {toast} from './toast'
 
+/**
+ * This component will show a toast when the user goes on and offline
+ */
 export function OfflineToast() {
   useEffect(() => {
     addEventListener('offline', onOffline)
@@ -12,6 +15,9 @@ export function OfflineToast() {
   return null
 }
 
+/**
+ * Show toasts when the user goes offline
+ */
 function onOffline() {
   toast({message: 'Disconnected', variant: 'alert'})
   toast({
@@ -22,6 +28,9 @@ function onOffline() {
   })
 }
 
+/**
+ * Show a toast when the user goes online and cancel the sticky offline toast
+ */
 function onOnline() {
   toast.cancel('offline-ready')
   toast({message: 'Reconnected', variant: 'success'})

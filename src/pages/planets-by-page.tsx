@@ -5,6 +5,9 @@ import type {RouteMatch} from '~/util/stackr'
 import * as sw from '~/util/swapi'
 import useSwr from '~/util/swr'
 
+/**
+ * A demo of a route stack and data fetching with swr
+ */
 export default function PlanetsByPage({route}: {route: RouteMatch}) {
   const page = route.urlParams!.page
 

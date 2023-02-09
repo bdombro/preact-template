@@ -22,10 +22,6 @@ export {}
 
 // Global declarations at bottom bc some can't be hoisted 👇
 
-/**
- * useClickAway: Triggers a callback when user clicks outside the target element.
- * Ex. useClickAway(ref, callback);
- */
 function _useClickAway<E extends Event = Event>(
   ref: React.MutableRefObject<HTMLElement | null>,
   onDismiss: (event: E) => void,
@@ -52,10 +48,16 @@ function _useClickAway<E extends Event = Event>(
 }
 _useClickAway.defaultEvents = ['mousedown', 'touchstart']
 
-/**
- * useEvent: subscribes a handler to window events.
- * Ex. useEvent('keydown', callback); (also see useKey)
- */
+function _useEffectDeep(callback: Fnc, varsToWatch: any[]) {
+  const lastSeenProps = useRef<Inputs[]>([])
+  useEffect(() => {
+    if (Object.isNotEqual(varsToWatch, lastSeenProps.current)) {
+      lastSeenProps.current = varsToWatch
+      return callback()
+    }
+  }, varsToWatch)
+}
+
 const _useEvent: UseEvent = (type, listener, options) => {
   useEffect(() => {
     addEventListener(type as any, listener, options)
@@ -75,10 +77,39 @@ type UseEventsProps<K extends string | keyof WindowEventMap> = {
   options?: boolean | AddEventListenerOptions
 }
 
-/**
- * executes a handler when a keyboard key is used.
- * Ex. useKey('ArrowUp', callback);
- */
+function _useFirstMountState(): boolean {
+  const isFirst = useRef(true)
+  if (isFirst.current) {
+    isFirst.current = false
+    return true
+  }
+  return isFirst.current
+}
+
+function _useIntersection(
+  ref: React.MutableRefObject<HTMLElement | null>,
+  options: IntersectionObserverInit
+) {
+  const [state, setState] = useState<IntersectionObserverEntry | null>(null)
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => setState(entry), options)
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [ref])
+  return state
+}
+
+function _useInterval(cb: () => any, ms = 0, cancelOnDismount = true) {
+  useEffect(() => {
+    const interval = setInterval(cb, ms)
+    return () => {
+      if (cancelOnDismount) clearInterval(interval)
+    }
+  }, [])
+}
+
 function _useKey(
   key: KeyFilter,
   fn: Handler = () => {},
@@ -113,98 +144,22 @@ interface UseKeyOptions extends AddEventListenerOptions {
   event?: 'keydown' | 'keypress' | 'keyup'
 }
 
-/**
- * useEffectDeep: Like useEffect, but does a deep compare instead default compare
- * to avoid misfires
- */
-function _useEffectDeep(callback: Fnc, varsToWatch: any[]) {
-  const lastSeenProps = useRef<Inputs[]>([])
-  useEffect(watchProps, varsToWatch)
-
-  function watchProps() {
-    if (Object.isNotEqual(varsToWatch, lastSeenProps.current)) {
-      lastSeenProps.current = varsToWatch
-      return callback()
-    }
-  }
-}
-
-/**
- * useFirstMountState: check if current render is first.
- * from react-use
- */
-function _useFirstMountState(): boolean {
-  const isFirst = useRef(true)
-  if (isFirst.current) {
-    isFirst.current = false
-    return true
-  }
-  return isFirst.current
-}
-
-/**
- * useIntersection: track the visible state of an element by ref
- * Caution: the component will re-render on state change.
- */
-function _useIntersection(
-  ref: React.MutableRefObject<HTMLElement | null>,
-  options: IntersectionObserverInit
-) {
-  const [state, setState] = useState<IntersectionObserverEntry | null>(null)
-  useEffect(() => {
-    const node = ref.current
-    if (!node) return
-    const observer = new IntersectionObserver(([entry]) => setState(entry), options)
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [ref])
-  return state
-}
-
-/**
- * useInterval: Call callback cb every ms milliseconds after mount
- * @param cb - callback to call after timeout
- * @param ms - milliseconds to wait before calling cb after mount
- * @param cancelOnDismount - whether to cancel on dismount
- */
-function _useInterval(cb: () => any, ms = 0, cancelOnDismount = true) {
-  useEffect(() => {
-    const interval = setInterval(cb, ms)
-    return () => {
-      if (cancelOnDismount) clearInterval(interval)
-    }
-  }, [])
-}
-
-/**
- * useLayoutEffectDeep: Like useLayoutEffect, but does a deep compare instead default compare
- * to avoid misfires
- */
 function _useLayoutEffectDeep(callback: Fnc, varsToWatch: any[]) {
   const lastSeenProps = useRef<Inputs[]>([])
-  useLayoutEffect(watchProps, varsToWatch)
-
-  function watchProps() {
+  useLayoutEffect(() => {
     if (Object.isNotEqual(varsToWatch, lastSeenProps.current)) {
       lastSeenProps.current = varsToWatch
       return callback()
     }
-  }
+  }, varsToWatch)
 }
 
-/**
- * useMount: Call callback cb after mount. Does nothing with return result
- */
 function _useMountEffect(fn: () => any) {
   useEffect(() => {
     fn()
   }, [])
 }
 
-/**
- * useMountedState: returns a fcn that returns true if component is mounted.
- * from react-use
- */
 function _useMountedState() {
   const isMountedRef = useRef(true)
   const isMounted = useCallback(() => isMountedRef.current, [])
@@ -217,11 +172,6 @@ function _useMountedState() {
   return isMounted
 }
 
-/**
- * A hook that watches a css media breakpoint
- *
- * e.g. isWide = useMedia('(min-width: 768px)')
- */
 function _useMedia(query: string) {
   const [state, setState] = useState(matchMedia(query).matches)
   useEffect(() => {
@@ -238,24 +188,16 @@ function _useMedia(query: string) {
   return state
 }
 
-/**
- * useEffectDeep: Like useEffect, but does a deep compare instead default compare
- * to avoid misfires
- */
 function _useMemoDeep(callback: Fnc, varsToWatch: any[]) {
   const [lastSeenProps, setLastSeenProps] = useState(varsToWatch)
-  useEffect(watchProps, varsToWatch)
+  useEffect(() => {
+    if (Object.isNotEqual(varsToWatch, lastSeenProps)) {
+      setLastSeenProps(varsToWatch)
+    }
+  }, varsToWatch)
   return useMemo(callback, [lastSeenProps])
-
-  function watchProps() {
-    if (Object.isNotEqual(varsToWatch, lastSeenProps)) setLastSeenProps(varsToWatch)
-  }
 }
 
-/**
- * useUpdate: returns a callback, which re-renders component when called
- * @param ms - if supplied, will automatically re-render after ms milliseconds
- */
 function _useRerenderCb(ms = 0) {
   const updateReducer = (num: number): number => (num + 1) % 1_000_000
   const [, rerenderCb] = useReducer(updateReducer, 0)
@@ -265,9 +207,6 @@ function _useRerenderCb(ms = 0) {
   return rerenderCb as () => void
 }
 
-/**
- * Use a stateful Set as if it were almost a normal Set, with helpers like toggle and reset.
- */
 export interface UseSet<T> {
   current: Set<T>
   size: number
@@ -323,12 +262,6 @@ function _useSet<T>(initial: Set<T> = new Set()) {
   return res
 }
 
-/**
- * useTimeout: Call callback cb after ms milliseconds after mount
- * @param cb - callback to call after timeout
- * @param ms - milliseconds to wait before calling cb after mount
- * @param cancelOnDismount - whether to cancel on dismount
- */
 function _useTimeout(cb: () => any, ms = 0, cancelOnDismount = true) {
   useEffect(() => {
     const timeout = setTimeout(cb, ms)
@@ -338,17 +271,10 @@ function _useTimeout(cb: () => any, ms = 0, cancelOnDismount = true) {
   }, [])
 }
 
-/**
- * useMount: Call callback cb on unmount
- */
 function _useUnmountEffect(fn: () => any) {
   useEffect(() => fn, [])
 }
 
-/**
- * useUpdateEffect: run an effect only on updates.
- * based on react-use
- */
 const _useUpdateEffect: typeof useEffect = (effect, deps) => {
   const isFirstMount = useFirstMountState()
   useEffect(() => {
@@ -377,22 +303,109 @@ declare global {
   var useTransition: typeof _useTransition
 
   // Custom hooks
+
+  /**
+   * useClickAway: Triggers a callback when user clicks outside the target element.
+   * Ex. useClickAway(ref, callback);
+   */
   var useClickAway: typeof _useClickAway
-  var useKey: typeof _useKey
+
+  /**
+   * useEffectDeep: Like useEffect, but does a deep compare instead default compare
+   * to avoid misfires
+   */
   var useEffectDeep: typeof _useEffectDeep
+
+  /**
+   * useEvent: subscribes a handler to window events.
+   * Ex. useEvent('keydown', callback); (also see useKey)
+   */
   var useEvent: typeof _useEvent
+
+  /**
+   * useFirstMountState: check if current render is first.
+   * from react-use
+   */
   var useFirstMountState: typeof _useFirstMountState
+
+  /**
+   * useIntersection: track the visible state of an element by ref
+   * Caution: the component will re-render on state change.
+   */
   var useIntersection: typeof _useIntersection
+
+  /**
+   * useInterval: Call callback cb every ms milliseconds after mount
+   * @param cb - callback to call after timeout
+   * @param ms - milliseconds to wait before calling cb after mount
+   * @param cancelOnDismount - whether to cancel on dismount
+   */
   var useInterval: typeof _useInterval
+
+  /**
+   * executes a handler when a keyboard key is used.
+   * Ex. useKey('ArrowUp', callback);
+   */
+  var useKey: typeof _useKey
+
+  /**
+   * useLayoutEffectDeep: Like useLayoutEffect, but does a deep compare instead default compare
+   * to avoid misfires
+   */
   var useLayoutEffectDeep: typeof _useLayoutEffectDeep
+
+  /**
+   * useMount: Call callback cb after mount. Does nothing with return result
+   */
   var useMountEffect: typeof _useMountEffect
+
+  /**
+   * useMountedState: returns a fcn that returns true if component is mounted.
+   * from react-use
+   */
   var useMountedState: typeof _useMountedState
+
+  /**
+   * A hook that watches a css media breakpoint
+   *
+   * e.g. isWide = useMedia('(min-width: 768px)')
+   */
   var useMedia: typeof _useMedia
+
+  /**
+   * useEffectDeep: Like useEffect, but does a deep compare instead default compare
+   * to avoid misfires
+   */
   var useMemoDeep: typeof _useMemoDeep
+
+  /**
+   * useUpdate: returns a callback, which re-renders component when called
+   * @param ms - if supplied, will automatically re-render after ms milliseconds
+   */
   var useRerenderCb: typeof _useRerenderCb
+
+  /**
+   * Use a stateful Set as if it were almost a normal Set, with helpers like toggle and reset.
+   */
   var useSet: typeof _useSet
+
+  /**
+   * useTimeout: Call callback cb after ms milliseconds after mount
+   * @param cb - callback to call after timeout
+   * @param ms - milliseconds to wait before calling cb after mount
+   * @param cancelOnDismount - whether to cancel on dismount
+   */
   var useTimeout: typeof _useTimeout
+
+  /**
+   * useMount: Call callback cb on unmount
+   */
   var useUnmountEffect: typeof _useUnmountEffect
+
+  /**
+   * useUpdateEffect: run an effect only on updates.
+   * based on react-use
+   */
   var useUpdateEffect: typeof _useUpdateEffect
 }
 
@@ -415,12 +428,12 @@ globalThis.useTransition = _useTransition
 
 // Custom hooks
 globalThis.useClickAway = _useClickAway
-globalThis.useKey = _useKey
 globalThis.useEffectDeep = _useEffectDeep
 globalThis.useEvent = _useEvent
 globalThis.useFirstMountState = _useFirstMountState
 globalThis.useIntersection = _useIntersection
 globalThis.useInterval = _useInterval
+globalThis.useKey = _useKey
 globalThis.useLayoutEffectDeep = _useLayoutEffectDeep
 globalThis.useMountEffect = _useMountEffect
 globalThis.useMountedState = _useMountedState

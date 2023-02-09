@@ -1,7 +1,13 @@
 import '../iso'
 import './window'
 
-;(globalThis as TSFIXME).isNode = true
-;(globalThis as TSFIXME).isWeb = false
-;(globalThis as TSFIXME).env = process.env
-;(globalThis as TSFIXME).isProd = process.env.NODE_ENV === 'production'
+declare global {
+  var global: typeof globalThis
+  var isNode: boolean
+  var isWeb: boolean
+}
+
+globalThis.global = globalThis
+global.isNode = true
+global.isWeb = false
+global.isTest = process.env.NODE_ENV === 'test'

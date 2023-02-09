@@ -3,6 +3,13 @@ import {useRegisterSW} from 'virtual:pwa-register/react'
 
 import {toast} from './toast'
 
+/**
+ * A falsey component that is all-effect -- it listens for service worker events
+ * and triggers a toast to notify the user.
+ *
+ * Is a component and not hook for conveniently calling as a sibling component
+ * to the toast component. As a hook, would have to be called in a child.
+ */
 export function ServiceWorkerToasts() {
   const {
     needRefresh: [needRefresh, setNeedRefresh],

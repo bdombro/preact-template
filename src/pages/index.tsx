@@ -2,6 +2,9 @@ import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
 import {Markdown} from '~/util/markdown'
 
+/**
+ * A demo of a home page
+ */
 export default function Index() {
   const {title, description} = setPageMeta({title: 'Home'})
   return (

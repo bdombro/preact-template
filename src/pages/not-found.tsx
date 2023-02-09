@@ -1,6 +1,9 @@
 import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
 
+/**
+ * A page shown when a route is not found
+ */
 export default function NotFound() {
   const {description} = setPageMeta({
     title: 'Not Found',

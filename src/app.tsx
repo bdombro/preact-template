@@ -9,6 +9,9 @@ import {Toasts} from './comps/toast'
 import {router} from './router'
 import {Switch} from './util/stackr'
 
+/**
+ * The main app component
+ */
 export function App() {
   return (
     <div data-testid="appComponent">

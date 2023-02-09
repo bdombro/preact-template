@@ -52,7 +52,7 @@ String.uid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmno
 Object.defineProperties(String.prototype, {
   copy: {
     value: function () {
-      return new String(this)
+      return this + ''
     },
     enumerable: false,
   },

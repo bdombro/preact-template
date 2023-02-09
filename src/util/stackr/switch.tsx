@@ -1,7 +1,12 @@
+import {memo} from 'react'
+
 import {Lazy} from './lazy'
 import type {RouterInstance} from './router-class'
 
-export function Switch({router}: {router: RouterInstance}) {
+/**
+ * A Switching component, which renders the first matching route
+ */
+export const Switch = memo(function Switch({router}: {router: RouterInstance}) {
   const [route, setRoute] = useState(router.find(new URL(location.href)))
 
   useEffect(() => router.subscribe(setRoute), [])
@@ -16,4 +21,4 @@ export function Switch({router}: {router: RouterInstance}) {
     ),
     [route]
   )
-}
+})
