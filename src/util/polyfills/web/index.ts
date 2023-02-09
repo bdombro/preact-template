@@ -1,11 +1,7 @@
-// prettier-ignore
-import './primitives';
-
 import '../iso'
 import './hooks'
 import './icons'
-
-// TODO: Declare types for these vars
+import './primitives'
 
 declare global {
   var global: typeof globalThis
