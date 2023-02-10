@@ -11,14 +11,13 @@
  */
 
 /** A generic promise */
-type P = (...args: any[]) => Promise<any>
-type PNoArgs = () => Promise<any>
+type PromiseType = (...args: any[]) => Promise<any>
 /** Gets the return type of a promise */
-type ReturnTypeP<T extends P> = ThenArg<ReturnType<T>>
+type ReturnTypeP<T extends PromiseType> = ThenArg<ReturnType<T>>
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
 
 /** The state of a fetcher */
-export interface CacheVal<T extends P> {
+export interface CacheVal<T extends PromiseType> {
   /** A Normal JS error that is populated on error */
   error?: Error
   /** Any outstanding promise for fetching new data */
@@ -34,7 +33,7 @@ export interface CacheVal<T extends P> {
  *
  * @param refresh - A callback that will refresh the UI, call the fetcher, and update cache
  */
-interface State<T extends P> extends CacheVal<T> {
+interface State<T extends PromiseType> extends CacheVal<T> {
   /**
    * A boolean that is true if the fetcher is in-flight
    */
@@ -42,7 +41,7 @@ interface State<T extends P> extends CacheVal<T> {
   /**
    * A callback that will refresh the UI, call the fetcher, and update cache
    *
-   * @param props - optional props to pass to the callback. If not provided, the prior props will be re-used
+   * @param props - props to pass to the callback. If not provided, the prior props will be re-used
    * @returns a promise of the next value of the fetcher
    */
   refresh: () => ReturnType<T>
@@ -68,7 +67,7 @@ const stringify = (obj: any) => {
 /**
  * A cache of all the promises that are in-flight. These do not serialize to localStorage so store seperately
  */
-const promiseCache = new Map<string, Promise<P>>()
+const promiseCache = new Map<string, Promise<PromiseType>>()
 
 /**
  * A wrapper around localCache and pCache
@@ -129,7 +128,7 @@ setInterval(() => {
  *  import useSWR from '@ulibs/swr'
  *  export function Planets() {
  *    const data = useSWR({
- *      fetcher: (_page: string) => sw.Planets.getPage(Number(_page)),
+ *      fetcher: () => sw.Planets.getPage(Number(_page)),
  *      props: [page]
  *    })
  *    if (data.loading) return <p>Loading...</p>
@@ -138,25 +137,18 @@ setInterval(() => {
  *  }
  * ```
  */
-function useSWR<T extends P>(p: {
-  /** An async callback that returns data. *Data must be JSONable* */
-  fetcher: T
-  /** initial props to pass to the callback (only if callback has arguments) */
-  props: Parameters<T>
-  /** Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching */
-  throttle?: number
-}): State<T>
-function useSWR<T extends PNoArgs>(p: {fetcher: T; throttle?: number}): State<T>
-function useSWR<T extends P>({
+function useSWR<T extends PromiseType>({
   fetcher,
   props,
   throttle = 3000,
 }: {
+  /** An async callback that returns data. *Data must be JSONable* */
   fetcher: T
-  props?: Parameters<T>
+  /** initial props to pass to the callback (only if callback has arguments) */
+  props: any[]
+  /** Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching */
   throttle?: number
 }): State<T> {
-  // TODO: Consider Map.
   const cacheKey = stringify(props) + fetcher.toString()
   const [state, setState] = useState<State<T>>(() => {
     const hit = cache.get(cacheKey)
@@ -179,7 +171,7 @@ function useSWR<T extends P>({
     }
 
     // @ts-expect-error - TS is having a hard time infering fetcher return type for some reason
-    hit.promise = fetcher(props)
+    hit.promise = fetcher()
       .then(r => {
         onUpdate({result: r, t: Date.now()})
         return r
