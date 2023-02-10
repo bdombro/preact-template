@@ -76,10 +76,14 @@ function ToastStack({placement}: {placement: ToastProps['placement']}) {
   const wrapper = wrapperRef.current
 
   const animateIn = () => {
-    if (!wrapper) return
-    wrapper.style.display = 'initial'
-    wrapper.classList.add('animatedIn')
-    wrapper.classList.remove('_hidden')
+    // setTimeout to start after a couple render cycles, so everything
+    // is more likely to be ready (like icons)
+    setTimeout(() => {
+      if (!wrapper) return
+      wrapper.style.display = 'initial'
+      wrapper.classList.add('animatedIn')
+      wrapper.classList.remove('_hidden')
+    }, 20)
   }
 
   const animateOut = () => {
