@@ -22,7 +22,7 @@ export interface CacheVal<T extends P> {
   /** A Normal JS error that is populated on error */
   error?: Error
   /** Any outstanding promise for fetching new data */
-  p?: ReturnType<T>
+  promise?: ReturnType<T>
   /** The last time this cache item was refreshed */
   t?: number
   /** The latest result from the fetcher */
@@ -68,36 +68,41 @@ const stringify = (obj: any) => {
 /**
  * A cache of all the promises that are in-flight. These do not serialize to localStorage so store seperately
  */
-const pCache = new Map<string, Promise<P>>()
+const promiseCache = new Map<string, Promise<P>>()
 
 /**
  * A wrapper around localCache and pCache
  */
 const cache = {
   get(key: string): CacheVal<any> | undefined {
-    let m = {p: pCache.get(key)}
-    const ls = localStorage.getItem('swr:' + key)
-    if (ls) m = {...JSON.parse(ls), ...m}
-    return m
+    const hit = {promise: promiseCache.get(key)}
+    const lsCacheVal = localStorage.getItem('swr:' + key)
+    if (lsCacheVal) Object.assign(hit, JSON.parse(lsCacheVal))
+    return hit
   },
   set(key: string, value: CacheVal<any>) {
-    const {p, ...rest} = value
-    if (p) pCache.set(key, p)
+    const {promise, ...rest} = value
+    if (promise) promiseCache.set(key, promise)
     else {
-      pCache.delete(key)
+      promiseCache.delete(key)
       localStorage.setItem('swr:' + key, stringify(rest))
     }
   },
 }
 
-/** FIFO Garbage Collector */
+/**
+ * FIFO Garbage Collector
+ *
+ * Limit the cache size to 100 items, and remove the oldest items
+ */
 setInterval(() => {
   ;(Object.entries(localStorage) as [string, string][])
     .filter(([k]) => k.startsWith('swr:'))
     .map(([k, v]) => [k, JSON.parse(v)] as [string, CacheVal<any>])
-    .sort((a, b) => (a[1]?.t || 0) + (b[1]?.t || 0))
-    .slice(100)
+    .sort((a, b) => (a[1]?.t || 0) + (b[1]?.t || 0)) // sort by last refresh time
+    .slice(100) // grab elements 100+
     .forEach(([k]) => {
+      promiseCache.delete(k)
       localStorage.removeItem(k)
     })
 }, 60_000)
@@ -151,16 +156,17 @@ function useSwr<T extends P>({
   props?: Parameters<T>
   throttle?: number
 }): State<T> {
+  // TODO: Consider Map.
   const cacheKey = stringify(props) + fetcher.toString()
   const [state, setState] = useState<State<T>>(() => {
     const hit = cache.get(cacheKey)
-    return {...hit, refresh, loading: !!hit?.p}
+    return {...hit, refresh, loading: !!hit?.promise}
   })
 
   function refresh(hardRefresh = true): ReturnType<T> {
     const hit = cache.get(cacheKey) as CacheVal<T>
-    if (hit?.p) {
-      return hit.p
+    if (hit?.promise) {
+      return hit.promise
     }
     if (!hardRefresh && hit?.result && hit?.t && Date.now() - hit.t < throttle) {
       // @ts-expect-error - TS doesn't like this, but it works
@@ -169,11 +175,11 @@ function useSwr<T extends P>({
 
     const onUpdate = (res: CacheVal<T>) => {
       cache.set(cacheKey, res)
-      setState({...res, refresh, loading: !!res?.p})
+      setState({...res, refresh, loading: !!res?.promise})
     }
 
     // @ts-expect-error - TS is having a hard time infering fetcher return type for some reason
-    hit.p = fetcher(props)
+    hit.promise = fetcher(props)
       .then(r => {
         onUpdate({result: r, t: Date.now()})
         return r
@@ -185,7 +191,7 @@ function useSwr<T extends P>({
 
     onUpdate(hit)
 
-    return hit.p as ReturnType<T>
+    return hit.promise as ReturnType<T>
   }
 
   useEffect(() => {
