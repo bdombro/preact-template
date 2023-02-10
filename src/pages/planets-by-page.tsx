@@ -16,11 +16,7 @@ export default function PlanetsByPage({route}: {route: RouteMatch}) {
     description: `A demo of a route stack and data fetching. Notice that it takes a moment to load the data at first, but then you never wait for the same data to load twice. Also notice that the page state is restored when you navigate to another page in the nav menu and return.`,
   })
 
-  const data = useSWR({
-    fetcher: () => sw.Planets.getPage(Number(page)),
-    props: [page],
-    throttle: Infinity,
-  })
+  const data = useSWR(() => sw.Planets.getPage(Number(page)), [page], {throttle: Infinity})
 
   return (
     <Layout>
@@ -58,7 +54,7 @@ export default function PlanetsByPage({route}: {route: RouteMatch}) {
         {data.result?.map(planet => (
           <F key={planet.name}>
             <h3>{planet.name}</h3>
-            <ul>
+            <ul style={{wordBreak: 'break-word'}}>
               {Object.entries(planet)
                 .slice(1)
                 .map(([key, value]) => (

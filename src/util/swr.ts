@@ -137,18 +137,17 @@ setInterval(() => {
  *  }
  * ```
  */
-function useSWR<T extends PromiseType>({
-  fetcher,
-  props,
-  throttle = 3000,
-}: {
+function useSWR<T extends PromiseType>(
   /** An async callback that returns data. *Data must be JSONable* */
-  fetcher: T
-  /** initial props to pass to the callback (only if callback has arguments) */
-  props: any[]
-  /** Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching */
-  throttle?: number
-}): State<T> {
+  fetcher: T,
+  /** props to trigger refresh on change, like useEffectDeep */
+  props: any[],
+  options: {
+    /** Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching */
+    throttle?: number
+  }
+): State<T> {
+  const {throttle = 3000} = options
   const cacheKey = stringify(props) + fetcher.toString()
   const [state, setState] = useState<State<T>>(() => {
     const hit = cache.get(cacheKey)
