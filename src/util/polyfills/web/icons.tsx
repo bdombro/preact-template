@@ -1,4 +1,4 @@
-import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/Icon'
+import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/icon-components'
 import {addCss} from '@slimr/styled'
 
 // You must export something or TS gets confused.
@@ -7,7 +7,7 @@ export {}
 declare global {
   var Icon: IconType
   type IconKeys = keyof typeof icons
-  type IconProps = Omit<LazyIconSvgProps, 'name' | 'svgPathImport'> & {
+  type IconProps = Omit<LazyIconSvgProps, 'name' | 'pathImporter'> & {
     name: IconKeys
   }
   type IconType = (props: IconProps) => JSX.Element
@@ -62,5 +62,5 @@ const icons = {
  * by name. The names available are declared in the `icons` object above.
  */
 function Icon({name, ...props}: IconProps) {
-  return <LazyIconSvg svgPathImport={icons[name]} {...props} />
+  return <LazyIconSvg pathImporter={icons[name]} {...props} />
 }
