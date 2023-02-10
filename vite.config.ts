@@ -54,6 +54,10 @@ const prodConfig: UserConfigExport = {
             return 'icons/' + id.split('/').at(-1).slice(0, -3)
           }
 
+          if (id.includes('swapi')) {
+            return id.split('/').at(-1).slice(0, -3)
+          }
+
           // ATM we're better off without page splitting
           // if (!id.includes('pages')) {
           //   return
