@@ -43,11 +43,14 @@ export function Lazy({
   }
 
   useEffect(() => {
-    setState(s => ({
-      ...s,
-      current: <Wrapped />,
-      last: state.current,
-    }))
+    // Load the component before rendering it. This helps prevent flickering.
+    loader().then(() => {
+      setState(s => ({
+        ...s,
+        current: <Wrapped />,
+        last: state.current,
+      }))
+    })
   }, [loader, props])
 
   return state?.current
