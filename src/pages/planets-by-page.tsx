@@ -3,7 +3,7 @@ import {router} from '~/router'
 import {setPageMeta} from '~/util/head'
 import type {RouteMatch} from '~/util/stackr'
 import * as sw from '~/util/swapi'
-import useSwr from '~/util/swr'
+import useSWR from '~/util/swr'
 
 /**
  * A demo of a route stack and data fetching with swr
@@ -16,7 +16,7 @@ export default function PlanetsByPage({route}: {route: RouteMatch}) {
     description: `A demo of a route stack and data fetching. Notice that it takes a moment to load the data at first, but then you never wait for the same data to load twice. Also notice that the page state is restored when you navigate to another page in the nav menu and return.`,
   })
 
-  const data = useSwr({
+  const data = useSWR({
     fetcher: (_page: typeof page) => sw.Planets.getPage(Number(_page)),
     props: [page],
     throttle: Infinity,

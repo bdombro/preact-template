@@ -3,7 +3,7 @@
 
 /**
  *
- * useSwr: a tiny (600B) async resolver that displays a cached version (if available) of the
+ * useSWR: a tiny (600B) async resolver that displays a cached version (if available) of the
  * callback until the callback resolves.
  *
  * Tiny: only 600 bytes when bundled with Vite
@@ -30,7 +30,7 @@ export interface CacheVal<T extends P> {
 }
 
 /**
- * The value stored in the SWR state, which is returned by useSwr
+ * The value stored in the SWR state, which is returned by useSWR
  *
  * @param refresh - A callback that will refresh the UI, call the fetcher, and update cache
  */
@@ -109,7 +109,7 @@ setInterval(() => {
 
 /**
  *
- * useSwr: an async resolver that displays a cached version (if available) of the
+ * useSWR: an async resolver that displays a cached version (if available) of the
  * callback until the callback resolves.
  *
  * Benefits:
@@ -126,9 +126,9 @@ setInterval(() => {
  *
  * @example
  * ```ts
- *  import useSwr from '@ulibs/swr'
+ *  import useSWR from '@ulibs/swr'
  *  export function Planets() {
- *    const data = useSwr({
+ *    const data = useSWR({
  *      fetcher: (_page: string) => sw.Planets.getPage(Number(_page)),
  *      props: [page]
  *    })
@@ -138,7 +138,7 @@ setInterval(() => {
  *  }
  * ```
  */
-function useSwr<T extends P>(p: {
+function useSWR<T extends P>(p: {
   /** An async callback that returns data. *Data must be JSONable* */
   fetcher: T
   /** initial props to pass to the callback (only if callback has arguments) */
@@ -146,8 +146,8 @@ function useSwr<T extends P>(p: {
   /** Throttle threshold in ms: time that the cache is deemed current, to avoid over re-fetching */
   throttle?: number
 }): State<T>
-function useSwr<T extends PNoArgs>(p: {fetcher: T; throttle?: number}): State<T>
-function useSwr<T extends P>({
+function useSWR<T extends PNoArgs>(p: {fetcher: T; throttle?: number}): State<T>
+function useSWR<T extends P>({
   fetcher,
   props,
   throttle = 3000,
@@ -201,4 +201,4 @@ function useSwr<T extends P>({
   return state
 }
 
-export default useSwr
+export default useSWR
