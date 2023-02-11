@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@slimr/mdi-paths": "^1.0.20",
-    "@slimr/styled": "^1.0.40",
+    "@slimr/styled": "^2.0.2",
     "preact": "^10.11.3"
   },
   "devDependencies": {
