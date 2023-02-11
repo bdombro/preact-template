@@ -8,8 +8,8 @@
     "start": "vite",
     "prepare": "husky install",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css,pcss --exec 'eslint .'",
+    "lint": "eslint . --cache --cache-location=node_modules/.eslintcache",
+    "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css,pcss --exec 'npm run lint'",
     "format": "prettier -w .",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -29,8 +29,8 @@
     }
   },
   "dependencies": {
-    "@slimr/mdi-paths": "^1.0.20",
-    "@slimr/styled": "^2.0.2",
+    "@slimr/mdi-paths": "^1.0.22",
+    "@slimr/styled": "^2.0.3",
     "preact": "^10.11.3"
   },
   "devDependencies": {

@@ -3,5 +3,5 @@
 
 npx tsc
 npx pretty-quick --staged
-npx eslint . --cache --cache-location=node_modules/.eslintcache
+npm run lint
 npx vitest --run
