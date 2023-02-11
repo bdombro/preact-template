@@ -22,10 +22,10 @@ export interface CacheVal<T extends PromiseType> {
   error?: Error
   /** Any outstanding promise for fetching new data */
   promise?: ReturnType<T>
-  /** The last time this cache item was refreshed */
-  t?: number
   /** The latest result from the fetcher */
   result?: ReturnTypeP<T>
+  /** The last time this cache item was refreshed */
+  updatedAt?: number
 }
 
 /**
@@ -65,46 +65,10 @@ const stringify = (obj: any) => {
 }
 
 /**
- * A cache of all the promises that are in-flight. These do not serialize to localStorage so store seperately
+ * A cache to store prior responses and timestamps
  */
-const promiseCache = new Map<string, Promise<PromiseType>>()
-
-/**
- * A wrapper around localCache and pCache
- */
-const cache = {
-  get(key: string): CacheVal<any> | undefined {
-    const hit = {promise: promiseCache.get(key)}
-    const lsCacheVal = localStorage.getItem('swr:' + key)
-    if (lsCacheVal) Object.assign(hit, JSON.parse(lsCacheVal))
-    return hit
-  },
-  set(key: string, value: CacheVal<any>) {
-    const {promise, ...rest} = value
-    if (promise) promiseCache.set(key, promise)
-    else {
-      promiseCache.delete(key)
-      localStorage.setItem('swr:' + key, stringify(rest))
-    }
-  },
-}
-
-/**
- * FIFO Garbage Collector
- *
- * Limit the cache size to 100 items, and remove the oldest items
- */
-setInterval(() => {
-  ;(Object.entries(localStorage) as [string, string][])
-    .filter(([k]) => k.startsWith('swr:'))
-    .map(([k, v]) => [k, JSON.parse(v)] as [string, CacheVal<any>])
-    .sort((a, b) => (a[1]?.t || 0) + (b[1]?.t || 0)) // sort by last refresh time
-    .slice(100) // grab elements 100+
-    .forEach(([k]) => {
-      promiseCache.delete(k)
-      localStorage.removeItem(k)
-    })
-}, 60_000)
+const cache = new Map()
+cache.setMaxSize(100)
 
 /**
  *
@@ -155,11 +119,11 @@ function useSWR<T extends PromiseType>(
   })
 
   function refresh(hardRefresh = true): ReturnType<T> {
-    const hit = cache.get(cacheKey) as CacheVal<T>
+    const hit = cache.get(cacheKey) || ({} as CacheVal<T>)
     if (hit?.promise) {
       return hit.promise
     }
-    if (!hardRefresh && hit?.result && hit?.t && Date.now() - hit.t < throttle) {
+    if (!hardRefresh && hit?.result && hit?.updatedAt && Date.now() - hit.updatedAt < throttle) {
       // @ts-expect-error - TS doesn't like this, but it works
       return (async () => hit.result)()
     }
@@ -169,15 +133,14 @@ function useSWR<T extends PromiseType>(
       setState({...res, refresh, loading: !!res?.promise})
     }
 
-    // @ts-expect-error - TS is having a hard time infering fetcher return type for some reason
     hit.promise = fetcher()
-      .then(r => {
-        onUpdate({result: r, t: Date.now()})
-        return r
+      .then(result => {
+        onUpdate({result, updatedAt: Date.now()})
+        return result
       })
-      .catch(e => {
-        onUpdate({error: e, t: Date.now()})
-        throw e
+      .catch(error => {
+        onUpdate({error, updatedAt: Date.now()})
+        throw error
       })
 
     onUpdate(hit)
