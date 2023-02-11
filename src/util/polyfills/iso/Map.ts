@@ -60,7 +60,8 @@ Object.defineProperties(Map.prototype, {
 })
 
 /**
- * Limit the size of a map by evicting the least-recently-used (aka LRU) items
+ * Limit the size of a map by evicting the least-recently-used (aka LRU)
+ * items. Works by monkey-patching the get and set of a map instance
  *
  * Warning: This hurts performance of map.get and map.set vs a normal map
  */
@@ -72,9 +73,11 @@ function mapApplyMaxSize(map: any, maxSize: number) {
     // if key exists, delete it so it can be re-added at end of map
     if (map.has(key)) {
       map.delete(key)
-    } else if (map.size == map.max) {
-      // evict top of map (aka oldest)
-      map.delete(map.keys().next().value)
+    } else {
+      if (map.size >= map.max) {
+        // evict top of map (aka oldest)
+        map.delete(map.keys().next().value)
+      }
     }
 
     // Now add key to end of map
@@ -84,9 +87,11 @@ function mapApplyMaxSize(map: any, maxSize: number) {
   map.get = (key: any) => {
     const item = map._get(key)
     if (item) {
-      // put key at end of map
-      map.delete(key)
-      map._set(key, item)
+      setTimeout(() => {
+        // put key at end of map
+        map.delete(key)
+        map._set(key, item)
+      })
     }
     return item
   }
