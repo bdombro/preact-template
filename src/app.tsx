@@ -2,6 +2,7 @@ import './styles.pcss'
 
 import './util/polyfills/web'
 
+import {BrowserCheckToast} from './comps/browser-check-toast'
 import {ErrorToast} from './comps/error-toast'
 import {OfflineToast} from './comps/offline-toast'
 import {ServiceWorkerToasts} from './comps/service-worker-toasts'
@@ -16,6 +17,7 @@ export function App() {
   return (
     <div data-testid="appComponent">
       <Toasts />
+      <BrowserCheckToast />
       <ErrorToast />
       <OfflineToast />
       <ServiceWorkerToasts />
