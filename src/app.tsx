@@ -2,8 +2,9 @@ import './styles.pcss'
 
 import './util/polyfills/web'
 
+import {Switch} from '@slimr/router'
+
 import {router} from './router'
-import {Switch} from './util/stackr'
 import {ToastPack} from './util/toasts'
 
 /**

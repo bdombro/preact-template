@@ -1,7 +1,8 @@
+import type {RouteMatch} from '@slimr/router'
+
 import {Layout} from '~/comps/layout-default'
 import {router} from '~/router'
 import {setPageMeta} from '~/util/head'
-import type {RouteMatch} from '~/util/stackr'
 import * as sw from '~/util/swapi'
 import useSWR from '~/util/swr'
 

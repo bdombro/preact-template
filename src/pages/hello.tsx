@@ -1,7 +1,8 @@
+import type {RouteMatch} from '@slimr/router'
+
 import {Filler} from '~/comps/filler'
 import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
-import type {RouteMatch} from '~/util/stackr'
 
 /**
  * A demo of route with url params

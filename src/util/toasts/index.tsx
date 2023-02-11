@@ -4,6 +4,8 @@ import {OfflineToast} from './offline-toast'
 import {ServiceWorkerToasts} from './service-worker-toasts'
 import {Toasts} from './toast'
 
+export * from './toast'
+
 /**
  * All of the browser state toasts in one component
  */

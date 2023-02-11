@@ -1,4 +1,4 @@
-import {Router} from './util/stackr'
+import {Router} from '@slimr/router'
 
 export const router = new Router({
   index: {
