@@ -1,4 +1,4 @@
-import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/icon-components'
+import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/react'
 import {addCss} from '@slimr/styled'
 
 // You must export something or TS gets confused.

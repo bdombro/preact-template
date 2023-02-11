@@ -29,7 +29,7 @@
     }
   },
   "dependencies": {
-    "@slimr/mdi-paths": "^1.0.19",
+    "@slimr/mdi-paths": "^1.0.20",
     "@slimr/styled": "^1.0.40",
     "preact": "^10.11.3"
   },
