@@ -1,7 +1,6 @@
-import {copy} from './util/copy'
-import {detailedDiff} from './util/diff'
-import {isEqual} from './util/isEqual'
-import {merge, mergeAndCompare, mergeAndConcat} from './util/merge'
+import {detailedDiff} from '@slimr/util/diff'
+import {isEqual} from '@slimr/util/isEqual'
+import {merge, mergeAndCompare, mergeAndConcat} from '@slimr/util/merge'
 
 /**
  * Polyfills for object
@@ -15,7 +14,7 @@ declare global {
     /**
      * Make a deep copy of an object so that none of the references are the same
      */
-    copy: typeof copy
+    copy: typeof structuredClone
 
     /**
      * returns an object with the added, deleted and updated differences
@@ -204,7 +203,7 @@ declare global {
   }
 }
 
-Object.copy = copy
+Object.copy = structuredClone
 
 Object.diff = detailedDiff
 

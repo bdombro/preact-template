@@ -1,10 +1,10 @@
 import type {RouteMatch} from '@slimr/router'
+import {useSWR} from '@slimr/swr'
 
 import {Layout} from '~/comps/layout-default'
 import {router} from '~/router'
 import {setPageMeta} from '~/util/head'
 import * as sw from '~/util/swapi'
-import useSWR from '~/util/swr'
 
 /**
  * A demo of a route stack and data fetching with swr

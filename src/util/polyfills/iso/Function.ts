@@ -1,7 +1,7 @@
-/* eslint-disable prefer-rest-params */
 /**
  * Polyfills for Function
  */
+import {memoize} from '@slimr/util/memoize'
 
 // You must export something or TS gets confused.
 export {}
@@ -76,51 +76,6 @@ Function.getName = () => {
 }
 
 Function.memoize = memoize
-
-function memoize<Fn extends Fnc>(fn: Fn, ttl = 1000) {
-  const self = memoize
-  memoize.initialize()
-  const throttled = (...props: any) => {
-    const cacheKey = JSON.stringify({
-      signature: `${fn.name}::${fn.toString().slice(0, 10)}`,
-      props,
-    })
-    let {expires = 0, returnValue} = self.cache.get(cacheKey) || {
-      expires: 0,
-      returnValue: null,
-    }
-    const now = Date.now()
-    if (now > expires) {
-      expires = now + ttl
-      returnValue = fn(...props)
-      self.cache.set(cacheKey, {expires, returnValue})
-    }
-    return returnValue
-  }
-  return throttled as Fn
-}
-memoize.cache = new Map<string, {expires: number; returnValue: any}>()
-memoize.initialized = false
-
-// FIXME: Convert to FIFO cache instead of a TTL cache. For example,
-// setInterval(() => {
-//   while (cache.size > 300) {
-//     cache.delete(cache.keys().next().value)
-//   }
-// }, 20_000)
-memoize.initialize = () => {
-  const self = memoize
-  if (self.initialized) return
-  const garbageCollector = () => {
-    const now = Date.now()
-    self.cache.forEach((_, key) => {
-      const expires = self.cache.get(key)?.expires || 0
-      if (now > expires) self.cache.delete(key)
-    })
-  }
-  setInterval(garbageCollector, 20e3)
-  self.initialized = true
-}
 
 Function.withRetry = (fn, maxTries = 4) => {
   const p = Promise.promisify(fn)

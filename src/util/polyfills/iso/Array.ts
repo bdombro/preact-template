@@ -26,6 +26,14 @@ declare global {
      * Example: arrayIntersection([1,2], [1]) => [1]
      */
     intersection: ArrayDifferenceType
+    /**
+     * Alias for Array(n).fill(undefined).map(fn)
+     */
+    mapN<T>(n: number, fn: () => T): T[]
+    /**
+     * Alias for Array(n).fill(undefined).reduce(fn, initial)
+     */
+    reduceN<T>(n: number, fn: (acc: T) => T, initial: T): T[]
   }
   interface Array<T> {
     /**
@@ -108,6 +116,14 @@ Array.difference = function (...arrays) {
 
 Array.intersection = function (...arrays) {
   return arrays.reduce((a, b) => b.filter(Set.prototype.has.bind(new Set(a))))
+}
+
+Array.mapN = function (n: number, fn: () => any) {
+  return Array(n).fill(undefined).map(fn)
+}
+
+Array.reduceN = function (n: number, fn: (acc: any) => any, initial: any) {
+  return Array(n).fill(undefined).reduce(fn, initial)
 }
 
 Object.defineProperties(Array.prototype, {

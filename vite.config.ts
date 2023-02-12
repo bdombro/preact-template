@@ -1,9 +1,6 @@
 /// <reference types="vitest" />
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore - Importing a file not in tsconfig include
-import {merge} from './src/util/polyfills/iso/util/merge'
-
 import preact from '@preact/preset-vite'
+import {merge} from '@slimr/util/merge'
 import react from '@vitejs/plugin-react-swc'
 import {resolve} from 'node:path'
 import {UserConfigExport, defineConfig} from 'vite'
