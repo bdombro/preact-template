@@ -1,79 +1,116 @@
-import * as iw from '@slimr/util/is-what'
+import {
+  getType as _getType,
+  isAnyObject as _isAnyObject,
+  isArray as _isArray,
+  isBlob as _isBlob,
+  isBoolean as _isBoolean,
+  isDate as _isDate,
+  isEmptyArray as _isEmptyArray,
+  isEmptyObject as _isEmptyObject,
+  isEmptyString as _isEmptyString,
+  isError as _isError,
+  isFile as _isFile,
+  isFullArray as _isFullArray,
+  isFullObject as _isFullObject,
+  isFullString as _isFullString,
+  isFunction as _isFunction,
+  isMap as _isMap,
+  isNaNValue as _isNaNValue,
+  isNegativeNumber as _isNegativeNumber,
+  isNull as _isNull,
+  isNullOrUndefined as _isNullOrUndefined,
+  isNumber as _isNumber,
+  isObject as _isObject,
+  isObjectLike as _isObjectLike,
+  isOneOf as _isOneOf,
+  isPlainObject as _isPlainObject,
+  isPositiveNumber as _isPositiveNumber,
+  isPrimitive as _isPrimitive,
+  isPromise as _isPromise,
+  isRegExp as _isRegExp,
+  isSet as _isSet,
+  isString as _isString,
+  isSymbol as _isSymbol,
+  isType as _isType,
+  isUndefined as _isUndefined,
+  isWeakMap as _isWeakMap,
+  isWeakSet as _isWeakSet,
+} from '@slimr/util'
 
 export {}
 
 declare global {
-  var getType: typeof iw.getType
-  var isAnyObject: typeof iw.isAnyObject
-  var isArray: typeof iw.isArray
-  var isBlob: typeof iw.isBlob
-  var isBoolean: typeof iw.isBoolean
-  var isDate: typeof iw.isDate
-  var isEmptyArray: typeof iw.isEmptyArray
-  var isEmptyObject: typeof iw.isEmptyObject
-  var isEmptyString: typeof iw.isEmptyString
-  var isError: typeof iw.isError
-  var isFile: typeof iw.isFile
-  var isFullArray: typeof iw.isFullArray
-  var isFullObject: typeof iw.isFullObject
-  var isFullString: typeof iw.isFullString
-  var isFunction: typeof iw.isFunction
-  var isMap: typeof iw.isMap
-  var isNaNValue: typeof iw.isNaNValue
-  var isNegativeNumber: typeof iw.isNegativeNumber
-  var isNull: typeof iw.isNull
-  var isNullOrUndefined: typeof iw.isNullOrUndefined
-  var isNumber: typeof iw.isNumber
-  var isObject: typeof iw.isObject
-  var isObjectLike: typeof iw.isObjectLike
-  var isOneOf: typeof iw.isOneOf
-  var isPlainObject: typeof iw.isPlainObject
-  var isPositiveNumber: typeof iw.isPositiveNumber
-  var isPrimitive: typeof iw.isPrimitive
-  var isPromise: typeof iw.isPromise
-  var isRegExp: typeof iw.isRegExp
-  var isSet: typeof iw.isSet
-  var isString: typeof iw.isString
-  var isSymbol: typeof iw.isSymbol
-  var isType: typeof iw.isType
-  var isUndefined: typeof iw.isUndefined
-  var isWeakMap: typeof iw.isWeakMap
-  var isWeakSet: typeof iw.isWeakSet
+  var getType: typeof _getType
+  var isAnyObject: typeof _isAnyObject
+  var isArray: typeof _isArray
+  var isBlob: typeof _isBlob
+  var isBoolean: typeof _isBoolean
+  var isDate: typeof _isDate
+  var isEmptyArray: typeof _isEmptyArray
+  var isEmptyObject: typeof _isEmptyObject
+  var isEmptyString: typeof _isEmptyString
+  var isError: typeof _isError
+  var isFile: typeof _isFile
+  var isFullArray: typeof _isFullArray
+  var isFullObject: typeof _isFullObject
+  var isFullString: typeof _isFullString
+  var isFunction: typeof _isFunction
+  var isMap: typeof _isMap
+  var isNaNValue: typeof _isNaNValue
+  var isNegativeNumber: typeof _isNegativeNumber
+  var isNull: typeof _isNull
+  var isNullOrUndefined: typeof _isNullOrUndefined
+  var isNumber: typeof _isNumber
+  var isObject: typeof _isObject
+  var isObjectLike: typeof _isObjectLike
+  var isOneOf: typeof _isOneOf
+  var isPlainObject: typeof _isPlainObject
+  var isPositiveNumber: typeof _isPositiveNumber
+  var isPrimitive: typeof _isPrimitive
+  var isPromise: typeof _isPromise
+  var isRegExp: typeof _isRegExp
+  var isSet: typeof _isSet
+  var isString: typeof _isString
+  var isSymbol: typeof _isSymbol
+  var isType: typeof _isType
+  var isUndefined: typeof _isUndefined
+  var isWeakMap: typeof _isWeakMap
+  var isWeakSet: typeof _isWeakSet
 }
 
-globalThis.getType = iw.getType
-globalThis.isAnyObject = iw.isAnyObject
-globalThis.isArray = iw.isArray
-globalThis.isBlob = iw.isBlob
-globalThis.isBoolean = iw.isBoolean
-globalThis.isDate = iw.isDate
-globalThis.isEmptyArray = iw.isEmptyArray
-globalThis.isEmptyObject = iw.isEmptyObject
-globalThis.isEmptyString = iw.isEmptyString
-globalThis.isError = iw.isError
-globalThis.isFile = iw.isFile
-globalThis.isFullArray = iw.isFullArray
-globalThis.isFullObject = iw.isFullObject
-globalThis.isFullString = iw.isFullString
-globalThis.isFunction = iw.isFunction
-globalThis.isMap = iw.isMap
-globalThis.isNaNValue = iw.isNaNValue
-globalThis.isNegativeNumber = iw.isNegativeNumber
-globalThis.isNull = iw.isNull
-globalThis.isNullOrUndefined = iw.isNullOrUndefined
-globalThis.isNumber = iw.isNumber
-globalThis.isObject = iw.isObject
-globalThis.isObjectLike = iw.isObjectLike
-globalThis.isOneOf = iw.isOneOf
-globalThis.isPlainObject = iw.isPlainObject
-globalThis.isPositiveNumber = iw.isPositiveNumber
-globalThis.isPrimitive = iw.isPrimitive
-globalThis.isPromise = iw.isPromise
-globalThis.isRegExp = iw.isRegExp
-globalThis.isSet = iw.isSet
-globalThis.isString = iw.isString
-globalThis.isSymbol = iw.isSymbol
-globalThis.isType = iw.isType
-globalThis.isUndefined = iw.isUndefined
-globalThis.isWeakMap = iw.isWeakMap
-globalThis.isWeakSet = iw.isWeakSet
+globalThis.getType = _getType
+globalThis.isAnyObject = _isAnyObject
+globalThis.isArray = _isArray
+globalThis.isBlob = _isBlob
+globalThis.isBoolean = _isBoolean
+globalThis.isDate = _isDate
+globalThis.isEmptyArray = _isEmptyArray
+globalThis.isEmptyObject = _isEmptyObject
+globalThis.isEmptyString = _isEmptyString
+globalThis.isError = _isError
+globalThis.isFile = _isFile
+globalThis.isFullArray = _isFullArray
+globalThis.isFullObject = _isFullObject
+globalThis.isFullString = _isFullString
+globalThis.isFunction = _isFunction
+globalThis.isMap = _isMap
+globalThis.isNaNValue = _isNaNValue
+globalThis.isNegativeNumber = _isNegativeNumber
+globalThis.isNull = _isNull
+globalThis.isNullOrUndefined = _isNullOrUndefined
+globalThis.isNumber = _isNumber
+globalThis.isObject = _isObject
+globalThis.isObjectLike = _isObjectLike
+globalThis.isOneOf = _isOneOf
+globalThis.isPlainObject = _isPlainObject
+globalThis.isPositiveNumber = _isPositiveNumber
+globalThis.isPrimitive = _isPrimitive
+globalThis.isPromise = _isPromise
+globalThis.isRegExp = _isRegExp
+globalThis.isSet = _isSet
+globalThis.isString = _isString
+globalThis.isSymbol = _isSymbol
+globalThis.isType = _isType
+globalThis.isUndefined = _isUndefined
+globalThis.isWeakMap = _isWeakMap
+globalThis.isWeakSet = _isWeakSet

@@ -1,7 +1,7 @@
 /**
  * Polyfills for Function
  */
-import {memoize} from '@slimr/util/memoize'
+import {memoize} from '@slimr/util'
 
 // You must export something or TS gets confused.
 export {}

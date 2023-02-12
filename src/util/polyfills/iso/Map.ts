@@ -9,13 +9,18 @@
  *    Instead, use Object.defineProperty({value: fnc, enumerable: false})
  * 2. Drop support for older Internet Explorer
  */
-import {mapApplyMaxSize} from '@slimr/util/map-apply-max-size'
+import {mapApplyMaxSize} from '@slimr/util'
 
 // You must export something or TS gets confused.
 export {}
 
 declare global {
   interface Map<K, V> {
+    /**
+     * Limit the size of the map by evicting the least-recently-used (aka LRU) items
+     *
+     * Warning: This hurts performance of map.get and map.set vs a normal map
+     */
     setMaxSize(maxSize: number): void
     copy(): Map<K, V>
     toObj(): Record<string, V>
@@ -29,11 +34,6 @@ declare global {
 }
 
 Object.defineProperties(Map.prototype, {
-  /**
-   * Limit the size of the map by evicting the least-recently-used (aka LRU) items
-   *
-   * Warning: This hurts performance of map.get and map.set vs a normal map
-   */
   setMaxSize: {
     value: function (maxSize: number) {
       mapApplyMaxSize(this, maxSize)

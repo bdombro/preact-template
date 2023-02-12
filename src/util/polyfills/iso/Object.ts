@@ -1,6 +1,4 @@
-import {detailedDiff} from '@slimr/util/diff'
-import {isEqual} from '@slimr/util/isEqual'
-import {merge, mergeAndCompare, mergeAndConcat} from '@slimr/util/merge'
+import {detailedDiff, isEqual, merge, mergeAndCompare, mergeAndConcat} from '@slimr/util'
 
 /**
  * Polyfills for object

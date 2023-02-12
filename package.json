@@ -30,10 +30,10 @@
   },
   "dependencies": {
     "@slimr/mdi-paths": "^1.0.22",
-    "@slimr/router": "^1.0.3",
-    "@slimr/styled": "^2.0.3",
-    "@slimr/swr": "^2.0.6",
-    "@slimr/util": "^1.0.11",
+    "@slimr/router": "^1.0.10",
+    "@slimr/styled": "^2.0.5",
+    "@slimr/swr": "^2.0.9",
+    "@slimr/util": "^1.0.19",
     "preact": "^10.11.3"
   },
   "devDependencies": {
