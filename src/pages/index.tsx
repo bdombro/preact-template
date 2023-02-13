@@ -1,6 +1,7 @@
+import {Markdown} from '@slimr/markdown'
+
 import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
-import {Markdown} from '~/util/markdown'
 
 /**
  * A demo of a home page

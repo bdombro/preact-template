@@ -30,6 +30,11 @@ const prodConfig: UserConfigExport = {
   },
   build: {
     cssCodeSplit: false,
+    modulePreload: {
+      // Disable module preload bc it disrupts lazy loading, and the service worker
+      // will download them in the background anyways.
+      resolveDependencies: () => [],
+    },
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
@@ -47,18 +52,22 @@ const prodConfig: UserConfigExport = {
          * @returns {string | undefined} - The name of the chunk to place the module in or undefined to use default
          */
         manualChunks: id => {
-          if (id.includes('@slimr/mdi-paths')) {
-            return 'icons/' + id.split('/').at(-1).slice(0, -3)
+          const fileNameNoExt = id.split('/').at(-1).split('.').slice(0, -1).join('.')
+          if (id.includes('@slimr/mdi-paths') && !id.includes('component')) {
+            return 'icons/' + fileNameNoExt
+          }
+
+          if (id.includes('highlight.js') && !id.includes('lazy')) {
+            return 'highlightjs'
           }
 
           if (id.includes('swapi')) {
-            return id.split('/').at(-1).slice(0, -3)
+            return 'util/' + fileNameNoExt
           }
 
-          // ATM we're better off without page splitting
-          // if (!id.includes('pages')) {
-          //   return
-          // }
+          if (id.includes('pages') && !id.includes('pages/index')) {
+            return 'pages/' + fileNameNoExt
+          }
 
           if (id.includes('workbox')) {
             return 'workbox'
