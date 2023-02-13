@@ -15,7 +15,11 @@ export {}
 
 declare global {
   interface Set<T> {
+    /** Return a deep clone */
     copy(): Set<T>
+    /**
+     * Convert to a plain array
+     */
     toArray(): T
   }
 }

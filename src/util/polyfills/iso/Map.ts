@@ -23,6 +23,9 @@ declare global {
      */
     setMaxSize(maxSize: number): void
     copy(): Map<K, V>
+    /**
+     * Convert to a plain object
+     */
     toObj(): Record<string, V>
     /**
      * Like set but the value is a callback that accepts the prior

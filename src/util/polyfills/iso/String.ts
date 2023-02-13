@@ -9,18 +9,17 @@
  *    Instead, use Object.defineProperty({value: fnc, enumerable: false})
  * 2. Drop support for older Internet Explorer
  */
-import {customAlphabet} from 'nanoid'
 
 // You must export something or TS gets confused.
 export {}
 
 declare global {
-  interface StringConstructor {
-    /**
-     * Create a unique id string
-     */
-    uid(): string
-  }
+  // interface StringConstructor {
+  //   /**
+  //    * Create a unique id string
+  //    */
+  //   uid(): string
+  // }
   interface String {
     copy(): string
     /**
@@ -47,8 +46,6 @@ declare global {
   }
 }
 
-String.uid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 12)
-
 Object.defineProperties(String.prototype, {
   copy: {
     value: function () {
@@ -59,7 +56,7 @@ Object.defineProperties(String.prototype, {
 
   toHash: {
     value: function () {
-      return this._toHash()
+      return Object.toHash(this)
     },
     enumerable: false,
   },

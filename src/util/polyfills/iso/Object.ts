@@ -1,4 +1,4 @@
-import {detailedDiff, isEqual, merge, mergeAndCompare, mergeAndConcat} from '@slimr/util'
+import {detailedDiff, hashObj, isEqual, merge, mergeAndCompare, mergeAndConcat} from '@slimr/util'
 
 /**
  * Polyfills for object
@@ -262,15 +262,7 @@ Object.pick = function (obj, keys) {
   return res
 }
 
-Object.toHash = obj => {
-  const hash = Math.abs(
-    Array.from(typeof obj === 'string' ? obj : JSON.stringify(obj)).reduce(
-      (hash, char) => 0 | (31 * hash + char.charCodeAt(0)),
-      0
-    )
-  )
-  return hash.toString(32)
-}
+Object.toHash = hashObj
 
 Object.defineProperties(Object.prototype, {
   __toHash: {
