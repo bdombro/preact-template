@@ -1,12 +1,8 @@
-import {SC} from '@slimr/styled'
-import {styled} from '@slimr/styled'
+import * as prims from '@slimr/styled'
 import {Fragment as _Fragment, Suspense as _Suspense} from 'react'
 
 // You must export something or TS gets confused.
 export {}
-
-/** Shorthand type */
-type HTP = JSX.IntrinsicElements
 
 declare global {
   // React primitives
@@ -16,187 +12,187 @@ declare global {
   var Suspense: typeof _Suspense
 
   /** A styled 'a' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var A: SC<HTP['a']>
+  var A: typeof prims.A
   /** A styled 'abbr' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Abbr: SC<HTP['abbr']>
+  var Abbr: typeof prims.Abbr
   /** A styled 'address' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Address: SC<HTP['address']>
+  var Address: typeof prims.Address
   /** A styled 'area' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Area: SC<HTP['area']>
+  var Area: typeof prims.Area
   /** A styled 'article' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Article: SC<HTP['article']>
+  var Article: typeof prims.Article
   /** A styled 'aside' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Aside: SC<HTP['aside']>
+  var Aside: typeof prims.Aside
   /** A styled 'audio' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var AudioC: SC<HTP['audio']>
+  var AudioC: typeof prims.AudioC
   /** A styled 'b' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var B: SC<HTP['b']>
+  var B: typeof prims.B
   /** A styled 'blockquote' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Blockquote: SC<HTP['blockquote']>
+  var Blockquote: typeof prims.Blockquote
   /** A styled 'br' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Br: SC<HTP['br']>
+  var Br: typeof prims.Br
   /** A styled 'button' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Button: SC<HTP['button']>
+  var Button: typeof prims.Button
   /** A styled 'caption' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Caption: SC<HTP['caption']>
+  var Caption: typeof prims.Caption
   /** A styled 'cite' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Cite: SC<HTP['cite']>
+  var Cite: typeof prims.Cite
   /** A styled 'code' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Code: SC<HTP['code']>
+  var Code: typeof prims.Code
   /** A styled 'col' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Col: SC<HTP['col']>
+  var Col: typeof prims.Col
   /** A styled 'colgroup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Colgroup: SC<HTP['colgroup']>
+  var Colgroup: typeof prims.Colgroup
   /** A styled 'dd' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dd: SC<HTP['dd']>
+  var Dd: typeof prims.Dd
   /** A styled 'del' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Del: SC<HTP['del']>
+  var Del: typeof prims.Del
   /** A styled 'details' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Details: SC<HTP['details']>
+  var Details: typeof prims.Details
   /** A styled 'dfn' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dfn: SC<HTP['dfn']>
+  var Dfn: typeof prims.Dfn
   /** A styled 'dialog' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dialog: SC<HTP['dialog']>
+  var Dialog: typeof prims.Dialog
   /** A styled 'div' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Div: SC<HTP['div']>
+  var Div: typeof prims.Div
   /** A styled 'dl' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dl: SC<HTP['dl']>
+  var Dl: typeof prims.Dl
   /** A styled 'dt' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dt: SC<HTP['dt']>
+  var Dt: typeof prims.Dt
   /** A styled 'em' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Em: SC<HTP['em']>
+  var Em: typeof prims.Em
   /** A styled 'embed' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Embed: SC<HTP['embed']>
+  var Embed: typeof prims.Embed
   /** A styled 'fieldset' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Fieldset: SC<HTP['fieldset']>
+  var Fieldset: typeof prims.Fieldset
   /** A styled 'figcaption' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Figcaption: SC<HTP['figcaption']>
+  var Figcaption: typeof prims.Figcaption
   /** A styled 'figure' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Figure: SC<HTP['figure']>
+  var Figure: typeof prims.Figure
   /** A styled 'footer' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Footer: SC<HTP['footer']>
+  var Footer: typeof prims.Footer
   /** A styled 'form' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Form: SC<HTP['form']>
+  var Form: typeof prims.Form
   /** A styled 'h1' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H1: SC<HTP['h1']>
+  var H1: typeof prims.H1
   /** A styled 'h2' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H2: SC<HTP['h2']>
+  var H2: typeof prims.H2
   /** A styled 'h3' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H3: SC<HTP['h3']>
+  var H3: typeof prims.H3
   /** A styled 'h4' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H4: SC<HTP['h4']>
+  var H4: typeof prims.H4
   /** A styled 'h5' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H5: SC<HTP['h5']>
+  var H5: typeof prims.H5
   /** A styled 'h6' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H6: SC<HTP['h6']>
+  var H6: typeof prims.H6
   /** A styled 'header' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Header: SC<HTP['header']>
+  var Header: typeof prims.Header
   /** A styled 'hgroup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Hgroup: SC<HTP['hgroup']>
+  var Hgroup: typeof prims.Hgroup
   /** A styled 'hr' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Hr: SC<HTP['hr']>
+  var Hr: typeof prims.Hr
   /** A styled 'i' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var I: SC<HTP['i']>
+  var I: typeof prims.I
   /** A styled 'iframe' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Iframe: SC<HTP['iframe']>
+  var Iframe: typeof prims.Iframe
   /** A styled 'img' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Img: SC<HTP['img']>
+  var Img: typeof prims.Img
   /** A styled 'input' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Input: SC<HTP['input']>
+  var Input: typeof prims.Input
   /** A styled 'ins' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ins: SC<HTP['ins']>
+  var Ins: typeof prims.Ins
   /** A styled 'kbd' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Kbd: SC<HTP['kbd']>
+  var Kbd: typeof prims.Kbd
   /** A styled 'label' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Label: SC<HTP['label']>
+  var Label: typeof prims.Label
   /** A styled 'legend' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Legend: SC<HTP['legend']>
+  var Legend: typeof prims.Legend
   /** A styled 'li' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Li: SC<HTP['li']>
+  var Li: typeof prims.Li
   /** A styled 'main' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Main: SC<HTP['main']>
+  var Main: typeof prims.Main
   /** A styled 'map' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var MapC: SC<HTP['map']>
+  var MapC: typeof prims.MapC
   /** A styled 'mark' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Mark: SC<HTP['mark']>
+  var Mark: typeof prims.Mark
   /** A styled 'meter' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Meter: SC<HTP['meter']>
+  var Meter: typeof prims.Meter
   /** A styled 'nav' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Nav: SC<HTP['nav']>
+  var Nav: typeof prims.Nav
   /** A styled 'object' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var ObjectC: SC<HTP['object']>
+  var ObjectC: typeof prims.ObjectC
   /** A styled 'ol' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ol: SC<HTP['ol']>
+  var Ol: typeof prims.Ol
   /** A styled 'optgroup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Optgroup: SC<HTP['optgroup']>
+  var Optgroup: typeof prims.Optgroup
   /** A styled 'option' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var OptionC: SC<HTP['option']>
+  var OptionC: typeof prims.OptionC
   /** A styled 'output' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Output: SC<HTP['output']>
+  var Output: typeof prims.Output
   /** A styled 'p' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var P: SC<HTP['p']>
+  var P: typeof prims.P
   /** A styled 'picture' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Picture: SC<HTP['picture']>
+  var Picture: typeof prims.Picture
   /** A styled 'pre' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Pre: SC<HTP['pre']>
+  var Pre: typeof prims.Pre
   /** A styled 'progress' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Progress: SC<HTP['progress']>
+  var Progress: typeof prims.Progress
   /** A styled 'q' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Q: SC<HTP['q']>
+  var Q: typeof prims.Q
   /** A styled 'rp' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Rp: SC<HTP['rp']>
+  var Rp: typeof prims.Rp
   /** A styled 'rt' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Rt: SC<HTP['rt']>
+  var Rt: typeof prims.Rt
   /** A styled 'ruby' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ruby: SC<HTP['ruby']>
+  var Ruby: typeof prims.Ruby
   /** A styled 's' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var S: SC<HTP['s']>
+  var S: typeof prims.S
   /** A styled 'samp' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Samp: SC<HTP['samp']>
+  var Samp: typeof prims.Samp
   /** A styled 'section' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Section: SC<HTP['section']>
+  var Section: typeof prims.Section
   /** A styled 'select' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Select: SC<HTP['select']>
+  var Select: typeof prims.Select
   /** A styled 'small' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Small: SC<HTP['small']>
+  var Small: typeof prims.Small
   /** A styled 'span' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Span: SC<HTP['span']>
+  var Span: typeof prims.Span
   /** A styled 'strong' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Strong: SC<HTP['strong']>
+  var Strong: typeof prims.Strong
   /** A styled 'sub' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Sub: SC<HTP['sub']>
+  var Sub: typeof prims.Sub
   /** A styled 'summary' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Summary: SC<HTP['summary']>
+  var Summary: typeof prims.Summary
   /** A styled 'sup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Sup: SC<HTP['sup']>
+  var Sup: typeof prims.Sup
   /** A styled 'table' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Table: SC<HTP['table']>
+  var Table: typeof prims.Table
   /** A styled 'tbody' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Tbody: SC<HTP['tbody']>
+  var Tbody: typeof prims.Tbody
   /** A styled 'td' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Td: SC<HTP['td']>
+  var Td: typeof prims.Td
   /** A styled 'textarea' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Textarea: SC<HTP['textarea']>
+  var Textarea: typeof prims.Textarea
   /** A styled 'tfoot' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Tfoot: SC<HTP['tfoot']>
+  var Tfoot: typeof prims.Tfoot
   /** A styled 'th' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Th: SC<HTP['th']>
+  var Th: typeof prims.Th
   /** A styled 'thead' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Thead: SC<HTP['thead']>
+  var Thead: typeof prims.Thead
   /** A styled 'time' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Time: SC<HTP['time']>
+  var Time: typeof prims.Time
   /** A styled 'tr' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Tr: SC<HTP['tr']>
+  var Tr: typeof prims.Tr
   /** A styled 'u' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var U: SC<HTP['u']>
+  var U: typeof prims.U
   /** A styled 'ul' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ul: SC<HTP['ul']>
+  var Ul: typeof prims.Ul
   /** A styled 'video' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Video: SC<HTP['video']>
+  var Video: typeof prims.Video
   /** A styled 'div' tag with d=flex and nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Flex: SC<HTP['div']>
+  var Flex: typeof prims.Flex
   /** A styled 'div' tag with d=flex, flexDirection=column, and nice styled magic, like _style props, zx, css, and style short-hands  */
-  var FlexC: SC<HTP['div']>
+  var FlexC: typeof prims.FlexC
 }
 
 // React primitives
@@ -204,100 +200,95 @@ globalThis.F = _Fragment
 globalThis.Fragment = _Fragment
 globalThis.Suspense = _Suspense
 
-globalThis.A = styled.a``
-globalThis.Abbr = styled.abbr``
-globalThis.Address = styled.address``
-globalThis.Area = styled.area``
-globalThis.Article = styled.article``
-globalThis.Aside = styled.aside``
-globalThis.AudioC = styled.audio``
-globalThis.B = styled.b``
-globalThis.Blockquote = styled.blockquote``
-globalThis.Br = styled.br``
-globalThis.Button = styled.button``
-globalThis.Caption = styled.caption``
-globalThis.Cite = styled.cite``
-globalThis.Code = styled.code``
-globalThis.Col = styled.col``
-globalThis.Colgroup = styled.colgroup``
-globalThis.Dd = styled.dd``
-globalThis.Del = styled.del``
-globalThis.Details = styled.details``
-globalThis.Dfn = styled.dfn``
-globalThis.Dialog = styled.dialog``
-globalThis.Div = styled.div``
-globalThis.Dl = styled.dl``
-globalThis.Dt = styled.dt``
-globalThis.Em = styled.em``
-globalThis.Embed = styled.embed``
-globalThis.Fieldset = styled.fieldset``
-globalThis.Figcaption = styled.figcaption``
-globalThis.Figure = styled.figure``
-globalThis.Footer = styled.footer``
-globalThis.Form = styled.form``
-globalThis.H1 = styled.h1``
-globalThis.H2 = styled.h2``
-globalThis.H3 = styled.h3``
-globalThis.H4 = styled.h4``
-globalThis.H5 = styled.h5``
-globalThis.H6 = styled.h6``
-globalThis.Header = styled.header``
-globalThis.Hgroup = styled.hgroup``
-globalThis.Hr = styled.hr``
-globalThis.I = styled.i``
-globalThis.Iframe = styled.iframe``
-globalThis.Img = styled.img``
-globalThis.Input = styled.input``
-globalThis.Ins = styled.ins``
-globalThis.Kbd = styled.kbd``
-globalThis.Label = styled.label``
-globalThis.Legend = styled.legend``
-globalThis.Li = styled.li``
-globalThis.Main = styled.main``
-globalThis.MapC = styled.map``
-globalThis.Mark = styled.mark``
-globalThis.Meter = styled.meter``
-globalThis.Nav = styled.nav``
-globalThis.ObjectC = styled.object``
-globalThis.Ol = styled.ol``
-globalThis.Optgroup = styled.optgroup``
-globalThis.OptionC = styled.option``
-globalThis.Output = styled.output``
-globalThis.P = styled.p``
-globalThis.Picture = styled.picture``
-globalThis.Pre = styled.pre``
-globalThis.Progress = styled.progress``
-globalThis.Q = styled.q``
-globalThis.Rp = styled.rp``
-globalThis.Rt = styled.rt``
-globalThis.Ruby = styled.ruby``
-globalThis.S = styled.s``
-globalThis.Samp = styled.samp``
-globalThis.Section = styled.section``
-globalThis.Select = styled.select``
-globalThis.Small = styled.small``
-globalThis.Span = styled.span``
-globalThis.Strong = styled.strong``
-globalThis.Sub = styled.sub``
-globalThis.Summary = styled.summary``
-globalThis.Sup = styled.sup``
-globalThis.Table = styled.table``
-globalThis.Tbody = styled.tbody``
-globalThis.Td = styled.td``
-globalThis.Textarea = styled.textarea``
-globalThis.Tfoot = styled.tfoot``
-globalThis.Th = styled.th``
-globalThis.Thead = styled.thead``
-globalThis.Time = styled.time``
-globalThis.Tr = styled.tr``
-globalThis.U = styled.u``
-globalThis.Ul = styled.ul``
-globalThis.Video = styled.video``
+globalThis.A = prims.A
+globalThis.Abbr = prims.Abbr
+globalThis.Address = prims.Address
+globalThis.Area = prims.Area
+globalThis.Article = prims.Article
+globalThis.Aside = prims.Aside
+globalThis.AudioC = prims.AudioC
+globalThis.B = prims.B
+globalThis.Blockquote = prims.Blockquote
+globalThis.Br = prims.Br
+globalThis.Button = prims.Button
+globalThis.Caption = prims.Caption
+globalThis.Cite = prims.Cite
+globalThis.Code = prims.Code
+globalThis.Col = prims.Col
+globalThis.Colgroup = prims.Colgroup
+globalThis.Dd = prims.Dd
+globalThis.Del = prims.Del
+globalThis.Details = prims.Details
+globalThis.Dfn = prims.Dfn
+globalThis.Dialog = prims.Dialog
+globalThis.Div = prims.Div
+globalThis.Dl = prims.Dl
+globalThis.Dt = prims.Dt
+globalThis.Em = prims.Em
+globalThis.Embed = prims.Embed
+globalThis.Fieldset = prims.Fieldset
+globalThis.Figcaption = prims.Figcaption
+globalThis.Figure = prims.Figure
+globalThis.Footer = prims.Footer
+globalThis.Form = prims.Form
+globalThis.H1 = prims.H1
+globalThis.H2 = prims.H2
+globalThis.H3 = prims.H3
+globalThis.H4 = prims.H4
+globalThis.H5 = prims.H5
+globalThis.H6 = prims.H6
+globalThis.Header = prims.Header
+globalThis.Hgroup = prims.Hgroup
+globalThis.Hr = prims.Hr
+globalThis.I = prims.I
+globalThis.Iframe = prims.Iframe
+globalThis.Img = prims.Img
+globalThis.Input = prims.Input
+globalThis.Ins = prims.Ins
+globalThis.Kbd = prims.Kbd
+globalThis.Label = prims.Label
+globalThis.Legend = prims.Legend
+globalThis.Li = prims.Li
+globalThis.Main = prims.Main
+globalThis.MapC = prims.MapC
+globalThis.Mark = prims.Mark
+globalThis.Meter = prims.Meter
+globalThis.Nav = prims.Nav
+globalThis.ObjectC = prims.ObjectC
+globalThis.Ol = prims.Ol
+globalThis.Optgroup = prims.Optgroup
+globalThis.OptionC = prims.OptionC
+globalThis.Output = prims.Output
+globalThis.P = prims.P
+globalThis.Picture = prims.Picture
+globalThis.Pre = prims.Pre
+globalThis.Progress = prims.Progress
+globalThis.Q = prims.Q
+globalThis.Rp = prims.Rp
+globalThis.Rt = prims.Rt
+globalThis.Ruby = prims.Ruby
+globalThis.S = prims.S
+globalThis.Samp = prims.Samp
+globalThis.Section = prims.Section
+globalThis.Select = prims.Select
+globalThis.Small = prims.Small
+globalThis.Span = prims.Span
+globalThis.Strong = prims.Strong
+globalThis.Sub = prims.Sub
+globalThis.Summary = prims.Summary
+globalThis.Sup = prims.Sup
+globalThis.Table = prims.Table
+globalThis.Tbody = prims.Tbody
+globalThis.Td = prims.Td
+globalThis.Textarea = prims.Textarea
+globalThis.Tfoot = prims.Tfoot
+globalThis.Th = prims.Th
+globalThis.Thead = prims.Thead
+globalThis.Time = prims.Time
+globalThis.Tr = prims.Tr
+globalThis.U = prims.U
+globalThis.Ul = prims.Ul
+globalThis.Video = prims.Video
 
-globalThis.Flex = styled.div`
-  d: flex;
-`
-globalThis.FlexC = styled.div`
-  d: flex;
-  fd: column;
-`
+globalThis.Flex = prims.Flex
+globalThis.FlexC = prims.FlexC
