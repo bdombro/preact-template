@@ -51,7 +51,7 @@ _useClickAway.defaultEvents = ['mousedown', 'touchstart']
 function _useEffectDeep(callback: Fnc, varsToWatch: any[]) {
   const lastSeenProps = useRef<Inputs[]>([])
   useEffect(() => {
-    if (Object.isNotEqual(varsToWatch, lastSeenProps.current)) {
+    if (Object.areNotEqual(varsToWatch, lastSeenProps.current)) {
       lastSeenProps.current = varsToWatch
       return callback()
     }
@@ -147,7 +147,7 @@ interface UseKeyOptions extends AddEventListenerOptions {
 function _useLayoutEffectDeep(callback: Fnc, varsToWatch: any[]) {
   const lastSeenProps = useRef<Inputs[]>([])
   useLayoutEffect(() => {
-    if (Object.isNotEqual(varsToWatch, lastSeenProps.current)) {
+    if (Object.areNotEqual(varsToWatch, lastSeenProps.current)) {
       lastSeenProps.current = varsToWatch
       return callback()
     }
@@ -191,7 +191,7 @@ function _useMedia(query: string) {
 function _useMemoDeep(callback: Fnc, varsToWatch: any[]) {
   const [lastSeenProps, setLastSeenProps] = useState(varsToWatch)
   useEffect(() => {
-    if (Object.isNotEqual(varsToWatch, lastSeenProps)) {
+    if (Object.areNotEqual(varsToWatch, lastSeenProps)) {
       setLastSeenProps(varsToWatch)
     }
   }, varsToWatch)

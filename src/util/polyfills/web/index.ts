@@ -1,7 +1,7 @@
 import '../iso'
 import './hooks'
 import './icons'
-import './primitives'
+import './styled'
 
 declare global {
   var global: typeof globalThis

@@ -1,4 +1,12 @@
-import {detailedDiff, hashObj, isEqual, merge, mergeAndCompare, mergeAndConcat} from '@slimr/util'
+import {
+  areEqual,
+  areNotEqual,
+  detailedDiff,
+  hashObj,
+  merge,
+  mergeAndCompare,
+  mergeAndConcat,
+} from '@slimr/util'
 
 /**
  * Polyfills for object
@@ -9,6 +17,16 @@ export {}
 
 declare global {
   interface ObjectConstructor {
+    /**
+     * A deep equal comparison
+     */
+    areEqual: typeof areEqual
+
+    /**
+     * A deep equal comparison
+     */
+    areNotEqual: typeof areEqual
+
     /**
      * Make a deep copy of an object so that none of the references are the same
      */
@@ -44,16 +62,6 @@ declare global {
      * ```
      */
     flatten: any
-
-    /**
-     * A deep equal comparison
-     */
-    isEqual(foo: any, bar: any, debug?: boolean): boolean
-
-    /**
-     * A deep equal comparison
-     */
-    isNotEqual(foo: any, bar: any, debug?: boolean): boolean
 
     /**
      * Deep merge ....objects. Arrays are clobbered
@@ -174,8 +182,8 @@ declare global {
     __entries<T extends Object>(): [keyof T, any][]
     /** Alias for Object.includes(this, attr). WARNING: not typesafe */
     __includes(attr: string): boolean
-    /** Alias for Object.isEqualTo(this, that). WARNING: not typesafe */
-    __isEqualTo(otherObj: any): boolean
+    /** Alias for Object.areEqualTo(this, that). WARNING: not typesafe */
+    __areEqualTo(otherObj: any): boolean
     /** Alias for Object.isNotEqualTo(this, that). WARNING: not typesafe */
     __isNotEqualTo(otherObj: any): boolean
     /** Alias for Object.keyMap(this, fnc). */
@@ -209,15 +217,10 @@ Object.flatten = () => {
   throw new Error('Omitted to save bundle size')
 }
 
-Object.isEqual = function (a, b, debug = false) {
-  const res = isEqual(a, b)
-  if (debug) console.debug(Object.diff(a, b))
-  return res
-}
+Object.areEqual = areEqual
 
-Object.isNotEqual = function (a, b, debug = false) {
-  return !Object.isEqual(a, b, debug)
-}
+Object.areNotEqual = areNotEqual
+
 Object.merge = merge
 Object.mergeCustom = mergeAndCompare
 Object.mergeAndConcat = mergeAndConcat
@@ -289,15 +292,15 @@ Object.defineProperties(Object.prototype, {
     },
     enumerable: false,
   },
-  __isEqualTo: {
+  __areEqualTo: {
     value: function (that: any) {
-      return Object.isEqual(this, that)
+      return Object.areEqual(this, that)
     },
     enumerable: false,
   },
   __isNotEqualTo: {
     value: function (that: any) {
-      return Object.isNotEqual(this, that)
+      return Object.areNotEqual(this, that)
     },
     enumerable: false,
   },

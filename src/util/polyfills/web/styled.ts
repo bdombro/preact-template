@@ -1,294 +1,302 @@
-import * as prims from '@slimr/styled'
+import * as _styled from '@slimr/styled'
 import {Fragment as _Fragment, Suspense as _Suspense} from 'react'
 
 // You must export something or TS gets confused.
 export {}
 
 declare global {
+  var addCss: typeof _styled.addCss
+  var styled: typeof _styled.styled
+
   // React primitives
 
   var F: typeof _Fragment
   var Fragment: typeof _Fragment
   var Suspense: typeof _Suspense
 
+  // Styled primitives
+
   /** A styled 'a' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var A: typeof prims.A
+  var A: typeof _styled.A
   /** A styled 'abbr' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Abbr: typeof prims.Abbr
+  var Abbr: typeof _styled.Abbr
   /** A styled 'address' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Address: typeof prims.Address
+  var Address: typeof _styled.Address
   /** A styled 'area' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Area: typeof prims.Area
+  var Area: typeof _styled.Area
   /** A styled 'article' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Article: typeof prims.Article
+  var Article: typeof _styled.Article
   /** A styled 'aside' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Aside: typeof prims.Aside
+  var Aside: typeof _styled.Aside
   /** A styled 'audio' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var AudioC: typeof prims.AudioC
+  var AudioC: typeof _styled.AudioC
   /** A styled 'b' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var B: typeof prims.B
+  var B: typeof _styled.B
   /** A styled 'blockquote' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Blockquote: typeof prims.Blockquote
+  var Blockquote: typeof _styled.Blockquote
   /** A styled 'br' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Br: typeof prims.Br
+  var Br: typeof _styled.Br
   /** A styled 'button' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Button: typeof prims.Button
+  var Button: typeof _styled.Button
   /** A styled 'caption' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Caption: typeof prims.Caption
+  var Caption: typeof _styled.Caption
   /** A styled 'cite' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Cite: typeof prims.Cite
+  var Cite: typeof _styled.Cite
   /** A styled 'code' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Code: typeof prims.Code
+  var Code: typeof _styled.Code
   /** A styled 'col' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Col: typeof prims.Col
+  var Col: typeof _styled.Col
   /** A styled 'colgroup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Colgroup: typeof prims.Colgroup
+  var Colgroup: typeof _styled.Colgroup
   /** A styled 'dd' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dd: typeof prims.Dd
+  var Dd: typeof _styled.Dd
   /** A styled 'del' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Del: typeof prims.Del
+  var Del: typeof _styled.Del
   /** A styled 'details' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Details: typeof prims.Details
+  var Details: typeof _styled.Details
   /** A styled 'dfn' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dfn: typeof prims.Dfn
+  var Dfn: typeof _styled.Dfn
   /** A styled 'dialog' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dialog: typeof prims.Dialog
+  var Dialog: typeof _styled.Dialog
   /** A styled 'div' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Div: typeof prims.Div
+  var Div: typeof _styled.Div
   /** A styled 'dl' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dl: typeof prims.Dl
+  var Dl: typeof _styled.Dl
   /** A styled 'dt' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Dt: typeof prims.Dt
+  var Dt: typeof _styled.Dt
   /** A styled 'em' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Em: typeof prims.Em
+  var Em: typeof _styled.Em
   /** A styled 'embed' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Embed: typeof prims.Embed
+  var Embed: typeof _styled.Embed
   /** A styled 'fieldset' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Fieldset: typeof prims.Fieldset
+  var Fieldset: typeof _styled.Fieldset
   /** A styled 'figcaption' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Figcaption: typeof prims.Figcaption
+  var Figcaption: typeof _styled.Figcaption
   /** A styled 'figure' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Figure: typeof prims.Figure
+  var Figure: typeof _styled.Figure
   /** A styled 'footer' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Footer: typeof prims.Footer
+  var Footer: typeof _styled.Footer
   /** A styled 'form' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Form: typeof prims.Form
+  var Form: typeof _styled.Form
   /** A styled 'h1' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H1: typeof prims.H1
+  var H1: typeof _styled.H1
   /** A styled 'h2' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H2: typeof prims.H2
+  var H2: typeof _styled.H2
   /** A styled 'h3' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H3: typeof prims.H3
+  var H3: typeof _styled.H3
   /** A styled 'h4' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H4: typeof prims.H4
+  var H4: typeof _styled.H4
   /** A styled 'h5' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H5: typeof prims.H5
+  var H5: typeof _styled.H5
   /** A styled 'h6' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var H6: typeof prims.H6
+  var H6: typeof _styled.H6
   /** A styled 'header' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Header: typeof prims.Header
+  var Header: typeof _styled.Header
   /** A styled 'hgroup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Hgroup: typeof prims.Hgroup
+  var Hgroup: typeof _styled.Hgroup
   /** A styled 'hr' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Hr: typeof prims.Hr
+  var Hr: typeof _styled.Hr
   /** A styled 'i' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var I: typeof prims.I
+  var I: typeof _styled.I
   /** A styled 'iframe' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Iframe: typeof prims.Iframe
+  var Iframe: typeof _styled.Iframe
   /** A styled 'img' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Img: typeof prims.Img
+  var Img: typeof _styled.Img
   /** A styled 'input' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Input: typeof prims.Input
+  var Input: typeof _styled.Input
   /** A styled 'ins' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ins: typeof prims.Ins
+  var Ins: typeof _styled.Ins
   /** A styled 'kbd' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Kbd: typeof prims.Kbd
+  var Kbd: typeof _styled.Kbd
   /** A styled 'label' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Label: typeof prims.Label
+  var Label: typeof _styled.Label
   /** A styled 'legend' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Legend: typeof prims.Legend
+  var Legend: typeof _styled.Legend
   /** A styled 'li' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Li: typeof prims.Li
+  var Li: typeof _styled.Li
   /** A styled 'main' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Main: typeof prims.Main
+  var Main: typeof _styled.Main
   /** A styled 'map' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var MapC: typeof prims.MapC
+  var MapC: typeof _styled.MapC
   /** A styled 'mark' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Mark: typeof prims.Mark
+  var Mark: typeof _styled.Mark
   /** A styled 'meter' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Meter: typeof prims.Meter
+  var Meter: typeof _styled.Meter
   /** A styled 'nav' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Nav: typeof prims.Nav
+  var Nav: typeof _styled.Nav
   /** A styled 'object' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var ObjectC: typeof prims.ObjectC
+  var ObjectC: typeof _styled.ObjectC
   /** A styled 'ol' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ol: typeof prims.Ol
+  var Ol: typeof _styled.Ol
   /** A styled 'optgroup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Optgroup: typeof prims.Optgroup
+  var Optgroup: typeof _styled.Optgroup
   /** A styled 'option' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var OptionC: typeof prims.OptionC
+  var OptionC: typeof _styled.OptionC
   /** A styled 'output' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Output: typeof prims.Output
+  var Output: typeof _styled.Output
   /** A styled 'p' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var P: typeof prims.P
+  var P: typeof _styled.P
   /** A styled 'picture' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Picture: typeof prims.Picture
+  var Picture: typeof _styled.Picture
   /** A styled 'pre' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Pre: typeof prims.Pre
+  var Pre: typeof _styled.Pre
   /** A styled 'progress' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Progress: typeof prims.Progress
+  var Progress: typeof _styled.Progress
   /** A styled 'q' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Q: typeof prims.Q
+  var Q: typeof _styled.Q
   /** A styled 'rp' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Rp: typeof prims.Rp
+  var Rp: typeof _styled.Rp
   /** A styled 'rt' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Rt: typeof prims.Rt
+  var Rt: typeof _styled.Rt
   /** A styled 'ruby' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ruby: typeof prims.Ruby
+  var Ruby: typeof _styled.Ruby
   /** A styled 's' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var S: typeof prims.S
+  var S: typeof _styled.S
   /** A styled 'samp' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Samp: typeof prims.Samp
+  var Samp: typeof _styled.Samp
   /** A styled 'section' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Section: typeof prims.Section
+  var Section: typeof _styled.Section
   /** A styled 'select' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Select: typeof prims.Select
+  var Select: typeof _styled.Select
   /** A styled 'small' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Small: typeof prims.Small
+  var Small: typeof _styled.Small
   /** A styled 'span' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Span: typeof prims.Span
+  var Span: typeof _styled.Span
   /** A styled 'strong' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Strong: typeof prims.Strong
+  var Strong: typeof _styled.Strong
   /** A styled 'sub' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Sub: typeof prims.Sub
+  var Sub: typeof _styled.Sub
   /** A styled 'summary' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Summary: typeof prims.Summary
+  var Summary: typeof _styled.Summary
   /** A styled 'sup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Sup: typeof prims.Sup
+  var Sup: typeof _styled.Sup
   /** A styled 'table' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Table: typeof prims.Table
+  var Table: typeof _styled.Table
   /** A styled 'tbody' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Tbody: typeof prims.Tbody
+  var Tbody: typeof _styled.Tbody
   /** A styled 'td' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Td: typeof prims.Td
+  var Td: typeof _styled.Td
   /** A styled 'textarea' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Textarea: typeof prims.Textarea
+  var Textarea: typeof _styled.Textarea
   /** A styled 'tfoot' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Tfoot: typeof prims.Tfoot
+  var Tfoot: typeof _styled.Tfoot
   /** A styled 'th' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Th: typeof prims.Th
+  var Th: typeof _styled.Th
   /** A styled 'thead' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Thead: typeof prims.Thead
+  var Thead: typeof _styled.Thead
   /** A styled 'time' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Time: typeof prims.Time
+  var Time: typeof _styled.Time
   /** A styled 'tr' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Tr: typeof prims.Tr
+  var Tr: typeof _styled.Tr
   /** A styled 'u' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var U: typeof prims.U
+  var U: typeof _styled.U
   /** A styled 'ul' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Ul: typeof prims.Ul
+  var Ul: typeof _styled.Ul
   /** A styled 'video' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Video: typeof prims.Video
+  var Video: typeof _styled.Video
   /** A styled 'div' tag with d=flex and nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Flex: typeof prims.Flex
+  var Flex: typeof _styled.Flex
   /** A styled 'div' tag with d=flex, flexDirection=column, and nice styled magic, like _style props, zx, css, and style short-hands  */
-  var FlexC: typeof prims.FlexC
+  var FlexC: typeof _styled.FlexC
 }
+
+globalThis.addCss = _styled.addCss
+globalThis.styled = _styled.styled
 
 // React primitives
 globalThis.F = _Fragment
 globalThis.Fragment = _Fragment
 globalThis.Suspense = _Suspense
 
-globalThis.A = prims.A
-globalThis.Abbr = prims.Abbr
-globalThis.Address = prims.Address
-globalThis.Area = prims.Area
-globalThis.Article = prims.Article
-globalThis.Aside = prims.Aside
-globalThis.AudioC = prims.AudioC
-globalThis.B = prims.B
-globalThis.Blockquote = prims.Blockquote
-globalThis.Br = prims.Br
-globalThis.Button = prims.Button
-globalThis.Caption = prims.Caption
-globalThis.Cite = prims.Cite
-globalThis.Code = prims.Code
-globalThis.Col = prims.Col
-globalThis.Colgroup = prims.Colgroup
-globalThis.Dd = prims.Dd
-globalThis.Del = prims.Del
-globalThis.Details = prims.Details
-globalThis.Dfn = prims.Dfn
-globalThis.Dialog = prims.Dialog
-globalThis.Div = prims.Div
-globalThis.Dl = prims.Dl
-globalThis.Dt = prims.Dt
-globalThis.Em = prims.Em
-globalThis.Embed = prims.Embed
-globalThis.Fieldset = prims.Fieldset
-globalThis.Figcaption = prims.Figcaption
-globalThis.Figure = prims.Figure
-globalThis.Footer = prims.Footer
-globalThis.Form = prims.Form
-globalThis.H1 = prims.H1
-globalThis.H2 = prims.H2
-globalThis.H3 = prims.H3
-globalThis.H4 = prims.H4
-globalThis.H5 = prims.H5
-globalThis.H6 = prims.H6
-globalThis.Header = prims.Header
-globalThis.Hgroup = prims.Hgroup
-globalThis.Hr = prims.Hr
-globalThis.I = prims.I
-globalThis.Iframe = prims.Iframe
-globalThis.Img = prims.Img
-globalThis.Input = prims.Input
-globalThis.Ins = prims.Ins
-globalThis.Kbd = prims.Kbd
-globalThis.Label = prims.Label
-globalThis.Legend = prims.Legend
-globalThis.Li = prims.Li
-globalThis.Main = prims.Main
-globalThis.MapC = prims.MapC
-globalThis.Mark = prims.Mark
-globalThis.Meter = prims.Meter
-globalThis.Nav = prims.Nav
-globalThis.ObjectC = prims.ObjectC
-globalThis.Ol = prims.Ol
-globalThis.Optgroup = prims.Optgroup
-globalThis.OptionC = prims.OptionC
-globalThis.Output = prims.Output
-globalThis.P = prims.P
-globalThis.Picture = prims.Picture
-globalThis.Pre = prims.Pre
-globalThis.Progress = prims.Progress
-globalThis.Q = prims.Q
-globalThis.Rp = prims.Rp
-globalThis.Rt = prims.Rt
-globalThis.Ruby = prims.Ruby
-globalThis.S = prims.S
-globalThis.Samp = prims.Samp
-globalThis.Section = prims.Section
-globalThis.Select = prims.Select
-globalThis.Small = prims.Small
-globalThis.Span = prims.Span
-globalThis.Strong = prims.Strong
-globalThis.Sub = prims.Sub
-globalThis.Summary = prims.Summary
-globalThis.Sup = prims.Sup
-globalThis.Table = prims.Table
-globalThis.Tbody = prims.Tbody
-globalThis.Td = prims.Td
-globalThis.Textarea = prims.Textarea
-globalThis.Tfoot = prims.Tfoot
-globalThis.Th = prims.Th
-globalThis.Thead = prims.Thead
-globalThis.Time = prims.Time
-globalThis.Tr = prims.Tr
-globalThis.U = prims.U
-globalThis.Ul = prims.Ul
-globalThis.Video = prims.Video
+globalThis.A = _styled.A
+globalThis.Abbr = _styled.Abbr
+globalThis.Address = _styled.Address
+globalThis.Area = _styled.Area
+globalThis.Article = _styled.Article
+globalThis.Aside = _styled.Aside
+globalThis.AudioC = _styled.AudioC
+globalThis.B = _styled.B
+globalThis.Blockquote = _styled.Blockquote
+globalThis.Br = _styled.Br
+globalThis.Button = _styled.Button
+globalThis.Caption = _styled.Caption
+globalThis.Cite = _styled.Cite
+globalThis.Code = _styled.Code
+globalThis.Col = _styled.Col
+globalThis.Colgroup = _styled.Colgroup
+globalThis.Dd = _styled.Dd
+globalThis.Del = _styled.Del
+globalThis.Details = _styled.Details
+globalThis.Dfn = _styled.Dfn
+globalThis.Dialog = _styled.Dialog
+globalThis.Div = _styled.Div
+globalThis.Dl = _styled.Dl
+globalThis.Dt = _styled.Dt
+globalThis.Em = _styled.Em
+globalThis.Embed = _styled.Embed
+globalThis.Fieldset = _styled.Fieldset
+globalThis.Figcaption = _styled.Figcaption
+globalThis.Figure = _styled.Figure
+globalThis.Footer = _styled.Footer
+globalThis.Form = _styled.Form
+globalThis.H1 = _styled.H1
+globalThis.H2 = _styled.H2
+globalThis.H3 = _styled.H3
+globalThis.H4 = _styled.H4
+globalThis.H5 = _styled.H5
+globalThis.H6 = _styled.H6
+globalThis.Header = _styled.Header
+globalThis.Hgroup = _styled.Hgroup
+globalThis.Hr = _styled.Hr
+globalThis.I = _styled.I
+globalThis.Iframe = _styled.Iframe
+globalThis.Img = _styled.Img
+globalThis.Input = _styled.Input
+globalThis.Ins = _styled.Ins
+globalThis.Kbd = _styled.Kbd
+globalThis.Label = _styled.Label
+globalThis.Legend = _styled.Legend
+globalThis.Li = _styled.Li
+globalThis.Main = _styled.Main
+globalThis.MapC = _styled.MapC
+globalThis.Mark = _styled.Mark
+globalThis.Meter = _styled.Meter
+globalThis.Nav = _styled.Nav
+globalThis.ObjectC = _styled.ObjectC
+globalThis.Ol = _styled.Ol
+globalThis.Optgroup = _styled.Optgroup
+globalThis.OptionC = _styled.OptionC
+globalThis.Output = _styled.Output
+globalThis.P = _styled.P
+globalThis.Picture = _styled.Picture
+globalThis.Pre = _styled.Pre
+globalThis.Progress = _styled.Progress
+globalThis.Q = _styled.Q
+globalThis.Rp = _styled.Rp
+globalThis.Rt = _styled.Rt
+globalThis.Ruby = _styled.Ruby
+globalThis.S = _styled.S
+globalThis.Samp = _styled.Samp
+globalThis.Section = _styled.Section
+globalThis.Select = _styled.Select
+globalThis.Small = _styled.Small
+globalThis.Span = _styled.Span
+globalThis.Strong = _styled.Strong
+globalThis.Sub = _styled.Sub
+globalThis.Summary = _styled.Summary
+globalThis.Sup = _styled.Sup
+globalThis.Table = _styled.Table
+globalThis.Tbody = _styled.Tbody
+globalThis.Td = _styled.Td
+globalThis.Textarea = _styled.Textarea
+globalThis.Tfoot = _styled.Tfoot
+globalThis.Th = _styled.Th
+globalThis.Thead = _styled.Thead
+globalThis.Time = _styled.Time
+globalThis.Tr = _styled.Tr
+globalThis.U = _styled.U
+globalThis.Ul = _styled.Ul
+globalThis.Video = _styled.Video
 
-globalThis.Flex = prims.Flex
-globalThis.FlexC = prims.FlexC
+globalThis.Flex = _styled.Flex
+globalThis.FlexC = _styled.FlexC
