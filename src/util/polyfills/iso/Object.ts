@@ -1,6 +1,8 @@
 import {
-  areEqual,
-  areNotEqual,
+  areEqualDeep,
+  areEqualShallow,
+  areNotEqualDeep,
+  areNotEqualShallow,
   detailedDiff,
   hashObj,
   merge,
@@ -18,14 +20,27 @@ export {}
 declare global {
   interface ObjectConstructor {
     /**
-     * A deep equal comparison
+     * A deep equal comparison. Is more expensive than === and areEqualShallow
+     * though, so use it intensionally.
      */
-    areEqual: typeof areEqual
+    areEqualDeep: typeof areEqualDeep
 
     /**
-     * A deep equal comparison
+     * A deep equal comparison. Is more expensive than === and areEqualShallow
+     * though, so use it intensionally.
      */
-    areNotEqual: typeof areEqual
+    areNotEqualDeep: typeof areNotEqualDeep
+
+    /**
+     * A shallow equal comparison. Is more expensive than === while less than
+     * areEqualDeep though, so use it intensionally.
+     */
+    areEqualShallow: typeof areEqualShallow
+
+    /**
+     * A shallow equal comparison
+     */
+    areNotEqualShallow: typeof areNotEqualShallow
 
     /**
      * Make a deep copy of an object so that none of the references are the same
@@ -172,41 +187,6 @@ declare global {
      */
     toHash(obj: any): string
   }
-
-  // Sadly, Object is not generic, so we cannot extend it and acces this in a typesafe way :-(.
-  // interface Object<T> {}
-  interface Object {
-    /** Alias for Object.excludes(this, attr). WARNING: not typesafe */
-    __excludes(attr: string): boolean
-    /** Alias for Object.entries(this) */
-    __entries<T extends Object>(): [keyof T, any][]
-    /** Alias for Object.includes(this, attr). WARNING: not typesafe */
-    __includes(attr: string): boolean
-    /** Alias for Object.areEqualTo(this, that). WARNING: not typesafe */
-    __areEqualTo(otherObj: any): boolean
-    /** Alias for Object.isNotEqualTo(this, that). WARNING: not typesafe */
-    __isNotEqualTo(otherObj: any): boolean
-    /** Alias for Object.keyMap(this, fnc). */
-    __keyMap<T extends Object>(fnc: (key: keyof T) => T): T[]
-    /** Alias for Object.keyReduce(this, fnc, init). */
-    __keyReduce<T extends Object, A extends Object>(fnc: (acc: A, key: keyof T) => A, init: A): A
-    /** Alias for Object.keys(this). */
-    __keys<T extends Object>(): (keyof T)[]
-    /**
-     * Converts an object into a semi-unique hash
-     *
-     * Compared to other hash algs (MD5), is much simpler, shorter, faster while less perfect
-     * Src: https://stackoverflow.com/a/8831937/1202757
-     *
-     * Known weaknesses:
-     * 	- If hashing a function, two different functions could have the same hash
-     */
-    __toHash(): string
-    /** Alias for Object.toMap(this, that). WARNING: not typesafe */
-    __toMap(): Map<string, any>
-    /** Alias for Object.values(this). WARNING: not typesafe */
-    __values(): any[]
-  }
 }
 
 Object.copy = structuredClone
@@ -217,9 +197,10 @@ Object.flatten = () => {
   throw new Error('Omitted to save bundle size')
 }
 
-Object.areEqual = areEqual
-
-Object.areNotEqual = areNotEqual
+Object.areEqualDeep = areEqualDeep
+Object.areNotEqualDeep = areNotEqualDeep
+Object.areEqualShallow = areEqualShallow
+Object.areNotEqualShallow = areNotEqualShallow
 
 Object.merge = merge
 Object.mergeCustom = mergeAndCompare
@@ -266,72 +247,3 @@ Object.pick = function (obj, keys) {
 }
 
 Object.toHash = hashObj
-
-Object.defineProperties(Object.prototype, {
-  __toHash: {
-    value: function () {
-      return Object.toHash(this)
-    },
-    enumerable: false,
-  },
-  __keys: {
-    value: function () {
-      return Object.keys(this)
-    },
-    enumerable: false,
-  },
-  __values: {
-    value: function () {
-      return Object.values(this)
-    },
-    enumerable: false,
-  },
-  __entries: {
-    value: function () {
-      return Object.entries(this)
-    },
-    enumerable: false,
-  },
-  __areEqualTo: {
-    value: function (that: any) {
-      return Object.areEqual(this, that)
-    },
-    enumerable: false,
-  },
-  __isNotEqualTo: {
-    value: function (that: any) {
-      return Object.areNotEqual(this, that)
-    },
-    enumerable: false,
-  },
-  __includes: {
-    value: function (prop: string) {
-      return this.hasOwnProperty(prop)
-    },
-    enumerable: false,
-  },
-  __excludes: {
-    value: function (prop: string) {
-      return !this.hasOwnProperty(prop)
-    },
-    enumerable: false,
-  },
-  ___toMap: {
-    value: function () {
-      return new Map(Object.entries(this))
-    },
-    enumerable: false,
-  },
-  __keyMap: {
-    value: function (fn: (...props: any) => any) {
-      return this._keys().map(fn)
-    },
-    enumerable: false,
-  },
-  __keyReduce: {
-    value: function (fn: (...props: any) => any, init: any) {
-      return this._keys().reduce(fn, init)
-    },
-    enumerable: false,
-  },
-})

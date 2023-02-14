@@ -4,6 +4,7 @@ The tiny 16kb app that could.
 
 - Started with the official Vite React Typescript template
 - Swaps React for Preact under the hood via resolve.alias, so small bundle size and totally inter-compatible
+  - Why use React at all? Because Vitest and Storybook dislike Preact.
 - linting and formatting c/o eslint + prettier
 - path alias for ~ --> ./src
 - Vitest testing

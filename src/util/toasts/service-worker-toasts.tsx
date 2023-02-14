@@ -1,4 +1,5 @@
 /// <reference types="vite-plugin-pwa/client" />
+import {useUpdateEffect} from '@slimr/hooks'
 import {useRegisterSW} from 'virtual:pwa-register/react'
 
 import {toast} from './toast'

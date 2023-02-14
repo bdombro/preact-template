@@ -104,6 +104,14 @@ const vitestconfig: UserConfigExport = merge(prodConfig, {
   test: {
     environment: 'jsdom',
     globals: true,
+    deps: {
+      /**
+       * Vitest gets confused by an esm module exporting * from another esm module.
+       * Inlining seems to fix it.
+       * @see https://github.com/vitest-dev/vitest/issues/2811
+       */
+      inline: ['@slimr/hooks'],
+    },
   },
 })
 

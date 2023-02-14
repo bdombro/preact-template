@@ -1,6 +1,6 @@
 import '../iso'
-import './hooks'
 import './icons'
+import './react'
 import './styled'
 
 declare global {

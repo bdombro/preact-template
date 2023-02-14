@@ -29,12 +29,12 @@
     }
   },
   "dependencies": {
-    "@slimr/markdown": "^1.0.10",
-    "@slimr/mdi-paths": "^1.0.24",
-    "@slimr/router": "^1.0.10",
-    "@slimr/styled": "^2.0.6",
-    "@slimr/swr": "^2.0.9",
-    "@slimr/util": "^1.0.35",
+    "@slimr/hooks": "*",
+    "@slimr/markdown": "*",
+    "@slimr/mdi-paths": "*",
+    "@slimr/router": "*",
+    "@slimr/styled": "*",
+    "@slimr/util": "*",
     "preact": "^10.11.3"
   },
   "devDependencies": {

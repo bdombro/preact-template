@@ -1,5 +1,4 @@
 import * as _styled from '@slimr/styled'
-import {Fragment as _Fragment, Suspense as _Suspense} from 'react'
 
 // You must export something or TS gets confused.
 export {}
@@ -7,12 +6,6 @@ export {}
 declare global {
   var addCss: typeof _styled.addCss
   var styled: typeof _styled.styled
-
-  // React primitives
-
-  var F: typeof _Fragment
-  var Fragment: typeof _Fragment
-  var Suspense: typeof _Suspense
 
   // Styled primitives
 
@@ -202,11 +195,6 @@ declare global {
 
 globalThis.addCss = _styled.addCss
 globalThis.styled = _styled.styled
-
-// React primitives
-globalThis.F = _Fragment
-globalThis.Fragment = _Fragment
-globalThis.Suspense = _Suspense
 
 globalThis.A = _styled.A
 globalThis.Abbr = _styled.Abbr

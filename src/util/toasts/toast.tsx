@@ -1,5 +1,6 @@
 import './toast.pcss'
 
+import {useEvent} from '@slimr/hooks'
 import {memo} from 'react'
 
 const createEvent = 'toast'
