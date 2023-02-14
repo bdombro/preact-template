@@ -1,4 +1,4 @@
-import './polyfills/web'
+import './polyfills'
 
 import '@testing-library/jest-dom'
 import {cleanup} from '@testing-library/react'

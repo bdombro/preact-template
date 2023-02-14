@@ -1,6 +1,6 @@
 import '~/styles.pcss'
 
-import '~/util/polyfills/web'
+import '~/util/polyfills'
 
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
