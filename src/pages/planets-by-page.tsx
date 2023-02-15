@@ -1,5 +1,5 @@
+import {useSWR} from '@slimr/hooks'
 import type {RouteMatch} from '@slimr/router'
-import {useSWR} from '@slimr/swr'
 
 import {Layout} from '~/comps/layout-default'
 import {router} from '~/router'
