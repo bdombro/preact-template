@@ -1,5 +1,6 @@
 import {Markdown} from '@slimr/markdown'
 
+import {Filler} from '~/comps/filler'
 import {Layout} from '~/comps/layout-default'
 import {setPageMeta} from '~/util/head'
 
@@ -55,6 +56,7 @@ export default function Index() {
           `}
           />
         </fieldset>
+        <Filler />
       </Layout.Section>
     </Layout>
   )

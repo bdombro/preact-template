@@ -1,6 +1,6 @@
-type Fnc = (...args: any) => any
+type Fnc = (...args: any[]) => any
 
-type PromiseFnc = (...args: any) => Promise<any>
+type PromiseFnc = (...args: any[]) => Promise<any>
 
 type ReturnType<T extends Fnc> = T extends (...args: any[]) => infer R ? R : never
 

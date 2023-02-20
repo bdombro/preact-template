@@ -13,6 +13,8 @@
 :root {
   --color-fg: black;
   --color-bg: white;
+  --color-black: black;
+  --color-white: white;
   --color-gray10: #f7f7f7;
   --color-gray20: #e1e1e1;
   --color-gray30: #cfcfcf;
@@ -45,6 +47,8 @@
   :root {
     --color-fg: white;
     --color-bg: #161b22;
+    --color-black: white;
+    --color-white: black;
     --color-gray10: #171717;
     --color-gray20: #262626;
     --color-gray30: #444444;
@@ -56,6 +60,10 @@
     --color-gray90: #f7f7f7;
     --color-tertiary: var(--color-gray60);
   }
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -90,6 +98,10 @@ button,
 .button {
   @extend textSmall;
   cursor: pointer;
+}
+
+fieldset {
+  border: 1px solid var(--color-fg);
 }
 
 h1,

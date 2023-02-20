@@ -70,7 +70,7 @@ declare global {
   /** A styled 'footer' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Footer: typeof _styled.Footer
   /** A styled 'form' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Form: typeof _styled.Form
+  // var Form: typeof _styled.Form
   /** A styled 'h1' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var H1: typeof _styled.H1
   /** A styled 'h2' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
@@ -226,7 +226,7 @@ globalThis.Fieldset = _styled.Fieldset
 globalThis.Figcaption = _styled.Figcaption
 globalThis.Figure = _styled.Figure
 globalThis.Footer = _styled.Footer
-globalThis.Form = _styled.Form
+// globalThis.Form = _styled.Form
 globalThis.H1 = _styled.H1
 globalThis.H2 = _styled.H2
 globalThis.H3 = _styled.H3
