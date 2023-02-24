@@ -1,5 +1,6 @@
 import {throwFormError, useForm} from '@slimr/hooks'
 import type {RouteMatch} from '@slimr/router'
+import {formToJson} from '@slimr/util'
 
 import {CheckboxInput, GenericError, TextInput} from '~/comps/forms'
 import {Layout} from '~/comps/layout-default'
@@ -39,7 +40,8 @@ function FormExample() {
 
   return (
     <Form
-      onSubmitJson={vals => {
+      onSubmit={e => {
+        const vals = formToJson(e.target as any)
         const errors: Record<string, string> = {}
         if (!vals.name) {
           errors.name = 'Name is required'

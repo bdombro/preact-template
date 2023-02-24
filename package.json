@@ -31,12 +31,12 @@
     }
   },
   "dependencies": {
-    "@slimr/hooks": "^2.1.15",
-    "@slimr/markdown": "^2.1.11",
+    "@slimr/hooks": "^2.1.18",
+    "@slimr/markdown": "^2.1.14",
     "@slimr/mdi-paths": "^2.1.17",
-    "@slimr/router": "^2.1.11",
-    "@slimr/styled": "^2.1.12",
-    "@slimr/util": "^2.2.5",
+    "@slimr/router": "^2.1.13",
+    "@slimr/styled": "^2.1.15",
+    "@slimr/util": "^2.2.8",
     "npm-run-all": "^4.1.5",
     "preact": "^10.11.3"
   },
