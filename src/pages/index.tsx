@@ -1,8 +1,8 @@
 import {Markdown} from '@slimr/markdown'
+import {setPageMeta} from '@slimr/util'
 
 import {Filler} from '~/comps/filler'
 import {Layout} from '~/comps/layout-default'
-import {setPageMeta} from '~/util/head'
 
 /**
  * A demo of a home page
@@ -16,6 +16,30 @@ export default function Index() {
         <p>{description}</p>
         <button
           id="test-error-boundary"
+          onClick={async () => {
+            throw new Error('This is a test error.')
+          }}
+          style={{marginBottom: '1rem'}}
+          type="button"
+        >
+          Click to test error boundary
+        </button>
+        <button
+          id="test-error-boundary"
+          className="secondary md"
+          // disabled
+          onClick={async () => {
+            throw new Error('This is a test error.')
+          }}
+          style={{marginBottom: '1rem'}}
+          type="button"
+        >
+          Click to test error boundary
+        </button>
+        <button
+          id="test-error-boundary"
+          className="tertiary lg"
+          // disabled
           onClick={async () => {
             throw new Error('This is a test error.')
           }}

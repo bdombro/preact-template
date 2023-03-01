@@ -1,6 +1,7 @@
+import {setPageMeta} from '@slimr/util'
+
 import {Filler} from '~/comps/filler'
 import {Layout} from '~/comps/layout-default'
-import {setPageMeta} from '~/util/head'
 
 /**
  * A demo of route in a route stack. Click "Inner Page" to go deeper down

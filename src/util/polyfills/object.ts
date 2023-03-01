@@ -3,8 +3,7 @@ import {
   areEqualShallow,
   areNotEqualDeep,
   areNotEqualShallow,
-  detailedDiff,
-  hashObj,
+  detailedDiff, // hashObj,
   merge,
   mergeAndCompare,
   mergeAndConcat,
@@ -178,14 +177,6 @@ declare global {
       obj: T,
       keys: readonly K[] | K[]
     ): Pick<T, K>
-
-    /**
-     * Converts an object into a semi-unique hash
-     *
-     * Compared to other hash algs (MD5), is much simpler, shorter, faster while less perfect
-     * Src: https://stackoverflow.com/a/8831937/1202757
-     */
-    toHash(obj: any): string
   }
 }
 
@@ -245,5 +236,3 @@ Object.pick = function (obj, keys) {
   })
   return res
 }
-
-Object.toHash = hashObj

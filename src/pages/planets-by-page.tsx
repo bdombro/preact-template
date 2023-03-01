@@ -1,9 +1,9 @@
 import {useSWR} from '@slimr/hooks'
 import type {RouteMatch} from '@slimr/router'
+import {setPageMeta} from '@slimr/util'
 
 import {Layout} from '~/comps/layout-default'
 import {router} from '~/router'
-import {setPageMeta} from '~/util/head'
 import * as sw from '~/util/swapi'
 
 /**

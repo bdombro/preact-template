@@ -1,8 +1,11 @@
 import './polyfills'
 
+import {setPageMeta} from '@slimr/util'
 import '@testing-library/jest-dom'
 import {cleanup} from '@testing-library/react'
 import {afterEach, vi} from 'vitest'
+
+setPageMeta.testMode = true
 
 afterEach(() => {
   cleanup()

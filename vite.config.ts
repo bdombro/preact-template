@@ -41,7 +41,6 @@ const prodConfig: UserConfigExport = {
       },
       output: {
         // Comment out manualChunks for default code-splitting
-
         /**
          * Manual chunks is a key/val or function that returns an answer
          * of which bundle a module should be placed in for splitting.
@@ -51,30 +50,25 @@ const prodConfig: UserConfigExport = {
          *
          * @returns {string | undefined} - The name of the chunk to place the module in or undefined to use default
          */
-        manualChunks: id => {
-          const fileNameNoExt = id.split('/').at(-1).split('.').slice(0, -1).join('.')
-          if (id.includes('@slimr/mdi-paths') && !id.includes('component')) {
-            return 'icons/' + fileNameNoExt
-          }
-
-          if (id.includes('highlight.js') && !id.includes('lazy')) {
-            return 'highlightjs'
-          }
-
-          if (id.includes('swapi')) {
-            return 'util/' + fileNameNoExt
-          }
-
-          if (id.includes('pages') && !id.includes('pages/index')) {
-            return 'pages/' + fileNameNoExt
-          }
-
-          if (id.includes('workbox')) {
-            return 'workbox'
-          }
-
-          return 'main'
-        },
+        // manualChunks: id => {
+        //   const fileNameNoExt = id.split('/').at(-1).split('.').slice(0, -1).join('.')
+        //   if (id.includes('@slimr/mdi-paths') && !id.includes('component')) {
+        //     return 'icons/' + fileNameNoExt
+        //   }
+        //   if (id.includes('highlight.js') && !id.includes('lazy')) {
+        //     return 'highlightjs'
+        //   }
+        //   if (id.includes('swapi')) {
+        //     return 'util/' + fileNameNoExt
+        //   }
+        //   if (id.includes('pages') && !id.includes('pages/index')) {
+        //     return 'pages/' + fileNameNoExt
+        //   }
+        //   if (id.includes('workbox')) {
+        //     return 'workbox'
+        //   }
+        //   return 'main'
+        // },
       },
     },
   },

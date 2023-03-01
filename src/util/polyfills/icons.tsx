@@ -1,5 +1,4 @@
 import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/components'
-import {addCss} from '@slimr/styled'
 
 // You must export something or TS gets confused.
 export {}
@@ -14,12 +13,6 @@ declare global {
 }
 
 globalThis.Icon = Icon
-
-// Add css spin effects
-addCss(`
-@keyframes spin-inverse { to { transform: rotate(-360deg) } }
-@keyframes spin { to { transform: rotate(360deg) } }
-`)
 
 const icons = {
   // account: () => import('@slimr/mdi-paths/CardAccountDetailsOutline'),

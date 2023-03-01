@@ -1,23 +1,22 @@
-import {throwFormError, useForm} from '@slimr/hooks'
+import {FormError, useForm} from '@slimr/hooks'
 import type {RouteMatch} from '@slimr/router'
-import {formToJson} from '@slimr/util'
+import {formToValues, setPageMeta} from '@slimr/util'
 
 import {CheckboxInput, GenericError, TextInput} from '~/comps/forms'
 import {Layout} from '~/comps/layout-default'
-import {setPageMeta} from '~/util/head'
 
 /**
  * A demo of route with url params
  */
 export default function Hello({route}: {route: RouteMatch}) {
-  const {description} = setPageMeta({
+  const {title, description} = setPageMeta({
     title: `Hello ${route.urlParams!.name}`,
     description: 'A demo of route with url params.',
   })
   return (
     <Layout>
       <Layout.Section>
-        <h1>Hello, {route.urlParams!.name}.</h1>
+        <h1>{title}</h1>
         <p>{description}</p>
         <FormExample />
       </Layout.Section>
@@ -28,7 +27,7 @@ export default function Hello({route}: {route: RouteMatch}) {
 /** A form example */
 function FormExample() {
   const formRef = useRef<HTMLFormElement>(null)
-  const {accepted, errors, Form, submitting} = useForm()
+  const {Form, submitting, accepted, errors} = useForm()
 
   useEffect(() => {
     if (accepted) {
@@ -40,8 +39,8 @@ function FormExample() {
 
   return (
     <Form
-      onSubmit={e => {
-        const vals = formToJson(e.target as any)
+      onSubmit={async e => {
+        const vals = formToValues(e.target as HTMLFormElement)
         const errors: Record<string, string> = {}
         if (!vals.name) {
           errors.name = 'Name is required'
@@ -50,7 +49,7 @@ function FormExample() {
           errors.checkbox = 'You must agree to the terms'
         }
         if (Object.keys(errors).length) {
-          throwFormError(errors)
+          throw new FormError(errors)
         }
       }}
       ref={formRef}
