@@ -1,4 +1,4 @@
-import {Layout} from '~/comps/layout-default'
+import {Layout} from '~/layout/layout-default'
 import {router as r} from '~/router'
 
 /**

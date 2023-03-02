@@ -4,8 +4,8 @@ import './util/polyfills'
 
 import {Switch} from '@slimr/router'
 
-import {router} from './router'
-import {ToastPack} from './util/toasts'
+import {ToastPack} from '~/foundation'
+import {router} from '~/router'
 
 /**
  * The main app component

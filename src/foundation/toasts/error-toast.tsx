@@ -18,7 +18,7 @@ export function ErrorToast() {
         icon: null,
         message: (
           <>
-            <p>Something went wrong and you need to reset the page.</p>
+            <p style={{paddingTop: 0}}>Something went wrong and you need to reset the page.</p>
             <button
               id="error-dismiss"
               type="button"

@@ -30,26 +30,6 @@ interface ToastProps {
 type CreateToastProps = Partial<Omit<ToastProps, 'message'>> & Pick<ToastProps, 'message'>
 
 export const Toasts = memo(function Toasts() {
-  // Testing
-  // useKey('i', () => dispatchToast({key: 'i', message: 'info', variant: 'info'}))
-  // useKey('s', () => dispatchToast({key: 's', message: 'success', variant: 'success'}))
-  // useKey('a', () => dispatchToast({key: 'a', message: 'alert', variant: 'alert'}))
-  // useKey('e', () => dispatchToast({key: 'e', message: 'error', variant: 'error'}))
-  // useKey('c', () => dispatchToast({key: 'c', message: 'center placement', placement: 'center'}))
-  // useKey('b', () => dispatchToast({key: 'b', message: 'bottom placement', placement: 'bottom'}))
-  // useKey('r', () => dispatchToast({key: 'r', message: 'right placement'}))
-  // useKey('t', () => dispatchToast({key: 'r2', message: 'right placement again'}))
-  // useKey('i', () => dispatchToast({message: 'no icon', icon: null}))
-  // useKey('s', () =>
-  //   dispatchToast({key: 's1', duration: Infinity, message: 'sticky1', placement: 'bottom'})
-  // )
-  // useKey('d', () =>
-  //   dispatchToast({key: 's2', duration: Infinity, message: 'sticky2', variant: 'success'})
-  // )
-  // useKey('n', () =>
-  //   dispatchToast({duration: Infinity, dismissable: false, message: 'non-dismissable'})
-  // )
-
   return (
     <>
       <ToastStack placement="right" />
