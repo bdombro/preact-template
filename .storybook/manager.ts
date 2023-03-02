@@ -6,4 +6,7 @@ addons.setConfig({
   showPanel: false,
   // showToolbar: false,
   theme: Theme,
+  docs: {
+    theme: Theme,
+  },
 })
