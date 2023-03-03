@@ -58,9 +58,6 @@ const prodConfig: UserConfigExport = {
           if (id.includes('highlight.js') && !id.includes('lazy')) {
             return 'highlightjs'
           }
-          // if (id.includes('swapi')) {
-          //   return 'util/' + fileNameNoExt
-          // }
           if (id.includes('@slimr')) {
             return 'slimr'
           }

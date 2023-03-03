@@ -5,19 +5,6 @@ export const router = new Router({
     loader: () => import('./pages/index'),
     path: '/',
   },
-  hello: {
-    loader: () => import('./pages/hello'),
-    path: '/hello/:name',
-  },
-  planets: {
-    isStack: true,
-    loader: () => import('./pages/planets'),
-    path: '/planets',
-  },
-  planetsByPage: {
-    loader: () => import('./pages/planets-by-page'),
-    path: '/planets/:page',
-  },
   stack1: {
     isStack: true,
     loader: () => import('./pages/stack-test'),

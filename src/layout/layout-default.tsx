@@ -2,10 +2,7 @@ import {router as r} from '~/router'
 
 const navitems = [
   {name: 'Home', path: r.routes.index.path},
-  {name: 'Hello', path: r.routes.hello.toPath({name: 'world'})},
   {name: 'Stack1', path: r.routes.stack1.path},
-  {name: 'Planets', path: r.routes.planets.path},
-  {name: '404', path: '/does-not-exist'},
 ]
 
 /**
