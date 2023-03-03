@@ -1,5 +1,6 @@
 import {setPageMeta} from '@slimr/util'
 
+import {Icon} from '~/foundation'
 import {Layout} from '~/layout/layout-default'
 
 /**

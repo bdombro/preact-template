@@ -5,6 +5,7 @@ import {formToValues} from '@slimr/util'
 
 import {Card} from './cards'
 import {CheckboxInput, GenericError, TextInput} from './forms'
+import {Icon, IconKeys, icons} from './icons'
 import {ToastPack, toast} from './toasts'
 
 export const ButtonSizes = () => (
@@ -105,6 +106,17 @@ export const Forms = () => {
     </Form>
   )
 }
+
+export const Icons = () => (
+  <div className="icons">
+    {Object.keys(icons).map(name => (
+      <div key={name}>
+        <Icon name={name as unknown as IconKeys} />
+        <p>{name}</p>
+      </div>
+    ))}
+  </div>
+)
 
 export const Toasts = () => {
   return (
