@@ -4,7 +4,7 @@ import {FormError, useForm} from '@slimr/hooks'
 import {formToValues} from '@slimr/util'
 
 import {Card} from './cards'
-import {Checkbox, GenericError, Input, Textarea} from './forms'
+import {Checkbox, GenericError, Input, Radios, Textarea} from './forms'
 import {Icon, IconKeys, icons} from './icons'
 import {ToastPack, toast} from './toasts'
 
@@ -108,8 +108,8 @@ export const FormExternalReset = () => {
       onSubmit={async e => {
         const vals = formToValues(e.target as HTMLFormElement)
         const errors: Record<string, string> = {}
-        if (!vals.text) {
-          errors.text = 'Text is required'
+        if (!vals.text1) {
+          errors.text1 = 'Text is required'
         }
         if (Object.keys(errors).length) {
           throw new FormError(errors)
@@ -117,7 +117,7 @@ export const FormExternalReset = () => {
       }}
       ref={formRef}
     >
-      <Input label="Name" name="text" disabled={accepted} error={errors.text} />
+      <Input label="Text1" name="text1" disabled={accepted} error={errors.text1} />
       <GenericError error={errors.form} />
       {accepted && (
         <p style={{color: 'var(--color-success)'}}>Success! Form will reset in 5 seconds...</p>
@@ -140,15 +140,54 @@ export const FormInput = () => {
       onSubmit={async e => {
         const vals = formToValues(e.target as HTMLFormElement)
         const errors: Record<string, string> = {}
-        if (!vals.text) {
-          errors.text = 'Text is required'
+        if (!vals.text1) {
+          errors.text1 = 'Text is required'
         }
         if (Object.keys(errors).length) {
           throw new FormError(errors)
         }
       }}
     >
-      <Input label="Text" name="text" disabled={accepted} error={errors.text} />
+      <Input label="Text1" name="text1" disabled={accepted} error={errors.text1} />
+      <GenericError error={errors.form} />
+      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
+      <button className="left" disabled={submitting} type="submit">
+        Submit
+      </button>
+      <button className="tertiary right" disabled={submitting} type="reset">
+        Reset
+      </button>
+    </Form>
+  )
+}
+
+export const FormRadio = () => {
+  const {Form, submitting, accepted, errors} = useForm()
+
+  return (
+    <Form
+      onSubmit={async e => {
+        const vals = formToValues(e.target as HTMLFormElement)
+        console.log(vals)
+        const errors: Record<string, string> = {}
+        if (!vals.radio1) {
+          errors.radio1 = 'You must choose a radio choice'
+        }
+        if (Object.keys(errors).length) {
+          throw new FormError(errors)
+        }
+      }}
+    >
+      <Radios
+        name="radio1"
+        options={[
+          {label: 'Choice 1', value: 'choice1'},
+          {label: 'Choice 2', value: 'choice2'},
+          {label: 'Choice 3', value: 'choice3'},
+        ]}
+        disabled={accepted}
+        error={errors.radio1}
+      />
       <GenericError error={errors.form} />
       {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
       <button className="left" disabled={submitting} type="submit">
@@ -169,15 +208,15 @@ export const FormTextarea = () => {
       onSubmit={async e => {
         const vals = formToValues(e.target as HTMLFormElement)
         const errors: Record<string, string> = {}
-        if (!vals.text) {
-          errors.text = 'Text is required'
+        if (!vals.text1) {
+          errors.text1 = 'Text is required'
         }
         if (Object.keys(errors).length) {
           throw new FormError(errors)
         }
       }}
     >
-      <Textarea label="Select" name="text" disabled={accepted} error={errors.text} />
+      <Textarea label="Textarea" name="text1" disabled={accepted} error={errors.text1} />
       <GenericError error={errors.form} />
       {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
       <button className="left" disabled={submitting} type="submit">

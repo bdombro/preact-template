@@ -7,6 +7,11 @@
   &[data-error='true'] input {
     outline: 1px solid var(--color-danger);
   }
+
+  /* Radios share the checkbox class and have an inner div */
+  > div {
+    margin-bottom: 1em;
+  }
 }
 
 .generic-error {

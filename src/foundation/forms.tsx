@@ -11,7 +11,10 @@ type BaseProps = {
 }
 
 type InputProps = Omit<Parameters<typeof s.Input>[0], 'id' | 'name'> & BaseProps
-
+type RadioProps = Omit<InputProps, 'label'> & {
+  innerDivProps?: Parameters<typeof Div>[0]
+  options: {label: string; value: string}[]
+}
 type TextareaProps = Omit<Parameters<typeof s.Textarea>[0], 'id' | 'name'> & BaseProps
 
 /**
@@ -68,6 +71,36 @@ export function Input({error, divProps, label, labelProps = {}, ...inputProps}: 
         {label}
       </label>
       <s.Input {...inputProps} id={inputProps.name} />
+      <GenericError error={error} style={{marginBottom: 0}} />
+    </Div>
+  )
+}
+
+/**
+ * A set of radio inputs with label and error handling
+ */
+export function Radios({
+  divProps = {},
+  innerDivProps = {},
+  error,
+  labelProps = {},
+  options,
+  ...inputProps
+}: RadioProps) {
+  return (
+    <Div
+      {...divProps}
+      data-error={!!error}
+      className={s.classJoin('checkbox', divProps?.className)}
+    >
+      {options.map(({label, value}) => (
+        <Div {...innerDivProps} key={value}>
+          <s.Input {...inputProps} id={value} value={value} type="radio" />
+          <Label {...labelProps} htmlFor={value}>
+            {label}
+          </Label>
+        </Div>
+      ))}
       <GenericError error={error} style={{marginBottom: 0}} />
     </Div>
   )
