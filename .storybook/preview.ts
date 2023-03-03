@@ -1,6 +1,6 @@
-import '~/styles.pcss'
-
 import '~/util/polyfills'
+
+import '~/foundation'
 
 import Theme from './theme'
 

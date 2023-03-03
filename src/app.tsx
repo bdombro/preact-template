@@ -1,6 +1,4 @@
-import './styles.pcss'
-
-import './util/polyfills'
+import '~/util/polyfills'
 
 import {Switch} from '@slimr/router'
 
