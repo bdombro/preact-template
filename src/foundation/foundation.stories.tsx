@@ -4,7 +4,7 @@ import {FormError, useForm} from '@slimr/hooks'
 import {formToValues} from '@slimr/util'
 
 import {Card} from './cards'
-import {Checkbox, GenericError, Input, Radios, Textarea} from './forms'
+import {Checkbox, GenericError, Input, Radios, Select, Textarea} from './forms'
 import {Icon, IconKeys, icons} from './icons'
 import {ToastPack, toast} from './toasts'
 
@@ -132,7 +132,7 @@ export const FormExternalReset = () => {
   )
 }
 
-export const FormInput = () => {
+const FormInput = ({type = 'text'}: {type: string}) => {
   const {Form, submitting, accepted, errors} = useForm()
 
   return (
@@ -148,7 +148,7 @@ export const FormInput = () => {
         }
       }}
     >
-      <Input label="Text1" name="text1" disabled={accepted} error={errors.text1} />
+      <Input label={type} name="text1" type={type} disabled={accepted} error={errors.text1} />
       <GenericError error={errors.form} />
       {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
       <button className="left" disabled={submitting} type="submit">
@@ -161,7 +161,11 @@ export const FormInput = () => {
   )
 }
 
-export const FormRadio = () => {
+export const FormInputDate = () => <FormInput type="date" />
+export const FormInputNumber = () => <FormInput type="number" />
+export const FormInputText = () => <FormInput type="text" />
+
+export const FormRadios = () => {
   const {Form, submitting, accepted, errors} = useForm()
 
   return (
@@ -199,6 +203,52 @@ export const FormRadio = () => {
     </Form>
   )
 }
+
+// eslint-disable-next-line react/display-name
+const FormSelect = ({multiple}: {multiple: boolean}) => {
+  const {Form, submitting, accepted, errors} = useForm()
+
+  return (
+    <Form
+      onSubmit={async e => {
+        const vals = formToValues(e.target as HTMLFormElement)
+        console.log(vals)
+        const errors: Record<string, string> = {}
+        if (!vals.select1) {
+          errors.select1 = 'You must choose a radio choice'
+        }
+        if (Object.keys(errors).length) {
+          throw new FormError(errors)
+        }
+      }}
+    >
+      <Select
+        label={multiple ? 'Select multiple' : 'Select Single'}
+        name="select1"
+        multiple={multiple ? true : undefined}
+        options={[
+          ...(multiple ? [] : [{label: '--', value: ''}]),
+          {label: 'Choice 1', value: 'choice1'},
+          {label: 'Choice 2', value: 'choice2'},
+          {label: 'Choice 3', value: 'choice3'},
+        ]}
+        disabled={accepted}
+        error={errors.select1}
+      />
+      <GenericError error={errors.form} />
+      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
+      <button className="left" disabled={submitting} type="submit">
+        Submit
+      </button>
+      <button className="tertiary right" disabled={submitting} type="reset">
+        Reset
+      </button>
+    </Form>
+  )
+}
+
+export const FormSelectSingle = () => <FormSelect multiple={false} />
+export const FormSelectMultiple = () => <FormSelect multiple={true} />
 
 export const FormTextarea = () => {
   const {Form, submitting, accepted, errors} = useForm()

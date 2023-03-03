@@ -28,7 +28,7 @@
   > label {
     background: var(--color-bg);
     color: var(--color-fg);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     left: 8px;
     padding: 1px 3px;
     position: absolute;
@@ -42,6 +42,7 @@
     color: var(--color-fg);
     display: block;
     margin-bottom: 0.2rem;
+    outline-color: var(--color-primary);
     padding-left: 0.8rem;
     padding-top: 0.3rem;
     width: 100%;
@@ -67,6 +68,58 @@
     }
     > input,
     > textarea {
+      border-color: var(--text-error-color);
+    }
+  }
+}
+
+.select {
+  margin-bottom: 0.6rem;
+  > label {
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  > select {
+    background: var(--color-bg);
+    border: 1px solid var(--color-gray80);
+    color: var(--color-fg);
+    font-size: var(--step--1);
+    outline-color: var(--color-primary);
+    margin-bottom: 0.2rem;
+    min-height: 2.4rem;
+    padding-left: 0.4rem;
+    width: 100%;
+
+    &[multiple] {
+      padding-left: 0;
+    }
+
+    > option {
+      padding: 0.4em 0.4rem;
+    }
+  }
+
+  &:focus {
+    > select {
+      /* border-color: var(--color-primary); */
+      border-color: red;
+    }
+  }
+
+  &[data-disabled='true'] {
+    > label {
+      color: var(--color-gray50);
+    }
+    > select {
+      border-color: var(--color-gray40);
+    }
+  }
+
+  &[data-error='true'] {
+    > label {
+      color: var(--text-error-color);
+    }
+    > select {
       border-color: var(--text-error-color);
     }
   }

@@ -2,20 +2,27 @@ import './forms.pcss'
 
 import * as s from '@slimr/styled'
 
+type Els = JSX.IntrinsicElements
+
 type BaseProps = {
   divProps?: Parameters<typeof Div>[0]
   error?: string
   label: string
-  labelProps?: Omit<Parameters<typeof Label>[0], 'htmlFor'>
+  labelProps?: Omit<Els['label'], 'htmlFor'>
   name: string
 }
 
-type InputProps = Omit<Parameters<typeof s.Input>[0], 'id' | 'name'> & BaseProps
+type InputProps = Omit<Els['input'], 'id' | 'name'> & BaseProps
 type RadioProps = Omit<InputProps, 'label'> & {
-  innerDivProps?: Parameters<typeof Div>[0]
+  innerDivProps?: Els['div']
   options: {label: string; value: string}[]
 }
-type TextareaProps = Omit<Parameters<typeof s.Textarea>[0], 'id' | 'name'> & BaseProps
+type SelectProps = Omit<Els['select'], 'id' | 'name'> &
+  BaseProps & {
+    options: {label: string; value: string}[]
+    optionProps?: Els['option']
+  }
+type TextareaProps = Omit<Els['textarea'], 'id' | 'name'> & BaseProps
 
 /**
  * An input with type=checkbox and label and error handling
@@ -33,10 +40,10 @@ export function Checkbox({
       data-error={!!error}
       className={s.classJoin('checkbox', divProps?.className)}
     >
-      <s.Input {...inputProps} id={inputProps.name} type="checkbox" />
-      <Label {...labelProps} htmlFor={inputProps.name}>
+      <input {...inputProps} id={inputProps.name} type="checkbox" />
+      <label {...labelProps} htmlFor={inputProps.name}>
         {label}
-      </Label>
+      </label>
       <GenericError error={error} style={{marginBottom: 0}} />
     </Div>
   )
@@ -70,7 +77,7 @@ export function Input({error, divProps, label, labelProps = {}, ...inputProps}: 
       <label {...labelProps} htmlFor={inputProps.name}>
         {label}
       </label>
-      <s.Input {...inputProps} id={inputProps.name} />
+      <input {...inputProps} id={inputProps.name} />
       <GenericError error={error} style={{marginBottom: 0}} />
     </Div>
   )
@@ -94,13 +101,40 @@ export function Radios({
       className={s.classJoin('checkbox', divProps?.className)}
     >
       {options.map(({label, value}) => (
-        <Div {...innerDivProps} key={value}>
-          <s.Input {...inputProps} id={value} value={value} type="radio" />
-          <Label {...labelProps} htmlFor={value}>
+        <div key={value} {...innerDivProps}>
+          <input {...inputProps} id={value} value={value} type="radio" />
+          <label {...labelProps} htmlFor={value}>
             {label}
-          </Label>
-        </Div>
+          </label>
+        </div>
       ))}
+      <GenericError error={error} style={{marginBottom: 0}} />
+    </Div>
+  )
+}
+
+/**
+ * A select wrapper with label and error handling
+ */
+export function Select({
+  divProps = {},
+  error,
+  label,
+  labelProps,
+  options,
+  optionProps,
+  ...selectProps
+}: SelectProps) {
+  return (
+    <Div {...divProps} data-error={!!error} className={s.classJoin('select', divProps?.className)}>
+      <label {...labelProps}>{label}</label>
+      <select {...selectProps}>
+        {options.map(({label, value}) => (
+          <option {...optionProps} key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
       <GenericError error={error} style={{marginBottom: 0}} />
     </Div>
   )
@@ -126,7 +160,7 @@ export function Textarea({
       <label {...labelProps} htmlFor={textareaProps.name}>
         {label}
       </label>
-      <s.Textarea {...textareaProps} id={textareaProps.name} />
+      <textarea {...textareaProps} id={textareaProps.name} />
       <GenericError error={error} style={{marginBottom: 0}} />
     </Div>
   )

@@ -124,7 +124,7 @@ declare global {
   /** A styled 'optgroup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Optgroup: typeof _styled.Optgroup
   /** A styled 'option' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var OptionC: typeof _styled.OptionC
+  // var OptionC: typeof _styled.OptionC
   /** A styled 'output' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Output: typeof _styled.Output
   /** A styled 'p' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
@@ -253,7 +253,7 @@ globalThis.Nav = _styled.Nav
 globalThis.ObjectC = _styled.ObjectC
 globalThis.Ol = _styled.Ol
 globalThis.Optgroup = _styled.Optgroup
-globalThis.OptionC = _styled.OptionC
+// globalThis.OptionC = _styled.OptionC
 globalThis.Output = _styled.Output
 globalThis.P = _styled.P
 globalThis.Picture = _styled.Picture
