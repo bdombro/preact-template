@@ -1,64 +1,100 @@
 import './forms.pcss'
 
-import {classJoin} from '@slimr/styled'
+import * as s from '@slimr/styled'
 
-type CheckboxProps = Omit<JSX.IntrinsicElements['input'], 'name'> & {
-  divProps?: JSX.IntrinsicElements['div']
+type BaseProps = {
+  divProps?: Parameters<typeof Div>[0]
   error?: string
   label: string
+  labelProps?: Omit<Parameters<typeof Label>[0], 'htmlFor'>
   name: string
 }
+
+type InputProps = Omit<Parameters<typeof s.Input>[0], 'id' | 'name'> & BaseProps
+
+type TextareaProps = Omit<Parameters<typeof s.Textarea>[0], 'id' | 'name'> & BaseProps
+
 /**
- * Checkbox: A fancy wrapper for HTML Checkboxes, bc they are not style-able :-(
+ * An input with type=checkbox and label and error handling
  */
-export function CheckboxInput({divProps = {}, error, label, ...inputProps}: CheckboxProps) {
+export function Checkbox({
+  divProps = {},
+  error,
+  label,
+  labelProps = {},
+  ...inputProps
+}: InputProps) {
   return (
-    <div
+    <Div
       {...divProps}
       data-error={!!error}
-      className={classJoin('checkbox-input', divProps?.className)}
+      className={s.classJoin('checkbox', divProps?.className)}
     >
-      <input id={inputProps.name} {...inputProps} type="checkbox" />
-      <label htmlFor={inputProps.name}>{label}</label>
+      <s.Input {...inputProps} id={inputProps.name} type="checkbox" />
+      <Label {...labelProps} htmlFor={inputProps.name}>
+        {label}
+      </Label>
       <GenericError error={error} style={{marginBottom: 0}} />
-    </div>
+    </Div>
   )
 }
 
 /**
  * A generic error to display at the bottom of a form
  */
-export function GenericError({
-  error,
-  ...divProps
-}: JSX.IntrinsicElements['div'] & {error?: string}) {
+export function GenericError({error, ...divProps}: Parameters<typeof Div>[0] & {error?: string}) {
   return error ? (
-    <div {...divProps} className="small generic-error">
+    <Div {...divProps} className="small generic-error">
       {error}
-    </div>
+    </Div>
   ) : null
 }
 
-type TextInputProps = Omit<JSX.IntrinsicElements['input'], 'name'> & {
-  divProps?: JSX.IntrinsicElements['div'] & {forwardRef?: React.Ref<HTMLDivElement>}
-  error?: string
-  label: string
-  name: string
-}
 /**
  * An input with label and error handling
  */
-export function TextInput({label, error, divProps, ...inputProps}: TextInputProps) {
+export function Input({error, divProps, label, labelProps = {}, ...inputProps}: InputProps) {
+  if (inputProps.type === 'checkbox') {
+    return Checkbox({label, error, divProps, ...inputProps})
+  }
   return (
-    <div
+    <Div
       {...divProps}
-      className={classJoin('text-input', divProps?.className)}
+      className={s.classJoin('input', divProps?.className)}
       data-error={!!error}
       data-disabled={inputProps.disabled}
     >
-      <label htmlFor={inputProps.name}>{label}</label>
-      <input type="text" id={inputProps.name} {...inputProps} />
+      <label {...labelProps} htmlFor={inputProps.name}>
+        {label}
+      </label>
+      <s.Input {...inputProps} id={inputProps.name} />
       <GenericError error={error} style={{marginBottom: 0}} />
-    </div>
+    </Div>
+  )
+}
+
+/**
+ * An textarea with label and error handling
+ */
+export function Textarea({
+  error,
+  divProps,
+  label,
+  labelProps = {},
+  ...textareaProps
+}: TextareaProps) {
+  return (
+    <Div
+      {...divProps}
+      className={s.classJoin('input', divProps?.className)}
+      data-error={!!error}
+      data-disabled={textareaProps.disabled}
+    >
+      <label {...labelProps} htmlFor={textareaProps.name}>
+        {label}
+      </label>
+      <s.Textarea {...textareaProps} id={textareaProps.name} />
+      <GenericError error={error} style={{marginBottom: 0}} />
+    </Div>
   )
 }

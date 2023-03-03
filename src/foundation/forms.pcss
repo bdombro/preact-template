@@ -1,4 +1,4 @@
-.checkbox-input {
+.checkbox {
   margin-bottom: 1rem;
   input {
     accent-color: var(--color-primary);
@@ -15,7 +15,7 @@
   margin-bottom: 0.4rem;
 }
 
-.text-input {
+.input {
   --text-error-color: var(--color-danger);
   position: relative;
   margin-bottom: 0.8rem;
@@ -30,24 +30,29 @@
     top: -8px;
   }
 
-  > input {
+  > input,
+  > textarea {
     background: var(--color-bg);
     border: 1px solid var(--color-gray80);
     color: var(--color-fg);
     display: block;
-    height: 3rem;
     margin-bottom: 0.2rem;
     padding-left: 0.8rem;
     padding-top: 0.3rem;
     width: 100%;
   }
 
+  > input {
+    height: 3rem;
+  }
+
   &[data-disabled='true'] {
     > label {
       color: var(--color-gray50);
     }
-    > input {
-      border-color: var(--color-gray20);
+    > input,
+    > textarea {
+      border-color: var(--color-gray40);
     }
   }
 
@@ -55,7 +60,8 @@
     > label {
       color: var(--text-error-color);
     }
-    > input {
+    > input,
+    > textarea {
       border-color: var(--text-error-color);
     }
   }

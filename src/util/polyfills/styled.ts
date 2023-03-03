@@ -96,7 +96,7 @@ declare global {
   /** A styled 'img' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Img: typeof _styled.Img
   /** A styled 'input' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Input: typeof _styled.Input
+  // var Input: typeof _styled.Input
   /** A styled 'ins' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Ins: typeof _styled.Ins
   /** A styled 'kbd' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
@@ -150,7 +150,7 @@ declare global {
   /** A styled 'section' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Section: typeof _styled.Section
   /** A styled 'select' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Select: typeof _styled.Select
+  // var Select: typeof _styled.Select
   /** A styled 'small' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Small: typeof _styled.Small
   /** A styled 'span' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
@@ -170,7 +170,7 @@ declare global {
   /** A styled 'td' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Td: typeof _styled.Td
   /** A styled 'textarea' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
-  var Textarea: typeof _styled.Textarea
+  // var Textarea: typeof _styled.Textarea
   /** A styled 'tfoot' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Tfoot: typeof _styled.Tfoot
   /** A styled 'th' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
@@ -239,7 +239,7 @@ globalThis.Hr = _styled.Hr
 globalThis.I = _styled.I
 globalThis.Iframe = _styled.Iframe
 globalThis.Img = _styled.Img
-globalThis.Input = _styled.Input
+// globalThis.Input = _styled.Input
 globalThis.Ins = _styled.Ins
 globalThis.Kbd = _styled.Kbd
 globalThis.Label = _styled.Label
@@ -266,7 +266,7 @@ globalThis.Ruby = _styled.Ruby
 globalThis.S = _styled.S
 globalThis.Samp = _styled.Samp
 globalThis.Section = _styled.Section
-globalThis.Select = _styled.Select
+// globalThis.Select = _styled.Select
 globalThis.Small = _styled.Small
 globalThis.Span = _styled.Span
 globalThis.Strong = _styled.Strong
@@ -276,7 +276,7 @@ globalThis.Sup = _styled.Sup
 globalThis.Table = _styled.Table
 globalThis.Tbody = _styled.Tbody
 globalThis.Td = _styled.Td
-globalThis.Textarea = _styled.Textarea
+// globalThis.Textarea = _styled.Textarea
 globalThis.Tfoot = _styled.Tfoot
 globalThis.Th = _styled.Th
 globalThis.Thead = _styled.Thead

@@ -4,7 +4,7 @@ import {FormError, useForm} from '@slimr/hooks'
 import {formToValues} from '@slimr/util'
 
 import {Card} from './cards'
-import {CheckboxInput, GenericError, TextInput} from './forms'
+import {Checkbox, GenericError, Input, Textarea} from './forms'
 import {Icon, IconKeys, icons} from './icons'
 import {ToastPack, toast} from './toasts'
 
@@ -57,7 +57,41 @@ export const Cards = () => (
   </Card>
 )
 
-export const Forms = () => {
+export const FormCheckbox = () => {
+  const {Form, submitting, accepted, errors} = useForm()
+
+  return (
+    <Form
+      onSubmit={async e => {
+        const vals = formToValues(e.target as HTMLFormElement)
+        const errors: Record<string, string> = {}
+        if (!vals.terms) {
+          errors.terms = 'You must agree to the terms'
+        }
+        if (Object.keys(errors).length) {
+          throw new FormError(errors)
+        }
+      }}
+    >
+      <Checkbox
+        label="Do you agree to the terms?"
+        name="terms"
+        disabled={accepted}
+        error={errors.terms}
+      />
+      <GenericError error={errors.form} />
+      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
+      <button className="left" disabled={submitting} type="submit">
+        Submit
+      </button>
+      <button className="tertiary right" disabled={submitting} type="reset">
+        Reset
+      </button>
+    </Form>
+  )
+}
+
+export const FormExternalReset = () => {
   const formRef = useRef<HTMLFormElement>(null)
   const {Form, submitting, accepted, errors} = useForm()
 
@@ -74,11 +108,8 @@ export const Forms = () => {
       onSubmit={async e => {
         const vals = formToValues(e.target as HTMLFormElement)
         const errors: Record<string, string> = {}
-        if (!vals.name) {
-          errors.name = 'Name is required'
-        }
-        if (!vals.terms) {
-          errors.checkbox = 'You must agree to the terms'
+        if (!vals.text) {
+          errors.text = 'Text is required'
         }
         if (Object.keys(errors).length) {
           throw new FormError(errors)
@@ -86,17 +117,69 @@ export const Forms = () => {
       }}
       ref={formRef}
     >
-      <TextInput label="Name" name="name" disabled={accepted} error={errors.name} />
-      <CheckboxInput
-        label="Do you agree to the terms?"
-        name="terms"
-        disabled={accepted}
-        error={errors.checkbox}
-      />
+      <Input label="Name" name="text" disabled={accepted} error={errors.text} />
       <GenericError error={errors.form} />
       {accepted && (
         <p style={{color: 'var(--color-success)'}}>Success! Form will reset in 5 seconds...</p>
       )}
+      <button className="left" disabled={submitting} type="submit">
+        Submit
+      </button>
+      <button className="tertiary right" disabled={submitting} type="reset">
+        Reset
+      </button>
+    </Form>
+  )
+}
+
+export const FormInput = () => {
+  const {Form, submitting, accepted, errors} = useForm()
+
+  return (
+    <Form
+      onSubmit={async e => {
+        const vals = formToValues(e.target as HTMLFormElement)
+        const errors: Record<string, string> = {}
+        if (!vals.text) {
+          errors.text = 'Text is required'
+        }
+        if (Object.keys(errors).length) {
+          throw new FormError(errors)
+        }
+      }}
+    >
+      <Input label="Text" name="text" disabled={accepted} error={errors.text} />
+      <GenericError error={errors.form} />
+      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
+      <button className="left" disabled={submitting} type="submit">
+        Submit
+      </button>
+      <button className="tertiary right" disabled={submitting} type="reset">
+        Reset
+      </button>
+    </Form>
+  )
+}
+
+export const FormTextarea = () => {
+  const {Form, submitting, accepted, errors} = useForm()
+
+  return (
+    <Form
+      onSubmit={async e => {
+        const vals = formToValues(e.target as HTMLFormElement)
+        const errors: Record<string, string> = {}
+        if (!vals.text) {
+          errors.text = 'Text is required'
+        }
+        if (Object.keys(errors).length) {
+          throw new FormError(errors)
+        }
+      }}
+    >
+      <Textarea label="Select" name="text" disabled={accepted} error={errors.text} />
+      <GenericError error={errors.form} />
+      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
       <button className="left" disabled={submitting} type="submit">
         Submit
       </button>
