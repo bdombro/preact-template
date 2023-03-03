@@ -3,7 +3,7 @@ import {
   areEqualShallow,
   areNotEqualDeep,
   areNotEqualShallow,
-  detailedDiff, // hashObj,
+  detailedDiff,
   merge,
   mergeAndCompare,
   mergeAndConcat,
@@ -110,7 +110,7 @@ declare global {
      *
      * Note for TypeScript users. The type returned by this function might not be correct. In that case you have to cast the result to your own provided interface
      */
-    mergeCustom: typeof mergeAndCompare
+    mergeAndCompare: typeof mergeAndCompare
 
     /**
      * Deep merge ...objects. Arrays are merged too.
@@ -180,6 +180,11 @@ declare global {
   }
 }
 
+Object.areEqualDeep = areEqualDeep
+Object.areNotEqualDeep = areNotEqualDeep
+Object.areEqualShallow = areEqualShallow
+Object.areNotEqualShallow = areNotEqualShallow
+
 Object.copy = structuredClone
 
 Object.diff = detailedDiff
@@ -188,13 +193,8 @@ Object.flatten = () => {
   throw new Error('Omitted to save bundle size')
 }
 
-Object.areEqualDeep = areEqualDeep
-Object.areNotEqualDeep = areNotEqualDeep
-Object.areEqualShallow = areEqualShallow
-Object.areNotEqualShallow = areNotEqualShallow
-
 Object.merge = merge
-Object.mergeCustom = mergeAndCompare
+Object.mergeAndCompare = mergeAndCompare
 Object.mergeAndConcat = mergeAndConcat
 
 Object.nestify = () => {

@@ -22,13 +22,6 @@ declare global {
   // }
   interface String {
     copy(): string
-    /**
-     * Converts a string into a semi-unique hash
-     *
-     * Compared to other hash algs (MD5), is much simpler, shorter, faster while less perfect
-     * Src: https://stackoverflow.com/a/8831937/1202757
-     */
-    toHash(): string
 
     /**
      * Converts a string into title-case: "hello world" -> "Hello World"
@@ -50,13 +43,6 @@ Object.defineProperties(String.prototype, {
   copy: {
     value: function () {
       return this + ''
-    },
-    enumerable: false,
-  },
-
-  toHash: {
-    value: function () {
-      return Object.toHash(this)
     },
     enumerable: false,
   },
