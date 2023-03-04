@@ -5,6 +5,10 @@ export const router = new Router({
     loader: () => import('./pages/index'),
     path: '/',
   },
+  login: {
+    loader: () => import('./pages/login'),
+    path: '/login',
+  },
   stack1: {
     isStack: true,
     loader: () => import('./pages/stack-test'),

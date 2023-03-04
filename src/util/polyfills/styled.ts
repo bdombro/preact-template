@@ -163,6 +163,8 @@ declare global {
   var Summary: typeof _styled.Summary
   /** A styled 'sup' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Sup: typeof _styled.Sup
+  /** A styled 'svg' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
+  var Svg: typeof _styled.Svg
   /** A styled 'table' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
   var Table: typeof _styled.Table
   /** A styled 'tbody' tag with nice styled magic, like _style props, zx, css, and style short-hands  */
@@ -273,6 +275,7 @@ globalThis.Strong = _styled.Strong
 globalThis.Sub = _styled.Sub
 globalThis.Summary = _styled.Summary
 globalThis.Sup = _styled.Sup
+globalThis.Svg = _styled.Svg
 globalThis.Table = _styled.Table
 globalThis.Tbody = _styled.Tbody
 globalThis.Td = _styled.Td
