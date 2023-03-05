@@ -1,37 +1,60 @@
 import './layout-header.pcss'
 
+import {classJoin} from '@slimr/styled'
+
 import {Icon} from '~/foundation'
 import {router as r} from '~/router'
 
+import {IconA} from './layout-header'
 import {Logo} from './logo'
-
-const navitems = [
-  {name: 'Account', path: r.routes.index.path},
-  {name: 'Logout', path: r.routes.login.path},
-]
 
 /**
  * A layout with a header and a main section
  */
 export function Layout({children}: {children: React.ReactNode}) {
+  const [burgerOpen, setBurgerOpen] = useState(false)
   return (
     <div className="layout-header sidebar">
-      <div className="header-wrapper">
-        <header>
-          <a className="logo" href="/">
-            <Logo height="100%" />
+      <header>
+        <a className="logo" href="/">
+          <Logo height="100%" />
+        </a>
+        <nav className="horizontal">
+          <a
+            className={classJoin('burger-toggle', burgerOpen ? 'active' : '')}
+            href="#open-burger"
+            onClick={e => {
+              e.preventDefault()
+              e.stopPropagation()
+              setBurgerOpen(last => !last)
+            }}
+          >
+            <Icon name="menu" />
           </a>
-          <nav>
-            {navitems.map(item => (
-              <a key={item.name} href={item.path}>
-                {item.name}
-              </a>
-            ))}
-          </nav>
-        </header>
-      </div>
+        </nav>
+        <div className="burger-menu" style={{display: burgerOpen ? 'block' : 'none'}}>
+          <IconA href="/#account" icon="account">
+            Account
+          </IconA>
+          <IconA href={r.routes.login.path} icon="login">
+            Logout
+          </IconA>
+        </div>
+      </header>
       <div className="main-wrapper">
-        <aside>Sidebar</aside>
+        <aside>
+          <nav>
+            <IconA href={r.routes.stack1.path} icon="building">
+              Stack
+            </IconA>
+            <IconA href="/#account" icon="account">
+              Account
+            </IconA>
+            <IconA href={r.routes.login.path} icon="login">
+              Logout
+            </IconA>
+          </nav>
+        </aside>
         <main>{children}</main>
         <div className="corner-wrapper">
           <Icon name="roundedCornerInv" className="corner corner1" size={10} />

@@ -14,6 +14,7 @@
   --color-white: white;
 
   --color-gray10-abs: #f7f7f7;
+  --color-gray15-abs: #f0f0f0;
   --color-gray20-abs: #e1e1e1;
   --color-gray30-abs: #cfcfcf;
   --color-gray40-abs: #b1b1b1;
@@ -21,8 +22,10 @@
   --color-gray60-abs: #696969;
   --color-gray70-abs: #444444;
   --color-gray80-abs: #262626;
+  --color-gray85-abs: #1c1c1c;
   --color-gray90-abs: #171717;
   --color-gray10: var(--color-gray10-abs);
+  --color-gray15: var(--color-gray15-abs);
   --color-gray20: var(--color-gray20-abs);
   --color-gray30: var(--color-gray30-abs);
   --color-gray40: var(--color-gray40-abs);
@@ -30,10 +33,8 @@
   --color-gray60: var(--color-gray60-abs);
   --color-gray70: var(--color-gray70-abs);
   --color-gray80: var(--color-gray80-abs);
+  --color-gray85: var(--color-gray85-abs);
   --color-gray90: var(--color-gray90-abs);
-
-  --color-header: var(--color-gray20);
-  --color-sidebar: var(--color-gray20);
 
   --dvh: 100vh; /* Firefox doesn't yet support dvh */
   --dvh: 100dvh;
@@ -42,10 +43,11 @@
     color-scheme: dark;
     --color-tertiary: #696969;
     --color-fg: white;
-    --color-bg: #161b22;
+    --color-bg: #111;
     --color-black: white;
-    --color-white: black;
+    --color-white: #111;
     --color-gray10: var(--color-gray90-abs);
+    --color-gray15: var(--color-gray85-abs);
     --color-gray20: var(--color-gray80-abs);
     --color-gray30: var(--color-gray70-abs);
     --color-gray40: var(--color-gray60-abs);
@@ -53,6 +55,7 @@
     --color-gray60: var(--color-gray40-abs);
     --color-gray70: var(--color-gray30-abs);
     --color-gray80: var(--color-gray20-abs);
+    --color-gray85: var(--color-gray15-abs);
     --color-gray90: var(--color-gray10-abs);
   }
 
@@ -78,6 +81,7 @@ body {
   background: var(--color-bg);
   color: var(--color-fg);
   margin: 0;
+  overflow: hidden;
 }
 
 a,

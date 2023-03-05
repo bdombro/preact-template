@@ -1,4 +1,5 @@
 import * as _styled from '@slimr/styled'
+import {classJoin} from '@slimr/styled'
 
 // You must export something or TS gets confused.
 export {}
@@ -198,7 +199,12 @@ declare global {
 globalThis.addCss = _styled.addCss
 globalThis.styled = _styled.styled
 
-globalThis.A = _styled.A
+globalThis.A = (p: Parameters<typeof _styled.A>[0]) => {
+  return _styled.A({
+    ...p,
+    className: classJoin(p.className, location.href.includes(p.href!) ? 'active' : ''),
+  })
+}
 globalThis.Abbr = _styled.Abbr
 globalThis.Address = _styled.Address
 globalThis.Area = _styled.Area

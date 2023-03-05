@@ -1,3 +1,5 @@
+import './preview.css'
+
 import '~/util/polyfills'
 
 import '~/foundation'

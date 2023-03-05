@@ -1,47 +1,78 @@
 .layout-header {
-  --header-height: 45px;
-  background: var(--color-header);
+  --color-header: var(--color-primary-darker);
+  --color-sidebar: var(--color-gray15);
+  --height-header: 45px;
+  background: var(--color-sidebar);
 
-  > .header-wrapper {
+  > header {
+    background: var(--color-header);
     display: flex;
-    height: var(--header-height); /** Set the height of the wrapper to push down the content */
-    > header {
-      background: var(--color-header);
-      display: flex;
-      height: var(--header-height);
-      justify-content: space-between;
-      position: fixed;
-      width: 100%;
+    height: var(--height-header);
+    justify-content: space-between;
+    width: 100%;
 
-      > a.logo {
-        display: inline-block;
-        line-height: calc(var(--header-height) - 8px); /** 8px is the y padding */
-        padding: 3px 13px 5px;
-        &:hover {
-          background: var(--color-primary);
-          > svg {
-            --color: var(--color-primary-darker);
-          }
+    > a.logo {
+      display: inline-block;
+      line-height: calc(var(--height-header) - 8px); /** 8px is the y padding */
+      padding: 3px 13px 5px;
+      &:hover {
+        background: var(--color-primary);
+        > svg {
+          --color: var(--color-primary-darker);
         }
       }
+    }
 
-      > nav > a {
+    > nav.horizontal {
+      > a {
         font-size: var(--step--1);
         color: white;
         display: inline-block;
-        line-height: var(--header-height);
+        line-height: var(--height-header);
         padding: 0 13px;
+        &.active,
         &:hover {
           background: var(--color-primary);
+        }
+        @media (max-width: 62em) {
+          &:not(.burger-toggle) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    > .burger-menu {
+      background: var(--color-gray15);
+      border: 1px solid var(--color-gray30);
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding: 7px;
+      position: absolute;
+      right: 0;
+      top: var(--height-header);
+      width: 240px;
+      z-index: 1;
+      > a {
+        border-radius: 4px;
+        display: block;
+        padding: 10px 12px;
+        &.active,
+        &:hover {
+          background: var(--color-primary-darker);
         }
       }
     }
   }
+
   > .main-wrapper {
+    --main-wrapper-mt: 0;
+    margin-top: var(--main-wrapper-mt);
     display: flex;
     > main {
       background: var(--color-bg);
-      height: calc(var(--dvh) - var(--header-height));
+      height: calc(var(--dvh) - var(--height-header));
       flex: 1;
       overflow-y: auto;
       position: relative;
@@ -49,19 +80,36 @@
   }
 
   &.sidebar {
-    --sidebar-width: 300px;
+    --sidebar-width: 250px;
     > .main-wrapper {
+      --main-wrapper-mt: 10px;
       position: relative;
       > aside {
         background: var(--color-sidebar);
-        height: calc(var(--dvh) - var(--header-height));
+        height: calc(var(--dvh) - var(--height-header));
+        padding: 8px 12px;
         width: var(--sidebar-width);
+
+        > nav {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          > a {
+            border-radius: 4px;
+            display: block;
+            padding: 12px 14px;
+            &.active,
+            &:hover {
+              background: var(--color-primary);
+            }
+          }
+        }
       }
       > .corner-wrapper {
         > .corner {
           position: absolute;
           path {
-            fill: var(--color-header);
+            fill: var(--color-sidebar);
           }
           &.corner1 {
             inset: 0 auto auto var(--sidebar-width);
@@ -70,10 +118,10 @@
             inset: 0 0 auto auto;
           }
           &.corner3 {
-            inset: auto 0 0 auto;
+            inset: auto 0 var(--main-wrapper-mt) auto;
           }
           &.corner4 {
-            inset: auto auto 0 var(--sidebar-width);
+            inset: auto auto var(--main-wrapper-mt) var(--sidebar-width);
           }
         }
       }
@@ -82,15 +130,15 @@
     .footer-wrapper {
       background: var(--color-sidebar);
       display: none;
-      height: var(--header-height);
+      height: var(--height-header);
     }
 
     /** Swap to footer on mobile */
 
     @media (max-width: 62em) {
-      --header-height: 60px;
+      --height-header: 60px;
 
-      > .header-wrapper {
+      > header {
         display: none;
       }
 
@@ -103,7 +151,7 @@
         }
       }
 
-      .footer-wrapper {
+      > .footer-wrapper {
         display: block;
       }
     }
