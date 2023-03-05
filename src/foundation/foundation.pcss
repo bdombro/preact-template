@@ -1,19 +1,6 @@
 @custom-selector :--heading h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6;
 
 :root {
-  --color-fg: black;
-  --color-bg: white;
-  --color-black: black;
-  --color-white: white;
-  --color-gray10: #f7f7f7;
-  --color-gray20: #e1e1e1;
-  --color-gray30: #cfcfcf;
-  --color-gray40: #b1b1b1;
-  --color-gray50: #8e8e8e;
-  --color-gray60: #696969;
-  --color-gray70: #444444;
-  --color-gray80: #262626;
-  --color-gray90: #171717;
   --color-primary: hsl(199, 84%, 30%);
   --color-primary-darker: hsl(199, 84%, 20%);
   --color-secondary: hsl(178, 40%, 44%);
@@ -21,23 +8,52 @@
   --color-success: green;
   --color-danger: red;
   --color-alert: orange;
+  --color-fg: black;
+  --color-bg: white;
+  --color-black: black;
+  --color-white: white;
+
+  --color-gray10-abs: #f7f7f7;
+  --color-gray20-abs: #e1e1e1;
+  --color-gray30-abs: #cfcfcf;
+  --color-gray40-abs: #b1b1b1;
+  --color-gray50-abs: #8e8e8e;
+  --color-gray60-abs: #696969;
+  --color-gray70-abs: #444444;
+  --color-gray80-abs: #262626;
+  --color-gray90-abs: #171717;
+  --color-gray10: var(--color-gray10-abs);
+  --color-gray20: var(--color-gray20-abs);
+  --color-gray30: var(--color-gray30-abs);
+  --color-gray40: var(--color-gray40-abs);
+  --color-gray50: var(--color-gray50-abs);
+  --color-gray60: var(--color-gray60-abs);
+  --color-gray70: var(--color-gray70-abs);
+  --color-gray80: var(--color-gray80-abs);
+  --color-gray90: var(--color-gray90-abs);
+
+  --color-header: var(--color-gray20);
+  --color-sidebar: var(--color-gray20);
+
+  --dvh: 100vh; /* Firefox doesn't yet support dvh */
+  --dvh: 100dvh;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+    --color-tertiary: #696969;
     --color-fg: white;
     --color-bg: #161b22;
     --color-black: white;
     --color-white: black;
-    --color-gray10: #171717;
-    --color-gray20: #262626;
-    --color-gray30: #444444;
-    --color-gray40: #696969;
-    --color-gray50: #8e8e8e;
-    --color-gray60: #b1b1b1;
-    --color-gray70: #cfcfcf;
-    --color-gray80: #e1e1e1;
-    --color-gray90: #f7f7f7;
-    --color-tertiary: #696969;
+    --color-gray10: var(--color-gray90-abs);
+    --color-gray20: var(--color-gray80-abs);
+    --color-gray30: var(--color-gray70-abs);
+    --color-gray40: var(--color-gray60-abs);
+    --color-gray50: var(--color-gray50-abs);
+    --color-gray60: var(--color-gray40-abs);
+    --color-gray70: var(--color-gray30-abs);
+    --color-gray80: var(--color-gray20-abs);
+    --color-gray90: var(--color-gray10-abs);
   }
 
   /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
@@ -71,13 +87,10 @@ a,
 }
 p a,
 .pa {
-  color: unset;
   text-decoration: underline;
-  @media (prefers-color-scheme: dark) {
-    color: #87cefa;
-    &:visited {
-      color: #dda0dd;
-    }
+  color: var(--color-primary);
+  &:visited {
+    color: var(--color-secondary);
   }
 }
 

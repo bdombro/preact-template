@@ -1,16 +1,17 @@
 export const Logo = (svgProps: Parameters<typeof Svg>[0]) => (
   <Svg
     height="20px"
-    width="auto"
     viewBox="0 0 78 20"
     xmlns="http://www.w3.org/2000/svg"
+    {...svgProps}
     _zx={{
+      ...svgProps._zx,
       '--color': 'var(--color-primary)',
     }}
     _hover={{
+      ...svgProps._hover,
       '--color': 'var(--color-primary-darker)',
     }}
-    {...svgProps}
   >
     <g fill="none">
       <path d="M3.768 16.141H.826V.447h73.406v2.941" stroke="var(--color)" strokeWidth={0.882} />

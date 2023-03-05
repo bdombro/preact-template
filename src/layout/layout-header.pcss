@@ -1,0 +1,111 @@
+.layout-header {
+  --header-height: 45px;
+  background: var(--color-header);
+
+  > .header-wrapper {
+    display: flex;
+    height: var(--header-height); /** Set the height of the wrapper to push down the content */
+    > header {
+      background: var(--color-header);
+      display: flex;
+      height: var(--header-height);
+      justify-content: space-between;
+      position: fixed;
+      width: 100%;
+
+      > a.logo {
+        display: inline-block;
+        line-height: calc(var(--header-height) - 8px); /** 8px is the y padding */
+        padding: 3px 13px 5px;
+        &:hover {
+          background: var(--color-primary);
+          > svg {
+            --color: var(--color-primary-darker);
+          }
+        }
+      }
+
+      > nav > a {
+        font-size: var(--step--1);
+        color: white;
+        display: inline-block;
+        line-height: var(--header-height);
+        padding: 0 13px;
+        &:hover {
+          background: var(--color-primary);
+        }
+      }
+    }
+  }
+  > .main-wrapper {
+    display: flex;
+    > main {
+      background: var(--color-bg);
+      height: calc(var(--dvh) - var(--header-height));
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+    }
+  }
+
+  &.sidebar {
+    --sidebar-width: 300px;
+    > .main-wrapper {
+      position: relative;
+      > aside {
+        background: var(--color-sidebar);
+        height: calc(var(--dvh) - var(--header-height));
+        width: var(--sidebar-width);
+      }
+      > .corner-wrapper {
+        > .corner {
+          position: absolute;
+          path {
+            fill: var(--color-header);
+          }
+          &.corner1 {
+            inset: 0 auto auto var(--sidebar-width);
+          }
+          &.corner2 {
+            inset: 0 0 auto auto;
+          }
+          &.corner3 {
+            inset: auto 0 0 auto;
+          }
+          &.corner4 {
+            inset: auto auto 0 var(--sidebar-width);
+          }
+        }
+      }
+    }
+
+    .footer-wrapper {
+      background: var(--color-sidebar);
+      display: none;
+      height: var(--header-height);
+    }
+
+    /** Swap to footer on mobile */
+
+    @media (max-width: 62em) {
+      --header-height: 60px;
+
+      > .header-wrapper {
+        display: none;
+      }
+
+      > .main-wrapper {
+        > aside {
+          display: none;
+        }
+        > .corner-wrapper {
+          display: none;
+        }
+      }
+
+      .footer-wrapper {
+        display: block;
+      }
+    }
+  }
+}

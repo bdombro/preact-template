@@ -31,9 +31,10 @@ export default function Login() {
             if (Object.keys(errors).length) {
               throw new FormError(errors)
             }
+            r.goto(r.routes.stack1)
           }}
         >
-          <Input label="email" name="email" disabled={accepted} error={errors.email} />
+          <Input label="email" name="email" autoFocus disabled={accepted} error={errors.email} />
           <Input label="password" name="password" disabled={accepted} error={errors.password} />
           <br />
           <GenericError error={errors.form} />
