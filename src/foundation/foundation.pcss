@@ -13,50 +13,33 @@
   --color-black: black;
   --color-white: white;
 
-  --color-gray10-abs: #f7f7f7;
-  --color-gray15-abs: #f0f0f0;
-  --color-gray20-abs: #e1e1e1;
-  --color-gray30-abs: #cfcfcf;
-  --color-gray40-abs: #b1b1b1;
-  --color-gray50-abs: #8e8e8e;
-  --color-gray60-abs: #696969;
-  --color-gray70-abs: #444444;
-  --color-gray80-abs: #262626;
-  --color-gray85-abs: #1c1c1c;
-  --color-gray90-abs: #171717;
-  --color-gray10: var(--color-gray10-abs);
-  --color-gray15: var(--color-gray15-abs);
-  --color-gray20: var(--color-gray20-abs);
-  --color-gray30: var(--color-gray30-abs);
-  --color-gray40: var(--color-gray40-abs);
-  --color-gray50: var(--color-gray50-abs);
-  --color-gray60: var(--color-gray60-abs);
-  --color-gray70: var(--color-gray70-abs);
-  --color-gray80: var(--color-gray80-abs);
-  --color-gray85: var(--color-gray85-abs);
-  --color-gray90: var(--color-gray90-abs);
-
-  --dvh: 100vh; /* Firefox doesn't yet support dvh */
-  --dvh: 100dvh;
+  --color-gray1: hsl(0, 0%, 97%);
+  --color-gray2: hsl(0, 0%, 93%);
+  --color-gray3: hsl(0, 0%, 88%);
+  --color-gray4: hsl(0, 0%, 80%);
+  --color-gray5: hsl(0, 0%, 68%);
+  --color-gray6: hsl(0, 0%, 55%);
+  --color-gray7: hsl(0, 0%, 46%);
+  --color-gray8: hsl(0, 0%, 34%);
+  --color-gray9: hsl(0, 0%, 26%);
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+    --color-primary-darker: hsl(199, 84%, 60%);
     --color-tertiary: #696969;
     --color-fg: white;
-    --color-bg: #111;
     --color-black: white;
-    --color-white: #111;
-    --color-gray10: var(--color-gray90-abs);
-    --color-gray15: var(--color-gray85-abs);
-    --color-gray20: var(--color-gray80-abs);
-    --color-gray30: var(--color-gray70-abs);
-    --color-gray40: var(--color-gray60-abs);
-    --color-gray50: var(--color-gray50-abs);
-    --color-gray60: var(--color-gray40-abs);
-    --color-gray70: var(--color-gray30-abs);
-    --color-gray80: var(--color-gray20-abs);
-    --color-gray85: var(--color-gray15-abs);
-    --color-gray90: var(--color-gray10-abs);
+    --color-white: black;
+    --color-bg: #111;
+    --color-gray1: hsl(0, 0%, 16%);
+    --color-gray2: hsl(0, 0%, 21%);
+    --color-gray3: hsl(0, 0%, 25%);
+    --color-gray4: hsl(0, 0%, 29%);
+    --color-gray5: hsl(0, 0%, 35%);
+    --color-gray6: hsl(0, 0%, 45%);
+    --color-gray7: hsl(0, 0%, 54%);
+    --color-gray8: hsl(0, 0%, 66%);
+    --color-gray9: hsl(0, 0%, 74%);
   }
 
   /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
@@ -69,6 +52,13 @@
   --step-4: clamp(2.3rem, calc(2.1rem + 1.3vw), 3rem);
   --step-5: clamp(2.8rem, calc(2.5rem + 1.8vw), 3.8rem);
   --step-6: clamp(3.3rem, calc(2.9rem + 2.5vw), 4.7rem);
+
+  --dvh: 100vh; /* Firefox doesn't yet support dvh */
+  --dvh: 100dvh;
+
+  --button-shadow-color: var(--color-gray2);
+  --button-border-radius: 4px;
+  --input-border-color: var(--color-gray8);
 }
 
 * {
@@ -90,27 +80,29 @@ a,
   text-decoration: none;
 }
 p a,
-.pa {
+.pa,
+table a {
   text-decoration: underline;
   color: var(--color-primary);
   &:visited {
     color: var(--color-secondary);
+  }
+  @media (prefers-color-scheme: dark) {
+    color: var(--color-primary-darker);
   }
 }
 
 button,
 .button {
   --button-color: var(--color-primary);
-  --shadow-color: #696969;
-  --border: 2px solid var(--shadow-color);
-  --border-radius: 4px;
+  --border: 2px solid var(--button-shadow-color);
   @media (prefers-color-scheme: dark) {
-    --shadow-color: #b1b1b1;
+    --button-shadow-color: #b1b1b1;
   }
 
   background-color: var(--button-color);
   border: var(--border);
-  border-radius: var(--border-radius);
+  border-radius: var(--button-border-radius);
   color: white;
   cursor: pointer;
   font-size: var(--step--1);
@@ -123,7 +115,7 @@ button,
   &.active,
   &[aria-pressed='true'],
   &[aria-selected='true'] {
-    box-shadow: 0 0 0 3px var(--shadow-color);
+    box-shadow: 0 0 0 3px var(--button-shadow-color);
     z-index: 1;
   }
 
@@ -163,7 +155,7 @@ button,
   }
 
   &.left {
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    border-radius: var(--button-border-radius) 0 0 var(--button-border-radius);
     border-right: none;
     &:hover {
       border-right: var(--border);
@@ -181,7 +173,7 @@ button,
   }
 
   &.right {
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    border-radius: 0 var(--button-border-radius) var(--button-border-radius) 0;
   }
 }
 
@@ -226,13 +218,64 @@ p,
 }
 
 input,
-.input {
+.input,
+textarea,
+.textarea {
+  background: var(--color-bg);
+  border: 1px solid var(--input-border-color);
+  color: var(--color-fg);
+  display: block;
   font-size: var(--step-0);
+  margin-bottom: 0.2rem;
+  outline-color: var(--color-primary);
+  min-height: 3rem;
+  padding-left: 0.8rem;
+  padding-top: 0.3rem;
+  width: 100%;
+
+  &[type='checkbox'] {
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    margin-right: 0.8rem;
+    min-height: unset;
+  }
+
+  &[disabled] {
+    border-color: var(--input-border-color);
+  }
+
+  &[data-error='true'] {
+    border-color: var(--color-danger);
+  }
 }
 
 select,
 .select {
-  font-size: var(--step-0);
+  background: var(--color-bg);
+  border: 1px solid var(--input-border-color);
+  color: var(--color-fg);
+  font-size: var(--step--1);
+  outline-color: var(--color-primary);
+  margin-bottom: 0.2rem;
+  min-height: 2.4rem;
+  padding-left: 0.4rem;
+  width: 100%;
+
+  &[multiple] {
+    padding-left: 0;
+  }
+
+  > option {
+    padding: 0.4em 0.4rem;
+  }
+
+  &[disabled] {
+    border-color: var(--color-gray4);
+  }
+
+  &[data-error='true'] {
+    border-color: var(--text-error-color);
+  }
 }
 
 small,
@@ -247,4 +290,13 @@ small,
 textarea,
 .textarea {
   font-size: var(--step-0);
+}
+
+/* Safari 10.1+ specific css selector */
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  /* Checkboxes appear to be too low on Safari */
+  input[type='checkbox'] {
+    position: relative;
+    top: -2px;
+  }
 }

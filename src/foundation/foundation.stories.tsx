@@ -6,7 +6,7 @@ import {formToValues} from '@slimr/util'
 import {Card} from './cards'
 import {Checkbox, GenericError, Input, Radios, Select, Textarea} from './forms'
 import {Icon, IconKeys, icons} from './icons'
-import {ToastPack, toast} from './toasts'
+import {toast} from './toasts'
 
 export const ButtonSizes = () => (
   <>
@@ -56,6 +56,39 @@ export const Cards = () => (
     <Div _minW={500}>I'm a box inside a Flex and Card</Div>
   </Card>
 )
+
+export const Colors = () => (
+  <table className="colors">
+    {Colors.names.map(name => (
+      <tr key={name}>
+        <td style={{backgroundColor: `var(--color-${name})`}} />
+        <td>--color-{name}</td>
+      </tr>
+    ))}
+  </table>
+)
+Colors.names = [
+  'primary',
+  'primary-darker',
+  'secondary',
+  'tertiary',
+  'success',
+  'danger',
+  'alert',
+  'white',
+  'fg',
+  'bg',
+  'gray1',
+  'gray2',
+  'gray3',
+  'gray4',
+  'gray5',
+  'gray6',
+  'gray7',
+  'gray8',
+  'gray9',
+  'black',
+]
 
 export const FormCheckbox = () => {
   const {Form, submitting, accepted, errors} = useForm()
@@ -281,8 +314,8 @@ export const FormTextarea = () => {
 
 export const Icons = () => (
   <div className="icons">
-    {Object.keys(icons).map(name => (
-      <div key={name}>
+    {Object.keys(icons).map((name, i) => (
+      <div key={i}>
         <Icon name={name as unknown as IconKeys} />
         <p>{name}</p>
       </div>
@@ -293,7 +326,6 @@ export const Icons = () => (
 export const Toasts = () => {
   return (
     <>
-      <ToastPack />
       <button type="button" onClick={() => toast({key: 'i', message: 'info', variant: 'info'})}>
         info
       </button>

@@ -38,7 +38,7 @@ export function Checkbox({
     <Div
       {...divProps}
       data-error={!!error}
-      className={s.classJoin('checkbox', divProps?.className)}
+      className={s.classJoin('checkbox-div', divProps?.className)}
     >
       <input {...inputProps} id={inputProps.name} type="checkbox" />
       <label {...labelProps} htmlFor={inputProps.name}>
@@ -70,7 +70,7 @@ export function Input({error, divProps, label, labelProps = {}, ...inputProps}: 
   return (
     <Div
       {...divProps}
-      className={s.classJoin('input', divProps?.className)}
+      className={s.classJoin('input-div', divProps?.className)}
       data-error={!!error}
       data-disabled={inputProps.disabled}
     >
@@ -98,10 +98,10 @@ export function Radios({
     <Div
       {...divProps}
       data-error={!!error}
-      className={s.classJoin('checkbox', divProps?.className)}
+      className={s.classJoin('checkbox-div', divProps?.className)}
     >
-      {options.map(({label, value}) => (
-        <div key={value} {...innerDivProps}>
+      {options.map(({label, value}, i) => (
+        <div key={i} {...innerDivProps}>
           <input {...inputProps} id={value} value={value} type="radio" />
           <label {...labelProps} htmlFor={value}>
             {label}
@@ -126,11 +126,15 @@ export function Select({
   ...selectProps
 }: SelectProps) {
   return (
-    <Div {...divProps} data-error={!!error} className={s.classJoin('select', divProps?.className)}>
+    <Div
+      {...divProps}
+      data-error={!!error}
+      className={s.classJoin('select-div', divProps?.className)}
+    >
       <label {...labelProps}>{label}</label>
       <select {...selectProps}>
-        {options.map(({label, value}) => (
-          <option {...optionProps} key={value} value={value}>
+        {options.map(({label, value}, i) => (
+          <option {...optionProps} key={i} value={value}>
             {label}
           </option>
         ))}
@@ -153,7 +157,7 @@ export function Textarea({
   return (
     <Div
       {...divProps}
-      className={s.classJoin('input', divProps?.className)}
+      className={s.classJoin('input-div', divProps?.className)}
       data-error={!!error}
       data-disabled={textareaProps.disabled}
     >

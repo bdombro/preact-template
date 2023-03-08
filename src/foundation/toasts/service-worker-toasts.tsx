@@ -37,7 +37,6 @@ export function ServiceWorkerToasts() {
                 localStorage.clear()
                 location.reload()
               }}
-              id="sw-dismiss"
               type="button"
             >
               Reload

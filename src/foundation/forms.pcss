@@ -1,9 +1,8 @@
-.checkbox {
+:root {
+  --input-border-color: var(--color-gray8);
+}
+.checkbox-div {
   margin-bottom: 1rem;
-  input {
-    accent-color: var(--color-primary);
-    margin-right: 0.8rem;
-  }
   &[data-error='true'] input {
     outline: 1px solid var(--color-danger);
   }
@@ -20,8 +19,7 @@
   margin-bottom: 0.4rem;
 }
 
-.input {
-  --text-error-color: var(--color-danger);
+.input-div {
   position: relative;
   margin-bottom: 0.8rem;
 
@@ -35,92 +33,42 @@
     top: -8px;
   }
 
-  > input,
-  > textarea {
-    background: var(--color-bg);
-    border: 1px solid var(--color-gray80);
-    color: var(--color-fg);
-    display: block;
-    margin-bottom: 0.2rem;
-    outline-color: var(--color-primary);
-    padding-left: 0.8rem;
-    padding-top: 0.3rem;
-    width: 100%;
-  }
-
-  > input {
-    height: 3rem;
-  }
-
   &[data-disabled='true'] {
     > label {
-      color: var(--color-gray50);
-    }
-    > input,
-    > textarea {
-      border-color: var(--color-gray40);
+      color: var(--input-border-color);
     }
   }
 
   &[data-error='true'] {
     > label {
-      color: var(--text-error-color);
+      color: var(--color-danger);
     }
     > input,
     > textarea {
-      border-color: var(--text-error-color);
+      border-color: var(--color-danger);
     }
   }
 }
 
-.select {
+.select-div {
   margin-bottom: 0.6rem;
   > label {
     display: block;
     margin-bottom: 0.3rem;
   }
-  > select {
-    background: var(--color-bg);
-    border: 1px solid var(--color-gray80);
-    color: var(--color-fg);
-    font-size: var(--step--1);
-    outline-color: var(--color-primary);
-    margin-bottom: 0.2rem;
-    min-height: 2.4rem;
-    padding-left: 0.4rem;
-    width: 100%;
-
-    &[multiple] {
-      padding-left: 0;
-    }
-
-    > option {
-      padding: 0.4em 0.4rem;
-    }
-  }
-
-  &:focus {
-    > select {
-      /* border-color: var(--color-primary); */
-      border-color: red;
-    }
-  }
 
   &[data-disabled='true'] {
     > label {
-      color: var(--color-gray50);
-    }
-    > select {
-      border-color: var(--color-gray40);
+      color: var(--color-gray5);
     }
   }
 
   &[data-error='true'] {
     > label {
-      color: var(--text-error-color);
+      color: var(--color-danger);
     }
     > select {
-      border-color: var(--text-error-color);
+      border-color: var(--color-danger);
     }
   }
 }

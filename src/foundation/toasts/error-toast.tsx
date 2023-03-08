@@ -20,7 +20,6 @@ export function ErrorToast() {
           <>
             <p style={{paddingTop: 0}}>Something went wrong and you need to reset the page.</p>
             <button
-              id="error-dismiss"
               type="button"
               onClick={() => {
                 toast.cancel('error')
