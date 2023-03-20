@@ -9,6 +9,7 @@ import {VitePWA as vitePWA} from 'vite-plugin-pwa'
 
 const invokation = process.argv[1].split('/').at(-1) // i.e. vite, vitest or storybook
 
+// https://vitejs.dev/config/
 const prodConfig: UserConfigExport = {
   plugins: [
     /*
@@ -74,6 +75,7 @@ const prodConfig: UserConfigExport = {
   },
 }
 
+// https://vitejs.dev/config/
 const storybookConfig: UserConfigExport = merge(prodConfig, {
   // storybook doesn't like preact plugin but is fine with alias.
   // But, let's undo alias anyways so HMR works.
@@ -86,41 +88,5 @@ const storybookConfig: UserConfigExport = merge(prodConfig, {
   },
 })
 
-const vitestconfig: UserConfigExport = merge(prodConfig, {
-  // vitest doesn't like preact plugin or alias
-  plugins: [react(), ...prodConfig.plugins.slice(1)],
-  // build: {
-  //   rollupOptions: {
-  //     output: {
-  //       manualChunks: () => {
-  //         return 'main'
-  //       },
-  //     },
-  //   },
-  // },
-  resolve: {
-    alias: {
-      react: 'react',
-      'react-dom': 'react-dom',
-    },
-  },
-  // deps: {interopDefault: true},
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    deps: {
-      // interopDefault: true, // needed bc vitest can't find react-use's esm modules
-      /**
-       * Vitest gets confused by an esm module exporting * from another esm module.
-       * Inlining seems to fix it.
-       * @see https://github.com/vitest-dev/vitest/issues/2811
-       */
-      inline: ['@slimr/hooks'],
-    },
-  },
-})
-
 // https://vitejs.dev/config/
-export default defineConfig(
-  invokation === 'vitest' ? vitestconfig : invokation === 'storybook' ? storybookConfig : prodConfig
-)
+export default defineConfig(invokation === 'storybook' ? storybookConfig : prodConfig)

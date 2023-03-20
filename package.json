@@ -6,21 +6,21 @@
   "scripts": {
     "build": "vite build",
     "build:storybook": "storybook build",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist playwright-report",
+    "ci:test": "gh act --artifact-server-path /tmp/artifacts",
     "coverage": "vitest run --coverage",
     "format": "prettier --cache -w .",
     "lint": "tsc && eslint . --cache --cache-location=node_modules/.eslintcache && prettier --check .",
     "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css,pcss --exec 'npm run lint'",
-    "precommit": "npm i && npm-run-all clean lint build 'test -- --run'",
+    "precommit": "npm i && npm-run-all clean lint build test",
     "preinstall": "echo npm run precommit > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit",
     "preview": "vite preview",
     "start": "vite",
     "storybook": "storybook dev -p 6006",
-    "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test": "playwright test --project=chromium"
   },
   "engines": {
-    "node": "18.12.0"
+    "node": ">=16.13.0"
   },
   "postcss": {
     "map": true,
@@ -41,6 +41,7 @@
     "preact": "^10.11.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.31.2",
     "@preact/preset-vite": "^2.5.0",
     "@storybook/addon-essentials": "^7.0.0-beta.59",
     "@storybook/addon-interactions": "^7.0.0-beta.59",
