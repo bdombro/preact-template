@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable require-jsdoc */
 import {CmsTable, getCmsTableQsProps} from './cms-table'
 

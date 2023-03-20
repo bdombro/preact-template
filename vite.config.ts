@@ -29,7 +29,7 @@ const prodConfig: UserConfigExport = {
     },
   },
   build: {
-    cssCodeSplit: false,
+    // cssCodeSplit: false,
     modulePreload: {
       // Disable module preload bc it disrupts lazy loading, and the service worker
       // will download them in the background anyways.
@@ -50,25 +50,25 @@ const prodConfig: UserConfigExport = {
          *
          * @returns {string | undefined} - The name of the chunk to place the module in or undefined to use default
          */
-        manualChunks: id => {
-          const fileNameNoExt = id.split('/').at(-1).split('.').slice(0, -1).join('.')
-          if (id.includes('@slimr/mdi-paths') && !id.includes('component')) {
-            return 'icons/' + fileNameNoExt
-          }
-          if (id.includes('highlight.js') && !id.includes('lazy')) {
-            return 'highlightjs'
-          }
-          if (id.includes('@slimr')) {
-            return 'slimr'
-          }
-          if (id.includes('pages') && !id.includes('pages/index')) {
-            return 'pages/' + fileNameNoExt
-          }
-          if (id.includes('workbox')) {
-            return 'workbox'
-          }
-          return 'main'
-        },
+        // manualChunks: id => {
+        //   const fileNameNoExt = id.split('/').at(-1).split('.').slice(0, -1).join('.')
+        //   if (id.includes('@slimr/mdi-paths') && !id.includes('component')) {
+        //     return 'icons/' + fileNameNoExt
+        //   }
+        //   if (id.includes('highlight.js') && !id.includes('lazy')) {
+        //     return 'highlightjs'
+        //   }
+        //   // if (id.includes('@slimr')) {
+        //   //   return 'slimr'
+        //   // }
+        //   // if (id.includes('pages') && !id.includes('pages/index')) {
+        //   //   return 'pages/' + fileNameNoExt
+        //   // }
+        //   if (id.includes('workbox')) {
+        //     return 'workbox'
+        //   }
+        //   // return 'main'
+        // },
       },
     },
   },
@@ -89,16 +89,27 @@ const storybookConfig: UserConfigExport = merge(prodConfig, {
 const vitestconfig: UserConfigExport = merge(prodConfig, {
   // vitest doesn't like preact plugin or alias
   plugins: [react(), ...prodConfig.plugins.slice(1)],
+  // build: {
+  //   rollupOptions: {
+  //     output: {
+  //       manualChunks: () => {
+  //         return 'main'
+  //       },
+  //     },
+  //   },
+  // },
   resolve: {
     alias: {
       react: 'react',
       'react-dom': 'react-dom',
     },
   },
+  // deps: {interopDefault: true},
   test: {
     environment: 'jsdom',
     globals: true,
     deps: {
+      // interopDefault: true, // needed bc vitest can't find react-use's esm modules
       /**
        * Vitest gets confused by an esm module exporting * from another esm module.
        * Inlining seems to fix it.

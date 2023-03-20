@@ -1,4 +1,4 @@
-import './polyfills'
+import '../foundation/polyfills'
 
 import {setPageMeta} from '@slimr/util'
 import '@testing-library/jest-dom'

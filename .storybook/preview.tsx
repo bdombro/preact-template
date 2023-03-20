@@ -1,12 +1,9 @@
 import './preview.css'
 
-import '~/util/polyfills'
-
 import {Router, Switch} from '@slimr/router'
 import React from 'react'
 
-import '~/foundation'
-
+import '../src/foundation'
 import {ToastPack} from '../src/foundation'
 import Theme from './theme'
 

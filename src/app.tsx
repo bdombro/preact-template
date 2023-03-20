@@ -1,4 +1,4 @@
-import '~/util/polyfills'
+import '~/foundation/polyfills'
 
 import {Switch} from '@slimr/router'
 

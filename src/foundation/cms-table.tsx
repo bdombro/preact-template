@@ -47,7 +47,7 @@ export function CmsTable(props: CmsTableProps) {
   return (
     <div className="cms-table-div">
       <SearchRow current={qs.search} />
-      <HeaderFooter
+      <BulkOptionsAndPagination
         bulkOptions={bulkOptions}
         checked={checked}
         page={qs.page}
@@ -87,7 +87,7 @@ export function CmsTable(props: CmsTableProps) {
           <div>No records found of this type.</div>
         </div>
       )}
-      <HeaderFooter
+      <BulkOptionsAndPagination
         total={total}
         page={qs.page}
         pages={pages}
@@ -125,7 +125,7 @@ function SearchRow({current}: {current?: string}) {
 }
 
 /**  */
-function HeaderFooter(
+function BulkOptionsAndPagination(
   p: Pick<CmsTableProps, 'total' | 'pages' | 'bulkOptions'> & {
     isFooter?: boolean
     checked: UseSet2<CmsRow>
@@ -137,33 +137,41 @@ function HeaderFooter(
       <div className="left">
         <BulkActionsForm bulkOptions={p.bulkOptions} checked={p.checked} />
       </div>
-      <div className="count-div">
-        <div>{p.total} items&nbsp;</div>
-        {p.pages > 1 && (
-          <F>
-            <PageButton title="First Page" page={p.page} pages={p.pages} pageTo={1}>
-              «
-            </PageButton>
-            <PageButton title="Go back one page" page={p.page} pages={p.pages} pageTo={p.page - 1}>
-              ‹
-            </PageButton>
-            <div>
-              &nbsp;{p.page} of {p.pages}&nbsp;
-            </div>
-            <PageButton
-              title="Go forward one page"
-              page={p.page}
-              pages={p.pages}
-              pageTo={p.page + 1}
-            >
-              ›
-            </PageButton>
-            <PageButton title="Go to last page" page={p.page} pages={p.pages} pageTo={p.pages}>
-              »
-            </PageButton>
-          </F>
-        )}
-      </div>
+      <Pagination total={p.total} pages={p.pages} checked={p.checked} page={p.page} />
+    </div>
+  )
+}
+
+/**  */
+function Pagination(
+  p: Pick<CmsTableProps, 'total' | 'pages'> & {
+    isFooter?: boolean
+    checked: UseSet2<CmsRow>
+    page: number
+  }
+) {
+  return (
+    <div className="pagination-div">
+      <div>{p.total} items&nbsp;</div>
+      {p.pages > 1 && (
+        <F>
+          <PageButton title="First Page" page={p.page} pages={p.pages} pageTo={1}>
+            «
+          </PageButton>
+          <PageButton title="Go back one page" page={p.page} pages={p.pages} pageTo={p.page - 1}>
+            ‹
+          </PageButton>
+          <div>
+            &nbsp;{p.page} of {p.pages}&nbsp;
+          </div>
+          <PageButton title="Go forward one page" page={p.page} pages={p.pages} pageTo={p.page + 1}>
+            ›
+          </PageButton>
+          <PageButton title="Go to last page" page={p.page} pages={p.pages} pageTo={p.pages}>
+            »
+          </PageButton>
+        </F>
+      )}
     </div>
   )
 }

@@ -124,7 +124,7 @@
       },
       {
         "files": [
-          "src/util/polyfills/**/*"
+          "src/foundation/polyfills/**/*"
         ],
         "rules": {
           "no-var": "off",
