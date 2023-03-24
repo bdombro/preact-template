@@ -24,11 +24,6 @@ declare global {
     copy(): string
 
     /**
-     * Converts a string into title-case: "hello world" -> "Hello World"
-     */
-    toTitleCase(): string
-
-    /**
      * Checks if a string is in an array or object
      */
     isIn(arrOrObj: any): boolean
@@ -43,13 +38,6 @@ Object.defineProperties(String.prototype, {
   copy: {
     value: function () {
       return this + ''
-    },
-    enumerable: false,
-  },
-
-  toTitleCase: {
-    value: function () {
-      return this.toLocaleLowerCase().replace(/(^|\s)(\w)/g, (x: string) => x.toLocaleUpperCase())
     },
     enumerable: false,
   },
