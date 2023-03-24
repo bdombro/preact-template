@@ -1,8 +1,13 @@
 {
-  "name": "react-vite",
+  "name": "preact-template",
+  "description": "The tiny 16kb preact app that could",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bdombro/preact-template.git"
+  },
   "scripts": {
     "build": "vite build",
     "build:storybook": "storybook build",
@@ -10,9 +15,13 @@
     "ci:test": "gh act --artifact-server-path /tmp/artifacts",
     "coverage": "vitest run --coverage",
     "format": "prettier --cache -w .",
+    "ionic:build": "vite build",
+    "ionic:init": "npx cap add ios",
+    "ionic:serve": "NOSSL=true vite",
+    "ionic:watch": "npx ionic cap run ios --livereload --no-sync",
     "lint": "tsc && eslint . --cache --cache-location=node_modules/.eslintcache && prettier --check .",
     "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css,pcss --exec 'npm run lint'",
-    "precommit": "npm i && npm-run-all clean lint build test",
+    "precommit": "npm i && run-s clean lint build test",
     "preinstall": "echo npm run precommit > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit",
     "preview": "vite preview",
     "start": "vite",
@@ -31,16 +40,19 @@
     }
   },
   "dependencies": {
-    "@slimr/hooks": "^2.1.30",
-    "@slimr/markdown": "^2.1.21",
-    "@slimr/mdi-paths": "^2.1.23",
-    "@slimr/router": "^2.1.26",
-    "@slimr/styled": "^2.1.24",
-    "@slimr/util": "^3.2.19",
-    "npm-run-all": "^4.1.5",
+    "@capacitor/core": "^4.7.1",
+    "@capacitor/ios": "4.7.1",
+    "@slimr/hooks": "^2.1.32",
+    "@slimr/markdown": "^2.1.23",
+    "@slimr/mdi-paths": "^2.1.25",
+    "@slimr/router": "^2.1.28",
+    "@slimr/styled": "^2.1.26",
+    "@slimr/util": "^3.2.21",
     "preact": "^10.11.3"
   },
   "devDependencies": {
+    "@capacitor/cli": "^4.7.1",
+    "@ionic/cli": "^6.20.9",
     "@playwright/test": "^1.31.2",
     "@preact/preset-vite": "^2.5.0",
     "@storybook/addon-essentials": "^7.0.0-beta.59",
@@ -63,6 +75,7 @@
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.31.11",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
     "postcss-custom-selectors": "^7.1.1",
     "postcss-extend": "^1.0.5",
@@ -91,6 +104,7 @@
       "prettier"
     ],
     "ignorePatterns": [
+      "ios",
       "dist"
     ],
     "parser": "@typescript-eslint/parser",

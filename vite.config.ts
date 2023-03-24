@@ -19,7 +19,7 @@ const prodConfig: UserConfigExport = {
      * and React dev tools are little more feature rich.
      */
     preact(),
-    mkcert(),
+    !process.env.NOSSL && mkcert(),
     vitePWA({registerType: 'autoUpdate'}),
   ],
   resolve: {
@@ -87,6 +87,8 @@ const storybookConfig: UserConfigExport = merge(prodConfig, {
     },
   },
 })
+
+console.log('invokation', invokation)
 
 // https://vitejs.dev/config/
 export default defineConfig(invokation === 'storybook' ? storybookConfig : prodConfig)

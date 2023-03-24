@@ -3,6 +3,7 @@ import {
   areEqualShallow,
   areNotEqualDeep,
   areNotEqualShallow,
+  copy,
   detailedDiff,
   merge,
   mergeAndCompare,
@@ -44,7 +45,7 @@ declare global {
     /**
      * Make a deep copy of an object so that none of the references are the same
      */
-    copy: typeof structuredClone
+    copy: typeof copy
 
     /**
      * returns an object with the added, deleted and updated differences
@@ -185,7 +186,7 @@ Object.areNotEqualDeep = areNotEqualDeep
 Object.areEqualShallow = areEqualShallow
 Object.areNotEqualShallow = areNotEqualShallow
 
-Object.copy = structuredClone
+Object.copy = copy
 
 Object.diff = detailedDiff
 

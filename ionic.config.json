@@ -1,0 +1,7 @@
+{
+  "name": "preact-template",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
