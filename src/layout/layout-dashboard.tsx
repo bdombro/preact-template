@@ -55,13 +55,23 @@ export function Layout({children}: {children: React.ReactNode}) {
             </IconA>
           </nav>
         </aside>
-        <main>{children}</main>
-        <div className="corner-wrapper">
-          <Icon name="roundedCornerInv" className="corner corner1" size={10} />
-          <Icon name="roundedCornerInv" className="corner corner2" size={10} horizontal />
-          <Icon name="roundedCornerInv" className="corner corner3" size={14} vertical horizontal />
-          <Icon name="roundedCornerInv" className="corner corner4" size={16} vertical />
-        </div>
+        <main>
+          {children}
+          <div className="corners-wrapper">
+            <div>
+              <Icon name="roundedCornerInv" size={10} />
+            </div>
+            <div>
+              <Icon name="roundedCornerInv" size={16} horizontal />
+            </div>
+            <div>
+              <Icon name="roundedCornerInv" size={16} vertical horizontal />
+            </div>
+            <div>
+              <Icon name="roundedCornerInv" size={10} vertical />
+            </div>
+          </div>
+        </main>
       </div>
       <div className="footer-wrapper">
         <footer>Footer</footer>

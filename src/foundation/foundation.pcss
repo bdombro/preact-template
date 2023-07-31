@@ -1,5 +1,7 @@
 @custom-selector :--heading h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6;
 
+/* Colors */
+
 :root {
   --color-primary: hsl(199, 84%, 30%);
   --color-primary-darker: hsl(199, 84%, 20%);
@@ -60,6 +62,31 @@
   --button-border-radius: 4px;
   --input-border-color: var(--color-gray8);
 }
+
+/* Scrollbar styling */
+
+:root {
+  --scrollbarWidth: 14px;
+  --scrollbarBg: var(--color-gray4);
+  --scrollbarThumb: var(--color-gray7);
+}
+* {
+  scrollbar-width: var(--scrollbarWidth);
+  scrollbar-color: var(--scrollbarThumb) var(--scrollbarBg);
+}
+::-webkit-scrollbar {
+  width: var(--scrollbarWidth);
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbarBg);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbarThumb);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBg);
+}
+
+/* Component styles */
 
 * {
   box-sizing: border-box;

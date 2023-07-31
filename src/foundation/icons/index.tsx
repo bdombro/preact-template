@@ -1,4 +1,5 @@
 import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/components'
+import {classJoin} from '@slimr/styled'
 
 export type IconKeys = keyof typeof icons
 export type IconProps = Omit<LazyIconSvgProps, 'name' | 'pathImporter'> & {
@@ -46,6 +47,8 @@ export const icons = {
  * A component that lazily loads an icon from Material Design Icons
  * by name. The names available are declared in the `icons` object above.
  */
-export function Icon({name, ...props}: IconProps) {
-  return <LazyIconSvg pathImporter={icons[name]} {...props} />
+export function Icon({name, className, ...props}: IconProps) {
+  return (
+    <LazyIconSvg pathImporter={icons[name]} className={classJoin('icon', className)} {...props} />
+  )
 }

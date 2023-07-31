@@ -2,6 +2,7 @@
   --color-header: var(--color-primary-darker);
   --color-sidebar: var(--color-gray1);
   --height-header: 45px;
+  --height-footer: 60px;
   background: var(--color-sidebar);
 
   > header {
@@ -67,12 +68,15 @@
   }
 
   > .main-wrapper {
-    --main-wrapper-mt: 0;
-    margin-top: var(--main-wrapper-mt);
+    --main-wrapper-margin: 0;
+    background: var(--color-sidebar);
     display: flex;
+    margin-right: var(--main-wrapper-margin);
+    margin-top: var(--main-wrapper-margin);
+
     > main {
       background: var(--color-bg);
-      height: calc(var(--dvh) - var(--height-header));
+      height: calc(var(--dvh) - var(--height-header) - 2 * var(--main-wrapper-margin));
       flex: 1;
       overflow-y: auto;
       position: relative;
@@ -82,8 +86,35 @@
   &.sidebar {
     --sidebar-width: 250px;
     > .main-wrapper {
-      --main-wrapper-mt: 10px;
+      --main-wrapper-margin: 10px;
       position: relative;
+
+      > main {
+        > .corners-wrapper {
+          > div {
+            position: absolute;
+            &:nth-of-type(1) {
+              inset: 0 auto auto 0;
+            }
+            &:nth-of-type(2) {
+              inset: 0 0 auto auto;
+            }
+            &:nth-of-type(3) {
+              inset: auto 0 16px auto;
+            }
+            &:nth-of-type(4) {
+              inset: auto auto 10px 0;
+            }
+            > .icon {
+              position: fixed;
+              path {
+                fill: var(--color-sidebar);
+              }
+            }
+          }
+        }
+      }
+
       > aside {
         background: var(--color-sidebar);
         height: calc(var(--dvh) - var(--height-header));
@@ -105,48 +136,30 @@
           }
         }
       }
-      > .corner-wrapper {
-        > .corner {
-          position: absolute;
-          path {
-            fill: var(--color-sidebar);
-          }
-          &.corner1 {
-            inset: 0 auto auto var(--sidebar-width);
-          }
-          &.corner2 {
-            inset: 0 0 auto auto;
-          }
-          &.corner3 {
-            inset: auto 0 var(--main-wrapper-mt) auto;
-          }
-          &.corner4 {
-            inset: auto auto var(--main-wrapper-mt) var(--sidebar-width);
-          }
-        }
-      }
     }
 
     .footer-wrapper {
       background: var(--color-sidebar);
       display: none;
-      height: var(--height-header);
+      height: var(--height-footer);
     }
 
     /** Swap to footer on mobile */
 
     @media (max-width: 62em) {
-      --height-header: 60px;
-
       > header {
         display: none;
       }
 
       > .main-wrapper {
-        > aside {
-          display: none;
+        --main-wrapper-margin: 0;
+        > main {
+          height: calc(var(--dvh) - var(--height-footer));
+          > .corners-wrapper {
+            display: none;
+          }
         }
-        > .corner-wrapper {
+        > aside {
           display: none;
         }
       }
