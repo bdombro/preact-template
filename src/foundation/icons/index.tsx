@@ -6,6 +6,9 @@ export type IconProps = Omit<LazyIconSvgProps, 'name' | 'pathImporter'> & {
 }
 // type IconType = (props: IconProps) => JSX.Element
 
+/**
+ * Find more at [materialdesignicons.com](https://materialdesignicons.com)
+ */
 export const icons = {
   account: () => import('@slimr/mdi-paths/CardAccountDetailsOutline'),
   alert: () => import('@slimr/mdi-paths/AlertOutline'),
@@ -17,6 +20,7 @@ export const icons = {
   carrotDown: () => import('@slimr/mdi-paths/MenuDown'),
   carrotLeft: () => import('@slimr/mdi-paths/MenuLeft'),
   carrotRight: () => import('@slimr/mdi-paths/MenuRight'),
+  chat: () => import('@slimr/mdi-paths/forumOutline'),
   checkboxM: () => import('@slimr/mdi-paths/CheckboxMarked'),
   checkboxB: () => import('@slimr/mdi-paths/CheckboxBlankOutline'),
   chevronL2x: () => import('@slimr/mdi-paths/ChevronDoubleLeft'),

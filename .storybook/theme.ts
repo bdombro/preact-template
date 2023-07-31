@@ -4,8 +4,8 @@ const prefersDarkMode = window.matchMedia('(prefers-color-scheme:dark)').matches
 
 export default create({
   base: prefersDarkMode ? 'dark' : 'light',
-  brandTitle: 'preact-template',
-  brandUrl: 'https://github.com/bdombro/preact-template',
+  brandTitle: 'dispatcher-chat',
+  brandUrl: 'https://github.com/bdombro/dispatcher-chat',
   // brandImage: 'https://storybook.js.org/images/placeholders/350x150.png',
   brandTarget: '_blank',
 })

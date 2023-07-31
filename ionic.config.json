@@ -1,5 +1,5 @@
 {
-  "name": "preact-template",
+  "name": "dispatcher-chat",
   "integrations": {
     "capacitor": {}
   },

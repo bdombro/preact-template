@@ -16,6 +16,6 @@ export function BrowserCheckToast() {
         variant: 'alert',
       })
     }
-  })
+  }, [])
   return null
 }

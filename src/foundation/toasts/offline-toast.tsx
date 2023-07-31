@@ -11,7 +11,7 @@ export function OfflineToast() {
       removeEventListener('offline', onOffline)
       removeEventListener('online', onOnline)
     }
-  })
+  }, [])
   return null
 }
 

@@ -5,7 +5,7 @@
   background: var(--color-sidebar);
 
   > header {
-    background: var(--color-header);
+    background: var(--color-gray3);
     display: flex;
     height: var(--height-header);
     justify-content: space-between;
@@ -14,7 +14,7 @@
     > a.logo {
       display: inline-block;
       line-height: calc(var(--height-header) - 8px); /** 8px is the y padding */
-      padding: 3px 13px 5px;
+      padding: 5px 13px;
       &:hover {
         background: var(--color-primary);
         > svg {
@@ -88,6 +88,7 @@
         background: var(--color-sidebar);
         height: calc(var(--dvh) - var(--height-header));
         padding: 8px 12px;
+        position: relative;
         width: var(--sidebar-width);
 
         > nav {
@@ -100,11 +101,12 @@
             padding: 12px 14px;
             &.active,
             &:hover {
-              background: var(--color-primary);
+              background: var(--color-gray6);
             }
           }
         }
       }
+
       > .corner-wrapper {
         > .corner {
           position: absolute;
@@ -131,6 +133,7 @@
       background: var(--color-sidebar);
       display: none;
       height: var(--height-header);
+      position: relative;
     }
 
     /** Swap to footer on mobile */
@@ -143,6 +146,7 @@
       }
 
       > .main-wrapper {
+        --main-wrapper-mt: 0;
         > aside {
           display: none;
         }

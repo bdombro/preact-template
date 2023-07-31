@@ -4,19 +4,19 @@ import {classJoin} from '@slimr/styled'
 
 import {Icon, IconKeys} from '~/foundation'
 import {router as r} from '~/router'
-
-import {Logo} from './logo'
+import {useColorScheme} from '~/util/useColorScheme'
 
 /**
  * A layout with a header and a main section
  */
 export function Layout({children}: {children: React.ReactNode}) {
+  const {scheme} = useColorScheme()
   const [burgerOpen, setBurgerOpen] = useState(false)
   return (
     <div className="layout-header">
       <header>
         <a className="logo" href="/">
-          <Logo height="100%" />
+          <img src={`/logo-${scheme}-scheme.svg`} style={{height: '100%'}} />
         </a>
         <nav className="horizontal">
           <AA href={r.routes.index.path}>Home</AA>
@@ -78,7 +78,7 @@ export function AA(p: JSX.IntrinsicElements['a']) {
 export function IconA({icon, ...p}: {icon: IconKeys} & JSX.IntrinsicElements['a']) {
   return (
     <AA {...p}>
-      <Icon name={icon} style={{marginRight: 16, marginTop: -5}} />
+      <Icon name={icon} style={{marginRight: 16, marginTop: -4}} />
       {p.children}
     </AA>
   )

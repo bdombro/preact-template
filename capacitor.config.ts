@@ -2,7 +2,7 @@ import {CapacitorConfig} from '@capacitor/cli'
 
 const config: CapacitorConfig = {
   appId: 'com.preacttemplate',
-  appName: 'preact-template',
+  appName: 'dispatcher-chat',
   webDir: 'dist',
   bundledWebRuntime: false,
 }

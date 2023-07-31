@@ -1,4 +1,4 @@
-# Preact Template
+# Dispatcher Chat
 
 The tiny 16kb preact app that could.
 

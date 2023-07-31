@@ -3,8 +3,8 @@ import {formToValues, setPageMeta} from '@slimr/util'
 
 import {GenericError, Input} from '~/foundation'
 import {Layout} from '~/layout/layout-login'
-import {Logo} from '~/layout/logo'
 import {router as r} from '~/router'
+import {useColorScheme} from '~/util/useColorScheme'
 
 /**
  * A demo of a home page
@@ -12,11 +12,12 @@ import {router as r} from '~/router'
 export default function Login() {
   const {Form, submitting, accepted, errors} = useForm()
   setPageMeta({title: 'Login'})
+  const {scheme} = useColorScheme()
   return (
     <Layout>
       <Layout.Section>
-        <a href={r.routes.index.path} title="go home">
-          <Logo height={70} _mb={20} />
+        <a href={r.routes.index.path} title="go home" style={{display: 'block', marginBottom: 20}}>
+          <img src={`/logo-${scheme}-scheme.svg`} style={{height: 70}} />
         </a>
         <Form
           onSubmit={async e => {

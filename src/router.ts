@@ -10,6 +10,10 @@ export const router = new Router(
       loader: () => import('./pages/login'),
       path: '/login',
     },
+    chats: {
+      loader: () => import('./pages/chats'),
+      path: '/chats',
+    },
     stack1: {
       isStack: true,
       loader: () => import('./pages/stack-test'),
