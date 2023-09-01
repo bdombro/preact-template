@@ -1,28 +1,33 @@
 import {Router} from '@slimr/router'
 
+import Index from './pages/index'
+import Login from './pages/login'
+import NotFound from './pages/not-found'
+import StackTest from './pages/stack-test'
+
 export const router = new Router(
   {
     index: {
-      loader: () => import('./pages/index'),
+      component: Index,
       path: '/',
     },
     login: {
-      loader: () => import('./pages/login'),
+      component: Login,
       path: '/login',
     },
     stack1: {
       isStack: true,
-      loader: () => import('./pages/stack-test'),
+      component: StackTest,
       path: '/stack1',
     },
     stack1Inner: {
       exact: false,
-      loader: () => import('./pages/stack-test'),
+      component: StackTest,
       path: '/stack1',
     },
     notFound: {
       exact: false,
-      loader: () => import('./pages/not-found'),
+      component: NotFound,
       path: '/',
     },
   },
