@@ -46,6 +46,7 @@
     }
   },
   "dependencies": {
+    "@capacitor/device": "^5.0.6",
     "@slimr/hooks": "^2.1.36",
     "@slimr/markdown": "^2.1.27",
     "@slimr/mdi-paths": "^2.1.30",

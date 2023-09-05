@@ -15,35 +15,37 @@ export function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className="layout-header">
       <header>
-        <a className="logo" href="/">
-          <Logo height="100%" />
-        </a>
-        <nav className="horizontal">
-          <AA href={r.routes.index.path}>Home</AA>
-          <AA href="/#about">About</AA>
-          <AA href={r.routes.login.path}>Login</AA>
-          <a
-            className={classJoin('burger-toggle', burgerOpen ? 'active' : '')}
-            href="#open-burger"
-            onClick={e => {
-              e.preventDefault()
-              e.stopPropagation()
-              setBurgerOpen(last => !last)
-            }}
-          >
-            <Icon name="menu" />
+        <div className="navbar">
+          <a className="logo" href="/">
+            <Logo height="100%" />
           </a>
-        </nav>
-        <div className="burger-menu" style={{display: burgerOpen ? 'flex' : 'none'}}>
-          <IconA href={r.routes.index.path} icon="home">
-            Home
-          </IconA>
-          <IconA href="/#about" icon="building">
-            About
-          </IconA>
-          <IconA href={r.routes.login.path} icon="login">
-            Login
-          </IconA>
+          <nav className="horizontal">
+            <AA href={r.routes.index.path}>Home</AA>
+            <AA href="/#about">About</AA>
+            <AA href={r.routes.login.path}>Login</AA>
+            <a
+              className={classJoin('burger-toggle', burgerOpen ? 'active' : '')}
+              href="#open-burger"
+              onClick={e => {
+                e.preventDefault()
+                e.stopPropagation()
+                setBurgerOpen(last => !last)
+              }}
+            >
+              <Icon name="menu" />
+            </a>
+          </nav>
+          <div className="burger-menu" style={{display: burgerOpen ? 'flex' : 'none'}}>
+            <IconA href={r.routes.index.path} icon="home">
+              Home
+            </IconA>
+            <IconA href="/#about" icon="building">
+              About
+            </IconA>
+            <IconA href={r.routes.login.path} icon="login">
+              Login
+            </IconA>
+          </div>
         </div>
       </header>
       <div className="main-wrapper">

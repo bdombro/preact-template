@@ -16,29 +16,31 @@ export function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className="layout-header sidebar">
       <header>
-        <a className="logo" href="/">
-          <Logo height="100%" />
-        </a>
-        <nav className="horizontal">
-          <a
-            className={classJoin('burger-toggle', burgerOpen ? 'active' : '')}
-            href="#open-burger"
-            onClick={e => {
-              e.preventDefault()
-              e.stopPropagation()
-              setBurgerOpen(last => !last)
-            }}
-          >
-            <Icon name="menu" />
+        <div className="navbar">
+          <a className="logo" href="/">
+            <Logo height="100%" />
           </a>
-        </nav>
-        <div className="burger-menu" style={{display: burgerOpen ? 'block' : 'none'}}>
-          <IconA href="/#account" icon="account">
-            Account
-          </IconA>
-          <IconA href={r.routes.login.path} icon="login">
-            Logout
-          </IconA>
+          <nav className="horizontal">
+            <a
+              className={classJoin('burger-toggle', burgerOpen ? 'active' : '')}
+              href="#open-burger"
+              onClick={e => {
+                e.preventDefault()
+                e.stopPropagation()
+                setBurgerOpen(last => !last)
+              }}
+            >
+              <Icon name="menu" />
+            </a>
+          </nav>
+          <div className="burger-menu" style={{display: burgerOpen ? 'block' : 'none'}}>
+            <IconA href="/#account" icon="account">
+              Account
+            </IconA>
+            <IconA href={r.routes.login.path} icon="login">
+              Logout
+            </IconA>
+          </div>
         </div>
       </header>
       <div className="main-wrapper">

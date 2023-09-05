@@ -3,7 +3,7 @@
  */
 export function Layout({children}: {children: React.ReactNode}) {
   return (
-    <Main _ai="center" _d="flex" _jc="center" _my={40}>
+    <Main _ai="center" _d="flex" _jc="center" _my={40} _pt="var(--statusbar-height)">
       {children}
     </Main>
   )

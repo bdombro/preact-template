@@ -1,74 +1,79 @@
 .layout-header {
   --color-header: var(--color-primary-darker);
   --color-sidebar: var(--color-gray1);
-  --height-header: 45px;
+  --height-header-navbar: 45px;
+  --height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
   --height-footer: 60px;
   background: var(--color-sidebar);
 
   > header {
     background: var(--color-header);
-    display: flex;
-    height: var(--height-header);
-    justify-content: space-between;
-    width: 100%;
+    padding-top: var(--statusbar-height);
 
-    > a.logo {
-      display: inline-block;
-      line-height: calc(var(--height-header) - 8px); /** 8px is the y padding */
-      padding: 3px 13px 5px;
-      &:hover {
-        background: var(--color-primary);
-        > svg {
-          --color: var(--color-primary-darker);
-        }
-      }
-    }
+    > .navbar {
+      display: flex;
+      height: var(--height-header-navbar);
+      justify-content: space-between;
+      width: 100%;
 
-    > nav.horizontal {
-      > a {
-        font-size: var(--step--1);
-        color: white;
+      > a.logo {
         display: inline-block;
-        line-height: var(--height-header);
-        padding: 0 13px;
-        &.active,
+        line-height: calc(var(--height-header-navbar) - 8px); /** 8px is the y padding */
+        padding: 3px 13px 5px;
         &:hover {
           background: var(--color-primary);
-        }
-        @media (max-width: 62em) {
-          &:not(.burger-toggle) {
-            display: none;
+          > svg {
+            --color: var(--color-primary-darker);
           }
         }
       }
-    }
 
-    > .burger-menu {
-      background: var(--color-gray1);
-      border: 1px solid var(--color-gray3);
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      padding: 7px;
-      position: absolute;
-      right: 0;
-      top: var(--height-header);
-      width: 240px;
-      z-index: 1;
-      > a {
-        border-radius: 4px;
-        display: block;
-        padding: 10px 12px;
-        &.active,
-        &:hover {
-          background: var(--color-primary-darker);
+      > nav.horizontal {
+        > a {
+          font-size: var(--step--1);
+          color: white;
+          display: inline-block;
+          line-height: var(--height-header-navbar);
+          padding: 0 13px;
+          &.active,
+          &:hover {
+            background: var(--color-primary);
+          }
+          @media (max-width: 62em) {
+            &:not(.burger-toggle) {
+              display: none;
+            }
+          }
+        }
+      }
+
+      > .burger-menu {
+        background: var(--color-gray1);
+        border: 1px solid var(--color-gray3);
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        padding: 7px;
+        position: absolute;
+        right: 0;
+        top: var(--height-header-navbar);
+        width: 240px;
+        z-index: 1;
+        > a {
+          border-radius: 4px;
+          display: block;
+          padding: 10px 12px;
+          &.active,
+          &:hover {
+            background: var(--color-primary-darker);
+          }
         }
       }
     }
   }
 
   > .main-wrapper {
-    --main-wrapper-margin: 0;
+    --main-wrapper-margin: 0px;
     background: var(--color-sidebar);
     display: flex;
     margin-right: var(--main-wrapper-margin);
@@ -152,7 +157,7 @@
       }
 
       > .main-wrapper {
-        --main-wrapper-margin: 0;
+        --main-wrapper-margin: 0px;
         > main {
           height: calc(var(--dvh) - var(--height-footer));
           > .corners-wrapper {
