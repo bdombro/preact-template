@@ -55,17 +55,18 @@
   --step-5: clamp(2.8rem, calc(2.5rem + 1.8vw), 3.8rem);
   --step-6: clamp(3.3rem, calc(2.9rem + 2.5vw), 4.7rem);
 
-  
   /**
     * Set the CSS variable `--dvh` to the height of the viewport.
     *
     * Is more reliable than `100vh` because it takes into account the height of
     * the browser's UI elements (e.g. address bar, status bar, etc).
     *
-    * Is also set in ./index.ts bc Capacitor webkit get confused with 100dvh
+    * Is set in ./index.ts
     */
   --dvh: 100vh; /* Firefox + Webkit doesn't yet support dvh */
-  --dvh: 100dvh; /* Support is not 100% yet -- so we use a fallback and also set with js */
+  &.browser-chrome {
+    --dvh: 100dvh; /* Chrome is the only browser that supports dvh reliably atm */
+  }
 
   /**
     * Status bar is the upper bar showing time, battery, etc on mobile devices.
@@ -74,10 +75,12 @@
     * status bar. But in capacitor, the content is rendered behind the status
     * bar. So we track the platform and set a CSS variable to adjust the layout
     * accordingly.
-    *
-    * Is set to 40 for Capacitor IOS/Android in ./index.ts
     */
   --statusbar-height: 0px;
+  &.platform-ios,
+  &.platform-android {
+    --statusbar-height: 40px;
+  }
 
   --button-shadow-color: var(--color-gray2);
   --button-border-radius: 4px;

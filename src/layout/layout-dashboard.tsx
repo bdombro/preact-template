@@ -75,9 +75,7 @@ export function Layout({children}: {children: React.ReactNode}) {
           </div>
         </main>
       </div>
-      <div className="footer-wrapper">
-        <footer>Footer</footer>
-      </div>
+      <Footer />
     </div>
   )
 }
@@ -93,5 +91,13 @@ Layout.Section = function LayoutSection({
         {children}
       </Div>
     </Section>
+  )
+}
+
+function Footer() {
+  return (
+    <div className="footer-wrapper">
+      <footer>Footer</footer>
+    </div>
   )
 }

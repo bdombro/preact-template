@@ -7,7 +7,7 @@ const text =
 export function Filler() {
   return (
     <>
-      {Array(100)
+      {Array(window.innerWidth < 600 ? 10 : 100)
         .fill(0)
         .map((_, i) => (
           <p key={i}>{text}</p>

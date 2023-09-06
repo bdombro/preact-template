@@ -3,7 +3,7 @@
   --color-sidebar: var(--color-gray1);
   --height-header-navbar: 45px;
   --height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
-  --height-footer: 60px;
+  --height-footer: 60px; /* also controlled by .keyboard-open .layout-header */
   background: var(--color-sidebar);
 
   > header {
@@ -144,6 +144,7 @@
     }
 
     .footer-wrapper {
+      /* also controlled by .keyboard-open .layout-header */
       background: var(--color-sidebar);
       display: none;
       height: var(--height-footer);
@@ -170,8 +171,21 @@
       }
 
       > .footer-wrapper {
+        /* also controlled by .keyboard-open .layout-header */
         display: block;
       }
+    }
+  }
+}
+
+.keyboard-open .layout-header {
+  --height-footer: 0px;
+  .footer-wrapper {
+    display: none;
+  }
+  @media (max-width: 62em) {
+    > .footer-wrapper {
+      display: none;
     }
   }
 }
