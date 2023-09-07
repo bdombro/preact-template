@@ -1,5 +1,6 @@
-/// <reference types="vite-plugin-pwa/client" />
+// /// <reference types="vite-plugin-pwa/client" /> -- doesnt work with moduleResolution: bundler
 import {useUpdateEffect} from '@slimr/hooks'
+// @ts-expect-error -- no types
 import {useRegisterSW} from 'virtual:pwa-register/react'
 
 import {toast} from './toast'
@@ -16,10 +17,10 @@ export function ServiceWorkerToasts() {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
-    onRegistered: r => {
+    onRegistered: (r: string) => {
       console.log('SW Registered: ' + r)
     },
-    onRegisterError: error => {
+    onRegisterError: (error: Error) => {
       console.log('SW registration error', error)
     },
   })
