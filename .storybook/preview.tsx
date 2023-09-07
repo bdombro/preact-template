@@ -12,10 +12,8 @@ export const decorators = [
     <Switch
       router={
         new Router({
-          index: {
-            loader: async () => {
-              return {default: Story}
-            },
+          notFound: {
+            component: Story,
             exact: false,
             path: '/',
           },
