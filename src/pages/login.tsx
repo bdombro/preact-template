@@ -1,4 +1,4 @@
-import {FormError, OnSubmit, useForm} from '@slimr/hooks'
+import {FormError, OnSubmit, useForm} from '@slimr/react'
 import {setPageMeta} from '@slimr/util'
 
 import {GenericError, Input} from '~/foundation'

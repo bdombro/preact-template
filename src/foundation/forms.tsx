@@ -1,8 +1,6 @@
 import './forms.pcss'
 
-import '@slimr/hooks'
-import * as s from '@slimr/styled'
-import {mergeRefs} from '@slimr/util'
+import {classJoin, mergeRefs} from '@slimr/react'
 import {forwardRef} from 'react'
 
 type Els = JSX.IntrinsicElements
@@ -74,7 +72,7 @@ export const Checkbox = forwardRef(function Checkbox(
     <Div
       {...divProps}
       data-error={!!errorLocal}
-      className={s.classJoin('checkbox-div', divProps?.className)}
+      className={classJoin('checkbox-div', divProps?.className)}
     >
       <input
         id={inputProps.name}
@@ -157,7 +155,7 @@ export const Input = forwardRef(function Input(
   return (
     <Div
       {...divProps}
-      className={s.classJoin('input-div', divProps?.className)}
+      className={classJoin('input-div', divProps?.className)}
       data-error={!!errorLocal}
       data-disabled={inputProps.disabled}
     >
@@ -198,7 +196,7 @@ export function Radios({
     <Div
       {...divProps}
       data-error={!!error}
-      className={s.classJoin('checkbox-div', divProps?.className)}
+      className={classJoin('checkbox-div', divProps?.className)}
     >
       {options.map(({label, value}, i) => (
         <div key={i} {...innerDivProps}>
@@ -229,7 +227,7 @@ export function Select({
     <Div
       {...divProps}
       data-error={!!error}
-      className={s.classJoin('select-div', divProps?.className)}
+      className={classJoin('select-div', divProps?.className)}
     >
       <label {...labelProps}>{label}</label>
       <select {...selectProps}>
@@ -288,7 +286,7 @@ export const Textarea = forwardRef(function Textarea(
   return (
     <Div
       {...divProps}
-      className={s.classJoin('input-div', divProps?.className)}
+      className={classJoin('input-div', divProps?.className)}
       data-error={!!errorLocal}
       data-disabled={inputProps.disabled}
     >

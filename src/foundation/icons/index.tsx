@@ -1,5 +1,5 @@
 import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/components'
-import {classJoin} from '@slimr/styled'
+import {classJoin} from '@slimr/react'
 
 export type IconKeys = keyof typeof icons
 export type IconProps = Omit<LazyIconSvgProps, 'name' | 'pathImporter'> & {

@@ -1,5 +1,5 @@
-import * as _styled from '@slimr/styled'
-import {classJoin} from '@slimr/styled'
+import * as _styled from '@slimr/react'
+import {classJoin} from '@slimr/react'
 
 // You must export something or TS gets confused.
 export {}

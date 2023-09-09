@@ -1,6 +1,6 @@
 import './layout-header.pcss'
 
-import {classJoin} from '@slimr/styled'
+import {classJoin} from '@slimr/react'
 
 import {Icon} from '~/foundation'
 import {router as r} from '~/router'

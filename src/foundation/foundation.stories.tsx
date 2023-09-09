@@ -1,6 +1,6 @@
 import './foundation.stories.pcss'
 
-import {FormError, useForm} from '@slimr/hooks'
+import {FormError, useForm} from '@slimr/react'
 import {formToValues} from '@slimr/util'
 
 import {Card} from './cards'

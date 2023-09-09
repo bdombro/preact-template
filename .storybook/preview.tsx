@@ -1,6 +1,6 @@
 import './preview.css'
 
-import {Router, Switch} from '@slimr/router'
+import {Router, Switch} from '@slimr/react'
 import React from 'react'
 
 import '../src/foundation'

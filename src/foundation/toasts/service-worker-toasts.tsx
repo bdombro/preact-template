@@ -1,5 +1,5 @@
 // /// <reference types="vite-plugin-pwa/client" /> -- doesnt work with moduleResolution: bundler
-import {useUpdateEffect} from '@slimr/hooks'
+import {useUpdateEffect} from '@slimr/react'
 // @ts-expect-error -- no types
 import {useRegisterSW} from 'virtual:pwa-register/react'
 

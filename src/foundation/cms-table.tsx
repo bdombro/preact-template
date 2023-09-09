@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './cms-table.pcss'
 
-import {UseSet2, useMedia, useSet2} from '@slimr/hooks'
+import {UseSet2, useMedia, useSet2} from '@slimr/react'
 import {useLocationChangedCb} from '@slimr/router'
 import {queryStrings} from '@slimr/util'
 import React, {Fragment as F, useCallback, useState} from 'react'

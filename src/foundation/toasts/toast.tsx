@@ -1,6 +1,6 @@
 import './toast.pcss'
 
-import {useEvent} from '@slimr/hooks'
+import {useEvent} from '@slimr/react'
 import {memo} from 'react'
 
 import {Icon, IconKeys} from '~/foundation/icons'
