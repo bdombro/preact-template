@@ -77,10 +77,34 @@
     * accordingly.
     */
   --statusbar-height: 0px;
-  &.platform-ios,
-  &.platform-android {
+  &.capacitor-platform-ios,
+  &.capacitor-platform-android {
     --statusbar-height: 40px;
   }
+  
+  /**
+    * Nots and onlys
+    */
+  &.touch .not-touch {display: none;}
+  &:not(.touch) .only-touch {display: none;}
+  &.capacitor-platform-ios .not-native-ios {display: none;}
+  &:not(.capacitor-platform-ios) .only-native-ios {display: none;}
+  &.capacitor-platform-android .not-native-android {display: none;}
+  &:not(.capacitor-platform-android) .only-native-android {display: none;}
+  &.capacitor-platform-web .not-web {display: none;}
+  &:not(.capacitor-platform-web) .only-web {display: none;}
+  &.os-android .not-android {display: none;}
+  &:not(.os-android) .only-android {display: none;}
+  &.os-iphone {.not-ios {display: none;}.not-iphone {display: none;}}
+  &:not(.os-iphone) {.only-ios {display: none;}.only-iphone {display: none;}}
+  &.os-ipad {.not-ios {display: none;}.not-ipad {display: none;}}
+  &:not(.os-ipad) {.only-ios {display: none;}.only-ipad {display: none;}}
+  &.os-linux,&.os-unix {.not-linux {display: none;}}
+  &:not(.os-linux):not(.os-unix) .only-linux {display: none;}
+  &.os-mac .not-mac {display: none;}
+  &:not(.os-mac) .only-mac {display: none;}
+  &.os-windows .not-windows {display: none;}
+  &:not(.os-windows) .only-windows {display: none;}
 
   --button-shadow-color: var(--color-gray2);
   --button-border-radius: 4px;
@@ -275,16 +299,21 @@ textarea,
   background: var(--color-bg);
   border: 1px solid var(--input-border-color);
   color: var(--color-fg);
-  display: block;
-  font-size: var(--step-0);
-  margin-bottom: 0.2rem;
   outline-color: var(--color-primary);
-  min-height: 3rem;
-  padding-left: 0.8rem;
-  padding-top: 0.3rem;
-  width: 100%;
 
-  &[type='checkbox'] {
+  &:not([type='checkbox']):not([type='radio']) {
+    display: block;
+    font-size: var(--step-0);
+    margin-bottom: 0.2rem;
+    min-height: 3rem;
+    &:not([type='color']) {
+      padding-left: 0.8rem;
+    }
+    padding-top: 0.3rem;
+    width: 100%;
+  }
+
+  &[type='checkbox'],&[type='radio'] {
     accent-color: var(--color-primary);
     cursor: pointer;
     margin-right: 0.8rem;

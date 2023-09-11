@@ -1,80 +1,108 @@
 import './forms.pcss'
 
-import {classJoin, mergeRefs} from '@slimr/react'
+import {
+  Input as SInput,
+  OptionC as SOption,
+  Select as SSelect,
+  Textarea as STextarea,
+  classJoin,
+  mergeRefs,
+} from '@slimr/react'
 import {forwardRef} from 'react'
-
-type Els = JSX.IntrinsicElements
 
 type BaseProps = {
   divProps?: Parameters<typeof Div>[0]
-  eagerValidate?: boolean
-  error?: string
   label: string
-  labelProps?: Omit<Els['label'], 'htmlFor'>
+  labelProps?: Omit<Parameters<typeof Label>[0], 'htmlFor'>
   name: string
-  validator?: (val: string) => string | null
+  validator?: (val: string) => string | null | false | undefined
 }
 
-type InputProps = Omit<Els['input'], 'id' | 'name'> & BaseProps
-type RadioProps = Omit<InputProps, 'label'> & {
-  innerDivProps?: Els['div']
+export type InputProps = Omit<Parameters<typeof SInput>[0], 'id' | 'name'> & BaseProps
+export type CheckboxProps = Omit<InputProps, 'validator'>
+export type RadioProps = InputProps & {
+  innerDivProps?: Parameters<typeof Div>[0]
+  inputLabelProps?: Parameters<typeof Label>[0]
+  optionDivProps?: Parameters<typeof Div>[0]
   options: {label: string; value: string}[]
 }
-type SelectProps = Omit<Els['select'], 'id' | 'name'> &
+export type SelectProps = Omit<Parameters<typeof SSelect>[0], 'id' | 'name'> &
   BaseProps & {
     options: {label: string; value: string}[]
-    optionProps?: Els['option']
+    optionProps?: Parameters<typeof SOption>[0]
   }
-type TextareaProps = Omit<Els['textarea'], 'id' | 'name'> & BaseProps
+export type TextareaProps = Omit<Parameters<typeof STextarea>[0], 'id' | 'name'> & BaseProps
+
+/**
+ * used to track how recently we called input.reportValidity(). tracked so that
+ * we don't call it too often and steal focus from the first input in the form
+ */
+let lastReportValidity = 0
 
 /**
  * An input with type=checkbox and label and error handling
  */
-export const Checkbox = forwardRef(function Checkbox(
-  {
-    eagerValidate,
-    error: errorForwarded,
-    divProps,
-    label,
-    labelProps,
-    onBlur,
-    onChange,
-    validator,
-    ...inputProps
-  }: InputProps,
-  refForwarded
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+  {error: forwardedError, divProps, label, labelProps, onBlur, onChange, ...inputProps},
+  forwardedRef
 ) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [errorLocal, setErrorLocal] = useState<string | null | undefined>(errorForwarded)
-  const [hasBlurred, setHasBlurred] = useState(false)
+  const [shouldShowError, setShouldShowError] = useState(false)
+  const [localError, setLocalError] = useState<string | null | undefined>(forwardedError)
+
   const onValidate = () => {
     const input = inputRef.current
-    if (input && validator) {
-      input.error = validator(input.value)
-      setErrorLocal(input.error)
-    }
+    if (!input) return
+    setLocalError(inputProps.required && !input.checked ? 'You must check this box.' : null)
   }
 
   useEffect(() => {
     onValidate()
-  }, [])
+  }, [inputProps.value])
+
   useEffect(() => {
-    if (errorForwarded) {
-      const input = inputRef.current
-      if (input) {
-        input.error = errorForwarded
-      }
+    const input = inputRef.current
+    if (!input) return
+    input.error = localError
+  }, [localError])
+
+  useEffect(() => {
+    if (forwardedError) {
+      setLocalError(forwardedError)
     }
-    setErrorLocal(errorForwarded)
-  }, [errorForwarded])
+  }, [forwardedError])
+
+  useEffect(() => {
+    const form = inputRef.current?.closest('form')
+    if (!form) return
+
+    const onSubmit = () => {
+      setShouldShowError(true)
+    }
+    form.addEventListener('submit', onSubmit)
+    inputRef.current?.addEventListener('invalid', onSubmit)
+
+    const onReset = () => {
+      setShouldShowError(false)
+      const error = inputProps.required && !inputProps.checked ? 'You must select an option.' : null
+      setLocalError(error)
+    }
+    form.addEventListener('reset', onReset)
+
+    return () => {
+      form.removeEventListener('submit', onSubmit)
+      inputRef.current?.removeEventListener('invalid', onSubmit)
+      form.removeEventListener('reset', onReset)
+    }
+  }, [])
 
   return (
     <Div
       {...divProps}
-      data-error={!!errorLocal}
+      data-error={shouldShowError && !!localError}
       className={classJoin('checkbox-div', divProps?.className)}
     >
-      <input
+      <SInput
         id={inputProps.name}
         onChange={e => {
           onValidate()
@@ -82,17 +110,17 @@ export const Checkbox = forwardRef(function Checkbox(
         }}
         onBlur={e => {
           onValidate()
-          setHasBlurred(true)
           onBlur?.(e as TSFIXME)
         }}
-        ref={mergeRefs([inputRef, refForwarded])}
+        ref={mergeRefs([inputRef, forwardedRef])}
         type="checkbox"
         {...inputProps}
       />
-      <label {...labelProps} htmlFor={inputProps.name}>
+      <Label {...labelProps} htmlFor={inputProps.name}>
         {label}
-      </label>
-      <GenericError error={(eagerValidate || hasBlurred) && errorLocal} style={{marginBottom: 0}} />
+        <RequiredAsterisk show={inputProps.required} />
+      </Label>
+      <GenericError error={localError} style={{marginBottom: 0}} />
     </Div>
   )
 })
@@ -103,197 +131,441 @@ export const Checkbox = forwardRef(function Checkbox(
 export function GenericError({
   error,
   ...divProps
-}: Parameters<typeof Div>[0] & {error?: string | false | null}) {
-  return error ? (
-    <Div {...divProps} className="small generic-error">
+}: Parameters<typeof Div>[0] & {error: string | false | null | undefined}) {
+  return (
+    <Div
+      aria-live="assertive"
+      {...divProps}
+      className={classJoin('small generic-error', divProps.className)}
+      title="error"
+    >
       {error}
     </Div>
-  ) : null
+  )
 }
 
 /**
  * An input with label, error, and validation handling
  */
-export const Input = forwardRef(function Input(
-  {
-    eagerValidate,
-    error: errorForwarded,
-    divProps,
-    label,
-    labelProps,
-    onBlur,
-    onChange,
-    validator,
-    ...inputProps
-  }: InputProps,
-  refForwarded
-) {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [errorLocal, setErrorLocal] = useState<string | null | undefined>(errorForwarded)
-  const [hasBlurred, setHasBlurred] = useState(false)
-  const onValidate = () => {
-    const input = inputRef.current
-    if (input && validator) {
-      input.error = validator(input.value)
-      setErrorLocal(input.error)
-    }
-  }
+export const Input = memo(
+  forwardRef<HTMLInputElement, InputProps>(function Input(
+    {divProps, label, labelProps, onBlur, onChange, validator, ...inputProps},
+    forwardedRef
+  ) {
+    const divRef = useRef<HTMLDivElement>(null)
+    console.log('render')
 
-  useEffect(() => {
-    onValidate()
-  }, [])
-  useEffect(() => {
-    if (errorForwarded) {
-      const input = inputRef.current
-      if (input) {
-        input.error = errorForwarded
+    const onValidate = () => {
+      const div = divRef.current
+      const input = div?.querySelector('input')
+      const error = div?.querySelector('.error')
+      if (!(div && input && error)) return
+      input.setCustomValidity('')
+      let nextError
+      if (input.validationMessage) {
+        nextError = input.validationMessage
+      } else if (validator) {
+        nextError = validator(input.value)
+      }
+      input.setCustomValidity(nextError || '')
+      error.innerHTML = nextError || ''
+      if (!nextError) {
+        div.classList.remove('show-error')
       }
     }
-    setErrorLocal(errorForwarded)
-  }, [errorForwarded])
 
-  return (
-    <Div
-      {...divProps}
-      className={classJoin('input-div', divProps?.className)}
-      data-error={!!errorLocal}
-      data-disabled={inputProps.disabled}
-    >
-      <label {...labelProps} htmlFor={inputProps.name}>
-        {label}
-      </label>
-      <input
-        id={inputProps.name}
-        onChange={e => {
-          onValidate()
-          onChange?.(e)
-        }}
-        onBlur={e => {
-          onValidate()
-          setHasBlurred(true)
-          onBlur?.(e)
-        }}
-        ref={mergeRefs([inputRef, refForwarded])}
-        {...inputProps}
-      />
-      <GenericError error={(eagerValidate || hasBlurred) && errorLocal} style={{marginBottom: 0}} />
-    </Div>
-  )
-})
+    useEffect(() => {
+      onValidate()
+    }, [inputProps.value])
+
+    useEffect(() => {
+      const div = divRef.current
+      const input = div?.querySelector('input')
+      const error = div?.querySelector('.error')
+      const form = input?.closest('form')
+      if (!(div && input && error && form)) return
+
+      const onSubmit = () => {
+        // setTimeout to allow validation to run
+        setTimeout(() => {
+          error.innerHTML = input.validationMessage
+          // if the input is invalid, report validity to show the browser's validation UI
+          // but only do it once per second to ensure the first input in the form is focused
+          if (input.validationMessage && Date.now() - lastReportValidity > 1000) {
+            input.reportValidity()
+            lastReportValidity = Date.now()
+          }
+          if (input.validationMessage) {
+            div.classList.add('show-error')
+          } else {
+            div.classList.remove('show-error')
+          }
+        })
+      }
+      form.addEventListener('submit', onSubmit)
+
+      const onInvalid = () => {
+        // setTimeout to allow validation to run
+        setTimeout(() => {
+          error.innerHTML = input.validationMessage
+          div.classList.add('show-error')
+        })
+      }
+      input.addEventListener('invalid', onInvalid)
+
+      const onReset = () => {
+        div.classList.remove('show-error')
+        onValidate()
+      }
+      form.addEventListener('reset', onReset)
+
+      return () => {
+        form.removeEventListener('submit', onSubmit)
+        input.removeEventListener('invalid', onSubmit)
+        form.removeEventListener('reset', onReset)
+      }
+    }, [])
+
+    return (
+      <Div {...divProps} className={classJoin('input-div', divProps?.className)} ref={divRef}>
+        <Label {...labelProps} htmlFor={inputProps.name}>
+          {label}
+          <RequiredAsterisk show={inputProps.required} />
+        </Label>
+        <SInput
+          id={inputProps.name}
+          onChange={e => {
+            onChange?.(e)
+            onValidate()
+          }}
+          onBlur={e => {
+            onBlur?.(e)
+            if (e.currentTarget.validationMessage) {
+              divRef.current?.classList.add('show-error')
+            }
+          }}
+          ref={forwardedRef}
+          {...inputProps}
+        />
+        <div aria-live="assertive" className="small error" title="error" />
+      </Div>
+    )
+  })
+)
 
 /**
  * A set of radio inputs with label and error handling
  */
-export function Radios({
-  divProps,
-  innerDivProps,
-  error,
-  labelProps,
-  options,
-  ...inputProps
-}: RadioProps) {
+export const Radios = forwardRef<HTMLDivElement, RadioProps>(function Radios(
+  {
+    defaultValue,
+    divProps,
+    error: forwardedError,
+    innerDivProps,
+    inputLabelProps,
+    label,
+    labelProps,
+    onChange,
+    optionDivProps,
+    options,
+    value: forwardedVal = defaultValue,
+    ...inputProps
+  },
+  forwardedRef
+) {
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [shouldShowError, setShouldShowError] = useState(false)
+  const [localError, setLocalError] = useState<string | null | undefined>(
+    inputProps.required && !forwardedVal ? 'Please fill out this field.' : null
+  )
+
+  const getInputs = () => {
+    const div = wrapperRef.current
+    if (!div) return []
+    return Array.from(div.querySelectorAll('input'))
+  }
+
+  useEffect(() => {
+    const error = inputProps.required && !forwardedVal ? 'Please fill out this field.' : null
+    // setLocalError in Input too
+    setLocalError(error)
+    for (const input of getInputs()) {
+      input.checked = input.value === forwardedVal
+    }
+  }, [forwardedVal])
+
+  useEffect(() => {
+    for (const input of getInputs()) {
+      input.error = localError
+    }
+  }, [localError])
+
+  useEffect(() => {
+    if (forwardedError) {
+      setLocalError(forwardedError)
+    }
+  }, [forwardedError])
+
+  useEffect(() => {
+    const form = wrapperRef.current?.closest('form')
+    if (!form) return
+
+    const onSubmit = () => {
+      setShouldShowError(true)
+    }
+    form.addEventListener('submit', onSubmit)
+    getInputs()[0].addEventListener('invalid', onSubmit)
+
+    const onReset = () => {
+      setShouldShowError(false)
+      const error = inputProps.required && !forwardedVal ? 'Please fill out this field.' : null
+      setLocalError(error)
+    }
+    form.addEventListener('reset', onReset)
+
+    return () => {
+      form.removeEventListener('submit', onSubmit)
+      getInputs()[0].removeEventListener('invalid', onSubmit)
+      form.removeEventListener('reset', onReset)
+    }
+  }, [])
+
   return (
     <Div
       {...divProps}
-      data-error={!!error}
-      className={classJoin('checkbox-div', divProps?.className)}
+      data-error={shouldShowError && !!localError}
+      className={classJoin('radio-div', divProps?.className)}
+      ref={mergeRefs([forwardedRef, wrapperRef])}
     >
-      {options.map(({label, value}, i) => (
-        <div key={i} {...innerDivProps}>
-          <input {...inputProps} id={value} value={value} type="radio" />
-          <label {...labelProps} htmlFor={value}>
-            {label}
-          </label>
-        </div>
-      ))}
-      <GenericError error={error} style={{marginBottom: 0}} />
+      <Label {...labelProps}>
+        {label}
+        <RequiredAsterisk show={inputProps.required} />
+      </Label>
+      <Div {...innerDivProps}>
+        {options.map(({label: oLabel, value: oValue}, i) => (
+          <Div key={i} {...optionDivProps}>
+            <SInput
+              id={oValue}
+              // Using onClick instead of onChange bc is unreliable after a form reset
+              onClick={e => {
+                setLocalError(null)
+                setShouldShowError(true)
+                onChange?.(e as unknown as React.ChangeEvent<HTMLInputElement>)
+              }}
+              type="radio"
+              value={oValue}
+              {...inputProps}
+            />
+            <Label {...inputLabelProps} htmlFor={oValue}>
+              {oLabel}
+            </Label>
+          </Div>
+        ))}
+      </Div>
+      <GenericError error={shouldShowError && localError} style={{marginBottom: 0}} />
     </Div>
   )
-}
+})
 
 /**
  * A select wrapper with label and error handling
  */
-export function Select({
-  divProps,
-  error,
-  label,
-  labelProps,
-  options,
-  optionProps,
-  ...selectProps
-}: SelectProps) {
-  return (
-    <Div
-      {...divProps}
-      data-error={!!error}
-      className={classJoin('select-div', divProps?.className)}
-    >
-      <label {...labelProps}>{label}</label>
-      <select {...selectProps}>
-        {options.map(({label, value}, i) => (
-          <option {...optionProps} key={i} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
-      <GenericError error={error} style={{marginBottom: 0}} />
-    </Div>
-  )
-}
-
-/**
- * An textarea with label and error handling
- */
-export const Textarea = forwardRef(function Textarea(
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   {
-    eagerValidate,
-    error: errorForwarded,
+    defaultValue,
     divProps,
+    error: forwardedError,
     label,
     labelProps,
     onBlur,
     onChange,
-    validator,
-    ...inputProps
-  }: TextareaProps,
-  refForwarded
+    options,
+    optionProps,
+    value: forwardedVal = defaultValue,
+    ...selectProps
+  },
+  forwardedRef
 ) {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [errorLocal, setErrorLocal] = useState<string | null | undefined>(errorForwarded)
-  const [hasBlurred, setHasBlurred] = useState(false)
+  // TODO: support validator
+  // TODO: support min/max selection
+  const selectRef = useRef<HTMLSelectElement>(null)
+  const [shouldShowError, setShouldShowError] = useState(false)
+  const [localError, setLocalError] = useState<string | null | undefined>(
+    selectProps.required && (Array.isArray(forwardedVal) ? !forwardedVal.length : !forwardedVal)
+      ? 'Please fill out this field.'
+      : null
+  )
+
+  const getOptions = () => {
+    const div = selectRef.current
+    if (!div) return []
+    return Array.from(div.querySelectorAll('option'))
+  }
+
+  useEffect(() => {
+    const error =
+      selectProps.required && (Array.isArray(forwardedVal) ? !forwardedVal.length : !forwardedVal)
+        ? 'Please fill out this field.'
+        : null
+    setLocalError(error)
+    for (const option of getOptions()) {
+      option.selected = Array.isArray(forwardedVal)
+        ? forwardedVal.includes(option.value)
+        : option.value === forwardedVal
+    }
+  }, [forwardedVal])
+
+  useEffect(() => {
+    const select = selectRef.current
+    if (!select) return
+    select.error = localError
+  }, [localError])
+
+  useEffect(() => {
+    if (forwardedError) {
+      setLocalError(forwardedError)
+    }
+  }, [forwardedError])
+
+  useEffect(() => {
+    const form = selectRef.current?.closest('form')
+    if (!form) return
+
+    const onSubmit = () => {
+      setShouldShowError(true)
+    }
+    form.addEventListener('submit', onSubmit)
+    selectRef.current?.addEventListener('invalid', onSubmit)
+
+    const onReset = () => {
+      setShouldShowError(false)
+      const error =
+        selectProps.required && (Array.isArray(forwardedVal) ? !forwardedVal.length : !forwardedVal)
+          ? 'Please fill out this field.'
+          : null
+      setLocalError(error)
+    }
+    form.addEventListener('reset', onReset)
+
+    return () => {
+      form.removeEventListener('submit', onSubmit)
+      selectRef.current?.removeEventListener('invalid', onSubmit)
+      form.removeEventListener('reset', onReset)
+    }
+  }, [])
+
+  return (
+    <Div
+      {...divProps}
+      data-error={shouldShowError && !!localError}
+      className={classJoin('select-div', divProps?.className)}
+    >
+      <Label {...labelProps}>
+        {label}
+        <RequiredAsterisk show={selectProps.required} />
+      </Label>
+      <SSelect
+        {...selectProps}
+        onChange={e => {
+          const checked = getOptions().filter(o => o.selected)
+          const error =
+            selectProps.required && !checked.length ? 'Please fill out this field.' : null
+          setLocalError(error)
+          setShouldShowError(true)
+          onChange?.(e)
+        }}
+        onBlur={e => {
+          const checked = getOptions().filter(o => o.selected)
+          const error =
+            selectProps.required && !checked.length ? 'Please fill out this field.' : null
+          setLocalError(error)
+          setShouldShowError(true)
+          onBlur?.(e as TSFIXME)
+        }}
+        ref={mergeRefs([forwardedRef, selectRef])}
+      >
+        {options.map(({label, value}, i) => (
+          <option {...optionProps} key={i} id={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </SSelect>
+      <div className="tip only-mac">Tip: Hold ⌘ while clicking to select multiple.</div>
+      <div className="tip not-mac not-ios">Tip: Hold 'ctrl' while clicking to select multiple.</div>
+      <GenericError error={shouldShowError && localError} style={{marginBottom: 0}} />
+    </Div>
+  )
+})
+
+/**
+ * An textarea with label and error handling
+ */
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
+  {divProps, label, labelProps, onBlur, onChange, validator, ...inputProps}: TextareaProps,
+  forwardedRef
+) {
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+  const [localError, setLocalError] = useState<string | null | undefined>()
+  const [shouldShowError, setShouldShowError] = useState(false)
+
   const onValidate = () => {
     const input = inputRef.current
-    if (input && validator) {
-      input.error = validator(input.value)
-      setErrorLocal(input.error)
+    if (!input) return
+    if (inputProps.required && !input.value) {
+      setLocalError('Please fill out this field.')
+    } else if (validator) {
+      setLocalError(validator(input.value) || null)
+    } else {
+      setLocalError(null)
     }
   }
 
   useEffect(() => {
     onValidate()
-  }, [])
+  }, [inputProps.value])
+
   useEffect(() => {
-    if (errorForwarded) {
-      const input = inputRef.current
-      if (input) {
-        input.error = errorForwarded
-      }
+    const input = inputRef.current
+    if (!input) return
+    input.error = localError
+  }, [localError])
+
+  useEffect(() => {
+    const form = inputRef.current?.closest('form')
+    if (!form) return
+
+    const onSubmit = () => {
+      setShouldShowError(true)
     }
-    setErrorLocal(errorForwarded)
-  }, [errorForwarded])
+    form.addEventListener('submit', onSubmit)
+    inputRef.current?.addEventListener('invalid', onSubmit)
+
+    const onReset = () => {
+      setShouldShowError(false)
+      const error = inputProps.required && !inputProps.value ? 'Please fill out this field.' : null
+      setLocalError(forwardedError || error)
+    }
+    form.addEventListener('reset', onReset)
+
+    return () => {
+      form.removeEventListener('submit', onSubmit)
+      inputRef.current?.removeEventListener('invalid', onSubmit)
+      form.removeEventListener('reset', onReset)
+    }
+  }, [])
 
   return (
     <Div
       {...divProps}
       className={classJoin('input-div', divProps?.className)}
-      data-error={!!errorLocal}
+      data-error={shouldShowError && !!localError}
       data-disabled={inputProps.disabled}
     >
-      <label {...labelProps} htmlFor={inputProps.name}>
+      <Label {...labelProps} htmlFor={inputProps.name}>
         {label}
-      </label>
-      <textarea
+        <RequiredAsterisk show={inputProps.required} />
+      </Label>
+      <STextarea
         id={inputProps.name}
         onChange={e => {
           onValidate()
@@ -301,13 +573,17 @@ export const Textarea = forwardRef(function Textarea(
         }}
         onBlur={e => {
           onValidate()
-          setHasBlurred(true)
+          setShouldShowError(true)
           onBlur?.(e)
         }}
-        ref={mergeRefs([inputRef, refForwarded])}
+        ref={mergeRefs([inputRef, forwardedRef])}
         {...inputProps}
       />
-      <GenericError error={(eagerValidate || hasBlurred) && errorLocal} style={{marginBottom: 0}} />
+      <GenericError error={shouldShowError && localError} style={{marginBottom: 0}} />
     </Div>
   )
 })
+
+function RequiredAsterisk({show = false}) {
+  return show ? <span style={{color: 'red'}}>*</span> : null
+}

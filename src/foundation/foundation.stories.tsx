@@ -1,12 +1,11 @@
 import './foundation.stories.pcss'
 
-import {FormError, useForm} from '@slimr/react'
-import {formToValues} from '@slimr/util'
-
 import {Card} from './cards'
-import {Checkbox, GenericError, Input, Radios, Select, Textarea} from './forms'
+import {Checkbox, GenericError, Input, InputProps, Radios, Select, Textarea} from './forms'
 import {Icon, IconKeys, icons} from './icons'
 import {toast} from './toasts'
+// import {useForm} from '@slimr/react'
+import {FormError, useForm} from './useForm'
 
 export const ButtonSizes = () => (
   <>
@@ -92,147 +91,129 @@ Colors.names = [
 
 export const FormCheckbox = () => {
   const {Form, submitting, accepted, errors} = useForm()
-
   return (
-    <Form
-      onSubmit={async e => {
-        const vals = formToValues(e.target as HTMLFormElement)
-        const errors: Record<string, string> = {}
-        if (!vals.terms) {
-          errors.terms = 'You must agree to the terms'
-        }
-        if (Object.keys(errors).length) {
-          throw new FormError(errors)
-        }
-      }}
-    >
-      <Checkbox
-        label="Do you agree to the terms?"
-        name="terms"
-        disabled={accepted}
-        error={errors.terms}
-      />
-      <GenericError error={errors.form} />
-      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
-      <button className="left" disabled={submitting} type="submit">
-        Submit
-      </button>
-      <button className="tertiary right" disabled={submitting} type="reset">
-        Reset
-      </button>
+    <Form>
+      <Checkbox error={errors['terms']} label="Do you agree to the terms?" name="terms" required />
+      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
     </Form>
   )
 }
 
-export const FormExternalReset = () => {
-  const formRef = useRef<HTMLFormElement>(null)
+const FormFooter = ({
+  accepted,
+  errors,
+  submitting,
+}: {
+  accepted: boolean
+  errors: Record<string, string>
+  submitting: boolean
+}) => (
+  <>
+    <GenericError error={errors.form} />
+    <button className="left" type="submit">
+      {accepted ? 'Success!' : submitting ? 'Submitting...' : 'Submit'}
+    </button>
+    <button className="tertiary right" disabled={submitting} type="reset">
+      Reset
+    </button>
+  </>
+)
+
+const FormInput = ({type = 'text', ...inputProps}: Omit<InputProps, 'label' | 'name' | 'ref'>) => {
   const {Form, submitting, accepted, errors} = useForm()
-
-  useEffect(() => {
-    if (accepted) {
-      setTimeout(() => {
-        formRef.current?.reset()
-      }, 5000)
-    }
-  }, [accepted])
-
   return (
-    <Form
-      onSubmit={async e => {
-        const vals = formToValues(e.target as HTMLFormElement)
-        const errors: Record<string, string> = {}
-        if (!vals.text1) {
-          errors.text1 = 'Text is required'
-        }
-        if (Object.keys(errors).length) {
-          throw new FormError(errors)
-        }
-      }}
-      ref={formRef}
-    >
-      <Input label="Text1" name="text1" disabled={accepted} error={errors.text1} />
-      <GenericError error={errors.form} />
-      {accepted && (
-        <p style={{color: 'var(--color-success)'}}>Success! Form will reset in 5 seconds...</p>
-      )}
-      <button className="left" disabled={submitting} type="submit">
-        Submit
-      </button>
-      <button className="tertiary right" disabled={submitting} type="reset">
-        Reset
-      </button>
-    </Form>
-  )
-}
-
-const FormInput = ({type = 'text'}: {type: string}) => {
-  const {Form, submitting, accepted, errors} = useForm()
-
-  return (
-    <Form
-      onSubmit={async e => {
-        const vals = formToValues(e.target as HTMLFormElement)
-        const errors: Record<string, string> = {}
-        if (!vals.text1) {
-          errors.text1 = 'Text is required'
-        }
-        if (Object.keys(errors).length) {
-          throw new FormError(errors)
-        }
-      }}
-    >
-      <Input label={type} name="text1" type={type} disabled={accepted} error={errors.text1} />
-      <GenericError error={errors.form} />
-      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
-      <button className="left" disabled={submitting} type="submit">
-        Submit
-      </button>
-      <button className="tertiary right" disabled={submitting} type="reset">
-        Reset
-      </button>
+    <Form>
+      <Input label={type} name="field1" type={type} required {...inputProps} />
+      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
     </Form>
   )
 }
 
 export const FormInputDate = () => <FormInput type="date" />
 export const FormInputNumber = () => <FormInput type="number" />
-export const FormInputText = () => <FormInput type="text" />
+export const FormInputText = () => (
+  <FormInput
+    minLength={2}
+    maxLength={5}
+    type="text"
+    validator={str => str === 'na' && '"na" is banned'}
+  />
+)
 
-export const FormRadios = () => {
+export const FormKitchenSink = () => {
   const {Form, submitting, accepted, errors} = useForm()
-
   return (
-    <Form
-      onSubmit={async e => {
-        const vals = formToValues(e.target as HTMLFormElement)
-        console.log(vals)
-        const errors: Record<string, string> = {}
-        if (!vals.radio1) {
-          errors.radio1 = 'You must choose a radio choice'
-        }
-        if (Object.keys(errors).length) {
-          throw new FormError(errors)
-        }
-      }}
-    >
+    <Form>
+      <Checkbox error={errors['terms']} label="Do you agree to the terms?" name="terms" required />
+      {['date', 'number', 'text', 'tel', 'email', 'url', 'password', 'search', 'color'].map(
+        type => (
+          <Input error={errors[type]} key={type} label={type} name={type} type={type} required />
+        )
+      )}
       <Radios
+        error={errors['radio1']}
+        label="Radios"
         name="radio1"
         options={[
           {label: 'Choice 1', value: 'choice1'},
           {label: 'Choice 2', value: 'choice2'},
           {label: 'Choice 3', value: 'choice3'},
         ]}
-        disabled={accepted}
-        error={errors.radio1}
+        required
       />
-      <GenericError error={errors.form} />
-      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
-      <button className="left" disabled={submitting} type="submit">
-        Submit
-      </button>
-      <button className="tertiary right" disabled={submitting} type="reset">
-        Reset
-      </button>
+      <Select
+        error={errors['select1']}
+        label={'Select Single'}
+        name="select1"
+        options={[
+          {label: '--', value: ''},
+          {label: 'Choice 1', value: 'choice1'},
+          {label: 'Choice 2', value: 'choice2'},
+          {label: 'Choice 3', value: 'choice3'},
+        ]}
+        required
+      />
+      <Select
+        error={errors['select2']}
+        label={'Select multiple'}
+        multiple
+        name="select2"
+        options={[
+          {label: 'Choice 1', value: 'choice1'},
+          {label: 'Choice 2', value: 'choice2'},
+          {label: 'Choice 3', value: 'choice3'},
+        ]}
+        required
+      />
+      <Textarea
+        disabled={accepted}
+        error={errors['field1']}
+        label="Textarea"
+        name="field1"
+        required
+      />
+      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
+    </Form>
+  )
+}
+
+export const FormRadios = () => {
+  const {Form, submitting, accepted, errors} = useForm()
+
+  return (
+    <Form>
+      <Radios
+        error={errors['radio1']}
+        label="Radios"
+        name="radio1"
+        options={[
+          {label: 'Choice 1', value: 'choice1'},
+          {label: 'Choice 2', value: 'choice2'},
+          {label: 'Choice 3', value: 'choice3'},
+        ]}
+        required
+      />
+      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
     </Form>
   )
 }
@@ -242,40 +223,21 @@ const FormSelect = ({multiple}: {multiple: boolean}) => {
   const {Form, submitting, accepted, errors} = useForm()
 
   return (
-    <Form
-      onSubmit={async e => {
-        const vals = formToValues(e.target as HTMLFormElement)
-        console.log(vals)
-        const errors: Record<string, string> = {}
-        if (!vals.select1) {
-          errors.select1 = 'You must choose a radio choice'
-        }
-        if (Object.keys(errors).length) {
-          throw new FormError(errors)
-        }
-      }}
-    >
+    <Form>
       <Select
+        error={errors['select1']}
         label={multiple ? 'Select multiple' : 'Select Single'}
-        name="select1"
         multiple={multiple ? true : undefined}
+        name="select1"
         options={[
           ...(multiple ? [] : [{label: '--', value: ''}]),
           {label: 'Choice 1', value: 'choice1'},
           {label: 'Choice 2', value: 'choice2'},
           {label: 'Choice 3', value: 'choice3'},
         ]}
-        disabled={accepted}
-        error={errors.select1}
+        required
       />
-      <GenericError error={errors.form} />
-      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
-      <button className="left" disabled={submitting} type="submit">
-        Submit
-      </button>
-      <button className="tertiary right" disabled={submitting} type="reset">
-        Reset
-      </button>
+      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
     </Form>
   )
 }
@@ -283,31 +245,42 @@ const FormSelect = ({multiple}: {multiple: boolean}) => {
 export const FormSelectSingle = () => <FormSelect multiple={false} />
 export const FormSelectMultiple = () => <FormSelect multiple={true} />
 
+export const FormServerError = ({
+  type = 'text',
+  ...inputProps
+}: Omit<InputProps, 'label' | 'name' | 'ref'>) => {
+  const {Form, submitting, accepted, errors} = useForm()
+  return (
+    <Form
+      onSubmit={(_, vals) => {
+        if (vals['field1'] === 'bad') {
+          throw new FormError({
+            form: 'Please correct the error in field1 and re-submit.',
+            field1: "'bad' is not allowed",
+          })
+        }
+      }}
+    >
+      <Input label={type} name="field1" type={type} required {...inputProps} />
+      <Input label={type} name="field2" type={type} required {...inputProps} />
+      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
+    </Form>
+  )
+}
+
 export const FormTextarea = () => {
   const {Form, submitting, accepted, errors} = useForm()
 
   return (
-    <Form
-      onSubmit={async e => {
-        const vals = formToValues(e.target as HTMLFormElement)
-        const errors: Record<string, string> = {}
-        if (!vals.text1) {
-          errors.text1 = 'Text is required'
-        }
-        if (Object.keys(errors).length) {
-          throw new FormError(errors)
-        }
-      }}
-    >
-      <Textarea label="Textarea" name="text1" disabled={accepted} error={errors.text1} />
-      <GenericError error={errors.form} />
-      {accepted && <p style={{color: 'var(--color-success)'}}>Form submitted without error.</p>}
-      <button className="left" disabled={submitting} type="submit">
-        Submit
-      </button>
-      <button className="tertiary right" disabled={submitting} type="reset">
-        Reset
-      </button>
+    <Form>
+      <Textarea
+        disabled={accepted}
+        error={errors['field1']}
+        label="Textarea"
+        name="field1"
+        required
+      />
+      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
     </Form>
   )
 }

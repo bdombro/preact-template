@@ -32,14 +32,15 @@
     position: absolute;
     top: -8px;
   }
-
-  &[data-disabled='true'] {
-    > label {
-      color: var(--input-border-color);
-    }
+  > .error {
+    display: none;
   }
 
-  &[data-error='true'] {
+  label:has(+ input:disabled) {
+    color: var(--input-border-color);
+  }
+
+  &.show-error {
     > label {
       color: var(--color-danger);
     }
@@ -47,7 +48,37 @@
     > textarea {
       border-color: var(--color-danger);
     }
+    > .error {
+      color: red;
+      color: var(--color-danger);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
   }
+}
+
+.radio-div {
+  margin-bottom: 1rem;
+  > label {
+    display: block;
+    margin-bottom: .3rem;
+  }
+  /* fieldset? */
+  > div:first-of-type {
+    margin-bottom: .3rem;
+    /* Radios share the checkbox class and have an inner div */
+    > div {
+      margin-bottom: .4em;
+      margin-top: .4em;
+    }
+  }
+    
+  &[data-error='true'] > div:first-of-type {
+    outline: 1px solid var(--color-danger);
+    padding-bottom: .2rem;
+    padding-top: .2rem;
+  }
+
 }
 
 .select-div {
@@ -55,6 +86,14 @@
   > label {
     display: block;
     margin-bottom: 0.3rem;
+  }
+  > .tip {
+    color: var(--color-gray8);
+    font-size: var(--step--2);
+    margin-bottom: 0.3rem;
+  }
+  > .generic-error {
+    display: none;
   }
 
   &[data-disabled='true'] {
@@ -70,5 +109,10 @@
     > select {
       border-color: var(--color-danger);
     }
+  }
+}
+.os-mac,.os-linux,.os-windows {
+  .select-div {
+    margin-bottom: 1.6rem;
   }
 }
