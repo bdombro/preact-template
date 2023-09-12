@@ -1,11 +1,11 @@
 import './foundation.stories.pcss'
 
+import {SForm, SFormError, useSFormContext} from '@slimr/react'
+
 import {Card} from './cards'
-import {Checkbox, GenericError, Input, InputProps, Radios, Select, Textarea} from './forms'
+import {GenericError, InputBox, InputBoxProps, RadioBox, SelectBox, TextareaBox} from './forms'
 import {Icon, IconKeys, icons} from './icons'
 import {toast} from './toasts'
-// import {useForm} from '@slimr/react'
-import {FormError, useForm} from './useForm'
 
 export const ButtonSizes = () => (
   <>
@@ -89,46 +89,42 @@ Colors.names = [
   'black',
 ]
 
-export const FormCheckbox = () => {
-  const {Form, submitting, accepted, errors} = useForm()
+function RenderCheck() {
+  console.log('render-count:' + ++renderCount)
+  return null
+}
+let renderCount = 0
+
+const FormFooter = () => {
+  const {submitting, accepted, rejected} = useSFormContext()
+
   return (
-    <Form>
-      <Checkbox error={errors['terms']} label="Do you agree to the terms?" name="terms" required />
-      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
-    </Form>
+    <>
+      <GenericError error={rejected && 'Issues found. Please correct and retry.'} />
+      <button className="left" type="submit">
+        {accepted ? 'Success!' : submitting ? 'Submitting...' : 'Submit'}
+      </button>
+      <button className="tertiary right" disabled={submitting} type="reset">
+        Reset
+      </button>
+    </>
   )
 }
 
-const FormFooter = ({
-  accepted,
-  errors,
-  submitting,
-}: {
-  accepted: boolean
-  errors: Record<string, string>
-  submitting: boolean
-}) => (
-  <>
-    <GenericError error={errors.form} />
-    <button className="left" type="submit">
-      {accepted ? 'Success!' : submitting ? 'Submitting...' : 'Submit'}
-    </button>
-    <button className="tertiary right" disabled={submitting} type="reset">
-      Reset
-    </button>
-  </>
-)
-
-const FormInput = ({type = 'text', ...inputProps}: Omit<InputProps, 'label' | 'name' | 'ref'>) => {
-  const {Form, submitting, accepted, errors} = useForm()
+const FormInput = ({
+  type = 'text',
+  ...inputProps
+}: Omit<InputBoxProps, 'label' | 'name' | 'ref'>) => {
   return (
-    <Form>
-      <Input label={type} name="field1" type={type} required {...inputProps} />
-      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
-    </Form>
+    <SForm>
+      <InputBox label={type} name="field1" type={type} required {...inputProps} />
+      <FormFooter />
+      <RenderCheck />
+    </SForm>
   )
 }
 
+export const FormInputCheckbox = () => <FormInput type="checkbox" />
 export const FormInputDate = () => <FormInput type="date" />
 export const FormInputNumber = () => <FormInput type="number" />
 export const FormInputText = () => (
@@ -141,17 +137,24 @@ export const FormInputText = () => (
 )
 
 export const FormKitchenSink = () => {
-  const {Form, submitting, accepted, errors} = useForm()
   return (
-    <Form>
-      <Checkbox error={errors['terms']} label="Do you agree to the terms?" name="terms" required />
-      {['date', 'number', 'text', 'tel', 'email', 'url', 'password', 'search', 'color'].map(
-        type => (
-          <Input error={errors[type]} key={type} label={type} name={type} type={type} required />
-        )
-      )}
-      <Radios
-        error={errors['radio1']}
+    <SForm onSubmit={(_, vals) => console.log(vals)}>
+      {[
+        'checkbox',
+        'color',
+        'date',
+        'email',
+        'number',
+        'password',
+        'search',
+        'text',
+        'textarea',
+        'tel',
+        'url',
+      ].map(type => (
+        <InputBox key={type} label={type} name={type} type={type} required />
+      ))}
+      <RadioBox
         label="Radios"
         name="radio1"
         options={[
@@ -161,8 +164,7 @@ export const FormKitchenSink = () => {
         ]}
         required
       />
-      <Select
-        error={errors['select1']}
+      <SelectBox
         label={'Select Single'}
         name="select1"
         options={[
@@ -173,8 +175,7 @@ export const FormKitchenSink = () => {
         ]}
         required
       />
-      <Select
-        error={errors['select2']}
+      <SelectBox
         label={'Select multiple'}
         multiple
         name="select2"
@@ -185,25 +186,16 @@ export const FormKitchenSink = () => {
         ]}
         required
       />
-      <Textarea
-        disabled={accepted}
-        error={errors['field1']}
-        label="Textarea"
-        name="field1"
-        required
-      />
-      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
-    </Form>
+      <FormFooter />
+      <RenderCheck />
+    </SForm>
   )
 }
 
-export const FormRadios = () => {
-  const {Form, submitting, accepted, errors} = useForm()
-
+export const FormRadioBox = () => {
   return (
-    <Form>
-      <Radios
-        error={errors['radio1']}
+    <SForm>
+      <RadioBox
         label="Radios"
         name="radio1"
         options={[
@@ -213,19 +205,17 @@ export const FormRadios = () => {
         ]}
         required
       />
-      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
-    </Form>
+      <FormFooter />
+      <RenderCheck />
+    </SForm>
   )
 }
 
 // eslint-disable-next-line react/display-name
 const FormSelect = ({multiple}: {multiple: boolean}) => {
-  const {Form, submitting, accepted, errors} = useForm()
-
   return (
-    <Form>
-      <Select
-        error={errors['select1']}
+    <SForm>
+      <SelectBox
         label={multiple ? 'Select multiple' : 'Select Single'}
         multiple={multiple ? true : undefined}
         name="select1"
@@ -237,8 +227,9 @@ const FormSelect = ({multiple}: {multiple: boolean}) => {
         ]}
         required
       />
-      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
-    </Form>
+      <FormFooter />
+      <RenderCheck />
+    </SForm>
   )
 }
 
@@ -248,40 +239,32 @@ export const FormSelectMultiple = () => <FormSelect multiple={true} />
 export const FormServerError = ({
   type = 'text',
   ...inputProps
-}: Omit<InputProps, 'label' | 'name' | 'ref'>) => {
-  const {Form, submitting, accepted, errors} = useForm()
+}: Omit<InputBoxProps, 'label' | 'name' | 'ref'>) => {
   return (
-    <Form
+    <SForm
       onSubmit={(_, vals) => {
         if (vals['field1'] === 'bad') {
-          throw new FormError({
-            form: 'Please correct the error in field1 and re-submit.',
+          throw new SFormError({
             field1: "'bad' is not allowed",
           })
         }
       }}
     >
-      <Input label={type} name="field1" type={type} required {...inputProps} />
-      <Input label={type} name="field2" type={type} required {...inputProps} />
-      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
-    </Form>
+      <InputBox label={type} name="field1" type={type} required {...inputProps} />
+      <InputBox label={type} name="field2" type={type} required {...inputProps} />
+      <FormFooter />
+      <RenderCheck />
+    </SForm>
   )
 }
 
-export const FormTextarea = () => {
-  const {Form, submitting, accepted, errors} = useForm()
-
+export const FormTextareaBox = () => {
   return (
-    <Form>
-      <Textarea
-        disabled={accepted}
-        error={errors['field1']}
-        label="Textarea"
-        name="field1"
-        required
-      />
-      <FormFooter accepted={accepted} errors={errors} submitting={submitting} />
-    </Form>
+    <SForm>
+      <TextareaBox label="Textarea" name="field1" required />
+      <FormFooter />
+      <RenderCheck />
+    </SForm>
   )
 }
 

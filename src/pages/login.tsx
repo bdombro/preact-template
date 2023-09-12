@@ -1,16 +1,15 @@
-import {FormError, OnSubmit, useForm} from '@slimr/react'
+import {OnSubmit, SForm, SFormError, useSFormContext} from '@slimr/react'
 import {setPageMeta} from '@slimr/util'
 
-import {GenericError, Input} from '~/foundation'
+import {GenericError, InputBox} from '~/foundation'
 import {Layout} from '~/layout/layout-login'
 import {Logo} from '~/layout/logo'
 import {router as r} from '~/router'
 
 /**
- * A demo of a home page
+ * A demo of a login page
  */
 export default function Login() {
-  const {Form, accepted, errors, submitted, submitting} = useForm()
   setPageMeta({title: 'Login'})
 
   const onSubmit: OnSubmit = async (_, vals) => {
@@ -26,7 +25,7 @@ export default function Login() {
     }
 
     if (Object.keys(errors).length) {
-      throw new FormError(errors)
+      throw new SFormError(errors)
     }
 
     console.log('vals', vals)
@@ -39,34 +38,29 @@ export default function Login() {
         <a href={r.routes.index.path} title="go home">
           <Logo height={70} _mb={20} />
         </a>
-        <Form onSubmit={onSubmit}>
-          <Input
-            eagerValidate={submitted}
-            label="email"
-            name="email"
-            autoFocus
-            error={errors['email']}
-            type="email"
-            validator={str => (str.match(/.+@.+\..+/) ? null : 'Invalid email')}
-          />
-          <Input
-            eagerValidate={submitted}
-            label="password"
-            name="password"
-            error={errors['password']}
-            type="password"
-            validator={str => (str.length >= 2 ? null : 'Password must be at least 2 characters')}
-          />
+        <SForm onSubmit={onSubmit}>
+          <InputBox autoFocus label="email" name="email" required type="email" />
+          <InputBox label="password" name="password" required type="password" />
           <br />
-          <GenericError error={errors.form} />
-          <button className="md" style={{width: '100%'}} type="submit">
-            {accepted ? 'Success!' : submitting ? 'Submitting...' : 'Login'}
-          </button>
+          <FormFooter />
           <p className="small" style={{textAlign: 'center'}}>
             Click <a href={r.routes.login.path}>here</a> to register
           </p>
-        </Form>
+        </SForm>
       </Layout.Section>
     </Layout>
+  )
+}
+
+const FormFooter = () => {
+  const {submitting, accepted, rejected} = useSFormContext()
+
+  return (
+    <>
+      <GenericError error={rejected && 'Issues found. Please correct and retry.'} />
+      <button className="md" style={{width: '100%'}} type="submit">
+        {accepted ? 'Success!' : submitting ? 'Submitting...' : 'Login'}
+      </button>
+    </>
   )
 }

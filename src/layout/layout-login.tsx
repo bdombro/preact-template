@@ -16,7 +16,7 @@ Layout.Section = function LayoutSection({
 }: Parameters<typeof Section>[0] & {innerProps?: Parameters<typeof Div>[0]}) {
   return (
     <Section _p={16} {...outerProps}>
-      <Div _maxW={500} _mx="auto" {...innerProps}>
+      <Div _w={273} _mx="auto" {...innerProps}>
         {children}
       </Div>
     </Section>

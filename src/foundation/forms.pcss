@@ -1,15 +1,23 @@
 :root {
-  --input-border-color: var(--color-gray8);
+  --forms-disabled-color: var(--color-gray5);
 }
 .checkbox-div {
   margin-bottom: 1rem;
-  &[data-error='true'] input {
-    outline: 1px solid var(--color-danger);
+
+  > .error {
+    display: none;
   }
 
-  /* Radios share the checkbox class and have an inner div */
-  > div {
-    margin-bottom: 1em;
+  &.show-error {
+    > input {
+      outline: 1px solid var(--color-danger);
+    }
+    > .error {
+      color: red;
+      color: var(--color-danger);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
   }
 }
 
@@ -36,8 +44,11 @@
     display: none;
   }
 
-  label:has(+ input:disabled) {
-    color: var(--input-border-color);
+  input:disabled,
+  textarea:disabled,
+  label:has(+ input:disabled),
+  label:has(+ textarea:disabled) {
+    color: var(--forms-disabled-color);
   }
 
   &.show-error {
@@ -61,24 +72,40 @@
   margin-bottom: 1rem;
   > label {
     display: block;
-    margin-bottom: .3rem;
-  }
-  /* fieldset? */
-  > div:first-of-type {
-    margin-bottom: .3rem;
-    /* Radios share the checkbox class and have an inner div */
-    > div {
-      margin-bottom: .4em;
-      margin-top: .4em;
-    }
-  }
-    
-  &[data-error='true'] > div:first-of-type {
-    outline: 1px solid var(--color-danger);
-    padding-bottom: .2rem;
-    padding-top: .2rem;
+    margin-bottom: 0.3rem;
   }
 
+  > div:first-of-type {
+    margin-bottom: 0.3rem;
+    /* Radios share the checkbox class and have an inner div */
+    > div {
+      margin-bottom: 0.4em;
+      margin-top: 0.4em;
+    }
+  }
+
+  label:has(+ div input:disabled),
+  input:disabled + label {
+    color: var(--forms-disabled-color);
+  }
+
+  > .error {
+    display: none;
+  }
+
+  &.show-error {
+    > div:first-of-type {
+      outline: 1px solid var(--color-danger);
+      padding-bottom: 0.2rem;
+      padding-top: 0.2rem;
+    }
+    > .error {
+      color: red;
+      color: var(--color-danger);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+  }
 }
 
 .select-div {
@@ -92,26 +119,33 @@
     font-size: var(--step--2);
     margin-bottom: 0.3rem;
   }
-  > .generic-error {
+  > .error {
     display: none;
   }
 
-  &[data-disabled='true'] {
-    > label {
-      color: var(--color-gray5);
-    }
+  label:has(+ select:disabled),
+  select:disabled {
+    color: var(--forms-disabled-color);
   }
 
-  &[data-error='true'] {
+  &.show-error {
     > label {
       color: var(--color-danger);
     }
     > select {
       border-color: var(--color-danger);
     }
+    > .error {
+      color: red;
+      color: var(--color-danger);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
   }
 }
-.os-mac,.os-linux,.os-windows {
+.os-mac,
+.os-linux,
+.os-windows {
   .select-div {
     margin-bottom: 1.6rem;
   }
