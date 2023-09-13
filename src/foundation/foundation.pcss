@@ -45,6 +45,11 @@
     --color-gray9: hsl(0, 0%, 74%);
   }
 
+  --button-shadow-color: var(--color-gray2);
+  --button-border-radius: 4px;
+  --input-border-color: var(--color-gray8);
+  --input-disabled-color: var(--color-gray5);
+
   /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
   --step--2: clamp(0.7rem, calc(0.7rem + 0.03vw), 0.8rem);
   --step--1: clamp(0.9rem, calc(0.9rem + 0.1vw), 1rem);
@@ -170,9 +175,24 @@
     display: none;
   }
 
-  --button-shadow-color: var(--color-gray2);
-  --button-border-radius: 4px;
-  --input-border-color: var(--color-gray8);
+  &.browser-chrome .not-chrome {
+    display: none;
+  }
+  &:not(.browser-chrome) .only-chrome {
+    display: none;
+  }
+  &.browser-webkit .not-webkit {
+    display: none;
+  }
+  &:not(.browser-webkit) .only-webkit {
+    display: none;
+  }
+  &.browser-unknown .not-unknown {
+    display: none;
+  }
+  &:not(.browser-unknown) .only-unknown {
+    display: none;
+  }
 }
 
 /* Scrollbar styling */
@@ -302,7 +322,7 @@ button,
     }
   }
 
-  &.center {
+  &.middle {
     border-radius: 0;
     border-right: none;
     &:hover {
@@ -385,13 +405,19 @@ textarea,
     min-height: unset;
   }
 
-  &[disabled] {
+  &:disabled {
     border-color: var(--input-border-color);
   }
 
   &[data-error='true'] {
     border-color: var(--color-danger);
   }
+}
+
+/* Checkboxes appear to be too low on Safari */
+.browser-webkit input[type='checkbox'] {
+  position: relative;
+  top: -2px;
 }
 
 select,
@@ -435,13 +461,4 @@ small,
 textarea,
 .textarea {
   font-size: var(--step-0);
-}
-
-/* Safari 10.1+ specific css selector */
-@supports (font: -apple-system-body) and (-webkit-appearance: none) {
-  /* Checkboxes appear to be too low on Safari */
-  input[type='checkbox'] {
-    position: relative;
-    top: -2px;
-  }
 }

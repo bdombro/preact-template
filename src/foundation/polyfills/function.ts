@@ -1,7 +1,7 @@
 /**
  * Polyfills for Function
  */
-import {memoize} from '@slimr/util'
+import {debounce, memoize} from '@slimr/util'
 
 // You must export something or TS gets confused.
 export {}
@@ -18,6 +18,17 @@ declare global {
      * hello('2') // prints 'helloworld2'
      */
     curry: typeof curry
+
+    /**
+     * Debounce a function
+     *
+     * Don't call a function until a certain amount of time has passed
+     * without it being called.
+     *
+     * If you want more features, like arg diffing and return values, see
+     * memoize
+     */
+    debounce: typeof debounce
 
     /**
      * Get the name of the current function.
@@ -43,6 +54,9 @@ declare global {
      *
      * Compared to other memoization algs (fast-memoize, nano-memoize), is much simpler,
      * shorter, easier to fork/enhance while less perfect and slower for primitive args.
+     *
+     * If you want more features, like arg diffing and return values, see
+     * debounce
      */
     memoize: {
       // eslint-disable-next-line @typescript-eslint/ban-types
@@ -68,6 +82,8 @@ type Curried<A extends any[], R> = <P extends Partial<A>>(
   : never
 
 type SameLength<T extends any[]> = Extract<{[K in keyof T]: any}, any[]>
+
+Function.debounce = debounce
 
 Function.getName = () => {
   const stackLine = new Error()!.stack!.split('\n')[2].trim()

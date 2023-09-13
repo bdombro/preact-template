@@ -40,8 +40,8 @@ export const ButtonGroups = () => (
     <button className="md left" type="button">
       left
     </button>
-    <button className="md center" type="button">
-      center
+    <button className="md middle" type="button">
+      middle
     </button>
     <button className="md right" type="button">
       right
@@ -106,6 +106,19 @@ const FormFooter = () => {
       </button>
       <button className="tertiary right" disabled={submitting} type="reset">
         Reset
+      </button>
+      <button
+        className="tertiary right"
+        onClick={e => {
+          const form = e.currentTarget.closest('form') as HTMLFormElement
+          const formElements = [...(form.elements as unknown as HTMLInputElement[])].filter(
+            e => e.type !== 'reset'
+          )
+          formElements.forEach(e => (e.disabled = true))
+        }}
+        type="button"
+      >
+        Disable
       </button>
     </>
   )

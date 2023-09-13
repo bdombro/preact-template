@@ -43,9 +43,9 @@ export default function Login() {
           <InputBox label="password" name="password" required type="password" />
           <br />
           <FormFooter />
-          <p className="small" style={{textAlign: 'center'}}>
+          <P className="small" _textAlign="center">
             Click <a href={r.routes.login.path}>here</a> to register
-          </p>
+          </P>
         </SForm>
       </Layout.Section>
     </Layout>
