@@ -11,8 +11,7 @@
  */
 import {mapApplyMaxSize} from '@slimr/util'
 
-// You must export something or TS gets confused.
-export {}
+// export {}
 
 declare global {
   interface Map<K, V> {
@@ -56,7 +55,7 @@ Object.defineProperties(Map.prototype, {
     enumerable: false,
   },
   update: {
-    value: function (key: any, valueCb: (previous: any) => any) {
+    value: function (key: sany, valueCb: (previous: sany) => sany) {
       return this.set(key, valueCb(this.get(key)))
     },
     enumerable: false,

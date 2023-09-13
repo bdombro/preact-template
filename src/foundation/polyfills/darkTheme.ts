@@ -1,3 +1,4 @@
+export {}
 /**
  * Add a class to the documentElement when the user has requested a dark theme
  * and update the meta theme-color tag
@@ -16,5 +17,3 @@ const prefersDarkListener = (e: {matches: boolean}) => {
 }
 prefersDarkListener(prefersDarkMatchMedia)
 prefersDarkMatchMedia.addEventListener('change', prefersDarkListener)
-
-export {}

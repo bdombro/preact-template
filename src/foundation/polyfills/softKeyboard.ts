@@ -1,3 +1,4 @@
+export {}
 /**
  * Add a class to the documentElement when the soft keyboard is open. Is
  * useful for hiding the footer when the keyboard is open.
@@ -17,5 +18,3 @@ const softKeyboardListener = () => {
 }
 addEventListener('focusin', softKeyboardListener)
 addEventListener('focusout', softKeyboardListener)
-
-export {}

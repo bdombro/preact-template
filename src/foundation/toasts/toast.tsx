@@ -3,8 +3,6 @@ import './toast.pcss'
 import {useEvent} from '@slimr/react'
 import {memo} from 'react'
 
-import {Icon, IconKeys} from '~/foundation/icons'
-
 const createEvent = 'toast'
 const cancelEvent = 'toast-cancel'
 

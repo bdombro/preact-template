@@ -1,5 +1,7 @@
 import {debounce} from '@slimr/util'
 
+// export {}
+
 /**
  * Set the CSS variable `--dvh` to the height of the viewport.
  *
@@ -13,5 +15,3 @@ if (!('chrome' in window)) {
   setViewportHeight()
   addEventListener('resize', setViewportHeight)
 }
-
-export {}

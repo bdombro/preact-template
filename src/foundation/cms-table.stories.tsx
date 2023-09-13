@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /* eslint-disable require-jsdoc */
 import {CmsTable, getCmsTableQsProps} from './cms-table'
 
@@ -42,7 +40,7 @@ export function CmsTable1() {
     />
   )
 
-  async function deleteCb(selection: any[]) {
+  async function deleteCb(selection: sany[]) {
     // const confirmed = await Portal.confirm({
     //   message: `Okay to delete ${selection.length} user(s)?`,
     // })
@@ -59,7 +57,7 @@ export function CmsTable1() {
     }
   }
 
-  async function banCb(selection: any[]) {
+  async function banCb(selection: sany[]) {
     // TODO: Ban should prompt for reason
     // const confirmed = await Portal.confirm({
     //   message: `Okay to ban ${selection.length} user(s)?`,

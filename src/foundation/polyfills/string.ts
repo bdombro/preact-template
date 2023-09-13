@@ -10,7 +10,6 @@
  * 2. Drop support for older Internet Explorer
  */
 
-// You must export something or TS gets confused.
 export {}
 
 declare global {
@@ -26,11 +25,11 @@ declare global {
     /**
      * Checks if a string is in an array or object
      */
-    isIn(arrOrObj: any): boolean
+    isIn(arrOrObj: sany): boolean
     /**
      * Checks if a string is not in an array or object
      */
-    isNotIn(arrOrObj: any): boolean
+    isNotIn(arrOrObj: sany): boolean
   }
 }
 
@@ -43,14 +42,14 @@ Object.defineProperties(String.prototype, {
   },
 
   isIn: {
-    value: function (arrOrObj: any) {
+    value: function (arrOrObj: sany) {
       return Array.isArray(arrOrObj) ? arrOrObj.includes(this) : (this as string) in arrOrObj
     },
     enumerable: false,
   },
 
   isNotIn: {
-    value: function (arrOrObj: any) {
+    value: function (arrOrObj: sany) {
       return !this.isIn(arrOrObj)
     },
     enumerable: false,

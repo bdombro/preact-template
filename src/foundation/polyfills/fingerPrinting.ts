@@ -1,5 +1,7 @@
 import {Device} from '@capacitor/device'
 
+// export {}
+
 declare global {
   interface Navigator {
     msMaxTouchPoints: number
@@ -81,5 +83,3 @@ if ('chrome' in window) {
 } else {
   document.documentElement.classList.add('browser-unknown')
 }
-
-export {}

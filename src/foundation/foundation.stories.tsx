@@ -4,7 +4,6 @@ import {SForm, SFormError, useSFormContext} from '@slimr/react'
 
 import {Card} from './cards'
 import {GenericError, InputBox, InputBoxProps, RadioBox, SelectBox, TextareaBox} from './forms'
-import {Icon, IconKeys, icons} from './icons'
 import {toast} from './toasts'
 
 export const ButtonSizes = () => (

@@ -5,6 +5,7 @@ import Login from './pages/login'
 import NotFound from './pages/not-found'
 import StackTest from './pages/stack-test'
 
+// FIXME: maybe if component = () => Home(), we could avoid cyclic dependencies
 export const router = new Router(
   {
     index: {

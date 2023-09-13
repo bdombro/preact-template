@@ -2,7 +2,6 @@
  * Polyfills for errors
  */
 
-// You must export something or TS gets confused.
 export {}
 
 declare global {
@@ -18,7 +17,7 @@ declare global {
 
 globalThis.throwError = _throwError
 
-function _throwError(messageOrError: string | Error, attrs?: any): never {
+function _throwError(messageOrError: string | Error, attrs?: sany): never {
   const error = typeof messageOrError === 'string' ? new Error(messageOrError) : messageOrError
   throw Object.assign(error, attrs)
 }

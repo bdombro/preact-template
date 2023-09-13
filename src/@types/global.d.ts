@@ -1,13 +1,21 @@
-type Fnc = (...args: any[]) => any
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/** Super sany -- avoids eslint errors. Use sparingly! */
+type sany = any
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
-type PromiseFnc = (...args: any[]) => Promise<any>
+/** Should be fixed at some point */
+type TSFIXME = sany
 
-type ReturnType<T extends Fnc> = T extends (...args: any[]) => infer R ? R : never
+type Fnc = (...args: sany[]) => sany
+
+type PromiseFnc = (...args: sany[]) => Promise<sany>
+
+type ReturnType<T extends Fnc> = T extends (...args: sany[]) => infer R ? R : never
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-type ReturnTypeLoose<T extends Function> = T extends (...args: any[]) => infer R ? R : never
+type ReturnTypeLoose<T extends Function> = T extends (...args: sany[]) => infer R ? R : never
 
-type ReturnTypeP<T extends (...args: any[]) => any> = ThenArg<ReturnType<T>>
+type ReturnTypeP<T extends (...args: sany[]) => sany> = ThenArg<ReturnType<T>>
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
 
 /**
@@ -27,11 +35,9 @@ type AllOrNothing<T> = T | Never<T>
 type NonArray =
   | {
       length?: never
-      [key: string]: any
+      [key: string]: sany
     }
   | string
   | bigint
   | number
   | boolean
-
-type TSFIXME = any

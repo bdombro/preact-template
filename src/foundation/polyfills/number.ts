@@ -10,7 +10,6 @@
  * 2. Drop support for older Internet Explorer
  */
 
-// You must export something or TS gets confused.
 export {}
 
 declare global {

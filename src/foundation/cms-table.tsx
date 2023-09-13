@@ -1,6 +1,4 @@
 /* eslint-disable require-jsdoc */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import './cms-table.pcss'
 
 import {UseSet2, useMedia, useSet2} from '@slimr/react'
@@ -8,18 +6,17 @@ import {useLocationChangedCb} from '@slimr/router'
 import {queryStrings} from '@slimr/util'
 import React, {Fragment as F, useCallback, useState} from 'react'
 
-import {Icon} from './icons'
 import {toast} from './toasts'
 
 interface CmsTableProps {
-  bulkOptions?: {label: string; cb: (selection: any[]) => any}[]
+  bulkOptions?: {label: string; cb: (selection: sany[]) => sany}[]
   cols: {label: string; sortValue?: string; sortDefault?: 'asc' | 'desc'}[]
   pages: number
   rows: CmsRow[]
   total: number
 }
 type CmsRow = {
-  obj: any // the obj that will be passed to bulk actions
+  obj: sany // the obj that will be passed to bulk actions
   cols: React.ReactNode[] // the cols that will be displayed
 }
 

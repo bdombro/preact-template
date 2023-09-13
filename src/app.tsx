@@ -1,5 +1,3 @@
-import '~/foundation/polyfills'
-
 import {Switch} from '@slimr/router'
 
 import {ToastPack} from '~/foundation'

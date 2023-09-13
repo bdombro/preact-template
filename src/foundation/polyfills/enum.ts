@@ -2,7 +2,6 @@
  * Utils for Enums attached to global namespace
  */
 
-// You must export something or TS gets confused.
 export {}
 
 declare global {
@@ -14,7 +13,7 @@ declare global {
      *
      * @param enum0 Incoming enum
      */
-    getEnumValues: (enumFrom: Record<string, any>) => any[]
+    getEnumValues: (enumFrom: Record<string, sany>) => sany[]
     /**
      * Creates an enum-like object from a class instance
      */
@@ -27,7 +26,7 @@ globalThis.Enum = {
   getEnumFromClassInstance,
 }
 
-function getEnumValues(enumFrom: Record<string, any>): any[] {
+function getEnumValues(enumFrom: Record<string, sany>): sany[] {
   const vals = Object.entries(enumFrom)
     // If enum values are number type, Object.entries() will emit it also
     // as a key, which we don't want so filter them out.
@@ -37,7 +36,7 @@ function getEnumValues(enumFrom: Record<string, any>): any[] {
 }
 
 function getEnumFromClassInstance<T extends Object>(classInstance: T): Record<keyof T, keyof T> {
-  return Object.keys(classInstance).reduce<any>((acc, k) => {
+  return Object.keys(classInstance).reduce<sany>((acc, k) => {
     acc[k] = k
     return acc
   }, {}) as Record<keyof T, keyof T>

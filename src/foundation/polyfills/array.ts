@@ -10,7 +10,6 @@
  * 2. Drop support for older Internet Explorer
  */
 
-// You must export something or TS gets confused.
 export {}
 
 declare global {
@@ -51,7 +50,7 @@ declare global {
     /**
      * Aka !arr.includes(val)
      */
-    excludes(val: any): boolean
+    excludes(val: sany): boolean
     /**
      * Returns a Record keyed by a property of the elements in the array
      */
@@ -108,7 +107,7 @@ declare global {
 }
 
 // Returns the same type as args
-type ArrayDifferenceType = <T extends Array<any>>(...arrays: T[][]) => T[]
+type ArrayDifferenceType = <T extends Array<sany>>(...arrays: T[][]) => T[]
 
 Array.difference = function (...arrays) {
   return arrays.reduce((a, b) => a.filter(c => b.excludes(c)))
@@ -118,11 +117,11 @@ Array.intersection = function (...arrays) {
   return arrays.reduce((a, b) => b.filter(Set.prototype.has.bind(new Set(a))))
 }
 
-Array.mapN = function (n: number, fn: () => any) {
+Array.mapN = function (n: number, fn: () => sany) {
   return Array(n).fill(undefined).map(fn)
 }
 
-Array.reduceN = function (n: number, fn: (acc: any) => any, initial: any) {
+Array.reduceN = function (n: number, fn: (acc: sany) => sany, initial: sany) {
   return Array(n).fill(undefined).reduce(fn, initial)
 }
 
@@ -149,7 +148,7 @@ Object.defineProperties(Array.prototype, {
   },
 
   excludes: {
-    value: function (val: any) {
+    value: function (val: sany) {
       return !this.includes(val)
     },
     enumerable: false,
@@ -158,7 +157,7 @@ Object.defineProperties(Array.prototype, {
   keyBy: {
     value: function (key: string | number | symbol) {
       // Manually reduce insted of using Array.reduce for performance
-      const reduced: Record<string, any[]> = {}
+      const reduced: Record<string, sany[]> = {}
       for (const entry of this) {
         if (!reduced[entry[key]]) reduced[entry[key]] = [entry]
         else reduced[entry[key]].push(entry)
@@ -169,7 +168,7 @@ Object.defineProperties(Array.prototype, {
   },
 
   minus: {
-    value: function (...arrs: any[][]) {
+    value: function (...arrs: sany[][]) {
       let i
       for (const arr of arrs) {
         for (const el of arr) {
@@ -183,7 +182,7 @@ Object.defineProperties(Array.prototype, {
   },
 
   minusF: {
-    value: function (...arrs: any[][]) {
+    value: function (...arrs: sany[][]) {
       return Array.difference(this, ...arrs)
     },
     enumerable: false,
@@ -214,14 +213,14 @@ Object.defineProperties(Array.prototype, {
   },
 
   pushF: {
-    value: function (...vals: any[]) {
+    value: function (...vals: sany[]) {
       return this.concat(vals)
     },
     enumerable: false,
   },
 
   remove: {
-    value: function (el: any) {
+    value: function (el: sany) {
       let i: number
       while ((i = this.indexOf(el)) > -1) {
         this.splice(i, 1)

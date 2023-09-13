@@ -37,7 +37,7 @@ import {
   isWeakSet as _isWeakSet,
 } from '@slimr/util'
 
-export {}
+// export {}
 
 declare global {
   var getType: typeof _getType

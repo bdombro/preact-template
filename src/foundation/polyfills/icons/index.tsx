@@ -1,13 +1,24 @@
 import {LazyIconSvg, LazyIconSvgProps} from '@slimr/mdi-paths/components'
 import {classJoin} from '@slimr/react'
 
-export type IconKeys = keyof typeof icons
-export type IconProps = Omit<LazyIconSvgProps, 'name' | 'pathImporter'> & {
-  name: IconKeys
-}
-// type IconType = (props: IconProps) => JSX.Element
+// export {}
 
-export const icons = {
+declare global {
+  /**
+   * A component that lazily loads an icon from Material Design Icons
+   * by name. The names available are declared in the `icons` object in
+   * the same file as Icon.
+   */
+  var Icon: typeof _Icon
+  type IconKeys = keyof typeof _icons
+  type IconProps = Omit<LazyIconSvgProps, 'name' | 'pathImporter'> & {
+    name: IconKeys
+  }
+
+  var icons: typeof _icons
+}
+
+const _icons = {
   account: () => import('@slimr/mdi-paths/CardAccountDetailsOutline'),
   alert: () => import('@slimr/mdi-paths/AlertOutline'),
   arrowL: () => import('@slimr/mdi-paths/ArrowLeft'),
@@ -42,13 +53,15 @@ export const icons = {
   success: () => import('@slimr/mdi-paths/CheckCircleOutline'),
   tasks: () => import('@slimr/mdi-paths/OrderBoolAscendingVariant'),
 } as const
+globalThis.Icon = _Icon
 
 /**
  * A component that lazily loads an icon from Material Design Icons
  * by name. The names available are declared in the `icons` object above.
  */
-export function Icon({name, className, ...props}: IconProps) {
+function _Icon({name, className, ...props}: IconProps) {
   return (
-    <LazyIconSvg pathImporter={icons[name]} className={classJoin('icon', className)} {...props} />
+    <LazyIconSvg pathImporter={_icons[name]} className={classJoin('icon', className)} {...props} />
   )
 }
+globalThis.icons = _icons

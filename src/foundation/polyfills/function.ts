@@ -3,8 +3,7 @@
  */
 import {debounce, memoize} from '@slimr/util'
 
-// You must export something or TS gets confused.
-export {}
+// export {}
 
 declare global {
   interface FunctionConstructor {
@@ -61,27 +60,27 @@ declare global {
     memoize: {
       // eslint-disable-next-line @typescript-eslint/ban-types
       <F extends Fnc>(fn: F, ttl: number): F
-      cache: Map<string, {returnValue: any; expires: number}>
+      cache: Map<string, {returnValue: sany; expires: number}>
     }
   }
 }
 
-function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R> {
-  return (...args: any[]): any =>
-    args.length >= fn.length ? fn(...(args as any)) : curry((fn as any).bind(undefined, ...args))
+function curry<A extends sany[], R>(fn: (...args: A) => R): Curried<A, R> {
+  return (...args: sany[]): sany =>
+    args.length >= fn.length ? fn(...(args as sany)) : curry((fn as sany).bind(undefined, ...args))
 }
 Function.curry = curry
-type Curried<A extends any[], R> = <P extends Partial<A>>(
+type Curried<A extends sany[], R> = <P extends Partial<A>>(
   ...args: P
 ) => P extends A
   ? R
   : A extends [...SameLength<P>, ...infer S]
-  ? S extends any[]
+  ? S extends sany[]
     ? Curried<S, R>
     : never
   : never
 
-type SameLength<T extends any[]> = Extract<{[K in keyof T]: any}, any[]>
+type SameLength<T extends sany[]> = Extract<{[K in keyof T]: sany}, sany[]>
 
 Function.debounce = debounce
 
@@ -96,7 +95,7 @@ Function.memoize = memoize
 Function.withRetry = (fn, maxTries = 4) => {
   const p = Promise.promisify(fn)
   return async (...props) => {
-    let lastError: any = new Error()
+    let lastError: sany = new Error()
     for (let tryCount = 0; tryCount < maxTries; tryCount++) {
       try {
         return await p(...props)

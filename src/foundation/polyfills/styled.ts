@@ -1,8 +1,7 @@
 import * as _styled from '@slimr/react'
 import {classJoin} from '@slimr/react'
 
-// You must export something or TS gets confused.
-export {}
+// export {}
 
 declare global {
   var addCss: typeof _styled.addCss

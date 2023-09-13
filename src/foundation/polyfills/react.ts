@@ -1,7 +1,6 @@
 import * as r from 'react'
 
-// You must export something or TS gets confused.
-export {}
+// export {}
 
 declare global {
   var cloneElement: typeof r.cloneElement
@@ -17,7 +16,7 @@ declare global {
     Component: r.FunctionComponent<P>,
     propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean
   ): r.NamedExoticComponent<P>
-  function memo<T extends r.ComponentType<any>>(
+  function memo<T extends r.ComponentType<sany>>(
     Component: T,
     propsAreEqual?: (
       prevProps: Readonly<r.ComponentProps<T>>,

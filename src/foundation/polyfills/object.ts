@@ -14,8 +14,7 @@ import {
  * Polyfills for object
  */
 
-// You must export something or TS gets confused.
-export {}
+// export {}
 
 declare global {
   interface ObjectConstructor {
@@ -76,7 +75,7 @@ declare global {
      * //}
      * ```
      */
-    flatten: any
+    flatten: sany
 
     /**
      * Deep merge ....objects. Arrays are clobbered
@@ -144,10 +143,10 @@ declare global {
      * // }
      * ```
      */
-    nestify: any
+    nestify: sany
 
     /** Return obj excluding attributes by keys  */
-    omit<T extends Record<string, any>, K extends keyof T>(
+    omit<T extends Record<string, sany>, K extends keyof T>(
       obj: T,
       keys: readonly K[] | K[]
     ): Omit<T, K>
@@ -159,22 +158,22 @@ declare global {
      * @param filter - the filter function. Takes the attribute name and value as arguments to return true to keep the attribute
      * @param inPlace - if true, the object will be modified in place. Otherwise, a new object will be returned
      */
-    omitCustom<T extends Record<string, any>>(
+    omitCustom<T extends Record<string, sany>>(
       obj: T,
-      filter: (attrName: string, attrVal: any) => any
+      filter: (attrName: string, attrVal: sany) => sany
     ): T
 
     /** Return obj excluding attrs with falsey values */
-    omitFalseyAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
+    omitFalseyAttrs<T extends Record<string, sany>>(obj: T, inPlace?: boolean): Partial<T>
 
     /** Return obj excluding attrs with null values */
-    omitNullAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
+    omitNullAttrs<T extends Record<string, sany>>(obj: T, inPlace?: boolean): Partial<T>
 
     /** Return obj excluding attrs with undefined values */
-    omitUndefAttrs<T extends Record<string, any>>(obj: T, inPlace?: boolean): Partial<T>
+    omitUndefAttrs<T extends Record<string, sany>>(obj: T, inPlace?: boolean): Partial<T>
 
     /** Return obj only including attributes by keys */
-    pick<T extends Record<string, any>, K extends keyof T>(
+    pick<T extends Record<string, sany>, K extends keyof T>(
       obj: T,
       keys: readonly K[] | K[]
     ): Pick<T, K>
@@ -231,7 +230,7 @@ Object.omitUndefAttrs = function (obj) {
 }
 
 Object.pick = function (obj, keys) {
-  const res: any = {}
+  const res: sany = {}
   keys?.forEach(k => {
     if (k in obj) res[k] = obj[k]
   })

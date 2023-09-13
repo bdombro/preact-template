@@ -2,7 +2,6 @@
  * Polyfills for Math
  */
 
-// You must export something or TS gets confused.
 export {}
 
 declare global {
