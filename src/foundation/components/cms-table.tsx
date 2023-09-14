@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 import './cms-table.pcss'
 
 import {UseSet2, useMedia, useSet2} from '@slimr/react'
@@ -6,7 +5,7 @@ import {useLocationChangedCb} from '@slimr/router'
 import {queryStrings} from '@slimr/util'
 import React, {Fragment as F, useCallback, useState} from 'react'
 
-import {toast} from './toasts'
+import {toast} from '~/foundation'
 
 interface CmsTableProps {
   bulkOptions?: {label: string; cb: (selection: sany[]) => sany}[]

@@ -2,9 +2,16 @@ import './foundation.stories.pcss'
 
 import {SForm, SFormError, useSFormContext} from '@slimr/react'
 
-import {Card} from './cards'
-import {GenericError, InputBox, InputBoxProps, RadioBox, SelectBox, TextareaBox} from './forms'
-import {toast} from './toasts'
+import {
+  Card,
+  GenericError,
+  InputBox,
+  InputBoxProps,
+  RadioBox,
+  SelectBox,
+  TextareaBox,
+  toast,
+} from '.'
 
 export const ButtonSizes = () => (
   <>
