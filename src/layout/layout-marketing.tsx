@@ -1,10 +1,9 @@
-import './layout-dashboard.pcss'
+import './layout-marketing.pcss'
 
 import {classJoin} from '@slimr/react'
 
 import {router as r} from '~/router'
 
-import {IconA} from './layout-marketing'
 import {Logo} from './logo'
 
 /**
@@ -12,41 +11,11 @@ import {Logo} from './logo'
  */
 export function Layout({children}: {children: React.ReactNode}) {
   return (
-    <div className="layout-dashboard sidebar">
+    <div className="layout-marketing">
       <Header />
       <div className="main-wrapper">
-        <aside>
-          <nav>
-            <IconA href={r.routes.stack1.path} icon="building">
-              Stack
-            </IconA>
-            <IconA href="/#account" icon="account">
-              Account
-            </IconA>
-            <IconA href={r.routes.login.path} icon="login">
-              Logout
-            </IconA>
-          </nav>
-        </aside>
-        <main>
-          {children}
-          <div className="corners-wrapper">
-            <div>
-              <Icon name="roundedCornerInv" size={10} />
-            </div>
-            <div>
-              <Icon name="roundedCornerInv" size={16} horizontal />
-            </div>
-            <div>
-              <Icon name="roundedCornerInv" size={16} vertical horizontal />
-            </div>
-            <div>
-              <Icon name="roundedCornerInv" size={10} vertical />
-            </div>
-          </div>
-        </main>
+        <main>{children}</main>
       </div>
-      <Footer />
     </div>
   )
 }
@@ -65,11 +34,20 @@ Layout.Section = function LayoutSection({
   )
 }
 
-function Footer() {
+/** An anchor element with active classname injected  */
+export function AA(p: JSX.IntrinsicElements['a']) {
   return (
-    <div className="footer-wrapper">
-      <footer>Footer</footer>
-    </div>
+    <a {...p} className={classJoin(p.className, location.href.includes(p.href!) ? 'active' : '')} />
+  )
+}
+
+/** An icon to go in an AA element */
+export function IconA({icon, ...p}: {icon: IconKeys} & JSX.IntrinsicElements['a']) {
+  return (
+    <AA {...p}>
+      <Icon name={icon} style={{marginRight: 16, marginTop: -5}} />
+      {p.children}
+    </AA>
   )
 }
 
@@ -82,6 +60,9 @@ function Header() {
           <Logo height="100%" />
         </a>
         <nav className="right">
+          <AA href={r.routes.index.path}>Home</AA>
+          <AA href="/#about">About</AA>
+          <AA href={r.routes.login.path}>Login</AA>
           <a
             className={classJoin('burger-toggle', burgerOpen ? 'active' : '')}
             href="#open-burger"
@@ -94,12 +75,15 @@ function Header() {
             <Icon name="menu" />
           </a>
         </nav>
-        <div className="burger-menu" style={{display: burgerOpen ? 'block' : 'none'}}>
-          <IconA href="/#account" icon="account">
-            Account
+        <div className="burger-menu" style={{display: burgerOpen ? 'flex' : 'none'}}>
+          <IconA href={r.routes.index.path} icon="home">
+            Home
+          </IconA>
+          <IconA href="/#about" icon="building">
+            About
           </IconA>
           <IconA href={r.routes.login.path} icon="login">
-            Logout
+            Login
           </IconA>
         </div>
       </div>

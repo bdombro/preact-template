@@ -1,7 +1,7 @@
 import {setPageMeta} from '@slimr/util'
 
 import {Filler} from '~/layout/filler'
-import {Layout} from '~/layout/layout-header'
+import {Layout} from '~/layout/layout-marketing'
 
 /**
  * A demo of a home page

@@ -1,6 +1,6 @@
 import {setPageMeta} from '@slimr/util'
 
-import {Layout} from '~/layout/layout-header'
+import {Layout} from '~/layout/layout-marketing'
 
 /**
  * A page shown when a route is not found
