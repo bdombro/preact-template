@@ -1,6 +1,15 @@
 import './forms.pcss'
 
-import {Input, OptionC, Select, Textarea, classJoin, mergeRefs} from '@slimr/react'
+import {
+  Input,
+  InputProps,
+  OptionCProps,
+  Select,
+  SelectProps,
+  Textarea,
+  classJoin,
+  mergeRefs,
+} from '@slimr/react'
 import {numericStringMask} from '@slimr/util'
 import {forwardRef} from 'react'
 
@@ -10,7 +19,7 @@ import {forwardRef} from 'react'
 export function GenericError({
   error,
   ...divProps
-}: Parameters<typeof Div>[0] & {error: string | false | null | undefined}) {
+}: DivProps & {error: string | false | null | undefined}) {
   return (
     <Div
       aria-live="assertive"
@@ -168,7 +177,7 @@ export const InputBox = memo(
     )
   })
 )
-export type InputBoxProps = Omit<Parameters<typeof Input>[0], 'id' | 'name' | 'value'> &
+export type InputBoxProps = Omit<InputProps, 'id' | 'name' | 'value'> &
   BaseProps & {
     validator?: (val: string) => string | null | false | undefined
   }
@@ -291,9 +300,9 @@ export const RadioBox = forwardRef<HTMLDivElement, RadioBoxProps>(function Radio
   )
 })
 export type RadioBoxProps = InputBoxProps & {
-  innerDivProps?: Parameters<typeof Div>[0]
-  inputLabelProps?: Parameters<typeof Label>[0]
-  optionDivProps?: Parameters<typeof Div>[0]
+  innerDivProps?: DivProps
+  inputLabelProps?: LabelProps
+  optionDivProps?: DivProps
   options: {label: string; value: string}[]
 }
 
@@ -410,10 +419,10 @@ export const SelectBox = forwardRef<HTMLSelectElement, SelectBoxProps>(function 
     </Div>
   )
 })
-export type SelectBoxProps = Omit<Parameters<typeof Select>[0], 'id' | 'name' | 'value'> &
+export type SelectBoxProps = Omit<SelectProps, 'id' | 'name' | 'value'> &
   BaseProps & {
     options: {label: string; value: string}[]
-    optionProps?: Parameters<typeof OptionC>[0]
+    optionProps?: OptionCProps
   }
 
 /**
@@ -426,9 +435,9 @@ export const TextareaBox = forwardRef<HTMLTextAreaElement, InputBoxProps>(
 )
 
 type BaseProps = {
-  divProps?: Parameters<typeof Div>[0]
+  divProps?: DivProps
   label: string
-  labelProps?: Omit<Parameters<typeof Label>[0], 'htmlFor'>
+  labelProps?: Omit<LabelProps, 'htmlFor'>
   name: string
 }
 

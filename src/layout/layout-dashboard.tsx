@@ -55,7 +55,7 @@ Layout.Section = function LayoutSection({
   children,
   innerProps,
   ...outerProps
-}: Parameters<typeof Section>[0] & {innerProps?: Parameters<typeof Div>[0]}) {
+}: SectionProps & {innerProps?: DivProps}) {
   return (
     <Section _p={16} {...outerProps}>
       <Div _maxW={800} _mx="auto" {...innerProps}>
@@ -78,7 +78,7 @@ function Header() {
   return (
     <header className="top-header">
       <div className="navbar">
-        <a className="logo" href="/">
+        <a className="logo" href={r.routes.stack1.path}>
           <Logo height="100%" />
         </a>
         <nav className="right">

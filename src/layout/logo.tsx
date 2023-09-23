@@ -1,4 +1,4 @@
-export const Logo = (svgProps: Parameters<typeof Svg>[0]) => (
+export const Logo = (svgProps: SvgProps) => (
   <Svg
     height="20px"
     viewBox="0 0 78 20"
