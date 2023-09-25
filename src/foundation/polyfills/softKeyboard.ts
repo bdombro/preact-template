@@ -16,5 +16,7 @@ const softKeyboardListener = () => {
     }
   }, 200) // 50 is the minimum delay that works on iOS
 }
+removeEventListener('focusin', softKeyboardListener)
 addEventListener('focusin', softKeyboardListener)
+removeEventListener('focusout', softKeyboardListener)
 addEventListener('focusout', softKeyboardListener)

@@ -39,7 +39,7 @@ export function TopHeader({
 /** An anchor with an icon on the left */
 export function BurgerIconA({icon, ...p}: {icon: IconKeys} & AProps) {
   return (
-    <NavA>
+    <NavA {...p}>
       <Icon name={icon} />
       <div>{p.children}</div>
     </NavA>

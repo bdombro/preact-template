@@ -16,4 +16,5 @@ const prefersDarkListener = (e: {matches: boolean}) => {
   }
 }
 prefersDarkListener(prefersDarkMatchMedia)
+prefersDarkMatchMedia.removeEventListener('change', prefersDarkListener)
 prefersDarkMatchMedia.addEventListener('change', prefersDarkListener)

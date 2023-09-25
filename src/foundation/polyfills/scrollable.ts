@@ -12,6 +12,7 @@ declare global {
   }
 }
 
+removeEventListener('locationchange', checkScrollableAggressive)
 addEventListener('locationchange', checkScrollableAggressive)
 setInterval(checkScrollable, 5000)
 checkScrollableAggressive()
