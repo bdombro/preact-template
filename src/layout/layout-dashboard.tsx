@@ -57,10 +57,10 @@ function Corners() {
           <Icon name="roundedCornerInv" size={10} />
         </div>
         <div>
-          <Icon name="roundedCornerInv" size={16} horizontal />
+          <Icon name="roundedCornerInv" size={10} horizontal />
         </div>
         <div>
-          <Icon name="roundedCornerInv" size={16} vertical horizontal />
+          <Icon name="roundedCornerInv" size={10} vertical horizontal />
         </div>
         <div>
           <Icon name="roundedCornerInv" size={10} vertical />

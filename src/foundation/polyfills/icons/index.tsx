@@ -29,6 +29,7 @@ const _icons = {
   carrotDown: () => import('@slimr/mdi-paths/MenuDown'),
   carrotLeft: () => import('@slimr/mdi-paths/MenuLeft'),
   carrotRight: () => import('@slimr/mdi-paths/MenuRight'),
+  chat: () => import('@slimr/mdi-paths/ForumOutline'),
   checkboxM: () => import('@slimr/mdi-paths/CheckboxMarked'),
   checkboxB: () => import('@slimr/mdi-paths/CheckboxBlankOutline'),
   chevronL2x: () => import('@slimr/mdi-paths/ChevronDoubleLeft'),

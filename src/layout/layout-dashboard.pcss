@@ -1,7 +1,7 @@
 @import 'top-header.pcss';
 
 .layout-dashboard {
-  --color-header: var(--color-primary-darker);
+  --color-header: var(--color-white);
   --color-window-bg: var(--color-gray1);
   --height-header-navbar: 45px;
   --height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
@@ -61,10 +61,12 @@
             inset: 0 auto auto 0;
           }
           &:nth-of-type(2) {
-            inset: 0 0 auto auto;
+            /* Is also controlled lower if body.scrollable */
+            inset: 0 var(--main-wrapper-margin) auto auto;
           }
           &:nth-of-type(3) {
-            inset: auto 0 16px auto;
+            /* Is also controlled lower if body.scrollable */
+            inset: auto var(--main-wrapper-margin) var(--main-wrapper-margin) auto;
           }
           &:nth-of-type(4) {
             inset: auto auto 10px 0;
@@ -122,6 +124,23 @@
   @media (max-width: 62em) {
     > .top-header {
       display: none;
+    }
+  }
+}
+
+.scrollable .layout-dashboard > .main-wrapper > main > .corners-wrapper {
+  > div:nth-of-type(2) {
+    inset: 0 0 auto auto;
+    svg {
+      height: 16px;
+      width: 16px;
+    }
+  }
+  > div:nth-of-type(3) {
+    inset: auto 0 16px auto;
+    svg {
+      height: 16px;
+      width: 16px;
     }
   }
 }
