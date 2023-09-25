@@ -74,7 +74,7 @@ function Footer() {
   return (
     <footer className="bottom-footer">
       <nav>
-        <FooterIconA href={r.routes.stack1.path} icon="building" title="Stacks example" />
+        <FooterIconA href={r.routes.chats.path} icon="chat" title="Chats" />
         <FooterIconA href="/#account" icon="account" title="Account" />
         <FooterIconA href={r.routes.login.path} icon="login" title="Log in" />
       </nav>
@@ -95,6 +95,9 @@ function Sidebar() {
   return (
     <aside className={isMini ? 'mini' : undefined}>
       <nav>
+        <SidebarIconA href={r.routes.chats.path} icon="chat">
+          Chats
+        </SidebarIconA>
         <SidebarIconA href={r.routes.stack1.path} icon="building">
           Stack
         </SidebarIconA>

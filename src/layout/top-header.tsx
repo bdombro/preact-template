@@ -1,4 +1,4 @@
-import {Logo} from './logo'
+import {useColorScheme} from '@slimr/react'
 
 export function TopHeader({
   burger,
@@ -54,9 +54,10 @@ export function NavA(p: AProps) {
 }
 
 export function NavLogo({href = '/'}) {
+  const {scheme} = useColorScheme()
   return (
     <a className="logo" href={href}>
-      <Logo height="100%" />
+      <Img src={`/logo-${scheme}-scheme.svg`} _h="100%" />
     </a>
   )
 }

@@ -1,15 +1,15 @@
-import {OnSubmit, SForm, SFormError, useSFormContext} from '@slimr/react'
+import {OnSubmit, SForm, SFormError, useColorScheme, useSFormContext} from '@slimr/react'
 import {setPageMeta} from '@slimr/util'
 
 import {GenericError, InputBox} from '~/foundation'
 import {Layout} from '~/layout/layout-login'
-import {Logo} from '~/layout/logo'
 import {router as r} from '~/router'
 
 /**
  * A demo of a login page
  */
 export default function Login() {
+  const {scheme} = useColorScheme()
   setPageMeta({title: 'Login'})
 
   const onSubmit: OnSubmit = async (_, vals) => {
@@ -35,9 +35,9 @@ export default function Login() {
   return (
     <Layout>
       <Layout.Section>
-        <a href={r.routes.index.path} title="go home">
-          <Logo height={70} _mb={20} />
-        </a>
+        <A href={r.routes.index.path} title="go home" _d="block" _textAlign="center">
+          <Img src={`/logo-${scheme}-scheme.svg`} _h={70} _mb={10} _w="90%" />
+        </A>
         <SForm onSubmit={onSubmit}>
           <InputBox autoFocus label="email" name="email" required type="email" />
           <InputBox label="password" name="password" required type="password" />
