@@ -1,10 +1,10 @@
 import * as _styled from '@slimr/react'
-import {classJoin} from '@slimr/react'
 
 // export {}
 
 declare global {
   var addCss: typeof _styled.addCss
+  var classJoin: typeof _styled.classJoin
   var styled: typeof _styled.styled
 
   // Styled primitives
@@ -283,6 +283,7 @@ declare global {
 }
 
 globalThis.addCss = _styled.addCss
+globalThis.classJoin = _styled.classJoin
 globalThis.styled = _styled.styled
 
 globalThis.A = (p: _styled.AProps) => {

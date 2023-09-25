@@ -1,49 +1,33 @@
 import './layout-dashboard.pcss'
 
-import {classJoin} from '@slimr/react'
-
 import {router as r} from '~/router'
 
-import {IconA} from './layout-marketing'
-import {Logo} from './logo'
+import {BurgerIconA, NavA, NavLogo, TopHeader} from './top-header'
 
 /**
  * A layout with a header and a main section
  */
 export function Layout({children}: {children: React.ReactNode}) {
   return (
-    <div className="layout-dashboard sidebar">
-      <Header />
-      <div className="main-wrapper">
-        <aside>
-          <nav>
-            <IconA href={r.routes.stack1.path} icon="building">
-              Stack
-            </IconA>
-            <IconA href="/#account" icon="account">
+    <div className="layout-dashboard">
+      <TopHeader
+        burger={
+          <>
+            <BurgerIconA href="/#account" icon="account">
               Account
-            </IconA>
-            <IconA href={r.routes.login.path} icon="login">
+            </BurgerIconA>
+            <BurgerIconA href={r.routes.login.path} icon="login">
               Logout
-            </IconA>
-          </nav>
-        </aside>
+            </BurgerIconA>
+          </>
+        }
+        left={<NavLogo href={r.routes.stack1.path} />}
+      />
+      <div className="main-wrapper">
+        <Sidebar />
         <main>
           {children}
-          <div className="corners-wrapper">
-            <div>
-              <Icon name="roundedCornerInv" size={10} />
-            </div>
-            <div>
-              <Icon name="roundedCornerInv" size={16} horizontal />
-            </div>
-            <div>
-              <Icon name="roundedCornerInv" size={16} vertical horizontal />
-            </div>
-            <div>
-              <Icon name="roundedCornerInv" size={10} vertical />
-            </div>
-          </div>
+          <Corners />
         </main>
       </div>
       <Footer />
@@ -65,44 +49,70 @@ Layout.Section = function LayoutSection({
   )
 }
 
-function Footer() {
+function Corners() {
   return (
-    <div className="footer-wrapper">
-      <footer>Footer</footer>
-    </div>
+    <>
+      <div className="corners-wrapper">
+        <div>
+          <Icon name="roundedCornerInv" size={10} />
+        </div>
+        <div>
+          <Icon name="roundedCornerInv" size={16} horizontal />
+        </div>
+        <div>
+          <Icon name="roundedCornerInv" size={16} vertical horizontal />
+        </div>
+        <div>
+          <Icon name="roundedCornerInv" size={10} vertical />
+        </div>
+      </div>
+    </>
   )
 }
 
-function Header() {
-  const [burgerOpen, setBurgerOpen] = useState(false)
+function Footer() {
   return (
-    <header className="top-header">
-      <div className="navbar">
-        <a className="logo" href={r.routes.stack1.path}>
-          <Logo height="100%" />
-        </a>
-        <nav className="right">
-          <a
-            className={classJoin('burger-toggle', burgerOpen ? 'active' : '')}
-            href="#open-burger"
-            onClick={e => {
-              e.preventDefault()
-              e.stopPropagation()
-              setBurgerOpen(last => !last)
-            }}
-          >
-            <Icon name="menu" />
-          </a>
-        </nav>
-        <div className="burger-menu" style={{display: burgerOpen ? 'block' : 'none'}}>
-          <IconA href="/#account" icon="account">
-            Account
-          </IconA>
-          <IconA href={r.routes.login.path} icon="login">
-            Logout
-          </IconA>
-        </div>
-      </div>
-    </header>
+    <footer className="bottom-footer">
+      <nav>
+        <FooterIconA href={r.routes.stack1.path} icon="building" />
+        <FooterIconA href="/#account" icon="account" />
+        <FooterIconA href={r.routes.login.path} icon="login" />
+      </nav>
+    </footer>
+  )
+}
+
+function FooterIconA({icon, ...p}: {icon: IconKeys} & AProps) {
+  return (
+    <NavA {...p}>
+      <Icon name={icon} />
+    </NavA>
+  )
+}
+
+function Sidebar() {
+  return (
+    <aside>
+      <nav>
+        <SidebarIconA href={r.routes.stack1.path} icon="building">
+          Stack
+        </SidebarIconA>
+        <SidebarIconA href="/#account" icon="account">
+          Account
+        </SidebarIconA>
+        <SidebarIconA href={r.routes.login.path} icon="login">
+          Logout
+        </SidebarIconA>
+      </nav>
+    </aside>
+  )
+}
+
+function SidebarIconA({icon, ...p}: {icon: IconKeys} & AProps) {
+  return (
+    <NavA {...p}>
+      <Icon name={icon} />
+      <div>{p.children}</div>
+    </NavA>
   )
 }

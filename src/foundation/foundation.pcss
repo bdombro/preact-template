@@ -10,10 +10,10 @@
   --color-success: green;
   --color-danger: #cc0000;
   --color-alert: orange;
-  --color-fg: black;
-  --color-bg: white;
   --color-black: black;
   --color-white: white;
+  --color-main-bg: white;
+  --color-main-fg: black;
 
   --color-gray1: hsl(0, 0%, 97%);
   --color-gray2: hsl(0, 0%, 93%);
@@ -30,10 +30,8 @@
     --color-primary-darker: hsl(199, 84%, 60%);
     --color-danger: #ff7070;
     --color-tertiary: #696969;
-    --color-fg: white;
     --color-black: white;
     --color-white: black;
-    --color-bg: #111;
     --color-gray1: hsl(0, 0%, 16%);
     --color-gray2: hsl(0, 0%, 21%);
     --color-gray3: hsl(0, 0%, 25%);
@@ -43,6 +41,8 @@
     --color-gray7: hsl(0, 0%, 54%);
     --color-gray8: hsl(0, 0%, 66%);
     --color-gray9: hsl(0, 0%, 74%);
+    --color-main-bg: #111;
+    --color-main-fg: white;
   }
 
   --button-shadow-color: var(--color-gray2);
@@ -269,8 +269,8 @@ p,
 
 body {
   font-size: var(--step-0);
-  background: var(--color-bg);
-  color: var(--color-fg);
+  background: var(--color-main-bg);
+  color: var(--color-main-fg);
   margin: 0;
   overflow: hidden;
 }
@@ -381,16 +381,16 @@ button,
 /** Forms */
 
 fieldset {
-  border: 1px solid var(--color-fg);
+  border: 1px solid var(--color-main-fg);
 }
 
 input,
 .input,
 textarea,
 .textarea {
-  background: var(--color-bg);
+  background: var(--color-main-bg);
   border: 1px solid var(--input-border-color);
-  color: var(--color-fg);
+  color: var(--color-main-fg);
   outline-color: var(--color-primary);
 
   &:not([type='checkbox']):not([type='radio']) {
@@ -430,9 +430,9 @@ textarea,
 
 select,
 .select {
-  background: var(--color-bg);
+  background: var(--color-main-bg);
   border: 1px solid var(--input-border-color);
-  color: var(--color-fg);
+  color: var(--color-main-fg);
   font-size: var(--step--1);
   outline-color: var(--color-primary);
   margin-bottom: 0.2rem;
