@@ -29,7 +29,7 @@ export default function Login() {
     }
 
     console.log('vals', vals)
-    r.goto(r.routes.stack1)
+    r.goto(r.routes.chats)
   }
 
   return (

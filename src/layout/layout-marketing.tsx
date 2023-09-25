@@ -19,9 +19,6 @@ export function Layout({children}: {children: React.ReactNode}) {
             <BurgerIconA href={r.routes.about.path} icon="info">
               About
             </BurgerIconA>
-            <BurgerIconA href="/#about" icon="building">
-              About
-            </BurgerIconA>
             <BurgerIconA href={r.routes.login.path} icon="login">
               Login
             </BurgerIconA>
