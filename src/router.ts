@@ -1,5 +1,6 @@
 import {Router} from '@slimr/router'
 
+import About from './pages/about'
 import Index from './pages/index'
 import Login from './pages/login'
 import NotFound from './pages/not-found'
@@ -10,6 +11,10 @@ export const router = new Router(
     index: {
       component: Index,
       path: '/',
+    },
+    about: {
+      component: About,
+      path: '/about',
     },
     login: {
       component: Login,

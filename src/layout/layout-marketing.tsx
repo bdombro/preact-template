@@ -16,6 +16,9 @@ export function Layout({children}: {children: React.ReactNode}) {
             <BurgerIconA href={r.routes.index.path} icon="home">
               Home
             </BurgerIconA>
+            <BurgerIconA href={r.routes.about.path} icon="info">
+              About
+            </BurgerIconA>
             <BurgerIconA href="/#about" icon="building">
               About
             </BurgerIconA>
@@ -27,7 +30,7 @@ export function Layout({children}: {children: React.ReactNode}) {
         right={
           <>
             <NavA href={r.routes.index.path}>Home</NavA>
-            <NavA href="/#about">About</NavA>
+            <NavA href={r.routes.about.path}>About</NavA>
             <NavA href={r.routes.login.path}>Login</NavA>
           </>
         }
