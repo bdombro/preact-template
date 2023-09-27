@@ -21,7 +21,7 @@ export function Layout({children}: {children: React.ReactNode}) {
             </BurgerIconA>
           </>
         }
-        left={<NavLogo href={r.routes.stack1.path} />}
+        left={<NavLogo href={r.routes.chats.path} />}
       />
       <div className="main-wrapper">
         <Sidebar />
@@ -97,9 +97,6 @@ function Sidebar() {
       <nav>
         <SidebarIconA href={r.routes.chats.path} icon="chat">
           Chats
-        </SidebarIconA>
-        <SidebarIconA href={r.routes.stack1.path} icon="building">
-          Stack
         </SidebarIconA>
         <SidebarIconA href="/#account" icon="account">
           Account
