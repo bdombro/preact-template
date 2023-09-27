@@ -6,10 +6,15 @@
   --height-header-navbar: 45px;
   --height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
   --height-footer: 60px; /* also controlled by .keyboard-open .layout-dashboard */
-  --sidebar-width: 250px;
+  --height-main-wrapper: calc(var(--dvh) - var(--height-header));
+  --sidebar-width-full: 250px;
+  --sidebar-width-mini: 62px;
+  --sidebar-width: var(--sidebar-width-full);
   background: var(--color-window-bg);
+  height: var(--dvh);
 
   > .main-wrapper {
+    --height-main: calc(var(--height-main-wrapper) - 2 * var(--main-wrapper-margin));
     --main-wrapper-margin: 10px;
     background: var(--color-window-bg);
     display: flex;
@@ -19,8 +24,10 @@
 
     > aside {
       background: var(--color-window-bg);
-      height: calc(var(--dvh) - var(--height-header));
+      height: var(--height-main);
+      overflow-x: hidden;
       padding: 8px 12px;
+      position: relative;
       width: var(--sidebar-width);
 
       > nav {
@@ -40,6 +47,27 @@
         }
       }
 
+      > .minimize {
+        border-radius: 4px;
+        color: var(--color-gray9);
+        inset: auto auto 0 auto;
+        padding: 10px;
+        position: absolute;
+        &:hover {
+          background: var(--color-primary);
+          color: var(--color-black);
+        }
+      }
+
+      &.mini {
+        --sidebar-width: var(--sidebar-width-mini);
+        > .minimize {
+          color: var(--color-black);
+          padding: 8px 20px 8px 8px;
+          margin: 8px;
+        }
+      }
+
       @media (max-width: 62em) {
         display: none;
       }
@@ -47,7 +75,7 @@
 
     > main {
       background: var(--color-main-bg);
-      height: calc(var(--dvh) - var(--height-header) - 2 * var(--main-wrapper-margin));
+      height: var(--height-main);
       flex: 1;
       opacity: 0;
       transition: opacity 0.05s;

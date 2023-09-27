@@ -293,8 +293,8 @@ table a {
   }
 }
 
-button,
-.button {
+button:not(.ghost),
+.button:not(.ghost) {
   --button-color: var(--color-primary);
   --border: 2px solid var(--button-shadow-color);
   @media (prefers-color-scheme: dark) {
@@ -375,6 +375,24 @@ button,
 
   &.right {
     border-radius: 0 var(--button-border-radius) var(--button-border-radius) 0;
+  }
+}
+
+button.ghost,
+.button.ghost {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  &:active,
+  &.active,
+  &[aria-pressed='true'],
+  &:disabled,
+  &[disabled],
+  &.disabled {
+    background: none;
+    border: none;
   }
 }
 

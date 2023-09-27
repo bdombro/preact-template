@@ -18,9 +18,12 @@ declare global {
   var icons: typeof _icons
 }
 
+// See list of icons at https://materialdesignicons.com
 const _icons = {
   account: () => import('@slimr/mdi-paths/CardAccountDetailsOutline'),
   alert: () => import('@slimr/mdi-paths/AlertOutline'),
+  arrowExpand: () => import('@slimr/mdi-paths/ArrowExpand'),
+  arrowCollapse: () => import('@slimr/mdi-paths/ArrowCollapse'),
   arrowL: () => import('@slimr/mdi-paths/ArrowLeft'),
   arrowR: () => import('@slimr/mdi-paths/ArrowRight'),
   auth: () => import('@slimr/mdi-paths/ShieldAccountOutline'),

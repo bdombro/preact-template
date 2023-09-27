@@ -91,8 +91,9 @@ function FooterIconA({icon, ...p}: {icon: IconKeys} & AProps) {
 }
 
 function Sidebar() {
+  const [isMini, setIsMini] = useState(false)
   return (
-    <aside>
+    <aside className={isMini ? 'mini' : undefined}>
       <nav>
         <SidebarIconA href={r.routes.stack1.path} icon="building">
           Stack
@@ -104,6 +105,15 @@ function Sidebar() {
           Logout
         </SidebarIconA>
       </nav>
+      <button className="ghost minimize" onClick={() => setIsMini(p => !p)} type="button">
+        {isMini ? (
+          <Icon name="arrowExpand" />
+        ) : (
+          <>
+            <Icon name="arrowCollapse" size={20} /> minimize
+          </>
+        )}
+      </button>
     </aside>
   )
 }
