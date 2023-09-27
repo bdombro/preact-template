@@ -27,5 +27,5 @@ export default function Chats() {
 }
 
 function ChatBox() {
-  return <div style={{background: 'var(--color-primary)'}}>Chat Box</div>
+  return <Div _background="var(--color-primary)">Chat Box</Div>
 }
