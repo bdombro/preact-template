@@ -74,9 +74,9 @@ function Footer() {
   return (
     <footer className="bottom-footer">
       <nav>
-        <FooterIconA href={r.routes.stack1.path} icon="building" />
-        <FooterIconA href="/#account" icon="account" />
-        <FooterIconA href={r.routes.login.path} icon="login" />
+        <FooterIconA href={r.routes.stack1.path} icon="building" title="Stacks example" />
+        <FooterIconA href="/#account" icon="account" title="Account" />
+        <FooterIconA href={r.routes.login.path} icon="login" title="Log in" />
       </nav>
     </footer>
   )
@@ -105,7 +105,12 @@ function Sidebar() {
           Logout
         </SidebarIconA>
       </nav>
-      <button className="ghost minimize" onClick={() => setIsMini(p => !p)} type="button">
+      <button
+        className="ghost minimize"
+        onClick={() => setIsMini(p => !p)}
+        title={isMini ? 'expand sidebar' : 'collapse sidebar'}
+        type="button"
+      >
         {isMini ? (
           <Icon name="arrowExpand" />
         ) : (
