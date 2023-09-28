@@ -3,7 +3,7 @@ import preact from '@preact/preset-vite'
 import {merge} from '@slimr/util'
 import react from '@vitejs/plugin-react-swc'
 import {resolve} from 'node:path'
-import {UserConfigExport, defineConfig} from 'vite'
+import {defineConfig, UserConfigExport} from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import {VitePWA as vitePWA} from 'vite-plugin-pwa'
 

@@ -158,6 +158,13 @@
       "~/(.*)$",
       "^[./]"
     ],
+    "importOrderCaseInsensitive": true,
+    "importOrderGroupNamespaceSpecifiers": true,
+    "importOrderParserPlugins": [
+      "typescript",
+      "decorators-legacy",
+      "jsx"
+    ],
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true
   }

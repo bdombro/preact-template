@@ -1,6 +1,6 @@
 import './cms-table.pcss'
 
-import {UseSet2, useMedia, useSet2} from '@slimr/react'
+import {useMedia, UseSet2, useSet2} from '@slimr/react'
 import {useLocationChangedCb} from '@slimr/router'
 import {queryStrings} from '@slimr/util'
 import React, {Fragment as F, useCallback, useState} from 'react'
