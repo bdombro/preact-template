@@ -14,6 +14,7 @@ export default function Chats() {
     <Layout>
       <Div
         _display="grid"
+        _gap={4}
         _gridTemplateColumns={['1fr', null, 'repeat(3, 1fr)', null, 'repeat(4, 1fr)']}
       >
         <ChatBox />

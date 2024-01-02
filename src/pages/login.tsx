@@ -36,11 +36,29 @@ export default function Login() {
     <Layout>
       <Layout.Section>
         <A href={r.routes.index.path} title="go home" _d="block" _textAlign="center">
-          <Img src={`/logo-${scheme}-scheme.svg`} _h={70} _mb={10} _w="90%" />
+          <img
+            src={`/logo-${scheme}-scheme.svg`}
+            height={57.57}
+            style={{marginBottom: 10}}
+            width={260}
+          />
         </A>
         <SForm onSubmit={onSubmit}>
-          <InputBox autoFocus label="email" name="email" required type="email" />
-          <InputBox label="password" name="password" required type="password" />
+          <InputBox
+            autoFocus
+            defaultValue="me@email.com"
+            label="email"
+            name="email"
+            required
+            type="email"
+          />
+          <InputBox
+            defaultValue="password"
+            label="password"
+            name="password"
+            required
+            type="password"
+          />
           <br />
           <FormFooter />
           <P className="small" _textAlign="center">
