@@ -75,10 +75,10 @@ type Curried<A extends sany[], R> = <P extends Partial<A>>(
 ) => P extends A
   ? R
   : A extends [...SameLength<P>, ...infer S]
-  ? S extends sany[]
-    ? Curried<S, R>
+    ? S extends sany[]
+      ? Curried<S, R>
+      : never
     : never
-  : never
 
 type SameLength<T extends sany[]> = Extract<{[K in keyof T]: sany}, sany[]>
 
