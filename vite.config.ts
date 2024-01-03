@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import preact from '@preact/preset-vite'
 import {merge} from '@slimr/util'
 import react from '@vitejs/plugin-react-swc'
@@ -10,6 +9,7 @@ import {VitePWA as vitePWA} from 'vite-plugin-pwa'
 const invokation = process.argv[1].split('/').at(-1) // i.e. vite, vitest or storybook
 
 // https://vitejs.dev/config/
+
 const prodConfig: UserConfigExport = {
   plugins: [
     /*
@@ -75,7 +75,6 @@ const prodConfig: UserConfigExport = {
   },
 }
 
-// https://vitejs.dev/config/
 const storybookConfig: UserConfigExport = merge(prodConfig, {
   // storybook doesn't like preact plugin but is fine with alias.
   // But, let's undo alias anyways so HMR works.
@@ -90,5 +89,4 @@ const storybookConfig: UserConfigExport = merge(prodConfig, {
 
 console.log('invokation', invokation)
 
-// https://vitejs.dev/config/
 export default defineConfig(invokation === 'storybook' ? storybookConfig : prodConfig)
