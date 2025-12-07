@@ -1,4 +1,4 @@
-import {create} from '@storybook/theming/create'
+import {create} from 'storybook/theming/create'
 
 const prefersDarkMode = window.matchMedia('(prefers-color-scheme:dark)').matches // true
 
