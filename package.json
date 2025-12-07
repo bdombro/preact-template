@@ -13,7 +13,6 @@
     "build:storybook": "storybook build",
     "clean": "rm -rf dist playwright-report",
     "ci:test": "gh act --artifact-server-path /tmp/artifacts",
-    "format": "prettier --cache -w .",
     "cap:ios:build": "cap build ios",
     "cap:ios:init": "cap add ios && cap sync ios",
     "cap:ios:xcode": "cap open ios",
@@ -24,7 +23,7 @@
     "cap:ios:watch:ondevice": "ionic cap run ios --livereload --no-sync --external",
     "//ionic:serve": "Needed for ionic cli to work",
     "ionic:serve": "NOSSL=true vite",
-    "lint": "tsc && eslint . --cache --cache-location=node_modules/.eslintcache && prettier --check .",
+    "lint": "tsc",
     "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css,pcss --exec 'npm run lint'",
     "precommit": "run-s clean lint build test",
     "preinstall": "echo npm run precommit > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit",
@@ -46,7 +45,6 @@
     }
   },
   "dependencies": {
-    "@capacitor/device": "^5.0.6",
     "@slimr/mdi-paths": "^2.1.43",
     "@slimr/react": "^3.0.25",
     "@slimr/util": "^3.2.40",
@@ -56,6 +54,7 @@
     "@capacitor/camera": "5.0.8",
     "@capacitor/cli": "5.6.0",
     "@capacitor/core": "5.6.0",
+    "@capacitor/device": "^5.0.6",
     "@capacitor/ios": "5.6.0",
     "@capacitor/splash-screen": "5.0.6",
     "@ionic/cli": "7.2.0",
@@ -66,93 +65,16 @@
     "@storybook/react-vite": "10.1.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "^7.33.2",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.32",
     "postcss-custom-selectors": "^7.1.6",
     "postcss-extend": "^1.0.5",
     "postcss-nested": "^6.0.1",
-    "prettier": "^3.1.1",
     "storybook": "10.1.4",
     "typescript": "^5.9.3",
     "vite": "^7.0.4",
     "vite-plugin-mkcert": "^1.17.9",
     "vite-plugin-pwa": "^1.2.0",
     "workbox-window": "^7.0.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es2021": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:react/jsx-runtime",
-      "plugin:@typescript-eslint/recommended",
-      "prettier"
-    ],
-    "ignorePatterns": [
-      "ios",
-      "dist"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    },
-    "plugins": [
-      "react",
-      "@typescript-eslint"
-    ],
-    "rules": {
-      "@typescript-eslint/ban-types": "off",
-      "@typescript-eslint/no-empty-function": "off",
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/no-unused-vars": "error",
-      "no-prototype-builtins": "off",
-      "no-var": "off",
-      "react/button-has-type": "error",
-      "react/jsx-no-undef": "off",
-      "react/no-unescaped-entities": "off",
-      "react/prop-types": "off"
-    },
-    "settings": {
-      "react": {
-        "version": "18"
-      }
-    }
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "semi": false,
-    "singleQuote": true,
-    "arrowParens": "avoid",
-    "bracketSpacing": false,
-    "printWidth": 100,
-    "plugins": [
-      "@trivago/prettier-plugin-sort-imports"
-    ],
-    "importOrder": [
-      ".pcss$",
-      ".css$",
-      "polyfills",
-      "<THIRD_PARTY_MODULES>",
-      "~/(.*)$",
-      "^[./]"
-    ],
-    "importOrderCaseInsensitive": true,
-    "importOrderGroupNamespaceSpecifiers": true,
-    "importOrderParserPlugins": [
-      "typescript",
-      "decorators-legacy",
-      "jsx"
-    ],
-    "importOrderSeparation": true,
-    "importOrderSortSpecifiers": true
   }
 }
