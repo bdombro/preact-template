@@ -13,3 +13,8 @@ The tiny 16kb preact app that could.
 - Global Html Tag components that are loaded with chakra-like css props, zx, \_hover,\_active, css and style shorthands
 
 Roadmap: <https://github.com/users/bdombro/projects/2>
+
+## Install tips
+
+- Cocaopods - install using brew, not gem. The gem install fails on newer Macs 
+- ios may involve steps with xcode
