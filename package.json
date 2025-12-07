@@ -48,9 +48,9 @@
   "dependencies": {
     "@capacitor/device": "^5.0.6",
     "@slimr/mdi-paths": "^2.1.43",
-    "@slimr/react": "^3.0.16",
+    "@slimr/react": "^3.0.25",
     "@slimr/util": "^3.2.40",
-    "preact": "^10.19.3"
+    "preact": "^10.26.9"
   },
   "devDependencies": {
     "@capacitor/camera": "5.0.8",
@@ -59,7 +59,7 @@
     "@capacitor/ios": "5.6.0",
     "@capacitor/splash-screen": "5.0.6",
     "@ionic/cli": "7.2.0",
-    "@playwright/test": "^1.40.1",
+    "@playwright/test": "^1.57.0",
     "@preact/preset-vite": "^2.8.1",
     "@storybook/addon-essentials": "^7.6.7",
     "@storybook/addon-interactions": "^7.6.7",
@@ -87,7 +87,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "7.6.7",
-    "typescript": "^5.3.3",
+    "typescript": "^5.9.3",
     "vite": "^5.0.10",
     "vite-plugin-mkcert": "^1.17.1",
     "vite-plugin-pwa": "^0.17.4",
