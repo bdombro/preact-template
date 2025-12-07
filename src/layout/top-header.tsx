@@ -1,3 +1,4 @@
+import './top-header.css'
 import {Logo} from './logo'
 
 export function TopHeader({

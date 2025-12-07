@@ -1,4 +1,4 @@
-import './layout-marketing.pcss'
+import './layout-marketing.css'
 
 import {router as r} from '~/router'
 

@@ -1,5 +1,3 @@
-@import 'top-header.pcss';
-
 .layout-dashboard {
   --color-header: var(--color-white);
   --color-window-bg: var(--color-gray1);

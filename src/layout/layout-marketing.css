@@ -1,5 +1,3 @@
-@import 'top-header.pcss';
-
 .layout-marketing {
   --color-header: var(--color-primary-darker);
   --color-window-bg: var(--color-gray1);

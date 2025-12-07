@@ -24,7 +24,7 @@
     "//ionic:serve": "Needed for ionic cli to work",
     "ionic:serve": "NOSSL=true vite",
     "lint": "tsc",
-    "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css,pcss --exec 'npm run lint'",
+    "lint:watch": "npx nodemon -e js,jsx,ts,tsx,css --exec 'npm run lint'",
     "precommit": "run-s clean lint build test",
     "preinstall": "echo npm run precommit > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit",
     "preview": "vite preview",
@@ -35,14 +35,6 @@
   },
   "engines": {
     "node": ">=16.13.0"
-  },
-  "postcss": {
-    "map": true,
-    "plugins": {
-      "postcss-custom-selectors": {},
-      "postcss-extend": {},
-      "postcss-nested": {}
-    }
   },
   "dependencies": {
     "@slimr/mdi-paths": "^2.1.43",
@@ -66,10 +58,6 @@
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20.10.6",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.32",
-    "postcss-custom-selectors": "^7.1.6",
-    "postcss-extend": "^1.0.5",
-    "postcss-nested": "^6.0.1",
     "storybook": "10.1.4",
     "typescript": "^5.9.3",
     "vite": "^7.0.4",
