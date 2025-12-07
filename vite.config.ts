@@ -1,16 +1,12 @@
 import preact from '@preact/preset-vite'
-import {merge} from '@slimr/util'
-import react from '@vitejs/plugin-react-swc'
 import {resolve} from 'node:path'
 import {defineConfig, UserConfigExport} from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import {VitePWA as vitePWA} from 'vite-plugin-pwa'
 
-const invokation = process.argv[1].split('/').at(-1) // i.e. vite, vitest or storybook
-
 // https://vitejs.dev/config/
 
-const prodConfig: UserConfigExport = {
+export default defineConfig({
   plugins: [
     /*
      * The react plugin works too, but HMR breaks and you loose some dev features.
@@ -73,20 +69,5 @@ const prodConfig: UserConfigExport = {
       },
     },
   },
-}
-
-const storybookConfig: UserConfigExport = merge(prodConfig, {
-  // storybook doesn't like preact plugin but is fine with alias.
-  // But, let's undo alias anyways so HMR works.
-  plugins: [react(), ...prodConfig.plugins.slice(1)],
-  resolve: {
-    alias: {
-      react: 'react',
-      'react-dom': 'react-dom',
-    },
-  },
 })
 
-console.log('invokation', invokation)
-
-export default defineConfig(invokation === 'storybook' ? storybookConfig : prodConfig)
