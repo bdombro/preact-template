@@ -6,17 +6,17 @@ export {}
  * We detect this by comparing the window's outerHeight to its innerHeight.
  */
 const softKeyboardListener = () => {
-  setTimeout(() => {
-    if (window.outerHeight - window.innerHeight > 300) {
-      window.isSoftKeyboardOpen = true
-      document.documentElement.classList.add('keyboard-open')
-    } else {
-      window.isSoftKeyboardOpen = false
-      document.documentElement.classList.remove('keyboard-open')
-    }
-  }, 200) // 50 is the minimum delay that works on iOS
+	setTimeout(() => {
+		if (window.outerHeight - window.innerHeight > 300) {
+			window.isSoftKeyboardOpen = true
+			document.documentElement.classList.add("keyboard-open")
+		} else {
+			window.isSoftKeyboardOpen = false
+			document.documentElement.classList.remove("keyboard-open")
+		}
+	}, 200) // 50 is the minimum delay that works on iOS
 }
-removeEventListener('focusin', softKeyboardListener)
-addEventListener('focusin', softKeyboardListener)
-removeEventListener('focusout', softKeyboardListener)
-addEventListener('focusout', softKeyboardListener)
+removeEventListener("focusin", softKeyboardListener)
+addEventListener("focusin", softKeyboardListener)
+removeEventListener("focusout", softKeyboardListener)
+addEventListener("focusout", softKeyboardListener)

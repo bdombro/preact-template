@@ -1,10 +1,10 @@
 /* eslint-disable require-jsdoc */
-import Index from './index'
+import Index from "./index"
 
 export default {
-  component: Index,
+	component: Index,
 }
 
 export function Index1() {
-  return <Index />
+	return <Index />
 }

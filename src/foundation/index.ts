@@ -1,6 +1,6 @@
-import './foundation.css'
+import "./foundation.css"
 
-import './polyfills'
+import "./polyfills"
 
-export * from './components'
-export * from './toasts'
+export * from "./components"
+export * from "./toasts"

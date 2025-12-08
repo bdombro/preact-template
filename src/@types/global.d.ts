@@ -22,7 +22,7 @@ type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
  * Make all properties in T never
  */
 type Never<T> = {
-  [P in keyof T]?: never
+	[P in keyof T]?: never
 }
 /**
  * Make properties either normal or never
@@ -33,11 +33,11 @@ type AllOrNothing<T> = T | Never<T>
  * Accepts any type that's not an array
  */
 type NonArray =
-  | {
-      length?: never
-      [key: string]: sany
-    }
-  | string
-  | bigint
-  | number
-  | boolean
+	| {
+			length?: never
+			[key: string]: sany
+	  }
+	| string
+	| bigint
+	| number
+	| boolean
