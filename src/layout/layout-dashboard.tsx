@@ -2,7 +2,7 @@ import './layout-dashboard.css'
 
 import {router as r} from '~/router'
 
-import {BurgerIconA, NavA, NavLogo, TopHeader} from './top-header'
+import {BurgerIconA, NavLogo, TopHeader} from './top-header'
 
 /**
  * A layout with a header and a main section
@@ -84,9 +84,9 @@ function Footer() {
 
 function FooterIconA({icon, ...p}: {icon: IconKeys} & AProps) {
   return (
-    <NavA {...p}>
+    <A {...p}>
       <Icon name={icon} />
-    </NavA>
+    </A>
   )
 }
 
@@ -125,9 +125,9 @@ function Sidebar() {
 
 function SidebarIconA({icon, ...p}: {icon: IconKeys} & AProps) {
   return (
-    <NavA {...p}>
+    <A {...p}>
       <Icon name={icon} />
       <div>{p.children}</div>
-    </NavA>
+    </A>
   )
 }

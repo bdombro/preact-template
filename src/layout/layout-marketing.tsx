@@ -2,7 +2,7 @@ import './layout-marketing.css'
 
 import {router as r} from '~/router'
 
-import {BurgerIconA, NavA, TopHeader} from './top-header'
+import {BurgerIconA, TopHeader} from './top-header'
 
 /**
  * A layout with a header and a main section
@@ -29,9 +29,9 @@ export function Layout({children}: {children: React.ReactNode}) {
         }
         right={
           <>
-            <NavA href={r.routes.index.path}>Home</NavA>
-            <NavA href={r.routes.about.path}>About</NavA>
-            <NavA href={r.routes.login.path}>Login</NavA>
+            <A href={r.routes.index.path}>Home</A>
+            <A href={r.routes.about.path}>About</A>
+            <A href={r.routes.login.path}>Login</A>
           </>
         }
       />

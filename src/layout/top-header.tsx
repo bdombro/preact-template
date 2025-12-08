@@ -40,17 +40,10 @@ export function TopHeader({
 /** An anchor with an icon on the left */
 export function BurgerIconA({icon, ...p}: {icon: IconKeys} & AProps) {
   return (
-    <NavA {...p}>
+    <A {...p}>
       <Icon name={icon} />
       <div>{p.children}</div>
-    </NavA>
-  )
-}
-
-/** An anchor element with active classname injected  */
-export function NavA(p: AProps) {
-  return (
-    <A {...p} className={classJoin(p.className, location.href.includes(p.href!) ? 'active' : '')} />
+    </A>
   )
 }
 

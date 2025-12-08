@@ -6,7 +6,6 @@ declare global {
   var cloneElement: typeof r.cloneElement
   var createContext: typeof r.createContext
   var createElement: typeof r.createElement
-  var createFactory: typeof r.createFactory
   var createRef: typeof r.createRef
 
   var F: typeof r.Fragment
@@ -46,7 +45,6 @@ declare global {
 globalThis.cloneElement = r.cloneElement
 globalThis.createContext = r.createContext
 globalThis.createElement = r.createElement
-globalThis.createFactory = r.createFactory
 globalThis.createRef = r.createRef
 globalThis.F = r.Fragment
 globalThis.Fragment = r.Fragment
