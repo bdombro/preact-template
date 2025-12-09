@@ -1,12 +1,12 @@
 import "./cms-table.css"
 
 import { type UseSet2, useMedia, useSet2 } from "@slimr/react"
-import { useLocationChangedCb } from "@slimr/router"
 import { queryStrings } from "@slimr/util"
 import type React from "react"
 import { Fragment as F, useCallback, useState } from "react"
 
 import { toast } from "~/foundation"
+import { router } from "~/router"
 
 interface CmsTableProps {
 	bulkOptions?: { label: string; cb: (selection: sany[]) => sany }[]
@@ -39,7 +39,10 @@ export function CmsTable(props: CmsTableProps) {
 	const qs = getCmsTableQsProps()
 
 	const checked = useSet2<CmsRow>()
-	useLocationChangedCb(() => checked.clear())
+
+	useEffect(() => {
+		return router.subscribe(() => checked.clear())
+	}, [])
 
 	return (
 		<div className="cms-table-div">
