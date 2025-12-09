@@ -1,7 +1,7 @@
-import "./layout-marketing.css"
-
+import { authCookie } from "~/foundation"
 import { router as r } from "~/router"
 
+import "./layout-marketing.css"
 import { BurgerIconA, TopHeader } from "./top-header"
 
 /**
@@ -23,7 +23,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 							About
 						</BurgerIconA>
 						<BurgerIconA href={r.routes.login.path} icon="login">
-							Login
+							<LoginOrDashboardText />
 						</BurgerIconA>
 					</>
 				}
@@ -31,7 +31,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 					<>
 						<A href={r.routes.index.path}>Home</A>
 						<A href={r.routes.about.path}>About</A>
-						<A href={r.routes.login.path}>Login</A>
+						<A href={r.routes.login.path}>
+							<LoginOrDashboardText />
+						</A>
 					</>
 				}
 			/>
@@ -40,6 +42,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</div>
 		</div>
 	)
+}
+
+function LoginOrDashboardText() {
+	authCookie.use()
+	return authCookie.val ? "Dashboard" : "Login"
 }
 
 Layout.Section = function LayoutSection({

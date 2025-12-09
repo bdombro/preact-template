@@ -1,13 +1,18 @@
-import "./layout-dashboard.css"
-
+import { authCookie } from "~/foundation"
 import { router as r } from "~/router"
 
+import "./layout-dashboard.css"
 import { BurgerIconA, NavLogo, TopHeader } from "./top-header"
 
 /**
  * A layout with a header and a main section
  */
 export function Layout({ children }: { children: React.ReactNode }) {
+	authCookie.use()
+	if (!authCookie.val) {
+		r.goto(r.routes.login)
+		return null
+	}
 	return (
 		<div className="layout-dashboard">
 			<TopHeader
@@ -90,6 +95,12 @@ function FooterIconA({ icon, ...p }: { icon: IconKeys } & AProps) {
 
 function Sidebar() {
 	const [isMini, setIsMini] = useState(false)
+
+	function logout(e: React.MouseEvent) {
+		e.preventDefault()
+		authCookie.val = null
+	}
+
 	return (
 		<aside className={isMini ? "mini" : undefined}>
 			<nav>
@@ -99,7 +110,7 @@ function Sidebar() {
 				<SidebarIconA href="/#account" icon="account">
 					Account
 				</SidebarIconA>
-				<SidebarIconA href={r.routes.login.path} icon="login">
+				<SidebarIconA href="/#logout" onClick={logout} icon="login">
 					Logout
 				</SidebarIconA>
 			</nav>

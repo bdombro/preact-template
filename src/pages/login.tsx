@@ -1,7 +1,7 @@
 import { type OnSubmit, SForm, SFormError, useSFormContext } from "@slimr/react"
 import { setPageMeta } from "@slimr/util"
 
-import { GenericError, InputBox } from "~/foundation"
+import { authCookie, GenericError, InputBox } from "~/foundation"
 import { Layout } from "~/layout/layout-login"
 import { Logo } from "~/layout/logo"
 import { router as r } from "~/router"
@@ -11,6 +11,7 @@ import { router as r } from "~/router"
  */
 export default function Login() {
 	setPageMeta({ title: "Login" })
+	authCookie.use()
 
 	const onSubmit: OnSubmit = async (_, vals) => {
 		// Tips:
@@ -29,7 +30,12 @@ export default function Login() {
 		}
 
 		console.log("vals", vals)
+		authCookie.val = "demo_token_12345"
+	}
+
+	if (authCookie.val) {
 		r.goto(r.routes.stack1)
+		return null
 	}
 
 	return (
