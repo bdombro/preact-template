@@ -16,5 +16,4 @@ Roadmap: <https://github.com/users/bdombro/projects/2>
 
 ## Install tips
 
-- Cocaopods - install using brew, not gem. The gem install fails on newer Macs 
 - ios may involve steps with xcode
