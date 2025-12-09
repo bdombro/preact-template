@@ -75,7 +75,7 @@
 	}
 
 	> table {
-		--border: 2px solid var(--color-gray3);
+		--border: 2px solid var(--color-grayC);
 		--cell-padding: 0.8rem 0.8rem;
 		border-collapse: collapse;
 		border: var(--border);
@@ -127,17 +127,17 @@
 		> tbody {
 			> tr {
 				&:nth-of-type(odd) {
-					background: var(--color-gray1);
+					background: var(--color-grayE);
 				}
 				&:hover {
-					background: var(--color-gray2);
+					background: var(--color-grayD);
 				}
 			}
 		}
 	}
 
 	> .no-result-div {
-		background: var(--gray2);
+		background: var(--color-gray2);
 		border-radius: 3px;
 		min-height: 150px;
 		margin: 0.1rem 0 0.3rem;

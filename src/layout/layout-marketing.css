@@ -1,6 +1,6 @@
 .layout-marketing {
 	--color-header: var(--color-primary-darker);
-	--color-window-bg: var(--color-gray1);
+	--color-window-bg: var(--color-grayE);
 	--height-header-navbar: 45px;
 	--height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
 	background: var(--color-window-bg);

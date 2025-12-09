@@ -1,56 +1,50 @@
 /* Colors */
 
 :root {
+	color-scheme: light dark;
+
+	--color-black: light-dark(black, white);
+	--color-white: light-dark(white, black);
+	--color-gray1: light-dark(#111111, #eeeeee);
+	--color-gray2: light-dark(#222222, #dddddd);
+	--color-gray3: light-dark(#333333, #cccccc);
+	--color-gray4: light-dark(#444444, #bbbbbb);
+	--color-gray5: light-dark(#555555, #aaaaaa);
+	--color-gray6: light-dark(#666666, #999999);
+	--color-gray7: light-dark(#777777, #888888);
+	--color-gray8: light-dark(#888888, #777777);
+	--color-gray9: light-dark(#999999, #666666);
+	--color-grayA: light-dark(#aaaaaa, #555555);
+	--color-grayB: light-dark(#bbbbbb, #444444);
+	--color-grayC: light-dark(#cccccc, #333333);
+	--color-grayD: light-dark(#dddddd, #222222);
+	--color-grayE: light-dark(#eeeeee, #111111);
+
+	--color-main-fg: var(--color-gray2);
+	--color-main-bg: var(--color-grayE);
+
 	--color-primary: hsl(199, 84%, 30%);
-	--color-primary-darker: hsl(199, 84%, 20%);
+	--color-primary-darker: light-dark(hsl(199, 84%, 20%), hsl(199, 84%, 60%));
 	--color-secondary: hsl(178, 40%, 44%);
-	--color-tertiary: #696969;
+	--color-tertiary: var(--color-gray6);
 	--color-success: green;
-	--color-danger: #cc0000;
+	--color-danger: light-dark(#cc0000, #ff7070);
 	--color-alert: orange;
-	--color-black: black;
-	--color-white: white;
-	--color-main-bg: white;
-	--color-main-fg: black;
 
-	--color-gray1: hsl(0, 0%, 97%);
-	--color-gray2: hsl(0, 0%, 93%);
-	--color-gray3: hsl(0, 0%, 88%);
-	--color-gray4: hsl(0, 0%, 80%);
-	--color-gray5: hsl(0, 0%, 68%);
-	--color-gray6: hsl(0, 0%, 55%);
-	--color-gray7: hsl(0, 0%, 46%);
-	--color-gray8: hsl(0, 0%, 34%);
-	--color-gray9: hsl(0, 0%, 26%);
-
-	@media (prefers-color-scheme: dark) {
-		color-scheme: dark;
-		--color-primary-darker: hsl(199, 84%, 60%);
-		--color-danger: #ff7070;
-		--color-tertiary: #696969;
-		--color-black: white;
-		--color-white: black;
-		--color-gray1: hsl(0, 0%, 16%);
-		--color-gray2: hsl(0, 0%, 21%);
-		--color-gray3: hsl(0, 0%, 25%);
-		--color-gray4: hsl(0, 0%, 29%);
-		--color-gray5: hsl(0, 0%, 35%);
-		--color-gray6: hsl(0, 0%, 45%);
-		--color-gray7: hsl(0, 0%, 54%);
-		--color-gray8: hsl(0, 0%, 66%);
-		--color-gray9: hsl(0, 0%, 74%);
-		--color-main-bg: #111;
-		--color-main-fg: white;
-	}
-
-	--button-shadow-color: var(--color-gray2);
+	--button-shadow-color: var(--color-grayD);
 	--button-border-radius: 4px;
-	--input-border-color: var(--color-gray8);
-	--input-disabled-color: var(--color-gray5);
+	--input-border-color: var(--color-gray7);
+	--input-disabled-color: var(--color-grayA);
 }
 
 /** Typography */
 :root {
+	--font-sans:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+		"Helvetica Neue", sans-serif;
+	--font-monospace: "Fira Code", monospace;
+	--font-serif: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+
 	/* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 	--step--2: clamp(0.7rem, calc(0.7rem + 0.03vw), 0.8rem);
 	--step--1: clamp(0.9rem, calc(0.9rem + 0.1vw), 1rem);
@@ -250,8 +244,8 @@ p,
 
 :root {
 	--scrollbarWidth: 14px;
-	--scrollbarBg: var(--color-gray4);
-	--scrollbarThumb: var(--color-gray7);
+	--scrollbarBg: var(--color-grayB);
+	--scrollbarThumb: var(--color-gray8);
 }
 * {
 	scrollbar-width: var(--scrollbarWidth);
@@ -277,8 +271,9 @@ p,
 }
 
 body {
+	font-family: var(--font-monospace);
 	font-size: var(--step-0);
-	background: var(--color-main-bg);
+	background-color: var(--color-main-bg);
 	color: var(--color-main-fg);
 	margin: 0;
 	overflow: hidden;
@@ -405,6 +400,10 @@ button.ghost,
 	}
 }
 
+.hidden {
+	display: none;
+}
+
 /** Forms */
 
 fieldset {
@@ -476,7 +475,7 @@ select,
 	}
 
 	&[disabled] {
-		border-color: var(--color-gray4);
+		border-color: var(--color-grayB);
 	}
 
 	&[data-error="true"] {

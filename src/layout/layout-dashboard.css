@@ -1,6 +1,6 @@
 .layout-dashboard {
 	--color-header: var(--color-white);
-	--color-window-bg: var(--color-gray1);
+	--color-window-bg: var(--color-grayE);
 	--height-header-navbar: 45px;
 	--height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
 	--height-footer: 60px; /* also controlled by .keyboard-open .layout-dashboard */
@@ -47,7 +47,7 @@
 
 			> .minimize {
 				border-radius: 4px;
-				color: var(--color-gray9);
+				color: var(--color-gray6);
 				inset: auto auto 0 auto;
 				padding: 10px;
 				position: absolute;
@@ -129,14 +129,14 @@
 
 			> a {
 				align-items: center;
-				background: var(--color-gray2);
+				background: var(--color-grayD);
 				cursor: pointer;
 				display: grid;
 				height: var(--height-footer);
 				justify-content: center;
 				&:hover,
 				&.active {
-					background: var(--color-gray1);
+					background: var(--color-grayE);
 				}
 			}
 

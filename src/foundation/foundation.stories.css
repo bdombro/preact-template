@@ -20,8 +20,8 @@
 .typography {
 	> * {
 		display: block;
-		/* border-top: 1px solid var(--color-gray5); */
-		background: var(--color-gray1);
+		/* border-top: 1px solid var(--color-grayA); */
+		background: var(--color-grayE);
 		margin-bottom: 2px;
 	}
 }
