@@ -8,20 +8,20 @@
 	--sidebar-width-full: 250px;
 	--sidebar-width-mini: 62px;
 	--sidebar-width: var(--sidebar-width-full);
-	background: var(--color-window-bg);
+	background-color: var(--color-window-bg);
 	height: var(--dvh);
 
 	> .main-wrapper {
 		--height-main: calc(var(--height-main-wrapper) - 2 * var(--main-wrapper-margin));
 		--main-wrapper-margin: 10px;
-		background: var(--color-window-bg);
+		background-color: var(--color-window-bg);
 		display: flex;
 		margin-right: var(--main-wrapper-margin);
 		margin-top: var(--main-wrapper-margin);
 		position: relative;
 
 		> aside {
-			background: var(--color-window-bg);
+			background-color: var(--color-window-bg);
 			height: var(--height-main);
 			overflow-x: hidden;
 			padding: 8px 12px;
@@ -40,7 +40,7 @@
 					padding: 12px 14px;
 					&.active,
 					&:hover {
-						background: var(--color-primary);
+						background-color: var(--color-primary);
 					}
 				}
 			}
@@ -52,7 +52,7 @@
 				padding: 10px;
 				position: absolute;
 				&:hover {
-					background: var(--color-primary);
+					background-color: var(--color-primary);
 					color: var(--color-black);
 				}
 			}
@@ -72,7 +72,7 @@
 		}
 
 		> main {
-			background: var(--color-main-bg);
+			background-color: var(--color-grayD);
 			height: var(--height-main);
 			flex: 1;
 			opacity: 0;
@@ -129,14 +129,14 @@
 
 			> a {
 				align-items: center;
-				background: var(--color-grayD);
+				background-color: var(--color-grayD);
 				cursor: pointer;
 				display: grid;
 				height: var(--height-footer);
 				justify-content: center;
 				&:hover,
 				&.active {
-					background: var(--color-grayE);
+					background-color: var(--color-grayE);
 				}
 			}
 

@@ -4,16 +4,16 @@ import { setPageMeta } from "@slimr/util"
 import { authCookie, GenericError, InputBox } from "~/foundation"
 import { Layout } from "~/layout/layout-login"
 import { Logo } from "~/layout/logo"
-import { router as r } from "~/router"
+import { router } from "~/router"
 
 /**
  * A demo of a login page
  */
 export default function Login() {
 	setPageMeta({ title: "Login" })
-	authCookie.use()
 
 	const onSubmit: OnSubmit = async (_, vals) => {
+		console.debug("Login submitted")
 		// Tips:
 		// 1. useForm already prevents onSubmit from being called
 		//    if any inputs have a truthy 'error' property
@@ -29,19 +29,14 @@ export default function Login() {
 			throw new SFormError(errors)
 		}
 
-		console.log("vals", vals)
-		authCookie.val = "demo_token_12345"
-	}
-
-	if (authCookie.val) {
-		r.goto(r.routes.stack1)
-		return null
+		authCookie.value = "demo_token_12345"
+		console.debug("Login successful")
 	}
 
 	return (
 		<Layout>
 			<Layout.Section>
-				<a href={r.routes.index.path} title="go home">
+				<a href={router.routes.index.path} title="go home">
 					<Logo height={70} _mb={20} />
 				</a>
 				<SForm onSubmit={onSubmit}>
@@ -50,7 +45,7 @@ export default function Login() {
 					<br />
 					<FormFooter />
 					<P className="small" _textAlign="center">
-						Click <a href={r.routes.login.path}>here</a> to register
+						Click <a href={router.routes.login.path}>here</a> to register
 					</P>
 				</SForm>
 			</Layout.Section>

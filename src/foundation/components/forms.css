@@ -31,7 +31,7 @@
 	margin-bottom: 0.8rem;
 
 	> label {
-		background: var(--color-main-bg);
+		background-color: var(--color-main-bg);
 		color: var(--color-main-fg);
 		font-size: 0.75rem;
 		left: 8px;

@@ -1,33 +1,41 @@
-import { Observable } from "@slimr/react"
+import { effect, signal } from "@preact/signals"
 
 const authCookieName = "auth_token"
 
 /**
- * An observable that reflects the value of the authentication cookie
+ * A Preact signal that reflects the value of the authentication cookie
  *
  * @usage
  * ```tsx
  *   import { authCookie } from "~/foundation"
- * 	 function MyComponent() {
- *   	 authCookie.use() // subscribes to changes
- * 		 if (!authCookie.val) {
- *	 		 return r.goto(r.routes.login)
- * 		 }
- * 		 return <div>Protected content</div>
+ *   function MyComponent() {
+ *     authCookie.value // subscribe to changes
+ *     if (!authCookie.value) {
+ *       return r.goto(r.routes.login)
+ *     }
+ *     return <div>Protected content</div>
  *   }
  * ```
  */
-export const authCookie = new Observable("authCookie", getCookieValue(authCookieName))
+export const authCookie = signal(getCookieValue(authCookieName))
 
-setInterval(() => authCookie.set(getCookieValue(authCookieName)), 5000)
+// Poll the cookie value every 5 seconds and update the signal if it changes
+setInterval(() => {
+	const value = getCookieValue(authCookieName)
+	if (authCookie.value !== value) {
+		authCookie.value = value
+	}
+}, 5000)
 
-authCookie.subscribe(async (newValue) => {
+// Keep the cookieStore in sync with the signal
+effect(() => {
+	const newValue = authCookie.value
 	const currentValue = getCookieValue(authCookieName)
 	if (newValue !== currentValue) {
 		if (!newValue) {
-			await cookieStore.delete(authCookieName)
+			cookieStore.delete(authCookieName)
 		} else {
-			await cookieStore.set({ name: authCookieName, value: newValue || "", path: "/" })
+			cookieStore.set({ name: authCookieName, value: newValue || "", path: "/" })
 		}
 	}
 })

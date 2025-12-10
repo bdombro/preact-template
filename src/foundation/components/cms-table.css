@@ -98,7 +98,7 @@
 		> thead,
 		> tfoot {
 			> tr {
-				background: var(--color-white);
+				background-color: var(--color-white);
 				> th,
 				> td {
 					border-bottom: var(--border);
@@ -109,7 +109,7 @@
 							visibility: hidden;
 						}
 						&:hover {
-							background: var(--color-secondary);
+							background-color: var(--color-secondary);
 						}
 						&:active > svg {
 							transform: translateY(2px);
@@ -127,17 +127,17 @@
 		> tbody {
 			> tr {
 				&:nth-of-type(odd) {
-					background: var(--color-grayE);
+					background-color: var(--color-grayE);
 				}
 				&:hover {
-					background: var(--color-grayD);
+					background-color: var(--color-grayD);
 				}
 			}
 		}
 	}
 
 	> .no-result-div {
-		background: var(--color-gray2);
+		background-color: var(--color-gray2);
 		border-radius: 3px;
 		min-height: 150px;
 		margin: 0.1rem 0 0.3rem;

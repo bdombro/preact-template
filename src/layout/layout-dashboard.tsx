@@ -1,18 +1,21 @@
 import { authCookie } from "~/foundation"
-import { router as r } from "~/router"
+import { router } from "~/router"
 
 import "./layout-dashboard.css"
+import { useSignalEffect } from "@preact/signals"
 import { BurgerIconA, NavLogo, TopHeader } from "./top-header"
 
 /**
  * A layout with a header and a main section
  */
 export function Layout({ children }: { children: React.ReactNode }) {
-	authCookie.use()
-	if (!authCookie.val) {
-		r.goto(r.routes.login)
-		return null
-	}
+	useSignalEffect(() => {
+		if (!authCookie.value) {
+			console.debug("[LAYOUT]: No auth cookie, redirecting to login")
+			router.goto(router.routes.login, { returnTo: router.current.path })
+		}
+	})
+
 	return (
 		<div className="layout-dashboard">
 			<TopHeader
@@ -21,12 +24,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 						<BurgerIconA href="/#account" icon="account">
 							Account
 						</BurgerIconA>
-						<BurgerIconA href={r.routes.login.path} icon="login">
+						<BurgerIconA href={router.routes.login.path} icon="login">
 							Logout
 						</BurgerIconA>
 					</>
 				}
-				left={<NavLogo href={r.routes.stack1.path} />}
+				left={<NavLogo href={router.routes.stack1.path} />}
 			/>
 			<div className="main-wrapper">
 				<Sidebar />
@@ -77,9 +80,9 @@ function Footer() {
 	return (
 		<footer className="bottom-footer">
 			<nav>
-				<FooterIconA href={r.routes.stack1.path} icon="building" title="Stacks example" />
+				<FooterIconA href={router.routes.stack1.path} icon="building" title="Stacks example" />
 				<FooterIconA href="/#account" icon="account" title="Account" />
-				<FooterIconA href={r.routes.login.path} icon="login" title="Log in" />
+				<FooterIconA href={router.routes.login.path} icon="login" title="Log in" />
 			</nav>
 		</footer>
 	)
@@ -98,19 +101,19 @@ function Sidebar() {
 
 	function logout(e: React.MouseEvent) {
 		e.preventDefault()
-		authCookie.val = null
+		authCookie.value = null
 	}
 
 	return (
 		<aside className={isMini ? "mini" : undefined}>
 			<nav>
-				<SidebarIconA href={r.routes.stack1.path} icon="building">
+				<SidebarIconA href={router.routes.stack1.path} icon="building">
 					Stack
 				</SidebarIconA>
 				<SidebarIconA href="/#account" icon="account">
 					Account
 				</SidebarIconA>
-				<SidebarIconA href="/#logout" onClick={logout} icon="login">
+				<SidebarIconA href="#logout" onClick={logout} icon="login">
 					Logout
 				</SidebarIconA>
 			</nav>

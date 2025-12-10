@@ -39,7 +39,7 @@
 		margin-top: 0;
 	}
 	& .dismiss {
-		background: #ffffff33;
+		background-color: #ffffff33;
 		border-radius: 50%;
 		cursor: pointer;
 		display: inline-block;
@@ -51,7 +51,7 @@
 	}
 
 	& > div {
-		background: var(--toast-color-info);
+		background-color: var(--toast-color-info);
 		border-radius: 6px;
 		color: #fff;
 		display: flex;
@@ -63,13 +63,13 @@
 	}
 
 	&.success > div {
-		background: var(--toast-color-success);
+		background-color: var(--toast-color-success);
 	}
 	&.alert > div {
-		background: var(--toast-color-alert);
+		background-color: var(--toast-color-alert);
 	}
 	&.error > div {
-		background: var(--toast-color-danger);
+		background-color: var(--toast-color-danger);
 	}
 
 	& > div > div {

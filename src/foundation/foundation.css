@@ -255,7 +255,7 @@ p,
 	width: var(--scrollbarWidth);
 }
 ::-webkit-scrollbar-track {
-	background: var(--scrollbarBg);
+	background-color: var(--scrollbarBg);
 }
 ::-webkit-scrollbar-thumb {
 	background-color: var(--scrollbarThumb);
@@ -414,7 +414,7 @@ input,
 .input,
 textarea,
 .textarea {
-	background: var(--color-main-bg);
+	background-color: var(--color-main-bg);
 	border: 1px solid var(--input-border-color);
 	color: var(--color-main-fg);
 	outline-color: var(--color-primary);
@@ -456,7 +456,7 @@ textarea,
 
 select,
 .select {
-	background: var(--color-main-bg);
+	background-color: var(--color-main-bg);
 	border: 1px solid var(--input-border-color);
 	color: var(--color-main-fg);
 	font-size: var(--step--1);
