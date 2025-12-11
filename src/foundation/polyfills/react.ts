@@ -11,11 +11,11 @@ declare global {
 	var F: typeof r.Fragment
 	var Fragment: typeof r.Fragment
 
-	function memo<P extends object>(
+	function reactMemo<P extends object>(
 		Component: r.FunctionComponent<P>,
 		propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean,
 	): r.NamedExoticComponent<P>
-	function memo<T extends r.ComponentType<sany>>(
+	function reactMemo<T extends r.ComponentType<sany>>(
 		Component: T,
 		propsAreEqual?: (
 			prevProps: Readonly<r.ComponentProps<T>>,
@@ -25,6 +25,7 @@ declare global {
 
 	var Suspense: typeof r.Suspense
 
+	var forwardRef: typeof r.forwardRef
 	var useCallback: typeof r.useCallback
 	var useContext: typeof r.useContext
 	var useDebugValue: typeof r.useDebugValue
@@ -47,8 +48,9 @@ globalThis.createContext = r.createContext
 globalThis.createElement = r.createElement
 globalThis.createRef = r.createRef
 globalThis.F = r.Fragment
+globalThis.forwardRef = r.forwardRef
 globalThis.Fragment = r.Fragment
-globalThis.memo = r.memo
+globalThis.reactMemo = r.memo
 globalThis.Suspense = r.Suspense
 globalThis.useCallback = r.useCallback
 globalThis.useDebugValue = r.useDebugValue

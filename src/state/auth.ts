@@ -7,29 +7,29 @@ const authCookieName = "auth_token"
  *
  * @usage
  * ```tsx
- *   import { authCookie } from "~/foundation"
+ *   import { auth } from "~/state"
  *   function MyComponent() {
- *     authCookie.value // subscribe to changes
- *     if (!authCookie.value) {
+ *     auth.cookie.value // subscribe to changes
+ *     if (!auth.cookie.value) {
  *       return r.goto(r.routes.login)
  *     }
  *     return <div>Protected content</div>
  *   }
  * ```
  */
-export const authCookie = signal(getCookieValue(authCookieName))
+export const cookie = signal(getCookieValue(authCookieName))
 
 // Poll the cookie value every 5 seconds and update the signal if it changes
 setInterval(() => {
 	const value = getCookieValue(authCookieName)
-	if (authCookie.value !== value) {
-		authCookie.value = value
+	if (cookie.value !== value) {
+		cookie.value = value
 	}
 }, 5000)
 
 // Keep the cookieStore in sync with the signal
 effect(() => {
-	const newValue = authCookie.value
+	const newValue = cookie.value
 	const currentValue = getCookieValue(authCookieName)
 	if (newValue !== currentValue) {
 		if (!newValue) {

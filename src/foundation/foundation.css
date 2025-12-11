@@ -400,6 +400,11 @@ button.ghost,
 	}
 }
 
+hr {
+	border: none;
+	border-top: solid var(--color-grayB) 2px;
+}
+
 .hidden {
 	display: none;
 }

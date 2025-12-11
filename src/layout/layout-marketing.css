@@ -5,16 +5,16 @@
 	--height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
 	background-color: var(--color-window-bg);
 
-	> .main-wrapper {
-		--main-wrapper-margin: 0px;
+	> .layout-body {
+		--layout-body-margin: 0px;
 		background-color: var(--color-window-bg);
 		display: flex;
-		margin-right: var(--main-wrapper-margin);
-		margin-top: var(--main-wrapper-margin);
+		margin-right: var(--layout-body-margin);
+		margin-top: var(--layout-body-margin);
 
 		> main {
 			background-color: var(--color-main-bg);
-			height: calc(var(--dvh) - var(--height-header) - 2 * var(--main-wrapper-margin));
+			height: calc(var(--dvh) - var(--height-header) - 2 * var(--layout-body-margin));
 			flex: 1;
 			opacity: 0.9;
 			transition: opacity 0.05s;

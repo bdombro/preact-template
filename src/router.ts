@@ -37,6 +37,6 @@ export const router = new Router(
 		},
 	},
 	{
-		scrollElSelector: "main",
+		scrollElSelector: ".layout-body > main",
 	},
 )

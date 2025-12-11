@@ -4,20 +4,20 @@
 	--height-header-navbar: 45px;
 	--height-header: calc(var(--statusbar-height) + var(--height-header-navbar));
 	--height-footer: 60px; /* also controlled by .keyboard-open .layout-dashboard */
-	--height-main-wrapper: calc(var(--dvh) - var(--height-header));
+	--layout-body-height: calc(var(--dvh) - var(--height-header));
 	--sidebar-width-full: 250px;
 	--sidebar-width-mini: 62px;
 	--sidebar-width: var(--sidebar-width-full);
 	background-color: var(--color-window-bg);
 	height: var(--dvh);
 
-	> .main-wrapper {
-		--height-main: calc(var(--height-main-wrapper) - 2 * var(--main-wrapper-margin));
-		--main-wrapper-margin: 10px;
+	> .layout-body {
+		--height-main: calc(var(--layout-body-height) - 2 * var(--layout-body-margin));
+		--layout-body-margin: 10px;
 		background-color: var(--color-window-bg);
 		display: flex;
-		margin-right: var(--main-wrapper-margin);
-		margin-top: var(--main-wrapper-margin);
+		margin-right: var(--layout-body-margin);
+		margin-top: var(--layout-body-margin);
 		position: relative;
 
 		> aside {
@@ -88,12 +88,12 @@
 					}
 					&:nth-of-type(2) {
 						/* Is also controlled lower if body.scrollable */
-						inset: 0 calc(var(--main-wrapper-margin) - 1px) auto auto;
+						inset: 0 calc(var(--layout-body-margin) - 1px) auto auto;
 					}
 					&:nth-of-type(3) {
 						/* Is also controlled lower if body.scrollable */
-						inset: auto calc(var(--main-wrapper-margin) - 1px)
-							calc(var(--main-wrapper-margin) - 1px) auto;
+						inset: auto calc(var(--layout-body-margin) - 1px) calc(var(--layout-body-margin) - 1px)
+							auto;
 					}
 					&:nth-of-type(4) {
 						inset: auto auto 10px 0;
@@ -117,7 +117,7 @@
 		}
 
 		@media (max-width: 62em) {
-			--main-wrapper-margin: 0px;
+			--layout-body-margin: 0px;
 		}
 	}
 
@@ -155,7 +155,7 @@
 	}
 }
 
-.scrollable .layout-dashboard > .main-wrapper > main > .corners-wrapper {
+.scrollable .layout-dashboard > .layout-body > main > .corners-wrapper {
 	> div:nth-of-type(2) {
 		inset: 0 0 auto auto;
 		svg {

@@ -11,7 +11,6 @@ import {
 	Textarea,
 } from "@slimr/react"
 import { numericStringMask } from "@slimr/util"
-import { forwardRef } from "react"
 
 /**
  * A generic error to display at the bottom of a form
@@ -35,7 +34,7 @@ export function GenericError({
 /**
  * An input with label, error, and validation handling
  */
-export const InputBox = memo(
+export const InputBox = reactMemo(
 	forwardRef<HTMLInputElement, InputBoxProps>(function InputBox(
 		{ divProps, label, labelProps, onBlur, onChange, type, validator, ...inputProps },
 		forwardedRef,

@@ -1,8 +1,8 @@
-import { authCookie } from "~/foundation"
-import { router } from "~/router"
-
 import "./layout-dashboard.css"
+
 import { useSignalEffect } from "@preact/signals"
+import { router } from "~/router"
+import * as gs from "~/state"
 import { BurgerIconA, NavLogo, TopHeader } from "./top-header"
 
 /**
@@ -10,7 +10,7 @@ import { BurgerIconA, NavLogo, TopHeader } from "./top-header"
  */
 export function Layout({ children }: { children: React.ReactNode }) {
 	useSignalEffect(() => {
-		if (!authCookie.value) {
+		if (!gs.auth.cookie.value) {
 			console.debug("[LAYOUT]: No auth cookie, redirecting to login")
 			router.goto(router.routes.login, { returnTo: router.current.path })
 		}
@@ -24,14 +24,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 						<BurgerIconA href="/#account" icon="account">
 							Account
 						</BurgerIconA>
-						<BurgerIconA href={router.routes.login.path} icon="login">
+						<BurgerIconA href="#logout" onClick={logout} icon="login">
 							Logout
 						</BurgerIconA>
 					</>
 				}
 				left={<NavLogo href={router.routes.stack1.path} />}
 			/>
-			<div className="main-wrapper">
+			<div className="layout-body">
 				<Sidebar />
 				<main>
 					{children}
@@ -82,7 +82,7 @@ function Footer() {
 			<nav>
 				<FooterIconA href={router.routes.stack1.path} icon="building" title="Stacks example" />
 				<FooterIconA href="/#account" icon="account" title="Account" />
-				<FooterIconA href={router.routes.login.path} icon="login" title="Log in" />
+				<FooterIconA href="#logout" onClick={logout} icon="login" title="Log in" />
 			</nav>
 		</footer>
 	)
@@ -96,13 +96,13 @@ function FooterIconA({ icon, ...p }: { icon: IconKeys } & AProps) {
 	)
 }
 
+function logout(e: React.MouseEvent) {
+	e.preventDefault()
+	gs.auth.cookie.value = null
+}
+
 function Sidebar() {
 	const [isMini, setIsMini] = useState(false)
-
-	function logout(e: React.MouseEvent) {
-		e.preventDefault()
-		authCookie.value = null
-	}
 
 	return (
 		<aside className={isMini ? "mini" : undefined}>

@@ -1,5 +1,5 @@
-import { authCookie } from "~/foundation"
 import { router } from "~/router"
+import * as gs from "~/state"
 
 import "./layout-marketing.css"
 import { BurgerIconA, TopHeader } from "./top-header"
@@ -19,11 +19,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 						<BurgerIconA href={router.routes.about.path} icon="info">
 							About
 						</BurgerIconA>
-						<BurgerIconA href="/#about" icon="building">
-							About
-						</BurgerIconA>
 						<BurgerIconA href={router.routes.login.path} icon="login">
-							{authCookie.value ? "Dashboard" : "Login"}
+							{gs.auth.cookie.value ? "Dashboard" : "Login"}
 						</BurgerIconA>
 					</>
 				}
@@ -31,11 +28,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 					<>
 						<A href={router.routes.index.path}>Home</A>
 						<A href={router.routes.about.path}>About</A>
-						<A href={router.routes.login.path}>{authCookie.value ? "Dashboard" : "Login"}</A>
+						<A href={router.routes.login.path}>{gs.auth.cookie.value ? "Dashboard" : "Login"}</A>
 					</>
 				}
 			/>
-			<div className="main-wrapper">
+			<div className="layout-body">
 				<main>{children}</main>
 			</div>
 		</div>

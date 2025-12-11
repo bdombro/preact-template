@@ -1,10 +1,11 @@
 import { type OnSubmit, SForm, SFormError, useSFormContext } from "@slimr/react"
 import { setPageMeta } from "@slimr/util"
 
-import { authCookie, GenericError, InputBox } from "~/foundation"
+import { GenericError, InputBox } from "~/foundation"
 import { Layout } from "~/layout/layout-login"
 import { Logo } from "~/layout/logo"
 import { router } from "~/router"
+import * as gs from "~/state"
 
 /**
  * A demo of a login page
@@ -29,7 +30,7 @@ export default function Login() {
 			throw new SFormError(errors)
 		}
 
-		authCookie.value = "demo_token_12345"
+		gs.auth.cookie.value = "demo_token_12345"
 		console.debug("Login successful")
 	}
 
