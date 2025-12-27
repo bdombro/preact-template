@@ -146,10 +146,7 @@ declare global {
 		nestify: sany
 
 		/** Return obj excluding attributes by keys  */
-		omit<T extends Record<string, sany>, K extends keyof T>(
-			obj: T,
-			keys: readonly K[] | K[],
-		): Omit<T, K>
+		omit<T extends Record<string, sany>, K extends keyof T>(obj: T, keys: readonly K[] | K[]): Omit<T, K>
 
 		/**
 		 * Return obj excluding attributes based on a filter function
@@ -158,10 +155,7 @@ declare global {
 		 * @param filter - the filter function. Takes the attribute name and value as arguments to return true to keep the attribute
 		 * @param inPlace - if true, the object will be modified in place. Otherwise, a new object will be returned
 		 */
-		omitCustom<T extends Record<string, sany>>(
-			obj: T,
-			filter: (attrName: string, attrVal: sany) => sany,
-		): T
+		omitCustom<T extends Record<string, sany>>(obj: T, filter: (attrName: string, attrVal: sany) => sany): T
 
 		/** Return obj excluding attrs with falsey values */
 		omitFalseyAttrs<T extends Record<string, sany>>(obj: T, inPlace?: boolean): Partial<T>
@@ -173,10 +167,7 @@ declare global {
 		omitUndefAttrs<T extends Record<string, sany>>(obj: T, inPlace?: boolean): Partial<T>
 
 		/** Return obj only including attributes by keys */
-		pick<T extends Record<string, sany>, K extends keyof T>(
-			obj: T,
-			keys: readonly K[] | K[],
-		): Pick<T, K>
+		pick<T extends Record<string, sany>, K extends keyof T>(obj: T, keys: readonly K[] | K[]): Pick<T, K>
 	}
 }
 

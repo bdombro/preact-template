@@ -2,16 +2,7 @@ import "./foundation.stories.css"
 
 import { SForm, SFormError, useSFormContext } from "@slimr/react"
 
-import {
-	Card,
-	GenericError,
-	InputBox,
-	type InputBoxProps,
-	RadioBox,
-	SelectBox,
-	TextareaBox,
-	toast,
-} from "."
+import { Card, GenericError, InputBox, type InputBoxProps, RadioBox, SelectBox, TextareaBox, toast } from "."
 
 export const ButtonSizes = () => (
 	<>
@@ -37,6 +28,9 @@ export const ButtonTypes = () => (
 		</button>
 		<button className="tertiary" type="button">
 			tertiary
+		</button>
+		<button className="ghost" type="button">
+			ghost
 		</button>
 	</>
 )
@@ -117,9 +111,7 @@ const FormFooter = () => {
 				className="tertiary right"
 				onClick={(e) => {
 					const form = e.currentTarget.closest("form") as HTMLFormElement
-					const formElements = [...(form.elements as unknown as HTMLInputElement[])].filter(
-						(e) => e.type !== "reset",
-					)
+					const formElements = [...(form.elements as unknown as HTMLInputElement[])].filter((e) => e.type !== "reset")
 					formElements.forEach((e) => (e.disabled = true))
 				}}
 				type="button"
@@ -130,10 +122,7 @@ const FormFooter = () => {
 	)
 }
 
-const FormInput = ({
-	type = "text",
-	...inputProps
-}: Omit<InputBoxProps, "label" | "name" | "ref">) => {
+const FormInput = ({ type = "text", ...inputProps }: Omit<InputBoxProps, "label" | "name" | "ref">) => {
 	return (
 		<SForm>
 			<InputBox label={type} name="field1" type={type} required {...inputProps} />
@@ -147,32 +136,17 @@ export const FormInputCheckbox = () => <FormInput type="checkbox" />
 export const FormInputDate = () => <FormInput type="date" />
 export const FormInputNumber = () => <FormInput type="number" />
 export const FormInputText = () => (
-	<FormInput
-		minLength={2}
-		maxLength={5}
-		type="text"
-		validator={(str) => str === "na" && '"na" is banned'}
-	/>
+	<FormInput minLength={2} maxLength={5} type="text" validator={(str) => str === "na" && '"na" is banned'} />
 )
 
 export const FormKitchenSink = () => {
 	return (
 		<SForm onSubmit={(_, vals) => console.log(vals)}>
-			{[
-				"checkbox",
-				"color",
-				"date",
-				"email",
-				"number",
-				"password",
-				"search",
-				"text",
-				"textarea",
-				"tel",
-				"url",
-			].map((type) => (
-				<InputBox key={type} label={type} name={type} type={type} required />
-			))}
+			{["checkbox", "color", "date", "email", "number", "password", "search", "text", "textarea", "tel", "url"].map(
+				(type) => (
+					<InputBox key={type} label={type} name={type} type={type} required />
+				),
+			)}
 			<RadioBox
 				label="Radios"
 				name="radio1"
@@ -255,10 +229,7 @@ const FormSelect = ({ multiple }: { multiple: boolean }) => {
 export const FormSelectSingle = () => <FormSelect multiple={false} />
 export const FormSelectMultiple = () => <FormSelect multiple={true} />
 
-export const FormServerError = ({
-	type = "text",
-	...inputProps
-}: Omit<InputBoxProps, "label" | "name" | "ref">) => {
+export const FormServerError = ({ type = "text", ...inputProps }: Omit<InputBoxProps, "label" | "name" | "ref">) => {
 	return (
 		<SForm
 			onSubmit={(_, vals) => {
@@ -304,10 +275,7 @@ export const Toasts = () => {
 			<button type="button" onClick={() => toast({ key: "i", message: "info", variant: "info" })}>
 				info
 			</button>
-			<button
-				type="button"
-				onClick={() => toast({ key: "s", message: "success", variant: "success" })}
-			>
+			<button type="button" onClick={() => toast({ key: "s", message: "success", variant: "success" })}>
 				success
 			</button>
 			<button type="button" onClick={() => toast({ key: "a", message: "alert", variant: "alert" })}>
@@ -316,22 +284,16 @@ export const Toasts = () => {
 			<button type="button" onClick={() => toast({ key: "e", message: "error", variant: "error" })}>
 				error
 			</button>
-			<button
-				type="button"
-				onClick={() => toast({ key: "c", message: "center placement", placement: "center" })}
-			>
+			<button type="button" onClick={() => toast({ key: "c", message: "center placement", placement: "center" })}>
 				center
 			</button>
-			<button
-				type="button"
-				onClick={() => toast({ key: "b", message: "bottom placement", placement: "bottom" })}
-			>
+			<button type="button" onClick={() => toast({ key: "b", message: "bottom placement", placement: "bottom" })}>
 				bottom
 			</button>
-			<button type="button" onClick={() => toast({ key: "r", message: "right placement" })}>
+			<button type="button" onClick={() => toast({ key: "r", message: "right placement", placement: "right" })}>
 				right
 			</button>
-			<button type="button" onClick={() => toast({ key: "r2", message: "right placement again" })}>
+			<button type="button" onClick={() => toast({ key: "r2", message: "right placement again", placement: "right" })}>
 				right2
 			</button>
 			<button type="button" onClick={() => toast({ message: "no icon", icon: null })}>
@@ -339,25 +301,19 @@ export const Toasts = () => {
 			</button>
 			<button
 				type="button"
-				onClick={() =>
-					toast({ key: "s1", duration: Infinity, message: "sticky1", placement: "bottom" })
-				}
+				onClick={() => toast({ key: "s1", duration: Infinity, message: "sticky1", placement: "bottom" })}
 			>
 				sticky bottom
 			</button>
 			<button
 				type="button"
-				onClick={() =>
-					toast({ key: "s2", duration: Infinity, message: "sticky2", variant: "success" })
-				}
+				onClick={() => toast({ key: "s2", duration: Infinity, message: "sticky2", variant: "success" })}
 			>
 				sticky success
 			</button>
 			<button
 				type="button"
-				onClick={() =>
-					toast({ duration: Infinity, dismissable: false, message: "non-dismissable" })
-				}
+				onClick={() => toast({ duration: Infinity, dismissable: false, message: "non-dismissable" })}
 			>
 				non-dismissable
 			</button>

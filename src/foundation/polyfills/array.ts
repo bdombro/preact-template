@@ -111,13 +111,11 @@ type ArrayDifferenceType = <T extends Array<sany>>(...arrays: T[][]) => T[]
 
 Array.difference = (...arrays) => arrays.reduce((a, b) => a.filter((c) => b.excludes(c)))
 
-Array.intersection = (...arrays) =>
-	arrays.reduce((a, b) => b.filter(Set.prototype.has.bind(new Set(a))))
+Array.intersection = (...arrays) => arrays.reduce((a, b) => b.filter(Set.prototype.has.bind(new Set(a))))
 
 Array.mapN = (n: number, fn: () => sany) => Array(n).fill(undefined).map(fn)
 
-Array.reduceN = (n: number, fn: (acc: sany) => sany, initial: sany) =>
-	Array(n).fill(undefined).reduce(fn, initial)
+Array.reduceN = (n: number, fn: (acc: sany) => sany, initial: sany) => Array(n).fill(undefined).reduce(fn, initial)
 
 Object.defineProperties(Array.prototype, {
 	copy: {

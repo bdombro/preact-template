@@ -131,8 +131,7 @@ function ToastStack({ placement }: { placement: ToastProps["placement"] }) {
 
 		// Now check for responsive match. We swap right for bottom on mobile
 		const isMobile = window.innerWidth < 768
-		const isPlacementBottomToastRightAndMobile =
-			placement === "bottom" && _toast.placement === "right" && isMobile
+		const isPlacementBottomToastRightAndMobile = placement === "bottom" && _toast.placement === "right" && isMobile
 		const isPlacementRightAndMobile = placement === "right" && isMobile
 
 		if ((isPlacementMatch || isPlacementBottomToastRightAndMobile) && !isPlacementRightAndMobile) {
@@ -157,9 +156,7 @@ function ToastStack({ placement }: { placement: ToastProps["placement"] }) {
 	const restartTimer = () => {
 		if (!toast || toast.duration === Infinity) return
 		clearTimeouts()
-		timeouts.add(
-			setTimeout(selfDestruct, toast.duration === Infinity ? 100_000_000_000 : toast.duration),
-		)
+		timeouts.add(setTimeout(selfDestruct, toast.duration === Infinity ? 100_000_000_000 : toast.duration))
 	}
 
 	const selfDestruct = () => {
@@ -200,12 +197,7 @@ function ToastStack({ placement }: { placement: ToastProps["placement"] }) {
 						)}
 						<div className="message">{toast?.message}</div>
 						{toast?.duration === Infinity && toast?.dismissable && (
-							<Icon
-								className="dismiss"
-								name="close"
-								onClick={() => cancelToast(toast.key)}
-								size={20}
-							/>
+							<Icon className="dismiss" name="close" onClick={() => cancelToast(toast.key)} size={20} />
 						)}
 					</div>
 				</div>

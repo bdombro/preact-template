@@ -17,10 +17,7 @@ declare global {
 	): r.NamedExoticComponent<P>
 	function reactMemo<T extends r.ComponentType<sany>>(
 		Component: T,
-		propsAreEqual?: (
-			prevProps: Readonly<r.ComponentProps<T>>,
-			nextProps: Readonly<r.ComponentProps<T>>,
-		) => boolean,
+		propsAreEqual?: (prevProps: Readonly<r.ComponentProps<T>>, nextProps: Readonly<r.ComponentProps<T>>) => boolean,
 	): r.MemoExoticComponent<T>
 
 	var Suspense: typeof r.Suspense

@@ -40,10 +40,7 @@ declare global {
 		 * @param maxTries - the maximum number of tries
 		 * @returns - the wrapped function
 		 */
-		withRetry<T extends Fnc>(
-			fn: T,
-			maxTries?: number,
-		): (...props: Parameters<T>) => Promise<ReturnTypeP<T>>
+		withRetry<T extends Fnc>(fn: T, maxTries?: number): (...props: Parameters<T>) => Promise<ReturnTypeP<T>>
 
 		/**
 		 * A memoization wrapper with ttl expiration for cache hits.
@@ -72,13 +69,7 @@ function curry<A extends sany[], R>(fn: (...args: A) => R): Curried<A, R> {
 Function.curry = curry
 type Curried<A extends sany[], R> = <P extends Partial<A>>(
 	...args: P
-) => P extends A
-	? R
-	: A extends [...SameLength<P>, ...infer S]
-		? S extends sany[]
-			? Curried<S, R>
-			: never
-		: never
+) => P extends A ? R : A extends [...SameLength<P>, ...infer S] ? (S extends sany[] ? Curried<S, R> : never) : never
 
 type SameLength<T extends sany[]> = Extract<{ [K in keyof T]: sany }, sany[]>
 
@@ -98,7 +89,7 @@ Function.withRetry = (fn, maxTries = 4) => {
 		let lastError: sany = new Error()
 		for (let tryCount = 0; tryCount < maxTries; tryCount++) {
 			try {
-				return await p(...props)
+				return (await p(...props)) as any
 			} catch (err) {
 				lastError = err
 			}

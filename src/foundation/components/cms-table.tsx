@@ -211,10 +211,7 @@ function PageButton(
 	)
 }
 
-function BulkActionsForm({
-	checked,
-	bulkOptions,
-}: Pick<CmsTableProps, "bulkOptions"> & { checked: UseSet2<CmsRow> }) {
+function BulkActionsForm({ checked, bulkOptions }: Pick<CmsTableProps, "bulkOptions"> & { checked: UseSet2<CmsRow> }) {
 	const [action, setAction] = useState("-1")
 	const [executing, setExecuting] = useState(false)
 	const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => setAction(e.target.value)
@@ -321,11 +318,9 @@ function HeadCol({
 	sortBy?: string
 	sortDirection?: string
 }) {
-	const sortCurrent =
-		(sortBy === colData.sortValue && sortDirection) || (!sortBy && colData.sortDefault) || undefined
+	const sortCurrent = (sortBy === colData.sortValue && sortDirection) || (!sortBy && colData.sortDefault) || undefined
 
-	const sortDirectionNext =
-		(sortCurrent && (sortCurrent === "asc" ? "desc" : "asc")) || colData.sortDefault || "asc"
+	const sortDirectionNext = (sortCurrent && (sortCurrent === "asc" ? "desc" : "asc")) || colData.sortDefault || "asc"
 
 	const sort = colData.sortValue
 		? () => qsGo({ sortBy: colData.sortValue, sortDirection: sortDirectionNext })
@@ -361,8 +356,7 @@ function BodyRow(
 	},
 ) {
 	const isWide = useMedia("(min-width: 700px)")
-	const colToString = (col: React.ReactNode) =>
-		col || (col === 0 && 0) || (col === false && "false") || "--"
+	const colToString = (col: React.ReactNode) => col || (col === 0 && 0) || (col === false && "false") || "--"
 	return (
 		<tr>
 			<td className="checkbox-cell">

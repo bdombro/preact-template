@@ -34,8 +34,7 @@ enum Platform {
 /**
  * Detect if touch screen is enabled.
  */
-window.isTouchEnabled =
-	"ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+window.isTouchEnabled = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
 document.documentElement.classList.add("touch")
 
 /**

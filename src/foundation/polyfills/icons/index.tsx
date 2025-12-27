@@ -1,7 +1,17 @@
 import { LazyIconSvg, type LazyIconSvgProps } from "@slimr/mdi-paths/components"
 import { classJoin } from "@slimr/react"
+import { memo } from "react"
 
-// export {}
+/**
+ * A component that lazily loads an icon from Material Design Icons
+ * by name. The names available are declared in the `icons` object above.
+ */
+const _Icon = memo(
+	function _IconInner({ name, className, ...props }: IconProps) {
+		return <LazyIconSvg pathImporter={_icons[name]} className={classJoin("icon", className)} {...props} />
+	},
+	(prevProps, nextProps) => Object.areEqualDeep(prevProps, nextProps),
+)
 
 declare global {
 	/**
@@ -49,6 +59,7 @@ const _icons = {
 	menu: () => import("@slimr/mdi-paths/MenuOpen"),
 	person: () => import("@slimr/mdi-paths/Account"),
 	palette: () => import("@slimr/mdi-paths/PaletteOutline"),
+	plus: () => import("@slimr/mdi-paths/Plus"),
 	post: () => import("@slimr/mdi-paths/PostOutline"),
 	// reactLogo: () => import('@slimr/mdi-paths/React'),
 	roundedCornerInv: () => import("./RoundedCornerInverted"),
@@ -59,13 +70,4 @@ const _icons = {
 } as const
 globalThis.Icon = _Icon
 
-/**
- * A component that lazily loads an icon from Material Design Icons
- * by name. The names available are declared in the `icons` object above.
- */
-function _Icon({ name, className, ...props }: IconProps) {
-	return (
-		<LazyIconSvg pathImporter={_icons[name]} className={classJoin("icon", className)} {...props} />
-	)
-}
 globalThis.icons = _icons

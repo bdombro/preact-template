@@ -92,8 +92,7 @@
 					}
 					&:nth-of-type(3) {
 						/* Is also controlled lower if body.scrollable */
-						inset: auto calc(var(--layout-body-margin) - 1px) calc(var(--layout-body-margin) - 1px)
-							auto;
+						inset: auto calc(var(--layout-body-margin) - 1px) calc(var(--layout-body-margin) - 1px) auto;
 					}
 					&:nth-of-type(4) {
 						inset: auto auto 10px 0;

@@ -15,10 +15,7 @@ import { numericStringMask } from "@slimr/util"
 /**
  * A generic error to display at the bottom of a form
  */
-export function GenericError({
-	error,
-	...divProps
-}: DivProps & { error: string | false | null | undefined }) {
+export function GenericError({ error, ...divProps }: DivProps & { error: string | false | null | undefined }) {
 	return (
 		<Div
 			aria-live="assertive"
@@ -259,11 +256,7 @@ export const RadioBox = forwardRef<HTMLDivElement, RadioBoxProps>(function Radio
 	}, [])
 
 	return (
-		<Div
-			{...divProps}
-			className={classJoin("radio-div", divProps?.className)}
-			ref={mergeRefs([forwardedRef, divRef])}
-		>
+		<Div {...divProps} className={classJoin("radio-div", divProps?.className)} ref={mergeRefs([forwardedRef, divRef])}>
 			<Label {...labelProps}>
 				{label}
 				<RequiredAsterisk show={inputProps.required} />
@@ -309,17 +302,7 @@ export type RadioBoxProps = InputBoxProps & {
  * A select wrapper with label and error handling
  */
 export const SelectBox = forwardRef<HTMLSelectElement, SelectBoxProps>(function SelectBox(
-	{
-		defaultValue,
-		divProps,
-		label,
-		labelProps,
-		onBlur,
-		onChange,
-		options,
-		optionProps,
-		...selectProps
-	},
+	{ defaultValue, divProps, label, labelProps, onBlur, onChange, options, optionProps, ...selectProps },
 	forwardedRef,
 ) {
 	const divRef = useRef<HTMLDivElement>(null)
@@ -401,13 +384,7 @@ export const SelectBox = forwardRef<HTMLSelectElement, SelectBoxProps>(function 
 				ref={forwardedRef}
 			>
 				{options.map(({ label, value }, i) => (
-					<option
-						{...optionProps}
-						defaultChecked={value === defaultValue}
-						key={i}
-						id={value}
-						value={value}
-					>
+					<option {...optionProps} defaultChecked={value === defaultValue} key={i} id={value} value={value}>
 						{label}
 					</option>
 				))}
@@ -427,11 +404,9 @@ export type SelectBoxProps = Omit<SelectProps, "id" | "name" | "value"> &
 /**
  * An textarea with label, error, and validation handling
  */
-export const TextareaBox = forwardRef<HTMLTextAreaElement, InputBoxProps>(
-	function TextArea(inputProps, ref) {
-		return <InputBox type="textarea" {...inputProps} ref={ref as TSFIXME} />
-	},
-)
+export const TextareaBox = forwardRef<HTMLTextAreaElement, InputBoxProps>(function TextArea(inputProps, ref) {
+	return <InputBox type="textarea" {...inputProps} ref={ref as TSFIXME} />
+})
 
 type BaseProps = {
 	divProps?: DivProps

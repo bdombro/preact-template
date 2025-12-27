@@ -41,11 +41,11 @@ export const Logo = (svgProps: SvgProps) => {
 			{...svgProps}
 			_zx={{
 				...svgProps._zx,
-				'--color': 'var(--color-primary)',
+				"--color": "var(--color-primary)",
 			}}
 			_hover={{
 				...svgProps._hover,
-				'--color': 'var(--color-primary-darker)',
+				"--color": "var(--color-primary-darker)",
 			}}
 		>
 			<g fill="none">
