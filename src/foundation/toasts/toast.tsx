@@ -20,14 +20,17 @@ interface ToastProps {
 	 * Useful for preventing duplicate toasts.
 	 */
 	key: string
-	/** The placement of the toast. default = 'right' */
+	/** The placement of the toast. default = 'bottom' */
 	placement: "right" | "bottom" | "center"
 	/** The message to displace */
 	message: React.ReactNode
 	/** impacts the color and icon. default = info */
 	variant: "info" | "success" | "alert" | "error"
 }
-type CreateToastProps = Partial<Omit<ToastProps, "message">> & Pick<ToastProps, "message">
+type CreateToastProps = Partial<Omit<ToastProps, "message">> & Pick<ToastProps, "message"> & {
+	/** The call function this toast was dispatched from - is ONLY used in the console.debug */
+	caller?: string
+}
 
 export const Toasts = memo(function Toasts() {
 	return (
@@ -216,12 +219,13 @@ function ToastStack({ placement }: { placement: ToastProps["placement"] }) {
  */
 export function dispatchToast(eventData: CreateToastProps) {
 	const {
+		caller,
 		dismissable = true,
 		duration = 2_000,
 		icon,
 		key = Math.random().toString(36).substr(2, 9),
-		placement = "right",
 		message,
+		placement = "bottom",
 		variant = "info",
 	} = eventData
 
@@ -235,6 +239,7 @@ export function dispatchToast(eventData: CreateToastProps) {
 		variant,
 	}
 
+	console.debug(`${caller ? `[${caller}]` : `[TOAST][${variant}]`} ${message}`)
 	dispatchEvent(new CustomEvent(createEvent, { detail: toast }))
 
 	return {
