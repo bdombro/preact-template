@@ -55,7 +55,7 @@ export const Logo = (svgProps: SvgProps) => {
 					x="10"
 					y="15"
 					fill="#fefefd"
-					fontFamily="Fira Code"
+					fontFamily="monospace"
 					fontWeight="bold"
 					fontStyle="italic"
 					// transform="scale(1,1)"

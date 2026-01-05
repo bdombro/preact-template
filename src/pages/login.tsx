@@ -12,6 +12,12 @@ import * as gs from "~/state"
  */
 export default function Login() {
 	setPageMeta({ title: "Login" })
+	const emailInputRef = useRef<HTMLInputElement>(null)
+
+	useEffect(() => {
+		// Focus bc autofocus isn't reliable
+		emailInputRef.current?.focus()
+	}, [])
 
 	const onSubmit: OnSubmit = async (_, vals) => {
 		console.debug("Login submitted")
@@ -41,8 +47,16 @@ export default function Login() {
 					<Logo height={70} _mb={20} />
 				</a>
 				<SForm onSubmit={onSubmit}>
-					<InputBox autoFocus label="email" name="email" required type="email" />
-					<InputBox label="password" name="password" required type="password" />
+					<InputBox
+						autoComplete="username"
+						autoFocus
+						label="email"
+						name="email"
+						ref={emailInputRef}
+						required
+						type="email"
+					/>
+					<InputBox autoComplete="current-password" label="password" name="password" required type="password" />
 					<br />
 					<FormFooter />
 					<P className="small" _textAlign="center">

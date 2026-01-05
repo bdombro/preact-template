@@ -9,7 +9,6 @@ const authCookieName = "auth_token"
  * ```tsx
  *   import { auth } from "~/state"
  *   function MyComponent() {
- *     auth.cookie.value // subscribe to changes
  *     if (!auth.cookie.value) {
  *       return r.goto(r.routes.login)
  *     }

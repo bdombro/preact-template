@@ -41,7 +41,7 @@
 :root {
 	--font-sans:
 		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	--font-monospace: "Fira Code", monospace;
+	--font-monospace: monospace;
 	--font-serif: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 
 	/* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
@@ -282,6 +282,7 @@ body {
 a,
 .a {
 	color: currentColor;
+	cursor: pointer;
 	text-decoration: none;
 }
 p a,
