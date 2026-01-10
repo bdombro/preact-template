@@ -160,7 +160,7 @@ export const InputBox = reactMemo(
 					}}
 					onBlur={(e) => {
 						onBlur?.(e)
-						if (e.currentTarget.validationMessage) {
+						if (e.currentTarget.validationMessage && "value" in e.currentTarget && e.currentTarget.value !== "") {
 							divRef.current?.classList.add("show-error")
 						}
 					}}

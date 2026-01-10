@@ -1,3 +1,5 @@
+import "./logo.css"
+
 /**
  * A logo SVG with dynamic colors based on the theme.
  * For a text-based logo, see the commented-out section below.
@@ -8,14 +10,7 @@
 // 		viewBox="0 0 78 20"
 // 		xmlns="http://www.w3.org/2000/svg"
 // 		{...svgProps}
-// 		_zx={{
-// 			...svgProps._zx,
-// 			"--color": "var(--color-primary)",
-// 		}}
-// 		_hover={{
-// 			...svgProps._hover,
-// 			"--color": "var(--color-primary-darker)",
-// 		}}
+// 		className={`${svgProps.className || ''} Logo`}
 // 	>
 // 		<g fill="none">
 // 			<path d="M3.768 16.141H.826V.447h73.406v2.941" stroke="var(--color)" strokeWidth={0.882} />
@@ -32,21 +27,14 @@
  * Below is a simlar logo but uses font text instead of SVG text. Helpful for POCs where you just want to swap the text
  */
 export const Logo = (svgProps: SvgProps) => {
-	const width = 75
+	const width = 55
 	return (
 		<Svg
 			height="20px"
 			viewBox={`0 0 ${width} 20`}
 			xmlns="http://www.w3.org/2000/svg"
 			{...svgProps}
-			_zx={{
-				...svgProps._zx,
-				"--color": "var(--color-primary)",
-			}}
-			_hover={{
-				...svgProps._hover,
-				"--color": "var(--color-primary-darker)",
-			}}
+			className={`${svgProps.className || ""} Logo`}
 		>
 			<g fill="none">
 				<path d={`M3.768 16.141H.826V.447h${width - 5}v2.941`} stroke="var(--color)" strokeWidth={0.882} />
@@ -61,7 +49,7 @@ export const Logo = (svgProps: SvgProps) => {
 					// transform="scale(1,1)"
 					fontSize="12"
 				>
-					HOOKEDJS
+					toody
 				</text>
 			</g>
 		</Svg>

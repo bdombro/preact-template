@@ -7,9 +7,9 @@ const authCookieName = "auth_token"
  *
  * @usage
  * ```tsx
- *   import { auth } from "~/state"
+ *   import { gs } from "~/state"
  *   function MyComponent() {
- *     if (!auth.cookie.value) {
+ *     if (!gs.auth.cookie.value) {
  *       return r.goto(r.routes.login)
  *     }
  *     return <div>Protected content</div>

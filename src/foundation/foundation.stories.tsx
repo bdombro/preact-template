@@ -51,8 +51,8 @@ export const ButtonGroups = () => (
 
 export const Cards = () => (
 	<Card>
-		<Div _minW={500}>I'm a box inside a Flex and Card</Div>
-		<Div _minW={500}>I'm a box inside a Flex and Card</Div>
+		<Div _minw={500}>I'm a box inside a Flex and Card</Div>
+		<Div _minw={500}>I'm a box inside a Flex and Card</Div>
 	</Card>
 )
 

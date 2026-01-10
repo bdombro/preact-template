@@ -1,15 +1,16 @@
 import { router } from "~/router"
-import * as gs from "~/state"
+import { gs } from "~/state"
 
 import "./layout-marketing.css"
+import { Logo } from "./logo"
 import { BurgerIconA, TopHeader } from "./top-header"
 
 /**
  * A layout with a header and a main section
  */
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children, className, ...divProps }: DivProps) {
 	return (
-		<div className="layout-marketing">
+		<div className={`${className || ""} layout-marketing`} {...divProps}>
 			<TopHeader
 				burger={
 					<>
@@ -39,6 +40,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	)
 }
 
+Layout.Footer = function LayoutFooter() {
+	return (
+		<footer className="LayoutFooter">
+			<Layout.Section className="section-1">
+				<div className="left">
+					<Logo />
+				</div>
+				<div className="right">
+					<a href={router.routes.support.toPath()}>Help & Support</a>
+					<a href={router.routes.policies.toPath()}>Terms & Conditions</a>
+					<a href={router.routes.policies.toPath()}>Privacy Policy</a>
+				</div>
+			</Layout.Section>
+			<Layout.Section className="section-2">
+				<p className="copy">&copy; {new Date().getFullYear()} BTEK.CC LLC. All rights reserved.</p>
+			</Layout.Section>
+		</footer>
+	)
+}
+
 Layout.Section = function LayoutSection({
 	children,
 	innerProps,
@@ -46,7 +67,7 @@ Layout.Section = function LayoutSection({
 }: SectionProps & { innerProps?: DivProps }) {
 	return (
 		<Section _p={16} {...outerProps}>
-			<Div _maxW={800} _mx="auto" {...innerProps}>
+			<Div _maxw={1200} _mx="auto" {...innerProps}>
 				{children}
 			</Div>
 		</Section>

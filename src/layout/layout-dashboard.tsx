@@ -2,13 +2,13 @@ import "./layout-dashboard.css"
 
 import { useSignalEffect } from "@preact/signals"
 import { router } from "~/router"
-import * as gs from "~/state"
+import { gs } from "~/state"
 import { BurgerIconA, NavLogo, TopHeader } from "./top-header"
 
 /**
  * A layout with a header and a main section
  */
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children, className, ...divProps }: DivProps) {
 	useSignalEffect(() => {
 		if (!gs.auth.cookie.value) {
 			console.debug("[LAYOUT]: No auth cookie, redirecting to login")
@@ -17,7 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	})
 
 	return (
-		<div className="layout-dashboard">
+		<div className={`${className || ""} layout-dashboard`} {...divProps}>
 			<TopHeader
 				burger={
 					<>
@@ -50,7 +50,7 @@ Layout.Section = function LayoutSection({
 }: SectionProps & { innerProps?: DivProps }) {
 	return (
 		<Section _p={16} {...outerProps}>
-			<Div _maxW={800} _mx="auto" {...innerProps}>
+			<Div _maxw={800} _mx="auto" {...innerProps}>
 				{children}
 			</Div>
 		</Section>

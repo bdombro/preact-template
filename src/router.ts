@@ -4,7 +4,10 @@ import About from "./pages/about"
 import Index from "./pages/index"
 import Login from "./pages/login"
 import NotFound from "./pages/not-found"
+import Policies from "./pages/policies"
+import Register from "./pages/register"
 import StackTest from "./pages/stack-test"
+import Support from "./pages/support"
 
 export const router = new Router(
 	{
@@ -20,6 +23,14 @@ export const router = new Router(
 			component: Login,
 			path: "/login",
 		},
+		policies: {
+			component: Policies,
+			path: "/policies",
+		},
+		register: {
+			component: Register,
+			path: "/register",
+		},
 		stack1: {
 			isStack: true,
 			component: StackTest,
@@ -29,6 +40,10 @@ export const router = new Router(
 			exact: false,
 			component: StackTest,
 			path: "/stack1",
+		},
+		support: {
+			component: Support,
+			path: "/support",
 		},
 		notFound: {
 			exact: false,

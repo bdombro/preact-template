@@ -1,21 +1,21 @@
 import { useSignalEffect } from "@preact/signals"
 import { router } from "~/router"
-import * as gs from "~/state"
+import { gs } from "~/state"
 
 /**
  * A layout with a header and a main section
  */
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children, className, ...divProps }: DivProps) {
 	useSignalEffect(() => {
 		if (gs.auth.cookie.value) {
 			const params = new URLSearchParams(location.search)
-			const returnTo = params.get("returnTo") ?? router.routes.stack1.path
+			const returnTo = params.get("returnTo") ?? router.routes.stack1.toPath()
 			console.debug(`[LAYOUT]: Auth cookie found, redirecting to ${returnTo}`)
 			router.goto(returnTo)
 		}
 	})
 	return (
-		<div className="layout-login">
+		<div className={`${className || ""} layout-login`} {...divProps}>
 			<div className="layout-body">
 				<Main _ai="center" _d="flex" _jc="center" _my={40} _pt="var(--statusbar-height)">
 					{children}

@@ -27,10 +27,11 @@ interface ToastProps {
 	/** impacts the color and icon. default = info */
 	variant: "info" | "success" | "alert" | "error"
 }
-type CreateToastProps = Partial<Omit<ToastProps, "message">> & Pick<ToastProps, "message"> & {
-	/** The call function this toast was dispatched from - is ONLY used in the console.debug */
-	caller?: string
-}
+type CreateToastProps = Partial<Omit<ToastProps, "message">> &
+	Pick<ToastProps, "message"> & {
+		/** The call function this toast was dispatched from - is ONLY used in the console.debug */
+		caller?: string
+	}
 
 export const Toasts = memo(function Toasts() {
 	return (
