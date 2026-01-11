@@ -5,7 +5,6 @@ import Index from "./pages/index"
 import Login from "./pages/login"
 import NotFound from "./pages/not-found"
 import Policies from "./pages/policies"
-import Register from "./pages/register"
 import StackTest from "./pages/stack-test"
 import Support from "./pages/support"
 
@@ -26,10 +25,6 @@ export const router = new Router(
 		policies: {
 			component: Policies,
 			path: "/policies",
-		},
-		register: {
-			component: Register,
-			path: "/register",
 		},
 		stack1: {
 			isStack: true,

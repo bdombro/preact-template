@@ -7,9 +7,6 @@ import { Logo } from "~/layout/logo"
 import { router } from "~/router"
 import { gs } from "~/state"
 
-/**
- * A demo of a login page
- */
 export default function Login() {
 	setPageMeta({ title: "Login" })
 	const emailInputRef = useRef<HTMLInputElement>(null)
@@ -56,12 +53,16 @@ export default function Login() {
 						required
 						type="email"
 					/>
-					<InputBox autoComplete="current-password" label="password" name="password" required type="password" />
+					<p className="small">
+						Use this form to login or register. By registering, you agree to our Terms of Service and Privacy Policy (
+						<a aria-label="Terms of Service and Privacy Policy" href={router.routes.policies.path} target="_blank">
+							link
+							<Icon name="openInNew" size={14} style={{ marginLeft: 2 }} />
+						</a>
+						).
+					</p>
 					<br />
 					<FormFooter />
-					<P className="small" _textAlign="center">
-						Click <a href={router.routes.register.path}>here</a> to register
-					</P>
 				</SForm>
 			</Layout.Section>
 		</Layout>
@@ -75,7 +76,7 @@ const FormFooter = () => {
 		<>
 			<GenericError error={rejected && "Issues found. Please correct and retry."} />
 			<button className="md" style={{ width: "100%" }} type="submit">
-				{accepted ? "Success!" : submitting ? "Submitting..." : "Login"}
+				{accepted ? "Success!" : submitting ? "Submitting..." : "Submit"}
 			</button>
 		</>
 	)

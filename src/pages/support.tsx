@@ -18,8 +18,8 @@ export default function Support() {
 			<Layout.Section>
 				<h2>Getting Started</h2>
 				<p>
-					To get started, simply create an account on the <a href={router.routes.register.path}>Register</a> page. Once
-					registered, you can log in and start using the app.
+					To get started, simply create an account by <a href={router.routes.login.path}>logging in</a>. Once logged in,
+					you can start using the app.
 				</p>
 				<p>
 					Adding todos: After logging in, you can add new todos by moving your cursor, using keyboard or arrows, to the
