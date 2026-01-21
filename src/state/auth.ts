@@ -1,6 +1,6 @@
 import { effect, signal } from "@preact/signals"
 
-const authCookieName = "auth_token"
+const authCookieName = "t"
 
 /**
  * A Preact signal that reflects the value of the authentication cookie
@@ -16,28 +16,51 @@ const authCookieName = "auth_token"
  *   }
  * ```
  */
-export const cookie = signal(getCookieValue(authCookieName))
+export const isLoggedIn = signal(!!getCookieValue(authCookieName))
 
 // Poll the cookie value every 5 seconds and update the signal if it changes
 setInterval(() => {
-	const value = getCookieValue(authCookieName)
-	if (cookie.value !== value) {
-		cookie.value = value
-	}
+	isLoggedIn.value = !!getCookieValue(authCookieName)
 }, 5000)
 
-// Keep the cookieStore in sync with the signal
-effect(() => {
-	const newValue = cookie.value
-	const currentValue = getCookieValue(authCookieName)
-	if (newValue !== currentValue) {
-		if (!newValue) {
-			cookieStore.delete(authCookieName)
-		} else {
-			cookieStore.set({ name: authCookieName, value: newValue || "", path: "/" })
-		}
+export async function auth(p: { email: string; code: number }) {
+	console.debug("[auth]:", p.email)
+	const res = await fetch("/api/auth", {
+		method: "POST",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(p),
+	})
+	if (!res.ok) {
+		throw new Error(`Auth request refused with status ${res.status}`)
 	}
-})
+	console.debug("[auth]: success")
+	isLoggedIn.value = true
+}
+
+export async function sendAuthCode(email: string) {
+	console.debug("[sendAuthCode]:", email)
+	const res = await fetch("/api/auth/send-code", {
+		method: "POST",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ email }),
+	})
+	if (!res.ok) {
+		throw new Error(`Auth code request refused with status ${res.status}`)
+	}
+	console.debug("[sendAuthCode]: success")
+}
+
+export function logout() {
+	console.debug("[logout]: Logging out user")
+	cookieStore.delete(authCookieName)
+	isLoggedIn.value = false
+}
 
 /**
  * Gets the value of a cookie by name

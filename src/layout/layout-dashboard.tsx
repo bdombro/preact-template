@@ -1,6 +1,7 @@
 import "./layout-dashboard.css"
 
 import { useSignalEffect } from "@preact/signals"
+import { toast } from "~/foundation"
 import { router } from "~/router"
 import { gs } from "~/state"
 import { BurgerIconA, NavLogo, TopHeader } from "./top-header"
@@ -10,9 +11,9 @@ import { BurgerIconA, NavLogo, TopHeader } from "./top-header"
  */
 export function Layout({ children, className, ...divProps }: DivProps) {
 	useSignalEffect(() => {
-		if (!gs.auth.cookie.value) {
-			console.debug("[LAYOUT]: No auth cookie, redirecting to login")
+		if (!gs.auth.isLoggedIn.value) {
 			router.goto(router.routes.login, { returnTo: router.current.path })
+			toast({ caller: "layout", message: "You've been logged out" })
 		}
 	})
 
@@ -98,7 +99,7 @@ function FooterIconA({ icon, ...p }: { icon: IconKeys } & AProps) {
 
 function logout(e: React.MouseEvent) {
 	e.preventDefault()
-	gs.auth.cookie.value = null
+	gs.auth.logout()
 }
 
 function Sidebar() {

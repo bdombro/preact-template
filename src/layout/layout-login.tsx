@@ -7,7 +7,7 @@ import { gs } from "~/state"
  */
 export function Layout({ children, className, ...divProps }: DivProps) {
 	useSignalEffect(() => {
-		if (gs.auth.cookie.value) {
+		if (gs.auth.isLoggedIn.value) {
 			const params = new URLSearchParams(location.search)
 			const returnTo = params.get("returnTo") ?? router.routes.stack1.toPath()
 			console.debug(`[LAYOUT]: Auth cookie found, redirecting to ${returnTo}`)

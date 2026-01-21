@@ -35,7 +35,12 @@
 		"update:dry": "npx npm-check-updates",
 		"start": "vite",
 		"storybook": "storybook dev -p 6006",
-		"test": "playwright test --project=chromium"
+		"test": "playwright test --project=chromium",
+		"wrangler-deploy": "npm run build && wrangler deploy",
+		"wrangler-dev": "wrangler dev",
+		"wrangler-migrate": "npx wrangler d1 migrations apply prod-toody --local",
+		"wrangler-seed": "wrangler d1 execute prod-toody --local --command \"INSERT INTO users (id, email, code) VALUES ('0000', 'bdombro@gmail.com', 1234);\"",
+		"wrangler-types": "wrangler types && mv worker-configuration.d.ts src/@types"
 	},
 	"engines": {
 		"node": ">=16.13.0"
@@ -43,22 +48,22 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.3.11",
 		"@capacitor/camera": "^8.0.0",
-		"@capacitor/cli": "^8.0.0",
-		"@capacitor/core": "^8.0.0",
+		"@capacitor/cli": "^8.0.1",
+		"@capacitor/core": "^8.0.1",
 		"@capacitor/device": "^8.0.0",
-		"@capacitor/ios": "^8.0.0",
+		"@capacitor/ios": "^8.0.1",
 		"@capacitor/splash-screen": "^8.0.0",
 		"@ionic/cli": "7.2.1",
 		"@playwright/test": "^1.57.0",
 		"@preact/preset-vite": "^2.10.2",
-		"@preact/signals": "^2.5.1",
+		"@preact/signals": "^2.6.0",
 		"@slimr/mdi-paths": "^2.1.73",
-		"@slimr/react": "^3.0.95",
+		"@slimr/react": "^3.0.99",
 		"@slimr/util": "^3.2.76",
 		"@storybook/addon-docs": "^10.1.11",
 		"@storybook/addon-links": "10.1.11",
 		"@storybook/react-vite": "10.1.11",
-		"@types/react": "^19.2.8",
+		"@types/react": "^19.2.9",
 		"npm-run-all": "^4.1.5",
 		"preact": "^10.28.2",
 		"storybook": "10.1.11",
@@ -66,6 +71,7 @@
 		"vite": "^7.3.1",
 		"vite-plugin-mkcert": "^1.17.9",
 		"vite-plugin-pwa": "^1.2.0",
-		"workbox-window": "^7.4.0"
+		"workbox-window": "^7.4.0",
+		"wrangler": "^4.59.3"
 	}
 }

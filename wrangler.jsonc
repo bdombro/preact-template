@@ -1,0 +1,64 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "preact-teamplate",
+	"main": "src/worker.ts",
+	"compatibility_date": "2025-09-27",
+	"assets": {
+		// The path to the directory containing the `index.html` file to be served at `/`
+		"directory": "./dist",
+		"not_found_handling": "single-page-application",
+		"run_worker_first": ["/api/*"]
+	},
+	"observability": {
+		"enabled": true
+	},
+	"d1_databases": [
+		{
+			"binding": "db",
+			"database_name": "preact-teamplate",
+			"database_id": "80e8ca9d-ec0c-4858-a8cd-dfc695831ae6",
+			"migrations_dir": "backend/migrations"
+		}
+	]
+	// "routes": [
+	// 	{
+	// 		"pattern": "toodyapp.com",
+	// 		"custom_domain": true
+	// 	}
+	// ]
+	// "migrations": [
+	//   {
+	//     "tag": "1",
+	//     "deleted_classes": [
+	//       "MyDurableObject"
+	//     ]
+	//   }
+	// ]
+	/**
+	 * Smart Placement
+	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+	 */
+	// "placement": {  "mode": "smart" }
+	/**
+	 * Bindings
+	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
+	 * databases, object storage, AI inference, real-time communication and more.
+	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+	 */
+	/**
+	 * Environment Variables
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+	 * Note: Use secrets to store sensitive data.
+	 * https://developers.cloudflare.com/workers/configuration/secrets/
+	 */
+	// "vars": {  "MY_VARIABLE": "production_value" }
+	/**
+	 * Service Bindings (communicate between multiple Workers)
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
+	 */
+	// "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ]
+}

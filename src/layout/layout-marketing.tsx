@@ -21,7 +21,7 @@ export function Layout({ children, className, ...divProps }: DivProps) {
 							About
 						</BurgerIconA>
 						<BurgerIconA href={router.routes.login.path} icon="login">
-							{gs.auth.cookie.value ? "Dashboard" : "Login"}
+							{gs.auth.isLoggedIn.value ? "Dashboard" : "Login"}
 						</BurgerIconA>
 					</>
 				}
@@ -29,7 +29,7 @@ export function Layout({ children, className, ...divProps }: DivProps) {
 					<>
 						<A href={router.routes.index.path}>Home</A>
 						<A href={router.routes.about.path}>About</A>
-						<A href={router.routes.login.path}>{gs.auth.cookie.value ? "Dashboard" : "Login"}</A>
+						<A href={router.routes.login.path}>{gs.auth.isLoggedIn.value ? "Dashboard" : "Login"}</A>
 					</>
 				}
 			/>
